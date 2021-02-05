@@ -1,0 +1,23 @@
+
+En este fichero se recogerán las modificaciones/aportaciones que se hacen a este proyecto; así como en el environment para que se pueda repetir en un futuro.
+
+1. Instalado python3 y la librería numpy.
+2. Es necesario anhadir la ruta de numpy /home/... al archivo settings.json para que vscode no de warnnings.
+3. No es lo mismo ejecutar sudo perf stat python3 ... que perf python3 ... | ya no sólo por el poder conseguir medir más cosas como root. Sino que al instalar las librerias de pip3, es necesario instalarlas como root.
+4. No lo he hecho, pero se puede evitar lo anterior creando un grupo
+5. Para comprobar los registros, instalo rdmsr (msr-tools)
+sudo perf stat --event instructions,cycles,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any python3 mat_mul.py
+
+6. Instalo toplev
+7. He hecho dos programas de mat_mul: uno que tiene matrices a 0 y otro con matrices de valores random (no los genera, usa lo que hay en mem.) y la diferencia es muy pequeña con un dim_matrix = 5k.
+8. Instalar matplotlib para graficas de tlev. Es mejor, desde el dir. de toplev-> sudo pip3 install requirements.txt
+9. Importante, si ejecuto toplev e instalo los componentes con python3, entonces tengo que cambiar la cabecera de toplev.py e indicar que use python3
+
+
+
+cd /home/jlpadillas01/pmu-tools/
+sysctl -w kernel.nmi_watchdog=0
+./toplev.py --core C0 --no-desc -l3 taskset -c 0 python3 ../TFG/src/mat_mul.py
+sysctl -w kernel.nmi_watchdog=1
+
+export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.8/dist-packages

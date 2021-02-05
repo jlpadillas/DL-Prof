@@ -27,7 +27,8 @@ dim_y = dim_x
 # N = np.random.rand(dim_x, dim_y)
 
 # Genera las matrices "controladas"
-M = np.empty([dim_x, dim_y], dtype=float)
+# M = np.empty([dim_x, dim_y], dtype=float)
+M = np.zeros([dim_x, dim_y], dtype=float)
 N = np.empty([dim_x, dim_y], dtype=float)
 # M, N = np.mgrid[0.0:dim_x,0.0:dim_y]
 

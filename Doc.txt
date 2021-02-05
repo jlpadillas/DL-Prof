@@ -1,8 +1,0 @@
-
-En este fichero se recogerán las modificaciones/aportaciones que se hacen a este proyecto; así como en el environment para que se pueda repetir en un futuro.
-
-1. Instalado python3 y la librería numpy.
-2. Es necesario anhadir la ruta de numpy /home/... al archivo settings.json para que vscode no de warnnings.
-
-
-
