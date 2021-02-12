@@ -13,6 +13,24 @@ sudo perf stat --event instructions,cycles,fp_arith_inst_retired.128b_packed_dou
 8. Instalar matplotlib para graficas de tlev. Es mejor, desde el dir. de toplev-> sudo pip3 install requirements.txt
 9. Importante, si ejecuto toplev e instalo los componentes con python3, entonces tengo que cambiar la cabecera de toplev.py e indicar que use python3
 
+-------------------------------------------------------------------------------
+
+10. Descargo PAPI: git clone https://bitbucket.org/icl/papi.git
+    Problemas con permisos. Es necesario ejecutar el siguiente comando para poder realizar la instalación: sudo sysctl -w kernel.perf_event_paranoid=1
+    Con ello bajamos de 4 (default) a 1. Aún ejecutando con root no iba.
+11. Genero un fichero en C para probar las funcionalidades de papi.
+# sudo sysctl -w kernel.perf_event_paranoid=1 -> lo tengo que bajar a 1 para poder ejecutar el programa??
+12. IMPORTANTE. Es necesario ejecutar los programas, compilados con papi, con sudo.
+13. Lista de errores de papi https://icl.cs.utk.edu/papi/docs/d7/d40/group__ret__codes.html -> Hay eventos que aparece que existen pero en realidad no.
+14. Si intento medir las FP con los eventos PAPI_FP_INS y PAPI_FP_OPS me salta el error de que no existen dichos eventos. Si utilizo PAPI_VEC_SP, PAPI_VEC_DP, PAPI_SP_OPS o PAPI_DP_OPS salta el error: "Event exists, but cannot be counted due to counter resource limitations"
+    PAPI_FP_INS (if not available PAPI tries to use PAPI_VEC_SP or PAPI_VEC_DP)
+    PAPI_FP_OPS (if not available PAPI tries to use PAPI_SP_OPS or PAPI_DP_OPS)
+15. Voy a probar el ejecutar código de C desde Python mediante cython.
+    Parece MUY complicado: https://cython.readthedocs.io/en/latest/src/tutorial/clibraries.html
+
+16. NOTA. Ya existe un proyecto que integra PAPI con Python: https://pypi.org/project/python_papi/
+
+17. Quizás es más fácil con ctypes? https://docs.python.org/3.8/library/ctypes.html
 
 
 cd /home/jlpadillas01/pmu-tools/

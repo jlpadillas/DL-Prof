@@ -29,6 +29,16 @@ TLEV = /home/jlpadillas01/pmu-tools/toplev.py
 # Events we want to measure with perf
 EVENTS = instructions,cycles,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any
 # --------------------------------------------------------------------------- #
+# PAPI
+PAPI_DIR = /home/jlpadillas01/papi
+PAPIINC = ${PAPI_DIR}/src
+PAPILIB = ${PAPIINC}/libpapi.a
+CC = gcc
+CFLAGS += -I$(PAPIINC)
+# CFLAGS += -Werror -Wall
+PAPI_FILE = papi_example
+
+# --------------------------------------------------------------------------- #
 
 # The @ makes sure that the command itself isn't echoed in the terminal
 help:
@@ -60,5 +70,14 @@ tlev:
 	# sudo ${TLEV} --core C0 -l4 --no-desc taskset -c 0 ${PYTHON} ${SRC_DIR}/mat_mul_zeros.py
 	sudo sysctl -w kernel.nmi_watchdog=1
 
+papi:
+	# Se tiene que compilar en dos fases*
+	${CC} ${CFLAGS} -c -o ${BIN_DIR}/${PAPI_FILE}.o ${SRC_DIR}/${PAPI_FILE}.c
+	${CC} -o ${BIN_DIR}/${PAPI_FILE} ${CFLAGS} ${BIN_DIR}/${PAPI_FILE}.o ${PAPILIB}
+	sudo ./${BIN_DIR}/${PAPI_FILE}
+
 clean:
 	rm -r bin
+
+library:
+	${CC} -shared -o lib_mat.so -fPIC Anexo/mat_mul_c.c
