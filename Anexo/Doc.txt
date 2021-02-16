@@ -39,3 +39,12 @@ sysctl -w kernel.nmi_watchdog=0
 sysctl -w kernel.nmi_watchdog=1
 
 export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.8/dist-packages
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--> crear un c intermedio que cargue papi.
+----------------
+
+
+CFLAGS="-I/usr/local/otherdir/calg/include"  \
+LDFLAGS="-L/usr/local/otherdir/calg/lib"     \
+    python setup.py build_ext -i
