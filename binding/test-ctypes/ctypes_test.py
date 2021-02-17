@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     libname = "/usr/local/lib/libpapi.so"
     p_lib = ctypes.CDLL(libname)
-    # print(p_lib.PAPI_is_initialized())
+    print("PAPI_is_initialized() = ", p_lib.PAPI_is_initialized())
 
     dim_x = 5000
     dim_y = dim_x
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # ROI
     # ----------------------------------------
     EventSet = p_lib.PAPI_num_components()
-    print(EventSet)
+    print("PAPI_num_components() = ", EventSet)
 
     # A = np.matmul(M, N)
 
