@@ -26,14 +26,18 @@ if __name__ == "__main__":
     # Load the shared library into ctypes
     # libname = pathlib.Path().absolute() / "libpapi.so.6.0"
 
-    libname = "/home/jlpadillas01/TFG/bin/my_papi.so"
+    libname = "/home/jlpadillas01/TFG/binding/libmy_papi.so"
     p_lib = CDLL(libname)
 
-    print(type(p_lib))
+
+    # TODO: Hay que cambiar el path para que se pueda encontrar el .so
+    # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.:/usr/local/lib
+
+    # print(type(p_lib))
 
     # print("PAPI_is_initialized() = ", p_lib.PAPI_is_initialized())
 
-    dim_x = 500
+    dim_x = 5000
     dim_y = dim_x
 
     # Genera las matrices random
@@ -47,11 +51,12 @@ if __name__ == "__main__":
 
     # ROI
     # ----------------------------------------
-    # EventSet = p_lib.PAPI_num_components()
-    # print("PAPI_num_components() = ", EventSet)
+    p_lib.setup()
+    p_lib.start_measure()
 
-    # A = np.matmul(M, N)
+    A = np.matmul(M, N)
 
+    p_lib.stop_measure()
     # ----------------------------------------
     # print(M)
     # print(N)

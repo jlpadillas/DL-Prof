@@ -34,6 +34,10 @@ sudo perf stat --event instructions,cycles,fp_arith_inst_retired.128b_packed_dou
 -----------------------------
 Primero hay que entender las diferencias entre static y dynamic (shared) libraries. Es decir: *.a y *.so
 
+-----
+18. Ya tengo un .so (librería dinamica/shared) con mis funciones que llama a papi. Ahora, tengo que intentar el binding con algún método.
+
+
 
 cd /home/jlpadillas01/pmu-tools/
 sysctl -w kernel.nmi_watchdog=0
