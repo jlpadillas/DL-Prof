@@ -36,7 +36,7 @@ Primero hay que entender las diferencias entre static y dynamic (shared) librari
 
 -----
 18. Ya tengo un .so (librería dinamica/shared) con mis funciones que llama a papi. Ahora, tengo que intentar el binding con algún método.
-
+19. Con ctypes es facil cargar la libreria y ejecutar sus funciones.
 
 
 cd /home/jlpadillas01/pmu-tools/

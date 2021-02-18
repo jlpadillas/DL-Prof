@@ -32,6 +32,8 @@ if __name__ == "__main__":
 
     # TODO: Hay que cambiar el path para que se pueda encontrar el .so
     # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.:/usr/local/lib
+    # TODO: Hay que habilitar la lectura de los eventos bajando el nivel de seg.
+    # sudo sysctl -w kernel.perf_event_paranoid=1
 
     # print(type(p_lib))
 
