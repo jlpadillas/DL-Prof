@@ -9,6 +9,9 @@
 // add single PAPI preset or native hardware event to an event set
 int my_PAPI_add_event(int EventSet, int Event);
 
+// add an event by name to a PAPI event set
+int my_PAPI_add_named_event(int EventSet, const char *EventName);
+
 // create a new empty PAPI event set
 int my_PAPI_create_eventset(int *EventSet);
 

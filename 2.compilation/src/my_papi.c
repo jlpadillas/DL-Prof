@@ -41,8 +41,17 @@ int setup()
 
     // Floating point measures
     /* Add Floating point instructions event to the EventSet */
-    if ((retval = PAPI_add_event(EventSet, PAPI_FP_OPS)) != PAPI_OK)
+    // if ((retval = PAPI_add_event(EventSet, PAPI.)) != PAPI_OK)
+    if ((retval = PAPI_add_named_event(EventSet, "FP_ARITH_INST_RETIRED:256B_PACKED_DOUBLE")) != PAPI_OK)
         ERROR_RETURN(retval);
+    
+    // TODO: mirar
+    // mirar los 3: hw, perf, papi
+    // tensorflow
+    // PAPI_add_named_event
+
+    // redes neruonales, 
+
     /* Add Floating point operations event to the EventSet */
     // if ((retval = PAPI_add_event(EventSet, PAPI_FML_INS)) != PAPI_OK)
     //     ERROR_RETURN(retval);
@@ -76,7 +85,7 @@ int stop_measure()
     printf("\t\t> IPC:  %Lf \n", ((long double)values[0]) / ((long double)values[1]));
 
     printf("\tFloating point instructions are %lld \n", values[2]);
-    printf("\tFloating point operations are %lld \n", values[3]);
+    // printf("\tFloating point operations are %lld \n", values[3]);
 
     printf("\n#######################################################\n");
     /* free the resources used by PAPI */

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "papi.h"
 #include "my_papi_copy.h"
-#include "papiStdEventDefs.h"
+// #include "papiStdEventDefs.h"
 
 // #define NUM_EVENTS 3
 #define ERROR_RETURN(retval)                                                    \
@@ -11,23 +11,23 @@
         exit(retval);                                                           \
     }
 
-/* Number of the events to measure */
-int num_events;
-/* Must be initialized to PAPI_NULL before calling PAPI_create_event */
-int EventSet = PAPI_NULL;
-/* This is where we store the values we read from the eventset */
-long long *values;
+// /* Number of the events to measure */
+// int num_events;
+// /* Must be initialized to PAPI_NULL before calling PAPI_create_event */
+// int EventSet = PAPI_NULL;
+// /* This is where we store the values we read from the eventset */
+// long long *values;
 /* We use retval to keep track of the number of the return value */
 int retval;
 
-int main(int argc, char const *argv[])
-{
-    if (argc < 2)
-        fprintf(stderr, "Error: incorrect number of events.\n");
-    num_events = atoi(argv[0]);
-    values = (long long *)malloc(sizeof(long long) * num_events);
-    return 0;
-}
+// int main(int argc, char const *argv[])
+// {
+//     if (argc < 2)
+//         fprintf(stderr, "Error: incorrect number of events.\n");
+//     num_events = atoi(argv[0]);
+//     values = (long long *)malloc(sizeof(long long) * num_events);
+//     return 0;
+// }
 
 int my_PAPI_add_event(int EventSet, int Event)
 {

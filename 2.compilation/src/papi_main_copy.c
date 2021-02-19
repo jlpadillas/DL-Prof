@@ -1,7 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "my_papi_copy.h"
-#include "papi.h"
+// All
+// #include "papi.h"
+// Events:
+// #include "papiStdEventDefs.h"
+
 
 #define NUM_EVENTS 3
 
