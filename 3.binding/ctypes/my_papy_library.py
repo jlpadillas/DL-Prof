@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # Load the shared library into ctypes
     # libname = pathlib.Path().absolute() / "libpapi.so.6.0"
 
-    libname = "/home/jlpadillas01/TFG/binding/libmy_papi.so"
+    libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
     p_lib = CDLL(libname)
 
 
@@ -36,7 +36,6 @@ if __name__ == "__main__":
     # sudo sysctl -w kernel.perf_event_paranoid=1
 
     # print(type(p_lib))
-
     # print("PAPI_is_initialized() = ", p_lib.PAPI_is_initialized())
 
     dim_x = 5000

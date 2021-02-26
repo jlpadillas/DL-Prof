@@ -35,7 +35,9 @@ SRC_DIR=src
 
 # Start measure
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
+sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
 sudo ${PERF} stat --event ${EVENTS} --cpu=0 taskset -c 0 ${PYTHON} \
     ${SRC_DIR}/mat_mul.py $1
+sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
 sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 # ------------------------------------------------------------------------ #
