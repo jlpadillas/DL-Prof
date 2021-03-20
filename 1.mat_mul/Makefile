@@ -35,8 +35,8 @@ perf:
 	# bash ${SRC_DIR}/perf.sh empty
 
 tlev:
-	bash ${SRC_DIR}/toplev.sh zeros
-	# bash ${SRC_DIR}/toplev.sh empty
+	bash ${SRC_DIR}/tlev.sh zeros
+	# bash ${SRC_DIR}/tlev.sh empty
 
 # --------------------------------------------------------------------------- #
 papi_v0:

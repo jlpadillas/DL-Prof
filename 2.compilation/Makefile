@@ -28,10 +28,12 @@ main:
 	${CC} -o ${BIN_DIR}/papi_prog ${BIN_DIR}/papi_main.o -L./${LIB_DIR} -lmy_papi
 
 execute:
-	# Importante! ejecutar el sig. comando, de lo contrario no encuentra la libreria
-	# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib:/usr/local/lib
+	# Importante! Si no encuentra la libreria, ejecutar el sig. comando:
+	# export LD_LIBRARY_PATH=./lib:/usr/local/lib
 	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
+	sudo sysctl -w kernel.perf_event_paranoid=1 > /dev/null
 	./${BIN_DIR}/papi_prog
+	sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
 	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 
 clean:

@@ -46,8 +46,8 @@ fi
 # ------------------------------------------------------------------------ #
 
 # Start measure
-sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
+sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo ${TLEV} --core C0 -l4 --no-desc --raw taskset -c 0 ${PYTHON} ${SRC_DIR}/mat_mul.py $1
 # sudo ${TLEV} --core C0 -l4 --no-desc taskset -c 0 ${PYTHON} ${SRC_DIR}/mat_mul.py $1
-sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
+sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
 # ------------------------------------------------------------------------ #
