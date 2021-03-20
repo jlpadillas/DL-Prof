@@ -1,0 +1,119 @@
+cuantos datos en una epoca?
+
+30 eopcas, en la 10 esta trabajada. Mido a partir del 5 o 10.
+En la funcion fit de keras se puede hacer un "hook" con el que podamos meter una funcion externa.
+
+Volvar el IPC.
+
+llamar a mi funcion medida cada epoca.
+
+en esta parte
+
+___
+
+keras.callbacks 
+___
+
+
+en la funcion fit llamar al callbacks.
+
+
+impirmir las instrucciones y resetear los contadores.
+
+
+para medir un pid y sus hijos. attach de perf que mida sus hijos. con un pid.
+
+parametros en tensorflow que se puede poner a singlethread.
+
+asegurarnos de que perf coge todos los threads.
+
+___________________
+
+hacer pruebas de aplicaciones en multithreadoing.
+
+papi tiene que medir lo de los hijos.
+
+_______--
+
+en tensorflow desactivar medir
+
+activar multithreading y medir
+
+__
+
+interrumpir medidas
+
+
+_____________________
+
+asegurarnos de que medimos lo que quermos medir.
+
+tensroflow medidas.
+
+
+------------
+1 epoca
+
+
+perf
+
+papi
+
+medir con gpus
+
+______________
+
+1. genero un mat_mul multithreading:
+	- pthreads? si
+	- MPI? no
+	- python? pruebo
+
+
+2. Con perf, medir aplicaciones multithreading.
+
+3. Con PAPI, medir aplicaciones multithreading.
+
+
+
+
+modificar par aq
+
+
+
+-------------
+
+set inter e intra a 1 y medir con papi
+
+pasarlo a 2 y medir
+
+
+---------------------------------------------------
+
+Pasos de comprobación PERF/PAPI – Tensorflow.
+
+El objetivo de estas comprobaciones es estar seguro de que los contadores que se leen con Perf/PAPI miden eventos de la ejecución de la red neuronal en Tensorflow. En un entorno multithreading sobre el que no tienes control sobre la gestión de threads, es crítico saber si esto se hace bien.
+
+El primer paso, ya lo tienes hecho, lo pongo aquí por si quieres repetir. Consiste en hacer un pequeño programa en Python (matmul.py, operaciones con matrices) y comprobar que con perf y PAPI llegamos a cuentas de eventos similares:
+
+Comando 1: perf stat -e XXXX matmul.py
+
+Comando 2: ./matmul_con_papi.py
+
+El segundo paso, que es el que nos interesa, es hacer algo similar con tensorflow.
+
+Primera prueba: vamos a aislar en un core a tensorflow, y vamos a medir con perf los eventos de dicho core. vamos a hacer una ejecución corta de mnist.py, una sola época (puedes usar el código que ya tienes, mira a ver cómo se define el número de epochs), un solo thread (bajar intra e inter op parallelism a 1)y medir con perf. Las stats que yo sacaría son: instrucciones totales, ciclos totales, instrucciones de punto flotante (ojo con estas, te va a tocar buscar cuales son de todas las disponibles en los eventos!!).
+
+Comando: perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
+
+Segunda prueba: Ahora vamos a comprobar si el comando perf, midiendo directamente la aplicación (sin fijar Python a un core ni medir con perf los eventos de ese core), obtiene unos resultados similares a la prueba anterior.
+
+Comando: perf stat -e XXX mnist_1epoch_1thread.py
+
+Tercera prueba: Igual que antes, comprobamos que utilizando PAPI obtenemos unos resultados en la cuenta de eventos similares.
+
+Comando: ./mnist_1epoch_1thread_papi.py
+
+Cuarta prueba: repetimos las tres pruebas anteriores, modificando los valores the paralelismo (yo iría a valores fáciles, primero 2 y luego 4).
+
+Lo ideal sería que en todas las pruebas los resultados en la cuenta de eventos arrojasen resultados similares. Si en algún punto se observa un resultado extraño (ausencia de operaciones de punto flotante) o una desviación relevante, eso querrá decir que hay parte de los eventos del código que no se están teniendo en cuenta y hay que revisar qué ámbito de medida se está abarcando.
+
