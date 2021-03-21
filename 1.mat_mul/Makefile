@@ -22,9 +22,11 @@ PAPI_DIR = /home/jlpadillas01/papi
 PAPIINC = ${PAPI_DIR}/src
 PAPILIB = ${PAPIINC}/libpapi.a
 CC = gcc
-CFLAGS += -I$(PAPIINC)
-# CFLAGS += -Werror -Wall
+# CFLAGS += -I$(PAPIINC)
+CFLAGS += -Werror -Wall
 PAPI_FILE = papi_example
+# --------------------------------------------------------------------------- #
+C_FILE = mat_mul
 
 # --------------------------------------------------------------------------- #
 clean:
@@ -37,6 +39,10 @@ perf:
 tlev:
 	bash ${SRC_DIR}/tlev.sh zeros
 	# bash ${SRC_DIR}/tlev.sh empty
+
+c_file:
+	${CC} ${CFLAGS} -o ${BIN_DIR}/${C_FILE} ${SRC_DIR}/${C_FILE}.c
+	./bin/mat_mul
 
 # --------------------------------------------------------------------------- #
 papi_v0:
