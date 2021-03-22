@@ -20,7 +20,6 @@ int retval;
 
 // *********************************************************************** //
 
-
 int my_PAPI_add_event(int EventSet, int Event)
 {
     if ((retval = PAPI_add_event(EventSet, Event)) != PAPI_OK)
@@ -30,6 +29,7 @@ int my_PAPI_add_event(int EventSet, int Event)
 
 int my_PAPI_add_named_event(int EventSet, const char *EventName)
 {
+    printf("%s\n", EventName);
     if ((retval = PAPI_add_named_event(EventSet, EventName)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -73,4 +73,43 @@ int my_PAPI_stop(int EventSet, long long *values)
     if ((retval = PAPI_stop(EventSet, values)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
+}
+
+// *********************************************************************** //
+
+int my_start_events(const char *events, int numEvents)
+{
+    int eventSet = PAPI_NULL;
+    // size_t i;
+
+    // Se crea la libreria
+    my_PAPI_library_init(PAPI_VER_CURRENT);
+
+    // Se crea el conjunto de eventos
+    my_PAPI_create_eventset(&eventSet);
+
+    // Se anhaden los eventos
+    // for (i = 0; i < numEvents; i++)
+    // {
+    //     my_PAPI_add_named_event(eventSet, events);
+    // }
+
+    my_PAPI_add_named_event(eventSet, events);
+
+    // Comprueba que se ha anhadido el numero correcto de eventos
+    // int count;
+    // my_PAPI_list_events(eventSet, count, numEvents);
+
+    my_PAPI_start(eventSet);
+
+    return eventSet;
+}
+
+long long *my_stop_events(int eventSet, int numEvents)
+{
+    long long *values = (long long *)malloc(numEvents * sizeof(long long));
+
+    my_PAPI_stop(eventSet, values);
+
+    return values;
 }

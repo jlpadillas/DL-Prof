@@ -124,7 +124,18 @@ void print(const double *M, const unsigned rows, const unsigned cols)
     printf("\n");
 }
 
-char *arr_to_str(double *array, int length)
+/*************************************************************************
+ * *arr_to_str
+ *  Description:
+ *      This method returns a pointer to the string with the matrix.
+ *  Parameters:
+ *      input   M      - Pointer to the matrix M.
+ *      input   rows   - Number of rows in the matrix.
+ *      input   cols   - Number of columns in the matrix.
+ *  Returns:
+ *      Pointer to a string.
+ ************************************************************************/
+char *arr_to_str(const double *M, int length)
 {
     // numero maximo de cifras = 18
     int max_digit_in_num = 18;
@@ -134,7 +145,7 @@ char *arr_to_str(double *array, int length)
     strcpy(str, "[");
     for (int i = 0; i < length; i++)
     {
-        sprintf(aux, "%.3f", array[i]);
+        sprintf(aux, "%.3f", M[i]);
         if (i < length - 1)
         {
             strcat(aux, ", ");
@@ -178,7 +189,6 @@ int main(int argc, char const *argv[])
 
     M_c = mat_mul_slow(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 
-    // d = dot(a, n_rows_a, n_cols_a, b, n_rows_b, n_cols_b);
     // ------------------------------ ROI a medir ----------------------------- //
 
     // if (scale == 1)
@@ -193,11 +203,10 @@ int main(int argc, char const *argv[])
     //     // print(d, n_rows_a, n_cols_b);
     // }
     
-    print(M_a, rows_a, cols_a);
-
+    // print(M_a, rows_a, cols_a);
     // printf("Array A: %s\n", arr_to_str(M_a, rows_a * cols_a));
-    printf("Array B: %s\n", arr_to_str(M_b, rows_b * cols_b));
-    printf("Array C: %s\n", arr_to_str(M_c, rows_a * cols_b));
+    // printf("Array B: %s\n", arr_to_str(M_b, rows_b * cols_b));
+    // printf("Array C: %s\n", arr_to_str(M_c, rows_a * cols_b));
 
     free(M_a);
     free(M_b);
