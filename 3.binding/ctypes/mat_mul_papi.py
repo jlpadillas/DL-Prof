@@ -11,8 +11,10 @@ from ctypes import *
 import numpy as np
 
 # local source
+from system_setup import system_setup
 sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
 from mat_mul import matrix
+
 
 # ------------------------------------------------------------------------ #
 # Multiplicacion de dos matrices: A = M  N usando numpy
@@ -34,10 +36,10 @@ if __name__ == "__main__":
     @param option variable que se pasa por parametro y que indica si se ha
         de rellenar las matrices con la funcion empty() o zeros().
     """
-    # standard library
-    import sys
 
-    # 3rd party packages
+    # Se crea un objeto de para modificar la configuración del sistema
+    setup = system_setup()
+
 
     # TODO: Asignar una opción para generar las matrices
     option = "zeros"
@@ -102,16 +104,27 @@ if __name__ == "__main__":
 
     # print(values)
 
-    # # ----------------------------------------
+    # -----------------------------------------------------
 
-    # 1.
-    ev = "CYCLES"
-    event = c_wchar_p(ev)
-    # event.value = "CYCLES"
+    # Se crea una lista con los eventos a medir
+    event = ctypes.c_char_p('CYCLES'.encode('ascii'))
+
+    # Es necesario reducir el nivel de perf para medir
+    setup.set_perf_event_paranoid(1)
+
+    # Empieza la medida de los eventos
     ptr_EventSet = p_lib.my_start_events(event, 1)
-    # ptr_EventSet = p_lib.my_start_events("SIMD_FP_256:PACKED_DOUBLE", 1)
+
+    # ROI
     mat.multiply()
+
+    # Finaliza la medida de los eventos
     values = p_lib.my_stop_events(ptr_EventSet, 1)
 
+    # Se sube el nivel de perf al que tenia por defecto
+    setup.set_perf_event_paranoid()
 
+    # Se imprime el valor medido
     print(values)
+
+    # -----------------------------------------------------

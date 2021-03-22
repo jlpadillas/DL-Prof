@@ -29,7 +29,7 @@ int my_PAPI_add_event(int EventSet, int Event)
 
 int my_PAPI_add_named_event(int EventSet, const char *EventName)
 {
-    printf("%s\n", EventName);
+    // printf("%s\n", EventName);
     if ((retval = PAPI_add_named_event(EventSet, EventName)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -81,7 +81,6 @@ int my_start_events(const char *events, int numEvents)
 {
     int eventSet = PAPI_NULL;
     // size_t i;
-
     // Se crea la libreria
     my_PAPI_library_init(PAPI_VER_CURRENT);
 
