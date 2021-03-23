@@ -37,7 +37,8 @@ PROGRAM="mnist_1epoch_1thread.py"
 # Start singlethread measure
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
-sudo ${PERF} stat --event ${EVENTS} ${PYTHON} ${SRC_DIR}/${PROGRAM}
+sudo ${PERF} stat --event ${EVENTS} --cpu=0 taskset -c 0 ${PYTHON} \
+    ${SRC_DIR}/${PROGRAM}
 sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal
 sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
 # ------------------------------------------------------------------------ #

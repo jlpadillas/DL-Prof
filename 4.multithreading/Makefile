@@ -18,8 +18,11 @@ INCLUDE = -I./${SRC_DIR}
 
 # --------------------------------------------------------------------------- #
 all: perf
+	mkdir -p src/ bin/ out/ lib/
+
+# perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
+perf_taskset:
+	bash ${SRC_DIR}/perf_taskset.sh null
 
 perf:
-	# perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
-	bash ${SRC_DIR}/perf.sh 1
-
+	bash ${SRC_DIR}/perf.sh null

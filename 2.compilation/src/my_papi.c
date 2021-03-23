@@ -90,7 +90,7 @@ int my_start_events(const char *events[], int numEvents)
     // Se anhaden los eventos
     for (i = 0; i < numEvents; i++)
     {
-        printf("%s\n", events[i]);
+        printf("PAPI_EVENT to add: %s\n", events[i]);
         my_PAPI_add_named_event(eventSet, events[i]);
     }
 
