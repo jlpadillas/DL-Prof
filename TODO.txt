@@ -101,7 +101,7 @@ Comando 2: ./matmul_con_papi.py
 
 El segundo paso, que es el que nos interesa, es hacer algo similar con tensorflow.
 
-Primera prueba: vamos a aislar en un core a tensorflow, y vamos a medir con perf los eventos de dicho core. vamos a hacer una ejecución corta de mnist.py, una sola época (puedes usar el código que ya tienes, mira a ver cómo se define el número de epochs), un solo thread (bajar intra e inter op parallelism a 1)y medir con perf. Las stats que yo sacaría son: instrucciones totales, ciclos totales, instrucciones de punto flotante (ojo con estas, te va a tocar buscar cuales son de todas las disponibles en los eventos!!).
+Primera prueba: vamos a aislar en un core a tensorflow, y vamos a medir con perf los eventos de dicho core. vamos a hacer una ejecución corta de mnist.py, una sola época (puedes usar el código que ya tienes, mira a ver cómo se define el número de epochs), un solo thread (bajar intra e inter op parallelism a 1) y medir con perf. Las stats que yo sacaría son: instrucciones totales, ciclos totales, instrucciones de punto flotante (ojo con estas, te va a tocar buscar cuales son de todas las disponibles en los eventos!!).
 
 Comando: perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
 

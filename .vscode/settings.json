@@ -1,16 +1,19 @@
 {
-    "python.pythonPath": "/usr/bin/python3",
-    "python.analysis.extraPaths": ["/home/jlpadillas01/.local/lib/python3.8/site-packages/",
-    "./src/"
-],
-"files.associations": {
-    "papi.h": "c",
-    "stdlib.h": "c",
-    "stdio.h": "c",
-    "struct_file.h": "c",
-    "types.h": "c",
-    "papistdeventdefs.h": "c",
-    "limits.h": "c",
-    "papi_internal.h": "c"
-}
+    "python.pythonPath": "/home/jlpadillas01/anaconda3/bin/ipython3",
+    // "python.pythonPath": "/home/jlpadillas01/anaconda3/bin/python",
+    "python.analysis.extraPaths": [
+        "/home/jlpadillas01/.local/lib/python3.8/site-packages/",
+        "./src/",
+        "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/"
+    ],
+    "files.associations": {
+        "papi.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "struct_file.h": "c",
+        "types.h": "c",
+        "papistdeventdefs.h": "c",
+        "limits.h": "c",
+        "papi_internal.h": "c"
+    }
 }

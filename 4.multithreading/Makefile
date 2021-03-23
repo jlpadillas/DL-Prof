@@ -17,25 +17,9 @@ LIB_DIR = lib
 INCLUDE = -I./${SRC_DIR}
 
 # --------------------------------------------------------------------------- #
-all: my_papi main execute
+all: perf
 
-my_papi:
-	${CC} ${CFLAGS} -fPIC ${INCLUDE} -c ${SRC_DIR}/my_papi.c -o ${BIN_DIR}/my_papi.o
-	${CC} -shared -o ${LIB_DIR}/libmy_papi.so ${BIN_DIR}/my_papi.o -L/usr/local/lib -lpapi
+perf:
+	# perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
+	bash ${SRC_DIR}/perf.sh 1
 
-main:
-	${CC} ${CFLAGS} ${INCLUDE} -c ${SRC_DIR}/papi_main.c -o ${BIN_DIR}/papi_main.o
-	${CC} -o ${BIN_DIR}/papi_prog ${BIN_DIR}/papi_main.o -L./${LIB_DIR} -lmy_papi
-
-execute:
-	# Importante! ejecutar el sig. comando, de lo contrario no encuentra la libreria
-	# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib:/usr/local/lib
-	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
-	./${BIN_DIR}/papi_prog
-	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
-
-clean:
-	rm -f ${BIN_DIR}/*
-
-echo:
-	@echo $$LD_LIBRARY_PATH

@@ -77,10 +77,10 @@ int my_PAPI_stop(int EventSet, long long *values)
 
 // *********************************************************************** //
 
-int my_start_events(const char *events, int numEvents)
+int my_start_events(const char *events[], int numEvents)
 {
     int eventSet = PAPI_NULL;
-    // size_t i;
+    size_t i;
     // Se crea la libreria
     my_PAPI_library_init(PAPI_VER_CURRENT);
 
@@ -88,12 +88,13 @@ int my_start_events(const char *events, int numEvents)
     my_PAPI_create_eventset(&eventSet);
 
     // Se anhaden los eventos
-    // for (i = 0; i < numEvents; i++)
-    // {
-    //     my_PAPI_add_named_event(eventSet, events);
-    // }
+    for (i = 0; i < numEvents; i++)
+    {
+        printf("%s\n", events[i]);
+        my_PAPI_add_named_event(eventSet, events[i]);
+    }
 
-    my_PAPI_add_named_event(eventSet, events);
+    // my_PAPI_add_named_event(eventSet, events);
 
     // Comprueba que se ha anhadido el numero correcto de eventos
     // int count;
