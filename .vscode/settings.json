@@ -16,6 +16,8 @@
         "papistdeventdefs.h": "c",
         "limits.h": "c",
         "papi_internal.h": "c",
-        "limits": "c"
+        "limits": "c",
+        "time.h": "c",
+        "matrix.h": "c"
     }
 }

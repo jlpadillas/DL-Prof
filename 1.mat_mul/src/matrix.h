@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#define MAX_RANDOM 10.0
+#define MAX_RANDOM 10
 
 /*************************************************************************
  * init_seq
@@ -30,7 +30,7 @@ void init_seq(double *M, const unsigned rows, const unsigned cols);
 void init_rand(double *M, const unsigned rows, const unsigned cols);
 
 /*************************************************************************
- * mat_mul_slow
+ * mat_mul
  *  Description:
  *      This method multiplies two matrixes.
  *  Parameters:
@@ -43,23 +43,30 @@ void init_rand(double *M, const unsigned rows, const unsigned cols);
  *  Returns:
  *      Pointer to the new matrix, product of the two inputs.
  ************************************************************************/
-double *mat_mul_slow(const double *M_a,
-                     const unsigned rows_a, const unsigned cols_a,
-                     const double *M_b,
-                     const unsigned rows_b, const unsigned cols_b);
+double *mat_mul(const double *M_a,
+                const unsigned rows_a, const unsigned cols_a,
+                const double *M_b,
+                const unsigned rows_b, const unsigned cols_b);
 
 /*************************************************************************
- * print
+ * mat_mul_transpose
  *  Description:
- *      This method prints the matrix.
+ *      This method multiplies two matrixes using the transpose with one
+ *      of them.
  *  Parameters:
- *      input   M      - Pointer to the matrix M.
- *      input   rows   - Number of rows in the matrix.
- *      input   cols   - Number of columns in the matrix.
+ *      input   M_a      - Pointer to the matrix M_a.
+ *      input   rows_a   - Number of rows in the matrix M_a.
+ *      input   cols_a   - Number of columns in the matrix M_a.
+ *      input   M_b      - Pointer to the matrix M_b.
+ *      input   rows_b   - Number of rows in the matrix M_b.
+ *      input   cols_b   - Number of columns in the matrix M_b.
  *  Returns:
- *      Nothing.
+ *      Pointer to the new matrix, product of the two inputs.
  ************************************************************************/
-void print(const double *M, const unsigned rows, const unsigned cols);
+double *mat_mul_transpose(const double *M_a,
+                          const unsigned rows_a, const unsigned cols_a,
+                          const double *M_b,
+                          const unsigned rows_b, const unsigned cols_b);
 
 /*************************************************************************
  * *arr_to_str
@@ -72,6 +79,6 @@ void print(const double *M, const unsigned rows, const unsigned cols);
  *  Returns:
  *      Pointer to a string.
  ************************************************************************/
-char *arr_to_str(const double *M, int length);
+char *arr_to_str(const double *M, const unsigned rows, const unsigned cols);
 
-#endif MATRIX_H
+#endif
