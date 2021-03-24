@@ -31,7 +31,8 @@ PERF=`which perf`
 EVENTS=`perf list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g'`cycles\
 ,instructions
 SRC_DIR="src"
-PROGRAM="mnist_1epoch_1thread.py"
+# PROGRAM="mnist_1epoch_1thread.py"
+PROGRAM=$1
 # ------------------------------------------------------------------------ #
 
 # Start singlethread measure

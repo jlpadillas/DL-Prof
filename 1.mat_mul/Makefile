@@ -17,48 +17,13 @@ BIN_DIR = bin
 OUT_DIR = out
 
 # --------------------------------------------------------------------------- #
-# PAPI
-PAPI_DIR = /home/jlpadillas01/papi
-PAPIINC = ${PAPI_DIR}/src
-PAPILIB = ${PAPIINC}/libpapi.a
-CC = gcc
-# CFLAGS += -I$(PAPIINC)
-CFLAGS += -Werror -Wall
-PAPI_FILE = papi_example
-# --------------------------------------------------------------------------- #
-C_FILE = mat_mul
-
-# --------------------------------------------------------------------------- #
 clean:
 	rm bin/*
 
 perf:
-	bash ${SRC_DIR}/perf.sh zeros
-	# bash ${SRC_DIR}/perf.sh empty
+	bash ${SRC_DIR}/perf.sh main.py zeros
 
 tlev:
-	bash ${SRC_DIR}/tlev.sh zeros
-	# bash ${SRC_DIR}/tlev.sh empty
-
-c_file:
-	${CC} ${CFLAGS} -o ${BIN_DIR}/${C_FILE} ${SRC_DIR}/${C_FILE}.c
-	./bin/mat_mul
+	bash ${SRC_DIR}/tlev.sh main.py zeros
 
 # --------------------------------------------------------------------------- #
-papi_v0:
-	# Se tiene que compilar en dos fases*
-	${CC} ${CFLAGS} -c -o ${BIN_DIR}/${PAPI_FILE}.o ${SRC_DIR}/${PAPI_FILE}.c
-	${CC} -o ${BIN_DIR}/${PAPI_FILE} ${CFLAGS} ${BIN_DIR}/${PAPI_FILE}.o ${PAPILIB}
-	sudo ./${BIN_DIR}/${PAPI_FILE}
-
-papi_v1:
-	# Se quiere ejecutar el *.py dentro de la funcion C y medir
-
-
-# --------------------------------------------------------------------------- #
-library:
-	# https://stackoverflow.com/questions/51839902/using-a-shared-library-in-another-shared-library
-	${CC} -Wall -fPIC -O -g -c binding/test-ctypes/prueba.c -o bin/prueba.o
-	# ${CC} -fPIC -shared -L/usr/local/lib -lpapi bin/prueba.o -o bin/my_papi.so
-	${CC} -shared bin/prueba.o -o bin/my_papi.so
-	nm bin/my_papi.so

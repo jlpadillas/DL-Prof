@@ -22,7 +22,7 @@ all: perf
 
 # perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
 perf_taskset:
-	bash ${SRC_DIR}/perf_taskset.sh null
+	bash ${SRC_DIR}/perf_taskset.sh mnist_1epoch_1thread.py
 
 perf:
-	bash ${SRC_DIR}/perf.sh null
+	bash ${SRC_DIR}/perf.sh mnist_1epoch_1thread.py

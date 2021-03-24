@@ -2,9 +2,6 @@
 .DEFAULT_GOAL = all
 
 # --------------------------------------------------------------------------- #
-CC = gcc
-CFLAGS = -Wall -Werror
-
 # Directory where scripts are saved
 SRC_DIR = src
 # Directory where binaries are saved
@@ -14,6 +11,9 @@ OUT_DIR = out
 # Directory where the library is saved
 LIB_DIR = lib
 
+# --------------------------------------------------------------------------- #
+CC = gcc
+CFLAGS = -Wall -Werror
 INCLUDE = -I./${SRC_DIR}
 
 # --------------------------------------------------------------------------- #
@@ -41,3 +41,5 @@ clean:
 
 echo:
 	@echo $$LD_LIBRARY_PATH
+
+# --------------------------------------------------------------------------- #

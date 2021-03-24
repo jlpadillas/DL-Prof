@@ -4,7 +4,8 @@
     "python.analysis.extraPaths": [
         "/home/jlpadillas01/.local/lib/python3.8/site-packages/",
         "./src/",
-        "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/"
+        "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/",
+        "home/jlpadillas01/TFG/1.mat_mul/src/"
     ],
     "files.associations": {
         "papi.h": "c",
@@ -14,6 +15,7 @@
         "types.h": "c",
         "papistdeventdefs.h": "c",
         "limits.h": "c",
-        "papi_internal.h": "c"
+        "papi_internal.h": "c",
+        "limits": "c"
     }
 }
