@@ -18,6 +18,7 @@
         "papi_internal.h": "c",
         "limits": "c",
         "time.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "my_papi.h": "c"
     }
 }

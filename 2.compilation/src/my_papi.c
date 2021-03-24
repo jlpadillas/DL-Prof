@@ -3,12 +3,6 @@
 #include "papi.h"
 #include "my_papi.h"
 
-#define ERROR_RETURN(retval)                                                    \
-    {                                                                           \
-        fprintf(stderr, "Error %d %s:line %d: \n", retval, __FILE__, __LINE__); \
-        exit(retval);                                                           \
-    }
-
 // /* Number of the events to measure */
 // int num_events;
 // /* Must be initialized to PAPI_NULL before calling PAPI_create_event */
@@ -87,10 +81,15 @@ int my_start_events(const char *events[], int numEvents)
     // Se crea el conjunto de eventos
     my_PAPI_create_eventset(&eventSet);
 
+    // for (i = 0; i < numEvents; i++)
+    // {
+    //     printf("\t%s\n", events[i]);
+    // }
+
     // Se anhaden los eventos
     for (i = 0; i < numEvents; i++)
     {
-        printf("PAPI_EVENT to add: %s\n", events[i]);
+        // printf("\tPAPI_EVENT to add: %s\n", events[i]);
         my_PAPI_add_named_event(eventSet, events[i]);
     }
 

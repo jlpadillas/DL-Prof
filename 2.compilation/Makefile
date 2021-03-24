@@ -25,7 +25,7 @@ my_papi:
 
 main:
 	${CC} ${CFLAGS} ${INCLUDE} -c ${SRC_DIR}/papi_main.c -o ${BIN_DIR}/papi_main.o
-	${CC} -o ${BIN_DIR}/papi_prog ${BIN_DIR}/papi_main.o -L./${LIB_DIR} -lmy_papi
+	${CC} -o ${BIN_DIR}/papi_prog ../1.mat_mul/bin/matrix ${BIN_DIR}/papi_main.o -L./${LIB_DIR} -lmy_papi
 
 execute:
 	# Importante! Si no encuentra la libreria, ejecutar el sig. comando:

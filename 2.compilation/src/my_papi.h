@@ -1,6 +1,12 @@
 #ifndef MY_PAPI_H
 #define MY_PAPI_H
 
+#define ERROR_RETURN(retval)                                                    \
+    {                                                                           \
+        fprintf(stderr, "Error %d %s:line %d: \n", retval, __FILE__, __LINE__); \
+        exit(retval);                                                           \
+    }
+
 // #define PAPI_VERSION_NUMBER(maj, min, rev, inc) (((maj) << 24) | ((min) << 16) | ((rev) << 8) | (inc))
 // #define PAPI_VERSION PAPI_VERSION_NUMBER(6, 0, 0, 1)
 // #define PAPI_OK 0    /**< No error */

@@ -22,7 +22,7 @@ void init_rand(double *M, const unsigned rows, const unsigned cols)
     {
         for (j = 0; j < cols; j++)
         {
-            M[i * cols + j] = (double)(rand() % MAX_RANDOM);
+            M[i * cols + j] = (double)(rand()) / ((double) RAND_MAX) * MAX_RANDOM;
         }
     }
 }
