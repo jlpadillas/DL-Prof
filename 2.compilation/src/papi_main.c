@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     /* Intializes random number generator */
     srand((unsigned)time(NULL));
 
-    const unsigned dim_x_and_y = 500;
+    const unsigned dim_x_and_y = 700;
     const unsigned rows_a = dim_x_and_y;
     const unsigned cols_a = dim_x_and_y;
     const unsigned rows_b = dim_x_and_y;
@@ -32,21 +32,41 @@ int main(int argc, char const *argv[])
     // EMPIEZA my_papi --------------------------------------------->
     // Rellenar por el "usuario":
 
+    // portatil
+    // const char *events[] = {
+    //     "cycles",
+    //     "instructions",
+    //     "fp_arith_inst_retired.128b_packed_double",
+    //     "fp_arith_inst_retired.128b_packed_single",
+    //     // "fp_arith_inst_retired.256b_packed_double",
+    //     // "fp_arith_inst_retired.256b_packed_single",
+    //     "fp_arith_inst_retired.scalar_double",
+    //     "fp_arith_inst_retired.scalar_single"
+    //     // "fp_assist.any"
+    // };
+
+    // PC
     const char *events[] = {
         "cycles",
         "instructions",
-        "fp_arith_inst_retired.128b_packed_double",
-        "fp_arith_inst_retired.128b_packed_single",
-        // "fp_arith_inst_retired.256b_packed_double",
-        // "fp_arith_inst_retired.256b_packed_single",
-        "fp_arith_inst_retired.scalar_double",
-        "fp_arith_inst_retired.scalar_single"
-        // "fp_assist.any"
+        // "fp_assist.any",
+        // "fp_assist.simd_input",
+        // "fp_assist.simd_output",
+        // "fp_assist.x87_input",
+        // "fp_assist.x87_output",
+        // "fp_comp_ops_exe.sse_packed_double",
+        // "fp_comp_ops_exe.sse_packed_single",
+        "fp_comp_ops_exe.sse_scalar_double",
+        // "fp_comp_ops_exe.sse_scalar_single"
+        // "fp_comp_ops_exe.x87",
+        "simd_fp_256.packed_double",
+        "simd_fp_256.packed_single"
     };
 
     // NOTA: num. max. de eventos que puede medir papi simultaneamente
-    // es igual a 6. Si se ejecuta mas, se lanza un error.
-    const unsigned num_events = 6;
+    // es igual a 6. Si se ejecuta mas, se lanza un error. 5 en el pc
+    // de sobremesa.
+    const unsigned num_events = 5;
     long long *values;
 
     int eventSet = my_start_events(events, num_events);
