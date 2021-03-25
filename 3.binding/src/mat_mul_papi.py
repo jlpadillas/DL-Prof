@@ -13,7 +13,7 @@ import numpy as np
 # local source
 from system_setup import system_setup
 sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
-from mat_mul import matrix
+from matrix import matrix
 
 # ------------------------------------------------------------------------ #
 # Multiplicacion de dos matrices: A = M  N usando numpy
@@ -106,26 +106,50 @@ if __name__ == "__main__":
     # Ejecucion con una unica medida
     # -----------------------------------------------------
 
-    # # Se crea una lista con los eventos a medir
+    # Se crea una lista con los eventos a medir
+    events = [
+        "cycles",
+        "instructions",
+        # "fp_arith_inst_retired.128b_packed_double",
+        # "fp_arith_inst_retired.128b_packed_single",
+        "fp_arith_inst_retired.256b_packed_double",
+        "fp_arith_inst_retired.256b_packed_single",
+        # "fp_arith_inst_retired.scalar_double",
+        # "fp_arith_inst_retired.scalar_single"
+        # "fp_assist.any"
+    ]
+
+    events_bytes = []
+    for i in range(len(events)):
+        events_bytes.append(bytes(events[i], 'utf-8'))
+
+    events_array = (ctypes.c_char_p * (len(events_bytes)+1))()
+
+    events_array[:-1] = events_bytes
+
     # event = ctypes.c_char_p('CYCLES'.encode('ascii'))
+    # print(event.value)
 
-    # # Es necesario reducir el nivel de perf para medir
-    # setup.set_perf_event_paranoid(1)
+    # Es necesario reducir el nivel de perf para medir
+    setup.set_perf_event_paranoid(1)
 
-    # # Empieza la medida de los eventos
-    # ptr_EventSet = p_lib.my_start_events(event, 1)
+    # Empieza la medida de los eventos
+    ptr_EventSet = p_lib.my_start_events(events_array, len(events))
 
-    # # ROI
-    # mat.multiply()
+    # ROI
+    mat.multiply()
 
-    # # Finaliza la medida de los eventos
-    # values = p_lib.my_stop_events(ptr_EventSet, 1)
+    # Finaliza la medida de los eventos
+    values = p_lib.my_stop_events(ptr_EventSet, len(events))
 
-    # # Se sube el nivel de perf al que tenia por defecto
-    # setup.set_perf_event_paranoid()
+    # Se sube el nivel de perf al que tenia por defecto
+    setup.set_perf_event_paranoid()
 
-    # # Se imprime el valor medido
-    # print(values)
+    # Se imprime el valor medido
+    print(values)
+
+    # g = (ctypes.c_char*40000).from_address(values)
+
 
     # -----------------------------------------------------
 
@@ -133,38 +157,38 @@ if __name__ == "__main__":
     # Ejecucion con dos medidas
     # -----------------------------------------------------
 
-    # Se crea una lista con los eventos a medir
-    events = ['CYCLES', 'INSTRUCTIONS']
+    # # Se crea una lista con los eventos a medir
+    # events = ['CYCLES', 'INSTRUCTIONS']
 
-    b = ctypes.create_string_buffer("HEllo", 7)
+    # b = ctypes.create_string_buffer("HEllo", 7)
 
-    print(ctypes.sizeof(b))
+    # print(ctypes.sizeof(b))
 
-    print(b.value)
+    # print(b.value)
 
-    # --- Lo de abajo no deberia verlo el usuario.
+    # # --- Lo de abajo no deberia verlo el usuario.
 
-    # Se cambia el formato para que pueda ser leido en C
-    # param = []
-    # for e in events:
-    #     param.append(c_char_p(e.encode('ascii')))
+    # # Se cambia el formato para que pueda ser leido en C
+    # # param = []
+    # # for e in events:
+    # #     param.append(c_char_p(e.encode('ascii')))
 
-    param = (ctypes.c_char_p * len(events))(*events)
+    # param = (ctypes.c_char_p * len(events))(*events)
 
-    # Es necesario reducir el nivel de perf para medir
-    setup.set_perf_event_paranoid(1)
+    # # Es necesario reducir el nivel de perf para medir
+    # setup.set_perf_event_paranoid(1)
 
-    # Empieza la medida de los eventos
-    ptr_EventSet = p_lib.my_start_events(param, len(param))
+    # # Empieza la medida de los eventos
+    # ptr_EventSet = p_lib.my_start_events(param, len(param))
 
-    # ROI
-    mat.multiply()
+    # # ROI
+    # mat.multiply()
 
-    # Finaliza la medida de los eventos
-    values = p_lib.my_stop_events(ptr_EventSet, len(param))
+    # # Finaliza la medida de los eventos
+    # values = p_lib.my_stop_events(ptr_EventSet, len(param))
 
-    # Se sube el nivel de perf al que tenia por defecto
-    setup.set_perf_event_paranoid()
+    # # Se sube el nivel de perf al que tenia por defecto
+    # setup.set_perf_event_paranoid()
 
-    # Se imprime el valor medido
-    print(values)
+    # # Se imprime el valor medido
+    # print(values)

@@ -23,7 +23,7 @@ int my_PAPI_add_event(int EventSet, int Event)
 
 int my_PAPI_add_named_event(int EventSet, const char *EventName)
 {
-    // printf("%s\n", EventName);
+    printf("\tPAPI: '%s'\n", EventName);
     if ((retval = PAPI_add_named_event(EventSet, EventName)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -81,19 +81,12 @@ int my_start_events(const char *events[], int numEvents)
     // Se crea el conjunto de eventos
     my_PAPI_create_eventset(&eventSet);
 
-    // for (i = 0; i < numEvents; i++)
-    // {
-    //     printf("\t%s\n", events[i]);
-    // }
-
     // Se anhaden los eventos
     for (i = 0; i < numEvents; i++)
     {
         // printf("\tPAPI_EVENT to add: %s\n", events[i]);
         my_PAPI_add_named_event(eventSet, events[i]);
     }
-
-    // my_PAPI_add_named_event(eventSet, events);
 
     // Comprueba que se ha anhadido el numero correcto de eventos
     // int count;

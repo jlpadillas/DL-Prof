@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     /* Intializes random number generator */
     srand((unsigned)time(NULL));
 
-    const unsigned dim_x_and_y = 50;
+    const unsigned dim_x_and_y = 500;
     const unsigned rows_a = dim_x_and_y;
     const unsigned cols_a = dim_x_and_y;
     const unsigned rows_b = dim_x_and_y;
@@ -32,19 +32,34 @@ int main(int argc, char const *argv[])
     // EMPIEZA my_papi --------------------------------------------->
     // Rellenar por el "usuario":
 
-    const unsigned num_events = 1;
-    const char* events[] = {"fp_arith_inst_retired.256b_packed_double"};
+    const char *events[] = {
+        "cycles",
+        "instructions",
+        "fp_arith_inst_retired.128b_packed_double",
+        "fp_arith_inst_retired.128b_packed_single",
+        // "fp_arith_inst_retired.256b_packed_double",
+        // "fp_arith_inst_retired.256b_packed_single",
+        "fp_arith_inst_retired.scalar_double",
+        "fp_arith_inst_retired.scalar_single"
+        // "fp_assist.any"
+    };
+
+    // NOTA: num. max. de eventos que puede medir papi simultaneamente
+    // es igual a 6. Si se ejecuta mas, se lanza un error.
+    const unsigned num_events = 6;
+    long long *values;
 
     int eventSet = my_start_events(events, num_events);
 
     // ROI -> Se multiplican
     M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 
-    long long *values;
-
     values = my_stop_events(eventSet, num_events);
 
-    printf("\tValue: %lld\n", *values);
+    for (int i = 0; i < num_events; i++)
+    {
+        printf("\t\tValue[%s]: %lld\n", events[i], values[i]);
+    }
 
     // <----------------------------------------------- ACABA my_papi
 
@@ -52,6 +67,7 @@ int main(int argc, char const *argv[])
     // printf("Matrix B: %s\n", arr_to_str(M_b, rows_b, cols_b));
     // printf("Matrix C: %s\n", arr_to_str(M_c, rows_a, cols_b));
 
+    free(values);
     free(M_a);
     free(M_b);
     free(M_c);
