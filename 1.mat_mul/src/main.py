@@ -102,5 +102,6 @@ if __name__ == "__main__":
     #
     # Sin embargo, hay que tener en cuenta las sumas que, también, son
     # medidas. Así, la ecuación a utilizar es: n**2(2n-1)
+    #
     ########################################################################
 # ------------------------------------------------------------------------ #

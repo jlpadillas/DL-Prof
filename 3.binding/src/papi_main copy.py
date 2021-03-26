@@ -3,17 +3,18 @@
 
 # standard library
 import sys
-import ctypes
-from ctypes import *
 # import pathlib
 
 # 3rd party packages
 import numpy as np
+import ctypes
+from ctypes import *
 
 # local source
-from system_setup import system_setup
 sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
+from system_setup import system_setup
 from matrix import matrix
+
 
 # ------------------------------------------------------------------------ #
 # Multiplicacion de dos matrices: A = M  N usando numpy
@@ -45,12 +46,11 @@ if __name__ == "__main__":
     #     option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 5000
+    dim_x = 3000
     dim_y = dim_x
 
     # Se crea el objeto
     mat = matrix(dim_x, dim_y)
-    # mat = matrix()
 
     # Se generan las dos matrices
     if option == "empty":
@@ -63,7 +63,6 @@ if __name__ == "__main__":
         raise mat.Error
 
     # Load the shared library into ctypes
-    # libname = pathlib.Path().absolute() / "libpapi.so.6.0"
     libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
     p_lib = CDLL(libname)
 
@@ -72,65 +71,55 @@ if __name__ == "__main__":
     # TODO: Hay que habilitar la lectura de los eventos bajando el nivel de seg.
     # sudo sysctl -w kernel.perf_event_paranoid=1
 
-    # print(type(p_lib))
-    # print("PAPI_is_initialized() = ", p_lib.PAPI_is_initialized())
-
-    # ROI
-    # # ----------------------------------------
-    # ptr_EventSet = ctypes.pointer(ctypes.c_int())
-    # values = ctypes.c_longlong
-
-    # # 1.
-    # p_lib.my_PAPI_library_init()
-    # # 2.
-    # p_lib.my_PAPI_create_eventset(ptr_EventSet)
-    # # 3.
-    # # p_lib.my_PAPI_add_named_event(ptr_EventSet, "SIMD_FP_256:PACKED_DOUBLE")
-    # # p_lib.my_PAPI_add_named_event(ptr_EventSet, "FP_COMP_OPS_EXE:SSE_SCALAR_DOUBLE")
-    # # 4.
-    # p_lib.my_PAPI_start(ptr_EventSet)
-
-    # # ---------------------
-    # # ROI -> Se multiplican
-    # mat.multiply()
-    # # ---------------------
-
-    # # 5.
-    # p_lib.stop(ptr_EventSet, values)
-    # # 6.
-    # p_lib.my_PAPI_shutdown()
-
-    # print(values)
-
     # -----------------------------------------------------
     # Ejecucion con una unica medida
     # -----------------------------------------------------
 
     # Se crea una lista con los eventos a medir
+    # events = [
+    #     "cycles",
+    #     "instructions",
+    #     # "fp_arith_inst_retired.128b_packed_double",
+    #     # "fp_arith_inst_retired.128b_packed_single",
+    #     "fp_arith_inst_retired.256b_packed_double",
+    #     "fp_arith_inst_retired.256b_packed_single",
+    #     # "fp_arith_inst_retired.scalar_double",
+    #     # "fp_arith_inst_retired.scalar_single"
+    #     # "fp_assist.any"
+    # ]
+
+    # // PC
+    # const char *events[] = [
     events = [
         "cycles",
         "instructions",
-        # "fp_arith_inst_retired.128b_packed_double",
-        # "fp_arith_inst_retired.128b_packed_single",
-        "fp_arith_inst_retired.256b_packed_double",
-        "fp_arith_inst_retired.256b_packed_single",
-        # "fp_arith_inst_retired.scalar_double",
-        # "fp_arith_inst_retired.scalar_single"
-        # "fp_assist.any"
+        # # "fp_assist.any",
+        # # "fp_assist.simd_input",
+        # # "fp_assist.simd_output",
+        # # "fp_assist.x87_input",
+        # # "fp_assist.x87_output",
+        # # "fp_comp_ops_exe.sse_packed_double",
+        # # "fp_comp_ops_exe.sse_packed_single",
+        # "fp_comp_ops_exe.sse_scalar_double",
+        # # "fp_comp_ops_exe.sse_scalar_single", # no encuentra el evento!!!!!
+        # # "fp_comp_ops_exe.x87",
+        # "simd_fp_256.packed_double",
+        # "simd_fp_256.packed_single"
     ]
 
+    # Se tiene que pasar a bytes para poder enviarlo a la funcion en C
     events_bytes = []
     for i in range(len(events)):
         events_bytes.append(bytes(events[i], 'utf-8'))
 
-    events_array = (ctypes.c_char_p * (len(events_bytes)+1))()
+    # Se crea un array con los eventos a pasar
+    events_array = (c_char_p * (len(events_bytes) + 1))()
 
+    # Corta el string para eliminar el last char = \n
     events_array[:-1] = events_bytes
 
-    # event = ctypes.c_char_p('CYCLES'.encode('ascii'))
-    # print(event.value)
 
-    # Es necesario reducir el nivel de perf para medir
+    # Es necesario reducir el nivel de perf para poder medir
     setup.set_perf_event_paranoid(1)
 
     # Empieza la medida de los eventos
@@ -140,16 +129,47 @@ if __name__ == "__main__":
     mat.multiply()
 
     # Finaliza la medida de los eventos
-    values = p_lib.my_stop_events(ptr_EventSet, len(events))
+    my_stop_events = p_lib.my_stop_events
+    # longlongArrayType = c_longlong * len(events)
+    my_stop_events.argtypes = [c_int, c_int]
+    # my_stop_events.restype = longlongArrayType
+    # values = p_lib.my_stop_events(ptr_EventSet, len(events))
+    # my_stop_events.restype = c_char_p   # c_char_p is a pointer to a string
+    # my_stop_events.restype = c_longlong * len(events)
+    my_stop_events.restype = POINTER(c_longlong) * len(events)
+
+    # pyArray = longlongArrayType()
+    # print(list(pyArray))
+    # pyArray = my_stop_events(ptr_EventSet, len(events))
+
+    # print(repr(my_stop_events(ptr_EventSet, len(events))))
 
     # Se sube el nivel de perf al que tenia por defecto
     setup.set_perf_event_paranoid()
-
+    # casa = (list(pyArray))
+    # print(casa)
+    # for i in casa:
+    #     print(int(i))
     # Se imprime el valor medido
-    print(values)
+    # for i in range(0, len(events)):
+    #     # print(i.value, end=" ")
+    #     print(result[i])
+    # print(len(result))
+    # print(repr(result))
+
+    # for i in range(len(events)):
+    #     print(ctypes.cast(pyArray[i], ctypes.c_ulong))
+
+    result = my_stop_events(ptr_EventSet, len(events))
+    for i in range(0, len(events)):
+        # ctypes.cast(result[i], ctypes.c_longlong)
+        print((result[i].contents).value)
+    
+    # result.contents
+
+    # ord(d)
 
     # g = (ctypes.c_char*40000).from_address(values)
-
 
     # -----------------------------------------------------
 
@@ -192,3 +212,38 @@ if __name__ == "__main__":
 
     # # Se imprime el valor medido
     # print(values)
+
+
+    # ----------------- sobra?
+    # print(type(p_lib))
+    # print("PAPI_is_initialized() = ", p_lib.PAPI_is_initialized())
+
+    # ROI
+    # # ----------------------------------------
+    # ptr_EventSet = ctypes.pointer(ctypes.c_int())
+    # values = ctypes.c_longlong
+
+    # # 1.
+    # p_lib.my_PAPI_library_init()
+    # # 2.
+    # p_lib.my_PAPI_create_eventset(ptr_EventSet)
+    # # 3.
+    # # p_lib.my_PAPI_add_named_event(ptr_EventSet, "SIMD_FP_256:PACKED_DOUBLE")
+    # # p_lib.my_PAPI_add_named_event(ptr_EventSet, "FP_COMP_OPS_EXE:SSE_SCALAR_DOUBLE")
+    # # 4.
+    # p_lib.my_PAPI_start(ptr_EventSet)
+
+    # # ---------------------
+    # # ROI -> Se multiplican
+    # mat.multiply()
+    # # ---------------------
+
+    # # 5.
+    # p_lib.stop(ptr_EventSet, values)
+    # # 6.
+    # p_lib.my_PAPI_shutdown()
+
+    # print(values)
+
+    # event = ctypes.c_char_p('CYCLES'.encode('ascii'))
+    # print(event.value)

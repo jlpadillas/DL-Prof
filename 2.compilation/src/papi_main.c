@@ -55,30 +55,29 @@ int main(int argc, char const *argv[])
         // "fp_assist.x87_input",
         // "fp_assist.x87_output",
         // "fp_comp_ops_exe.sse_packed_double",
-        // "fp_comp_ops_exe.sse_packed_single",
+        "fp_comp_ops_exe.sse_packed_single",
         "fp_comp_ops_exe.sse_scalar_double",
-        // "fp_comp_ops_exe.sse_scalar_single"
+        // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
         // "fp_comp_ops_exe.x87",
         "simd_fp_256.packed_double",
         "simd_fp_256.packed_single"
     };
 
     // NOTA: num. max. de eventos que puede medir papi simultaneamente
-    // es igual a 6. Si se ejecuta mas, se lanza un error. 5 en el pc
-    // de sobremesa.
-    const unsigned num_events = 5;
-    long long *values;
+    // es igual a 6. Si se ejecuta mas, se lanza un error.
+    const unsigned num_events = 6;
+    long long *values = (long long *)malloc(num_events * sizeof(long long));
 
     int eventSet = my_start_events(events, num_events);
 
     // ROI -> Se multiplican
     M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 
-    values = my_stop_events(eventSet, num_events);
+    my_stop_events(eventSet, num_events, values);
 
     for (int i = 0; i < num_events; i++)
     {
-        printf("\t\tValue[%s]: %lld\n", events[i], values[i]);
+        printf("\tValue[%s]: %lld\n", events[i], values[i]);
     }
 
     // <----------------------------------------------- ACABA my_papi

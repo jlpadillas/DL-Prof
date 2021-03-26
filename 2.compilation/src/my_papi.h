@@ -40,6 +40,8 @@ int my_PAPI_stop(int EventSet, long long *values);
 
 int my_start_events(const char *events[], int numEvents);
 
-long long *my_stop_events(int eventSet, int numEvents);
+// long long *my_stop_events(int eventSet, int numEvents);
+int my_stop_events(int eventSet, int numEvents, long long *values);
+
 
 #endif

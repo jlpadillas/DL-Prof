@@ -23,7 +23,7 @@ int my_PAPI_add_event(int EventSet, int Event)
 
 int my_PAPI_add_named_event(int EventSet, const char *EventName)
 {
-    printf("\tPAPI: '%s'\n", EventName);
+    // printf("\tPAPI: '%s'\n", EventName);
     if ((retval = PAPI_add_named_event(EventSet, EventName)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -97,11 +97,8 @@ int my_start_events(const char *events[], int numEvents)
     return eventSet;
 }
 
-long long *my_stop_events(int eventSet, int numEvents)
+int my_stop_events(int eventSet, int numEvents, long long *values)
 {
-    long long *values = (long long *)malloc(numEvents * sizeof(long long));
-
-    my_PAPI_stop(eventSet, values);
-
-    return values;
+    // Tengo que hacer el malloc aqui y otra funcion donde libere los datos
+    return my_PAPI_stop(eventSet, values);
 }

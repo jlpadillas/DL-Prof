@@ -31,6 +31,6 @@ main_c:
 	gcc -Wall ${SRC_DIR}/main.c -o ${BIN_DIR}/main ${BIN_DIR}/matrix
 	./${BIN_DIR}/main
 
-perf_c:
-	bash ${SRC_DIR}/perf.sh casa
+python:
+	python3 ${SRC_DIR}/papi_main.py zeros
 # --------------------------------------------------------------------------- #
