@@ -98,6 +98,7 @@ class system_setup(object):
 
     def set_perf_event_paranoid(self, value=3):
         """
+        This function solves the next warning of perf:
         ***************************************************************************
         * Insufficient permissions for accessing any hardware counters.           *
         * Your current paranoid level is 3.                                       *
@@ -113,7 +114,8 @@ class system_setup(object):
         """
         # value = 3  # Valor por defecto (activado)
         # Se modifica el valor con sysctl, que permite hacer cambios al kernel
-        command = ["sudo", "sysctl", "-w", "kernel.perf_event_paranoid=" + str(value)]
+        command = ["sudo", "sysctl", "-w",
+                   "kernel.perf_event_paranoid=" + str(value)]
         run(command, stdout=subprocess.DEVNULL)  # , stderr=subprocess.STDOUT)
     # ------------------------------------------------------------------------ #
 
@@ -123,6 +125,17 @@ class system_setup(object):
         core fisico devuelto por defecto es el 0 si no se pasa por parametro
         otro. i.e.: [0, 6] """
         return self.cores
+    # ------------------------------------------------------------------------ #
+
+    def get_num_logical_cores(self):
+        """Ejecuta el comando 'nproc' que te retorna el numero de cores logicos
+        en el sistema."""
+
+        command = ["nproc"]
+
+        data_run = run(command, stdout=subprocess.PIPE, encoding="utf-8")
+
+        return data_run.stdout
     # ------------------------------------------------------------------------ #
 
     def __take_cores(self, physical_core=None):
@@ -152,15 +165,4 @@ class system_setup(object):
             cores[CORE] = aux
 
         return cores.get(physical_core)  # print(cores.get(physical_core))
-    # ------------------------------------------------------------------------ #
-
-    def get_num_logical_cores(self):
-        """Ejecuta el comando 'nproc' que te retorna el numero de cores logicos
-        en el sistema."""
-
-        command = ["nproc"]
-
-        data_run = run(command, stdout=subprocess.PIPE, encoding="utf-8")
-
-        return data_run.stdout
     # ------------------------------------------------------------------------ #

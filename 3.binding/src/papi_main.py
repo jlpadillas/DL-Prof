@@ -3,7 +3,6 @@
 
 # standard library
 import sys
-import locale
 
 # 3rd party packages
 import numpy as np
@@ -36,14 +35,12 @@ if __name__ == "__main__":
         de rellenar las matrices con la funcion empty() o zeros().
     """
 
-    locale.setlocale(locale.LC_ALL, '')
-
     # TODO: Asignar una opción para generar las matrices
     if len(sys.argv) > 1:
         option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 5000
+    dim_x = 1000
     dim_y = dim_x
 
     # Se crea el objeto
@@ -71,21 +68,19 @@ if __name__ == "__main__":
 
     # // Portatil
     # events = [
-    #     "cycles",
-    #     "instructions",
     #     # "fp_arith_inst_retired.128b_packed_double",
     #     # "fp_arith_inst_retired.128b_packed_single",
     #     "fp_arith_inst_retired.256b_packed_double",
     #     "fp_arith_inst_retired.256b_packed_single",
     #     # "fp_arith_inst_retired.scalar_double",
     #     # "fp_arith_inst_retired.scalar_single"
-    #     # "fp_assist.any"
+    #     # "fp_assist.any",
+    #     "cycles",
+    #     "instructions",
     # ]
 
     # // PC
     events = [
-        "cycles",
-        "instructions",
         # "fp_assist.any",
         # "fp_assist.simd_input",
         # "fp_assist.simd_output",
@@ -97,7 +92,9 @@ if __name__ == "__main__":
         # "fp_comp_ops_exe.sse_scalar_single", # no encuentra el evento!!!!!
         # "fp_comp_ops_exe.x87",
         "simd_fp_256.packed_double",
-        "simd_fp_256.packed_single"
+        "simd_fp_256.packed_single",
+        "cycles",
+        "instructions"
     ]
 
     # -----------------------------------------------------
@@ -107,11 +104,9 @@ if __name__ == "__main__":
 
     mat.multiply()
 
-    res = mp.stop_measure()
+    mp.stop_measure()
     # -----------------------------------------------------
     # END ROI
     # -----------------------------------------------------
 
-    for i in range(len(events)):
-        print("\t> " + events[i] + ": " +
-              locale.format_string('%.0f', res[i], grouping=True))
+    mp.print_results()

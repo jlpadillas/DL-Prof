@@ -44,28 +44,33 @@ class matrix(object):
         else:
             self.dim_x = dim_x
             self.dim_y = dim_y
+    # -------------------------------------------------------------------- #
 
     def empty_matrices(self):
         """Genera dos matrices M y N con la funcion empty() de Numpy y de
         tipo float."""
         self.M = np.empty([self.dim_x, self.dim_y], dtype=float)
         self.N = np.empty([self.dim_x, self.dim_y], dtype=float)
+    # -------------------------------------------------------------------- #
 
     def zeros_matrices(self):
         """Genera dos matrices M y N con la funcion zeros() de Numpy y de
         tipo float."""
         self.M = np.zeros([self.dim_x, self.dim_y], dtype=float)
         self.N = np.zeros([self.dim_x, self.dim_y], dtype=float)
+    # -------------------------------------------------------------------- #
 
     def sequential_matrices(self):
         self.M = np.arange(
             self.dim_x * self.dim_y).reshape(self.dim_x, self.dim_y)
         #TODO
         pass
+    # -------------------------------------------------------------------- #
 
     def random_matrices(self):
         # TODO
         pass
+    # -------------------------------------------------------------------- #
 
     def multiply(self):
         """Multiplica las dos matrices M y N mediante la funcion matmul()
@@ -73,6 +78,7 @@ class matrix(object):
         if self.M is None or self.N is None:
             raise self.MatricesUndefinedError
         self.A = np.matmul(self.M, self.N)
+    # -------------------------------------------------------------------- #
 
     # -------------------------------------------------------------------- #
     # define Python user-defined exceptions
