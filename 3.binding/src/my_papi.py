@@ -8,6 +8,7 @@ import warnings
 # 3rd party packages
 from ctypes import *
 
+
 # local source
 from system_setup import system_setup
 
@@ -30,6 +31,7 @@ class my_papi(system_setup):
     libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI."""
 
     # Attributes
+    # ----------
     # self.cores = [] # Array de cores logicos pertenecientes al mismo fisico
     default_events = ["cycles", "instructions"]
     # self.p_lib = CDLL # Con el se puede acceder a la liberia y sus func.
@@ -96,8 +98,24 @@ class my_papi(system_setup):
 
     # -------------------------------------------------------------------- #
 
-    def get_results(self):
-        pass
+    def get_results(self, format=dict):
+        """
+        Return the results in a specific format.
+            @param: format dict or list
+            @return string with the results
+        """
+
+        # Check if the results are formated
+        try:
+            self.values_list and self.values_dict
+        except AttributeError:
+            self.__format_values()
+
+        # Returns the value
+        if format is dict:
+            return self.values_dict
+        elif format is list:
+            return self.values_list
     # -------------------------------------------------------------------- #
 
     def print_results(self, format=dict):
@@ -114,7 +132,7 @@ class my_papi(system_setup):
             self.__format_values()
 
         # Sets the locale for prints
-        locale.setlocale(locale.LC_ALL, '')
+        locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
         # Printing with a specific format
         if format is dict:
@@ -122,21 +140,16 @@ class my_papi(system_setup):
             print("{:>20}\t\t{:<}".format('Value', 'Event'))
             for event, value in self.values_dict.items():
                 # Items
+                print("{:>20_}\t\t{:<}".format(value, event).replace('_', '.'))
                 # print("{:>20}\t\t{:<}".format(
                 #     locale.format_string('%.0f', value, grouping=True), event))
-                print("{:>20,}\t\t{:<}".format(value, event))
 
         elif format is list:
-            print(self.values_list)
+            print(*self.values_list, sep="\t")
+            # for v in self.values_list:
+            #     print("{:>20}".format(locale.format_string('%.0f', v, grouping=True)))
 
     # -------------------------------------------------------------------- #
-
-    # def print_list(self):
-    #     """Print the results obtnaied as a list."""
-    #     # for i in range(len(self.events)):
-    #     #
-
-    # # -------------------------------------------------------------------- #
 
     def __format_values(self):
         """Transform the results obtanied as an array and as a dictionary"""

@@ -5,9 +5,6 @@
 import sys
 
 # 3rd party packages
-import numpy as np
-import ctypes
-from ctypes import *
 
 # local source
 sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
