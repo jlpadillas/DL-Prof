@@ -6,6 +6,8 @@
 // Number of threads
 #define NUM_THREADS 4
 
+void *__multi(void *arg);
+
 /*************************************************************************
  * *arr_to_str
  *  Description:

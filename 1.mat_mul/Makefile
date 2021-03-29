@@ -33,5 +33,5 @@ main_c:
 	./${BIN_DIR}/main
 
 perf_c:
-	bash ${SRC_DIR}/perf.sh casa
+	bash ${SRC_DIR}/perf.sh main
 # --------------------------------------------------------------------------- #

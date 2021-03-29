@@ -27,5 +27,8 @@ perf_taskset:
 perf:
 	bash ${SRC_DIR}/perf.sh mnist_1epoch_1thread.py
 
+perf_multithread:
+	bash ${SRC_DIR}/perf.sh mnist_1epoch_1thread.py
+
 python:
 	python3 ${SRC_DIR}/mnist_1epoch_1thread_papi.py

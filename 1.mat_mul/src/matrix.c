@@ -99,41 +99,42 @@ double *mat_mul_multithread(const double *M_a,
                             const double *M_b,
                             const unsigned rows_b, const unsigned cols_b)
 {
-    // TODO: Let's start with square matrices (nxn)
-    size_t i, j, k;
+    // // TODO: Let's start with square matrices (nxn)
+    // size_t i, j, k;
 
-    if (cols_a != rows_b)
-    {
-        fprintf(stderr, "#columns A must be equal to #rows B!\n");
-        exit(EXIT_FAILURE);
-    }
+    // if (cols_a != rows_b)
+    // {
+    //     fprintf(stderr, "#columns A must be equal to #rows B!\n");
+    //     exit(EXIT_FAILURE);
+    // }
 
-    double *M_b_Tr = (double *)malloc(rows_b * cols_b * sizeof(double));
-    double *M_c = (double *)malloc(rows_a * cols_b * sizeof(double));
-    if (M_c == NULL || M_b_Tr == NULL)
-    {
-        fprintf(stderr, "Couldn't allocate memory!\n");
-        exit(EXIT_FAILURE);
-    }
+    // double *M_b_Tr = (double *)malloc(rows_b * cols_b * sizeof(double));
+    // double *M_c = (double *)malloc(rows_a * cols_b * sizeof(double));
+    // if (M_c == NULL || M_b_Tr == NULL)
+    // {
+    //     fprintf(stderr, "Couldn't allocate memory!\n");
+    //     exit(EXIT_FAILURE);
+    // }
 
-    // Declaring the threads
-    pthread_t *threads;
-    threads = (pthread_t *)malloc(NUM_THREADS * sizeof(pthread_t));
+    // // Declaring the threads
+    // pthread_t *threads;
+    // threads = (pthread_t *)malloc(NUM_THREADS * sizeof(pthread_t));
 
-    // Creating four threads, each evaluating its own part
-    for (i = 0; i < NUM_THREADS; i++)
-    {
-        int *p;
-        pthread_create(&threads[i], NULL, __multi, (void *)(p));
-    }
+    // // Creating four threads, each evaluating its own part
+    // for (i = 0; i < NUM_THREADS; i++)
+    // {
+    //     int *p;
+    //     pthread_create(&threads[i], NULL, __multi, (void *)(p));
+    // }
 
-    // joining and waiting for all threads to complete
-    for (int i = 0; i < NUM_THREADS; i++)
-    {
-        pthread_join(threads[i], NULL);
-    }
+    // // joining and waiting for all threads to complete
+    // for (int i = 0; i < NUM_THREADS; i++)
+    // {
+    //     pthread_join(threads[i], NULL);
+    // }
 
-    return M_c;
+    // return M_c;
+    return NULL;
 }
 
 void *__multi(void *arg)
@@ -145,6 +146,7 @@ void *__multi(void *arg)
     //     for (int j = 0; j < MAX; j++)
     //         for (int k = 0; k < MAX; k++)
     //             matC[i][j] += matA[i][k] * matB[k][j];
+    return NULL;
 }
 
 double *mat_mul_transpose(const double *M_a,
