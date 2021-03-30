@@ -15,18 +15,10 @@
 # Comando: perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
 # -------------------------------------------------------------------------------------------
 
-# TensorFlow ≥2.0 is required
-import os
+
 import sys
-import tensorflow as tf
-assert tf.__version__ >= "2.0"
-
-from tensorflow import keras
-
 sys.path.append("/home/jlpadillas01/TFG/3.binding/src/")
 from my_papi import my_papi
-
-# ------------------------------------------------------------------------ #
 # Se crea un objeto de la clase my_papi
 libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
 mp = my_papi(libname)
@@ -46,8 +38,26 @@ events = [
     "cycles",
     "instructions"
 ]
-# ------------------------------------------------------------------------ #
 mp.start_measure(events)
+
+
+
+
+
+
+# TensorFlow ≥2.0 is required
+import os
+import tensorflow as tf
+assert tf.__version__ >= "2.0"
+
+from tensorflow import keras
+
+
+# ------------------------------------------------------------------------ #
+
+
+# ------------------------------------------------------------------------ #
+
 # -----------------------------------------------------
 # ROI
 # -----------------------------------------------------

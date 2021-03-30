@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "../../1.mat_mul/src/matrix.h"
-
+// #include "../../1.mat_mul/src/matrix.h"
+#include "matrix.h"
 
 int main(int argc, char const *argv[])
 {

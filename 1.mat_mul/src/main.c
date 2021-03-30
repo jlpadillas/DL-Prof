@@ -1,13 +1,58 @@
+/** 
+ * File:    main.c
+ * 
+ * Author:  Juan Luis Padilla Salome (juan-luis.padilla@alumnos.unican.es)
+ * Date:    Spring 2021
+ * 
+ * Summary of File:
+ * 
+ *   This file contains code which executes a matrix multiplication.
+ *   The main function allows to the user pass through parameters
+ *   relative to how populate the matrix, the size and which method
+ *   use to perform the multiplication.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include "matrix.h"
 
+/** 
+ * int main( int argc, char const *argv[] ) 
+ * 
+ * Summary of the main function:
+ * 
+ *    The Sort function, rearranges the given array of 
+ *    integers from highest to lowest 
+ * 
+ * Parameters   : array: containing integers 
+ * 
+ * Return Value : Nothing -- Note: Modifies the array "in place". 
+ * 
+ * Description: 
+ * 
+ *    This function utilizes the standard bubble sort algorithm... 
+ *    Note, the array is modified in place. 
+ * 
+ * Usage:
+ *    ./main [MATRIX_TYPE] [MATRIX_SIZE] [MULTIPLICATION_TYPE]
+ *
+ */
 int main(int argc, char const *argv[])
 {
-    /* Intializes random number generator */
+    // Intializes random number generator
     srand((unsigned)time(NULL));
 
+    // Reads the params passed by the user
+    // if (argc < 4)
+    // {
+    //     fprintf(stderr, "[ERROR] Wrong parameters!\nUsage: ./main "
+    //                     "[MATRIX_TYPE] [MATRIX_SIZE] [MULTIPLICATION_TYPE]\n");
+    //     return EXIT_FAILURE;
+    // }
+
+    // We will use square matrixes
+    // const unsigned dim_x_and_y = atol(argv[2]);
     const unsigned dim_x_and_y = 1000;
     const unsigned rows_a = dim_x_and_y;
     const unsigned cols_a = dim_x_and_y;

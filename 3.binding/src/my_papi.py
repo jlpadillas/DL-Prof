@@ -140,7 +140,7 @@ class my_papi(system_setup):
             print("{:>20}\t\t{:<}".format('Value', 'Event'))
             for event, value in self.values_dict.items():
                 # Items
-                print("{:>20_}\t\t{:<}".format(value, event).replace('_', '.'))
+                print("{:>20,}\t\t{:<}".format(value, event).replace(',', '.'))
                 # print("{:>20}\t\t{:<}".format(
                 #     locale.format_string('%.0f', value, grouping=True), event))
 

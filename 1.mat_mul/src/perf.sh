@@ -43,6 +43,7 @@ sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
 # TODO: Cambiar si estamos midiendo en python
 # sudo ${PERF} stat --event ${EVENTS} --cpu=0 taskset -c 0 ${PYTHON} \
 #     ${SRC_DIR}/${PROGRAM} ${PARAMS}
+
 # TODO: O estamos midiendo el main en C
 sudo ${PERF} stat --event ${EVENTS} --cpu=0 taskset -c 0 ./bin/main
 
