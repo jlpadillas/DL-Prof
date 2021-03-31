@@ -21,6 +21,9 @@ OUT_DIR = out
 clean:
 	rm -rf bin/*
 
+setup:
+	mkdir -p ${SRC_DIR} ${BIN_DIR} ${OUT_DIR}
+
 perf:
 	bash ${SRC_DIR}/perf.sh main.py zeros
 
