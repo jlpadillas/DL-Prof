@@ -25,15 +25,21 @@ setup:
 	mkdir -p ${SRC_DIR} ${BIN_DIR} ${OUT_DIR}
 
 perf:
-	bash ${SRC_DIR}/perf.sh main.py zeros
+	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros
 
 tlev:
 	bash ${SRC_DIR}/tlev.sh main.py zeros
 
 main_c:
 	gcc -Wall -c ${SRC_DIR}/matrix.c -pthread -o ${BIN_DIR}/matrix
-	gcc -Wall ${SRC_DIR}/main.c -o ${BIN_DIR}/main ${BIN_DIR}/matrix
+	gcc -Wall ${SRC_DIR}/main.c -pthread -o ${BIN_DIR}/main ${BIN_DIR}/matrix
 	./${BIN_DIR}/main
+
+main_multithread_c:
+	gcc -Wall -c ${SRC_DIR}/matrix.c -pthread -o ${BIN_DIR}/matrix
+	gcc -Wall ${SRC_DIR}/main_multithread.c -pthread \
+		-o ${BIN_DIR}/main_multi ${BIN_DIR}/matrix
+	./${BIN_DIR}/main_multi
 
 perf_c:
 	bash ${SRC_DIR}/perf.sh main

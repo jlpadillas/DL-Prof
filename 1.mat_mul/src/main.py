@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------ #
 __author__ = "Juan Luis Padilla Salomé"
 __copyright__ = "Copyright 2021"
-__credits__ = ["Universidad de Cantabria"]
+__credits__ = ["University of Cantabria"]
 __license__ = "GPL"
 __version__ = "1.0.0"
 __maintainer__ = "Juan Luis Padilla Salomé"

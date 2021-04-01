@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------ #
 # __author__ = "Juan Luis Padilla Salomé"
 # __copyright__ = "Copyright 2021"
-# __credits__ = ["Universidad de Cantabria"]
+# __credits__ = ["University of Cantabria"]
 # __license__ = "GPL"
 # __version__ = "1.0.0"
 # __maintainer__ = "Juan Luis Padilla Salomé"
@@ -98,3 +98,5 @@ fi
 sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal
 sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
 # ------------------------------------------------------------------------ #
+
+# TODO: Tratar el resultado obtenido en PERF para que sea más fácil de leer?

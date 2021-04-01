@@ -20,5 +20,8 @@
         "time.h": "c",
         "matrix.h": "c",
         "my_papi.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "Cantabria"
+    ]
 }

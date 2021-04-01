@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     /* Intializes random number generator */
     srand((unsigned)time(NULL));
 
-    const unsigned dim_x_and_y = 1000;
+    const unsigned dim_x_and_y = 5;
     const unsigned rows_a = dim_x_and_y;
     const unsigned cols_a = dim_x_and_y;
     const unsigned rows_b = dim_x_and_y;
@@ -26,15 +26,15 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    init_rand(M_a, rows_a, cols_a);
-    init_rand(M_b, rows_b, cols_b);
+    init_seq(M_a, rows_a, cols_a);
+    init_seq(M_b, rows_b, cols_b);
 
     // ROI -> Se multiplican
     M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 
-    // printf("Matrix A: %s\n", arr_to_str(M_a, rows_a, cols_a));
-    // printf("Matrix B: %s\n", arr_to_str(M_b, rows_b, cols_b));
-    // printf("Matrix C: %s\n", arr_to_str(M_c, rows_a, cols_b));
+    printf("Matrix A: %s\n", arr_to_str(M_a, rows_a, cols_a));
+    printf("Matrix B: %s\n", arr_to_str(M_b, rows_b, cols_b));
+    printf("Matrix C: %s\n", arr_to_str(M_c, rows_a, cols_b));
 
     free(M_a);
     free(M_b);
