@@ -30,13 +30,14 @@ perf:
 tlev:
 	bash ${SRC_DIR}/tlev.sh main.py zeros
 
-main_c:
-	gcc -Wall -c ${SRC_DIR}/matrix.c -pthread -o ${BIN_DIR}/matrix
+matrix:
+	gcc -Wall -Werror -c ${SRC_DIR}/matrix.c -pthread -o ${BIN_DIR}/matrix
+
+main_c: matrix
 	gcc -Wall ${SRC_DIR}/main.c -pthread -o ${BIN_DIR}/main ${BIN_DIR}/matrix
 	./${BIN_DIR}/main
 
-main_multithread_c:
-	gcc -Wall -c ${SRC_DIR}/matrix.c -pthread -o ${BIN_DIR}/matrix
+main_multithread_c: matrix
 	gcc -Wall ${SRC_DIR}/main_multithread.c -pthread \
 		-o ${BIN_DIR}/main_multi ${BIN_DIR}/matrix
 	./${BIN_DIR}/main_multi

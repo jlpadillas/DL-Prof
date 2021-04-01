@@ -17,7 +17,8 @@
 #include <time.h>
 #include "matrix.h"
 
-#define DEBUG
+// #define DEBUG
+
 /** 
  * int main( int argc, char const *argv[] ) 
  * 
@@ -54,7 +55,7 @@ int main(int argc, char const *argv[])
 
     // We will use square matrixes
     // const unsigned dim_x_and_y = atol(argv[2]);
-    const unsigned dim_x_and_y = 5;
+    const unsigned dim_x_and_y = 1000;
     const unsigned rows_a = dim_x_and_y;
     const unsigned cols_a = dim_x_and_y;
     const unsigned rows_b = dim_x_and_y;

@@ -2,23 +2,27 @@
 #define MATRIX_H
 
 #define MAX_RANDOM 10 // Maximum value of a single element of the arrays
-#define NUM_THREADS 4 // Number of threads
+#define NUM_THREADS 8 // Number of threads
 
 typedef struct __mat_mul_arg
 {
     int id;                // Thread id
-    double *M_a;           // Matrix A
-    unsigned rows_a;       // Number of rows in matrix A
-    unsigned cols_a;       // Number of cols in matrix A
-    double *M_b;           // Matrix B
-    unsigned rows_b;       // Number of rows in matrix B
-    unsigned cols_b;       // Number of cols in matrix B
     double *M_c;           // Matrix C
     unsigned rows_c_start; // Number of rows in matrix C
     unsigned rows_c_end;   // Number of rows in matrix C
     unsigned cols_c_start; // Number of cols in matrix C
     unsigned cols_c_end;   // Number of cols in matrix C
 } MAT_MUL_ARG;
+
+typedef struct __mat_mul
+{
+    double *M_a;     // Matrix A
+    unsigned rows_a; // Number of rows in matrix A
+    unsigned cols_a; // Number of cols in matrix A
+    double *M_b;     // Matrix B
+    unsigned rows_b; // Number of rows in matrix B
+    unsigned cols_b; // Number of cols in matrix B
+} MAT_MUL;
 
 /*************************************************************************
  * arr_to_str
