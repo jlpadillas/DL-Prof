@@ -26,7 +26,6 @@ if __name__ == "__main__":
     import locale
 
     # 3rd party packages
-    import numpy as np
 
     # local source
     from matrix import matrix

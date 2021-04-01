@@ -38,6 +38,8 @@ Program:
 Options:
    -h, --help
         show this message and exit.
+   -t, --taskset
+        executes the program in one CPU (cpu=0)
 HELP_USAGE
 }
 
@@ -45,6 +47,40 @@ if [[ -z $1 ]] || [[ $1 = "--help" ]] || [[ $1 = "-h" ]]; then
     usage
     exit
 fi
+
+# ------------------------------------------------------------------------ #
+# Read arguments
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        -t|--taskset)
+        TASKSET=YES
+        shift # past argument
+        # shift # past value
+        ;;
+        # -s|--searchpath)
+        # SEARCHPATH="$2"
+        # shift # past argument
+        # shift # past value
+        # ;;
+        # -l|--lib)
+        # LIBPATH="$2"
+        # shift # past argument
+        # shift # past value
+        # ;;
+        # --default)
+        # DEFAULT=YES
+        # shift # past argument
+        # ;;
+        *)    # unknown option
+        POSITIONAL+=("$1") # save it in an array for later
+        shift # past argument
+        ;;
+    esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
 
 # ------------------------------------------------------------------------ #
 # Variables
@@ -82,16 +118,22 @@ if [[ $PROGRAM == *"."* ]]; then # It has an extension
     fi
 fi
 
+# Check taskset param
+TASKSET_PAR=" --cpu=0 taskset -c 0"
+if [[ -z ${TASKSET+x} ]]; then
+    TASKSET_PAR=""
+fi
+
 # ------------------------------------------------------------------------ #
 # Start measure
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
 
 if [[ $FILE_EXTN == "" ]]; then
-    sudo "${PERF}" stat --event "${EVENTS}" --cpu=0 taskset -c 0 \
+    eval sudo "${PERF}" stat --event "${EVENTS}""${TASKSET_PAR}" \
         "${PROGRAM}" "${PARAMS[@]}"
 else
-    sudo "${PERF}" stat --event "${EVENTS}" --cpu=0 taskset -c 0 "${EXEC}" \
+    eval sudo "${PERF}" stat --event "${EVENTS}""${TASKSET_PAR}" "${EXEC}" \
         "${PROGRAM}" "${PARAMS[@]}"
 fi
 
