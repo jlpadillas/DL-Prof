@@ -45,9 +45,9 @@ if __name__ == "__main__":
 
     # Se generan las dos matrices
     if option == "empty":
-        mat.empty_matrices()
+        mat.init_empty()
     elif option == "zeros":
-        mat.zeros_matrices()
+        mat.init_zeros()
     else:
         print("ERROR: Wrong generation of matrices. Run the program with "
               "argument 'empty' or 'zeros'.")
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # -----------------------------------------------------
     mp.start_measure(events)
 
-    mat.multiply()
+    mat.mat_mul()
 
     mp.stop_measure()
     # -----------------------------------------------------

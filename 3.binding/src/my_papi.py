@@ -48,6 +48,9 @@ class my_papi(system_setup):
         # Loads the library path
         self.__set_my_lib(path)
 
+        # Establish the warning format
+        warnings.formatwarning = self.__warning_on_one_line
+
     # -------------------------------------------------------------------- #
 
     def start_measure(self, events=None):
@@ -55,7 +58,6 @@ class my_papi(system_setup):
 
         # If none events is passed, it just measured the default events.
         if events is None:
-            warnings.formatwarning = self.__warning_on_one_line
             warnings.warn(
                 "No input events, measuring default events!", Warning)
             self.events = self.default_events

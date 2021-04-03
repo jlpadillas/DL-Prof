@@ -39,7 +39,7 @@ if __name__ == "__main__":
         option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 5000
+    dim_x = 6000
     dim_y = dim_x
 
     # Se crea el objeto
@@ -48,16 +48,16 @@ if __name__ == "__main__":
 
     # Se generan las dos matrices
     if option == "empty":
-        mat.empty_matrices()
+        mat.init_empty()
     elif option == "zeros":
-        mat.zeros_matrices()
+        mat.init_zeros()
     else:
         print("ERROR: Wrong generation of matrices. Run the program with "
               "argument 'empty' or 'zeros'.")
         raise mat.Error
 
     # ROI -> Se multiplican
-    mat.multiply()
+    mat.mat_mul()
 
     # print(M)
     # print(N)

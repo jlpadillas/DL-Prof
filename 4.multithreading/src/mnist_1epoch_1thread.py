@@ -26,8 +26,8 @@ from tensorflow import keras
 # print(tf.config.threading.get_inter_op_parallelism_threads(), 
 #     tf.config.threading.get_intra_op_parallelism_threads())
 
-tf.config.threading.set_inter_op_parallelism_threads(1)
-tf.config.threading.set_intra_op_parallelism_threads(1)
+# tf.config.threading.set_inter_op_parallelism_threads(1)
+# tf.config.threading.set_intra_op_parallelism_threads(1)
 
 # print(tf.config.threading.get_inter_op_parallelism_threads(), 
 #     tf.config.threading.get_intra_op_parallelism_threads())
@@ -56,7 +56,7 @@ model.compile(loss="sparse_categorical_crossentropy",
               optimizer="sgd",
               metrics=["accuracy"])
 
-history = model.fit(X_train, y_train, epochs=10,
+history = model.fit(X_train, y_train, epochs=1,
                     validation_data=(X_valid, y_valid))
 
 # model.evaluate(X_test, y_test)

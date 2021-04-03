@@ -54,9 +54,9 @@ if __name__ == "__main__":
 
     # Se generan las dos matrices
     if option == "empty":
-        mat.empty_matrices()
+        mat.init_empty()
     elif option == "zeros":
-        mat.zeros_matrices()
+        mat.init_zeros()
     else:
         print("ERROR: Wrong generation of matrices. Run the program with "
               "argument 'empty' or 'zeros'.")
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     ptr_EventSet = p_lib.my_start_events(events_array, len(events))
 
     # ROI
-    mat.multiply()
+    mat.mat_mul()
 
     # Finaliza la medida de los eventos
     my_stop_events = p_lib.my_stop_events
