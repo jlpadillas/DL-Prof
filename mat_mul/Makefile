@@ -1,12 +1,5 @@
 # --------------------------------------------------------------------------- #
-# .PHONY defines parts of the makefile that are not dependant on any specific
-# file
-# This is most often used to store functions
-.PHONY = perf tlev clean
-
-# Defines the default target that `make` will to try to make, or in the case of
-# a phony target, execute the specified commands. This target is executed
-# whenever we just type `make`
+.PHONY = clean setup
 .DEFAULT_GOAL = clean
 
 # --------------------------------------------------------------------------- #
@@ -16,19 +9,24 @@ SRC_DIR = src
 BIN_DIR = bin
 # Directory where result files are saved
 OUT_DIR = out
+# Directory where result files are saved
+LIB_DIR = lib
 # Flags used to compile c files
 CFLAGS = -Wall -Werror
+CC = gcc
 # --------------------------------------------------------------------------- #
 clean:
-	rm -rf bin/*
+	rm -rf bin/* lib/*
 
 setup:
-	mkdir -p ${SRC_DIR} ${BIN_DIR} ${OUT_DIR}
+	mkdir -p ${SRC_DIR} ${BIN_DIR} ${OUT_DIR} ${LIB_DIR}
 
 # --------------------------------------------------------------------------- #
 # C FILES
-compile:
-	gcc ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix -pthread
+matrix:
+	gcc ${CFLAGS} ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix -c -pthread
+
+compile: matrix
 	gcc ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main ${BIN_DIR}/matrix -pthread
 
 c_main: compile

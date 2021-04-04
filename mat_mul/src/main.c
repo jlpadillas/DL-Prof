@@ -18,6 +18,11 @@
 #include <time.h>
 #include "matrix.h"
 
+#ifdef MY_PAPI
+#include "my_papi.h"
+#endif // MY_PAPI
+
+// #define MY_PAPI
 // #define DEBUG
 #define MAX_MATRIX_SIZE 100000
 
@@ -153,6 +158,47 @@ int main(int argc, char const *argv[])
         break; // This line should never be executed
     }
 
+#ifdef MY_PAPI
+    // ! Modify this lines
+    // portatil
+    // const char *events[] = {
+    //     "cycles",
+    //     "instructions",
+    //     "fp_arith_inst_retired.128b_packed_double",
+    //     "fp_arith_inst_retired.128b_packed_single",
+    //     // "fp_arith_inst_retired.256b_packed_double",
+    //     // "fp_arith_inst_retired.256b_packed_single",
+    //     "fp_arith_inst_retired.scalar_double",
+    //     "fp_arith_inst_retired.scalar_single"
+    //     // "fp_assist.any"
+    // };
+
+    // PC
+    const char *events[] = {
+        "cycles",
+        "instructions",
+        // "fp_assist.any",
+        // "fp_assist.simd_input",
+        // "fp_assist.simd_output",
+        // "fp_assist.x87_input",
+        // "fp_assist.x87_output",
+        // "fp_comp_ops_exe.sse_packed_double",
+        "fp_comp_ops_exe.sse_packed_single",
+        "fp_comp_ops_exe.sse_scalar_double",
+        // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
+        // "fp_comp_ops_exe.x87",
+        "simd_fp_256.packed_double",
+        "simd_fp_256.packed_single"
+    };
+
+    // NOTA: num. max. de eventos que puede medir papi simultaneamente
+    // es igual a 6. Si se ejecuta mas, se lanza un error.
+    const unsigned num_events = 6;
+    long long *values = (long long *)malloc(num_events * sizeof(long long));
+
+    int eventSet = my_start_events(events, num_events);
+#endif // MY_PAPI
+
     // ROI -> Matrices are multiplied
     switch (Mul_type)
     {
@@ -168,6 +214,15 @@ int main(int argc, char const *argv[])
     default:
         break; // This line should never be executed
     }
+
+#ifdef MY_PAPI
+    my_stop_events(eventSet, num_events, values);
+
+    for (int i = 0; i < num_events; i++)
+    {
+        printf("\tValue[%s]: %lld\n", events[i], values[i]);
+    }
+#endif // MY_PAPI
 
 #ifdef DEBUG
     printf("Matrix A: %s\n", arr_to_str(M_a, rows_a, cols_a));
