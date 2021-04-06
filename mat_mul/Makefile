@@ -69,7 +69,7 @@ py_perf_multithread_taskset:
 # --------------------------------------------------------------------------- #
 
 execution:
-	bash ${SRC_DIR}/execution.sh
+	bash execution.sh
 
 
 

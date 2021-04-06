@@ -113,8 +113,11 @@ if [[ $PROGRAM == *"."* ]]; then # It has an extension
     if [[ $FILE_EXTN == "py" ]]; then
         EXEC=$(which python3)
     else
-        echoerr "[ERROR] Extension '$FILE_EXTN' not supported."
-        exit 1
+        # Check if it's: ./[anything]
+        if ! [[ $FILE_EXTN == /* ]]; then
+            echoerr "[ERROR] Extension '$FILE_EXTN' not supported."
+            exit 1
+        fi
     fi
 fi
 
