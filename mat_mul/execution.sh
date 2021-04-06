@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+
+# Starting program...
+start=$(date +%s)
+
 # --------------------------------------------------------------------------- #
 # Functions
 # --------------------------------------------------------------------------- #
@@ -21,6 +25,145 @@ set_environment () {
   sudo cpupower frequency-set --governor userspace
   # Establece la frecuencia del CPU
   sudo cpupower frequency-set --freq $FREQ
+}
+
+
+
+
+# With -x, perf stat is able to output a not-quite-CSV format output Commas in the output are not put into "".
+# To make it easy to parse it is recommended to use a different character like -x \;
+
+# The fields are in this order:
+
+# •   optional usec time stamp in fractions of second (with -I xxx)
+
+# •   optional CPU, core, or socket identifier
+
+# •   optional number of logical CPUs aggregated
+
+# •   counter value
+
+# •   unit of the counter value or empty
+
+# •   event name
+
+# •   run time of counter
+
+# •   percentage of measurement time the counter was running
+
+# •   optional variance if multiple values are collected with -r
+
+# •   optional metric value
+
+# •   optional unit of metric
+
+# Additional metrics may be printed with all earlier fields being empty.
+
+# ---------------------------------------------
+
+# 3449195817::instructions:221979762:35,75:1:insn per cycle
+# 2242014845::cycles:267154596:43,02::
+# 0::fp_assist.any:270837981:43,62::
+# 0::fp_assist.simd_input:270907525:43,63::
+# 0::fp_assist.simd_output:270989133:43,64::
+# 0::fp_assist.x87_input:270978093:43,64::
+# 0::fp_assist.x87_output:175061758:28,19::
+# 0::fp_comp_ops_exe.sse_packed_double:175027661:28,19::
+# 0::fp_comp_ops_exe.sse_packed_single:175098694:28,20::
+# 663358917::fp_comp_ops_exe.sse_scalar_double:174921480:28,17::
+# 0::fp_comp_ops_exe.sse_scalar_single:175051892:28,19::
+# 14645::fp_comp_ops_exe.x87:175016445:28,19::
+# 0::simd_fp_256.packed_double:174863804:28,16::
+# 0::simd_fp_256.packed_single:175052058:28,19::
+
+
+format () {
+  # Se guardan los parametros en var. locales
+  local STR=$1
+  local FILE=$2
+  # Se separa el contenido para leerlo
+  echo "$STR" | 
+  readarray -t array <<< "$STR"
+
+  declare -p array
+
+  echo "$array"
+
+
+
+  # DATA=$(echo "$STR" | tr ' ' '-') # array w 1 element
+
+  # IFS=', ' read -r -a array <<< "$DATA"
+
+  # readarray -td, a <<<"$DATA,"; declare -p a;
+
+  # readarray -td, a <<<"$STR\n"; unset 'a[-1]'; declare -p a;
+  # readarray -td '' a < <(awk '{ gsub(/, /,"\0"); print; }' <<<"$STR,"); unset 'a[-1]';
+  # declare -p a;
+
+
+  # echo "${#a[@]}" "SIUUUUUUUU"
+
+
+  # readarray -td '' a < <(awk '{ gsub(/, /,"\0"); print; }' <<<"$string, "); unset 'a[-1]';
+  # declare -p a;
+  # ## declare -a a=([0]="Paris" [1]="France" [2]="Europe")
+
+
+
+  # function mfcb { local val="$4"; "$1"; eval "$2[$3]=\$val;"; };
+  # function val_ltrim { if [[ "$val" =~ ^[[:space:]]+ ]]; then val="${val:${#BASH_REMATCH[0]}}"; fi; };
+  # function val_rtrim { if [[ "$val" =~ [[:space:]]+$ ]]; then val="${val:0:${#val}-${#BASH_REMATCH[0]}}"; fi; };
+  # function val_trim { val_ltrim; val_rtrim; };
+  # readarray -c1 -C 'mfcb val_trim a' -td, <<<"$STR,"; unset 'a[-1]'; declare -p a;
+  # declare -a a=([0]="Paris" [1]="France" [2]="Europe")
+
+
+  # echo "Hola %s" "${a[14]}"
+
+
+  # | tr ':' '\n'
+  # declare -a DATA=$DATA
+  # eval echo "$STR" | tr ':' '\t' >> "$FILE" 2>&1
+
+
+  # lines=$(echo "$DATA" | tr ':' '\n')
+
+  # # echo "${lines[0]}"
+
+
+  # echo "${#lines[@]}" "SIUUUUUUUU"
+
+  # for i in "${DATA[@]}"; do
+  # # for line in "${DATA[@]}"; do
+
+  #   # echo "$i"
+  #   printf "%s <- end\n" "$i[0]"
+  #   # echo "$line[0] ---"
+
+  #   # for j in $i; do
+  #   #   LINE=$(echo "$j" | tr ':' '\n')
+  #   #   L_0=${i[0]}
+  #   #   L_1=${LINE[1]}
+  #   #   L_2=${LINE[2]}
+  #   #   L_3=${i[3]}
+  #   #   # L_4=${LINE[4]}
+  #   #   # L_5=${LINE[5]}
+  #   #   # L_6=${LINE[6]}
+  #   #   # for k in "${LINE[@]}"; do
+  #   #   #   printf "%s" "$k"
+  #   #   #   # echo "$j"
+  #   #   #   printf "\n"
+  #   #   # done
+
+  #   #   echo "$L_0 - $L_3" >> "$FILE" 2>&1
+  #   # done
+  
+  
+  # done
+
+  # echo "${DATA[0]}" >> "$FILE" 2>&1
+  # echo "$DATA" >> "$FILE" 2>&1
 }
 
 # --------------------------------------------------------------------------- #
@@ -122,7 +265,7 @@ for m_type in "${M_TYPE[@]}"; do
       # for program in "main_papi" "main"; do
       for program in "main" "main_papi"; do
         printf "\t\t\tProgram: %s\n" "$program" >> "$FILE"
-        
+
         for season in 1 2; do
           # 2 estaciones de prueba
           printf "\tSeason: %s\n" "$season" >> "$FILE" # numero de season
@@ -132,8 +275,9 @@ for m_type in "${M_TYPE[@]}"; do
               eval bash "${SRC_DIR}/"perf.sh --papi "${BIN_DIR}/"${program} \
                 "$m_type" "$m_size" "$m_mult" >> "$FILE" 2>&1
             else
-              eval bash "${SRC_DIR}/"perf.sh "${BIN_DIR}/"${program} \
-                "$m_type" "$m_size" "$m_mult" >> "$FILE" 2>&1
+              CASA=$(eval bash "${SRC_DIR}/"perf.sh "${BIN_DIR}/"${program} \
+                "$m_type" "$m_size" "$m_mult" 2>&1)
+              format "$CASA" "$FILE"
             fi
 
             sleep 1
@@ -148,61 +292,8 @@ for m_type in "${M_TYPE[@]}"; do
   printf " ======================================================= \n" >> "$FILE"
 done
 
-
 # ./${BIN_DIR}/main_papi RAND 500 NORMAL
 
-
-
-# # Empieza la ejecucion
-# printf "CPU:" >> $FILE
-# ./${BIN_DIR}/main RAND 500 NORMAL
-# for NP in "${NUM_CPUS[@]}"
-# do
-#   printf " $NP" >> $FILE
-# done
-# printf "\n\t\t\tUser\tSystem\tElapsed\t%%CPU\n" >> $FILE
-# # 2 estaciones de prueba
-# for season in 1 2
-# do
-#   printf "\tSeason: $season\n" >> $FILE # numero de season
-#   program=trap_sec
-#   printf "\t\t$program : \n" >> $FILE
-#   for i in `seq 1 1 11`; # 11 = 10 + 1 de warm-up
-#   do
-#     $EXE --format $FORMAT -o $FILE --append $BIN/$program $DATA_A $DATA_B $DATA_N # results dumped
-#     sleep 1
-#   done
-# done
-
-
-# # Empieza la ejecucion con un bucle que varia el num de CPUs
-# for NP in "${NUM_CPUS[@]}"
-# do
-#   printf "CPU: $NP\n" >> $FILE
-#   printf "\t\t\tUser\tSystem\tElapsed\t%%CPU\n" >> $FILE
-#   # 2 estaciones de prueba
-#   for season in 1 2
-#   do
-#     printf "\tSeason: $season\n" >> $FILE # numero de season
-#     program=trap_th
-#     printf "\t\t$program : \n" >> $FILE
-#     for i in `seq 1 1 11`; # 11 = 10 + 1 de warm-up
-#     do
-#       $EXE --format $FORMAT -o $FILE --append $BIN/$program $DATA_A $DATA_B $DATA_N $NP # results dumped
-#       sleep 1
-#     done
-
-#     # Para ejecutar el programa con mpi se necesita un comando y no el ./
-#     program=trap_mpi
-#     printf "\t\t$program : \n" >> $FILE
-#     for i in `seq 1 1 11`; # 11 = 10 + 1 de warm-up
-#       do
-#         $EXE --format $FORMAT -o $FILE --append mpirun --oversubscribe --mca btl_vader_single_copy_mechanism \
-#         none -np $NP $BIN/$program $DATA_A $DATA_B $DATA_N # results dumped
-#         sleep 1
-#       done
-#   done
-#   printf " ------------------------------------------------------------ \n" >> $FILE
-# done
-# printf "END of execution.sh" >> $FILE
-# echo "done"
+# Ending program!
+end=$(date +%s)
+echo "Execution time was $(("$end" - "$start")) seconds."
