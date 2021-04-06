@@ -38,6 +38,8 @@ Program:
 Options:
    -h, --help
         show this message and exit.
+   -p, --papi
+        executes the program and dont measure it with perf
    -t, --taskset
         executes the program in one CPU (cpu=0)
 HELP_USAGE
@@ -55,6 +57,11 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
+        -p|--papi)
+        PAPI=YES
+        shift # past argument
+        # shift # past value
+        ;;
         -t|--taskset)
         TASKSET=YES
         shift # past argument
@@ -69,10 +76,6 @@ while [[ $# -gt 0 ]]; do
         # LIBPATH="$2"
         # shift # past argument
         # shift # past value
-        # ;;
-        # --default)
-        # DEFAULT=YES
-        # shift # past argument
         # ;;
         *)    # unknown option
         POSITIONAL+=("$1") # save it in an array for later
@@ -127,17 +130,24 @@ if [[ -z ${TASKSET+x} ]]; then
     TASKSET_PAR=""
 fi
 
+FORMAT=-x:
+
 # ------------------------------------------------------------------------ #
 # Start measure
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
 
-if [[ $FILE_EXTN == "" ]]; then
-    eval sudo "${PERF}" stat --event "${EVENTS}""${TASKSET_PAR}" \
-        "${PROGRAM}" "${PARAMS[@]}"
+if [[ -z ${PAPI+x} ]]; then
+    if [[ $FILE_EXTN == "" ]]; then
+        eval sudo "${PERF}" stat $FORMAT --event "${EVENTS}""${TASKSET_PAR}" \
+            "${PROGRAM}" "${PARAMS[@]}"
+    else
+        eval sudo "${PERF}" stat $FORMAT --event "${EVENTS}""${TASKSET_PAR}" \
+            "${EXEC}" "${PROGRAM}" "${PARAMS[@]}"
+    fi
 else
-    eval sudo "${PERF}" stat --event "${EVENTS}""${TASKSET_PAR}" "${EXEC}" \
-        "${PROGRAM}" "${PARAMS[@]}"
+    # Just execute the program
+    eval sudo "${PROGRAM}" "${PARAMS[@]}"
 fi
 
 sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal

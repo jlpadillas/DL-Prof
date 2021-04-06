@@ -77,7 +77,7 @@ int main(int argc, char const *argv[])
 
     for (int i = 0; i < num_events; i++)
     {
-        printf("\tValue[%s]: %lld\n", events[i], values[i]);
+        printf("%s:\t%lld\n", events[i], values[i]);
     }
 
     // <----------------------------------------------- ACABA my_papi
