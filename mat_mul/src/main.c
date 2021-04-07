@@ -186,8 +186,8 @@ int main(int argc, char const *argv[])
         "fp_comp_ops_exe.sse_packed_single",
         "fp_comp_ops_exe.sse_scalar_double",
         // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
-        // "fp_comp_ops_exe.x87",
-        "simd_fp_256.packed_double",
+        "fp_comp_ops_exe.x87",
+        // "simd_fp_256.packed_double",
         "simd_fp_256.packed_single"
     };
 
@@ -217,13 +217,15 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     my_stop_events(eventSet, num_events, values);
-    printf("=======================================================\n");
-    printf("%-40s%-15s\n", "Event", "Value");
-    printf("=======================================================\n");
+    printf("%s\n", "+---------------------------------------+--------------+");
+    printf("| %-38s| %-13s|\n", "Event", "Value");
+    printf("%s\n", "+---------------------------------------+--------------+");
     for (int i = 0; i < num_events; i++)
     {
-        printf("%-40s%-15lld\n", events[i], values[i]);
+        printf("| %-38s| %-13lld|\n", events[i], values[i]);
     }
+    printf("%s\n", "+---------------------------------------+--------------+");
+    free(values);
 #endif // MY_PAPI
 
 #ifdef DEBUG

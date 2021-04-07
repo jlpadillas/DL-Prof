@@ -102,3 +102,5 @@ int my_stop_events(int eventSet, int numEvents, long long *values)
     // Tengo que hacer el malloc aqui y otra funcion donde libere los datos
     return my_PAPI_stop(eventSet, values);
 }
+
+// TODO: char* my_print_events(...)

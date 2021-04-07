@@ -42,20 +42,20 @@ format () {
 # •   optional unit of metric
 # Additional metrics may be printed with all earlier fields being empty.
 
-  # Se guardan los parametros en var. locales
-  local STR=$1
-  local FILE=$2
   # Se separa el contenido para leerlo
-  readarray -t array <<< "$STR"
-  {
-    printf "=======================================================\n"
-    printf "%-40s%-15s\n" "Event" "Value"
-    printf "=======================================================\n"
-    for line in "${array[@]}"; do
-      readarray -td: data <<< "$line"
-      printf "%-40s%-15lld\n" "${data[2]}" "${data[0]}"
-    done
-  }  >> "$FILE"
+  readarray -t array <<< "$1"
+  printf "%s\n" "+---------------------------------------+-----------------+"
+  printf "| %-38s| %-16s|\n" "Event" "Value"
+  printf "%s\n" "+---------------------------------------+-----------------+"
+  for line in "${array[@]}"; do
+    readarray -td: data <<< "$line"
+    local counter_val="${data[0]}"
+    local event_name="${data[2]}"
+    if [[ $counter_val -ne 0 ]]; then
+      printf "| %-38s| %'-16lld|\n" "${event_name}" "${counter_val}"
+    fi
+  done
+  printf "%s\n" "+---------------------------------------+-----------------+"
 }
 
 # --------------------------------------------------------------------------- #
@@ -83,21 +83,6 @@ if [ -f "$FILE" ]; then
   rm "$FILE"
 fi
 touch "$FILE"
-
-# Programa con el que mediremos el tiempo de ejecucion
-# EXE=/usr/bin/time
-
-# Se definen las CPUs con las que se prueba
-# NUM_CPUS=( 2 4 6 8 10 )
-
-# Datos a pasar como parametros
-# DATA_A=-50.9
-# DATA_B=60.3
-# DATA_N=1000000
-
-# Formato de salida del comando time
-# FORMAT='\t\t\t%U\t%S\t%E\t\t%P'
-
 
 # --------------------------------------------------------------------------- #
 # C
@@ -134,55 +119,57 @@ declare -a M_TYPE=( "SEQ" )
 # declare -a M_SIZE=( 1024 10240 )
 declare -a M_SIZE=( 512 )
 # declare -a M_MULT=( "MULTITHREAD" "NORMAL" "TRANSPOSE" )
-declare -a M_MULT=( "NORMAL" )
+declare -a M_MULT=( "TRANSPOSE" "MULTITHREAD")
 
-# ./bin/main SEQ 512 NORMAL
+declare -a TASKSET=( "YES" "NO")
 
-# Empieza la ejecucion de los programas
-for m_type in "${M_TYPE[@]}"; do
-  # Tipo de matriz: RANDO o SEQUENTIAL
-  printf " ======================================================= \n" >> "$FILE"
-  printf "[%s]\n" "$m_type" >> "$FILE"
+{
+  for m_type in "${M_TYPE[@]}"; do
+    # Tipo de matriz: RANDOM o SEQUENTIAL
 
-  for m_size in "${M_SIZE[@]}"; do
-    # Tamanho de la matriz: 1024, ..., 10240
-    printf " -------------------------------------------------- \n" >> "$FILE"
-    printf "\t[%s]\n" "$m_size" >> "$FILE"
+    for m_size in "${M_SIZE[@]}"; do
+      # Tamanho de la matriz: 1024, ..., 10240
 
-    for m_mult in "${M_MULT[@]}"; do
-      # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
-      printf " _____________________________________________ \n" >> "$FILE"
-      printf "\t\t[%s]\n" "$m_mult" >> "$FILE"
+      for m_mult in "${M_MULT[@]}"; do
+        # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
 
-      # for program in "main_papi" "main"; do
-      for program in "main" "main_papi"; do
-        printf "\t\t\tProgram: %s\n" "$program" >> "$FILE"
+        for program in "main" "main_papi"; do
 
-        for season in 1 2; do
-          # 2 estaciones de prueba
-          printf "\tSeason: %s\n" "$season" >> "$FILE" # numero de season
-          for (( i = 1; i <= 3; i++ )); do # 3 = 2 + 1 de warm-up
+printf "\n%s\n" "+=============+=============+========================+===========+"
+printf "|%+12s |%+12s |%+23s |%+10s |\n" "MATRIX TYPE" "MATRIX SIZE" \
+  "TYPE OF MULTIPLICATION" "PROGRAM"
+printf "%s\n" "+=============+=============+========================+===========+"
+printf "|%+12s |%+12s |%+23s |%+10s |\n" "$m_type" "$m_size" "$m_mult" "$program"
+printf "%s\n" "+=============+=============+========================+===========+"
 
-            if [[ $program == *"papi"* ]]; then
-              eval bash "${SRC_DIR}/"perf.sh --papi "${BIN_DIR}/"${program} \
-                "$m_type" "$m_size" "$m_mult" >> "$FILE" 2>&1
-            else
-              CASA=$(eval bash "${SRC_DIR}/"perf.sh "${BIN_DIR}/"${program} \
-                "$m_type" "$m_size" "$m_mult" 2>&1)
-              format "$CASA" "$FILE"
-            fi
+# TODO: Falta anhadir el parametro taskset. Comprobar que el multithread funciona
+# TODO: PAPI No mide bien multithread sin taskset
 
-            sleep 1
+          for season in 1 2; do
+            # 2 estaciones de prueba
+
+            printf "\n\tSeason: %s\n\n" "$season" # numero de season
+            for (( i = 1; i <= 3; i++ )); do # 3 = 2 + 1 de warm-up
+
+              if [[ $program == *"papi"* ]]; then
+                eval bash "${SRC_DIR}/"perf.sh --papi "${BIN_DIR}/"${program} \
+                  "$m_type" "$m_size" "$m_mult" 2>&1
+              else
+                AUX=$(eval bash "${SRC_DIR}/"perf.sh "${BIN_DIR}/"${program} \
+                  "$m_type" "$m_size" "$m_mult" 2>&1)
+                format "$AUX"
+              fi
+
+              sleep 1
+            done
           done
-        done
 
+        done
       done
-      printf " _____________________________________________ \n" >> "$FILE"
     done
-    printf " -------------------------------------------------- \n" >> "$FILE"
   done
-  printf " ======================================================= \n" >> "$FILE"
-done
+  printf "\nEOF\n"
+} >> "$FILE"
 
 # Ending program!
 end=$(date +%s)
