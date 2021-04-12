@@ -4,6 +4,10 @@
 #include <string.h>
 #include "matrix.h"
 
+#ifdef MY_PAPI
+#include "my_papi.h"
+#endif // MY_PAPI
+
 MAT_MUL *mat_multiplying;
 
 char *arr_to_str(const double *M,
@@ -105,6 +109,7 @@ double *mat_mul_multithread(const double *M_a,
 {
     // TODO: Let's start with square matrices (nxn)
     size_t i;
+    pthread_attr_t attr;
     pthread_t threads[NUM_THREADS];
     MAT_MUL_ARG args[NUM_THREADS];
 
@@ -133,6 +138,13 @@ double *mat_mul_multithread(const double *M_a,
     unsigned int rows_per_thread = rows_a / NUM_THREADS;
     unsigned int rest_of_matrix = rows_a % NUM_THREADS;
 
+#ifdef MY_PAPI
+    my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
+#endif // MY_PAPI
+
+    // initializes the thread attributes with default values
+    pthread_attr_init(&attr);
+
     // Creating NUM_THREADS threads, each evaluating its own part
     for (i = 0; i < NUM_THREADS; i++)
     {
@@ -155,7 +167,7 @@ double *mat_mul_multithread(const double *M_a,
         //        args[i].cols_c_start, args[i].cols_c_end,
         //        args[i].rows_c_start, args[i].rows_c_end);
 
-        if ((pthread_create(&threads[i], NULL, (void *)__multi,
+        if ((pthread_create(&threads[i], &attr, (void *)__multi,
                             (void *)&args[i])) < 0)
         {
             fprintf(stderr, "[Error] Couldn't create thread #%ld.\n", i);
@@ -168,6 +180,7 @@ double *mat_mul_multithread(const double *M_a,
         pthread_join(threads[i], NULL);
     }
     free(mat_multiplying);
+    pthread_attr_destroy(&attr);
     return M_c;
 }
 
@@ -175,6 +188,10 @@ void *__multi(void *arg)
 {
     size_t i, j, k;
     MAT_MUL_ARG *aux = (MAT_MUL_ARG *)arg;
+
+#ifdef MY_PAPI
+    my_PAPI_register_thread();
+#endif // MY_PAPI
 
     double *M_a = mat_multiplying->M_a; // Matrix A
     // unsigned rows_a = mat_multiplying->rows_a; // Number of rows in matrix A
@@ -195,6 +212,9 @@ void *__multi(void *arg)
             aux->M_c[i * cols_b + k] = sum;
         }
     }
+#ifdef MY_PAPI
+    my_PAPI_unregister_thread();
+#endif // MY_PAPI
     pthread_exit(NULL);
     free(aux);
 }

@@ -1,44 +1,77 @@
 # --------------------------------------------------------------------------- #
-# Example
-square:
-	gcc -Wall -Werror -fPIC -I./src/ -c src/square.c -o bin/square.o
-	gcc -shared -o libsquare.so bin/square.o
-
-cube:
-	gcc -Wall -Werror -fPIC -I./src/ -c src/cube.c -o bin/cube.o
-	gcc -shared -o libcube.so bin/cube.o
-
-main:
-	# Compile
-	gcc -Wall -Werror -I./src/ -c src/main.c -o bin/main.o
-	# Link
-	gcc -o prog bin/main.o -L. -lcube -lsquare -lm
+.PHONY = clean setup
+.DEFAULT_GOAL = clean
 
 # --------------------------------------------------------------------------- #
-# my_papi
-my_papi:
-	gcc -Wall -Werror -fPIC -I./src/ -c src/my_papi.c -o bin/my_papi.o
-	gcc -shared -o libmy_papi.so bin/my_papi.o -L/usr/local/lib -lpapi
-
-	gcc -Wall -Werror -I./src/ -c src/papi_main.c -o bin/papi_main.o
-	gcc -o papi_prog bin/papi_main.o -L. -lmy_papi
-	
-	# Importante! de lo contrario no nos deja de medir la 1a vez
-	sudo sysctl -w kernel.perf_event_paranoid=1
-	export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:.:/usr/local/lib
-	./papi_prog
-
+# Directory where scripts are saved
+SRC_DIR = src
+# Directory where binaries are saved
+BIN_DIR = bin
+# Directory where result files are saved
+OUT_DIR = out
+# Directory where result files are saved
+LIB_DIR = lib
+# Flags used to compile c files
+CFLAGS = -Wall -Werror
+CC = gcc
+# --------------------------------------------------------------------------- #
 clean:
-	rm bin/* *.so *prog
+	rm -rf bin/* lib/*
 
-my_papi_copy:
-	gcc -Wall -Werror -fPIC -I./src/ -c src/my_papi_copy.c -o bin/my_papi_copy.o
-	gcc -shared -o libmy_papi_copy.so bin/my_papi_copy.o -L/usr/local/lib -lpapi
+setup:
+	mkdir -p ${SRC_DIR} ${BIN_DIR} ${OUT_DIR} ${LIB_DIR}
 
-	gcc -Wall -Werror -I./src/ -c src/papi_main_copy.c -o bin/papi_main_copy.o
-	gcc -o papi_prog_copy bin/papi_main_copy.o -L. -lmy_papi_copy
-	
-	# Importante! de lo contrario no nos deja de medir la 1a vez
-	sudo sysctl -w kernel.perf_event_paranoid=1
-	export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:.:/usr/local/lib
-	./papi_prog_copy
+# --------------------------------------------------------------------------- #
+# C FILES
+matrix:
+	gcc ${CFLAGS} ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix -c -pthread
+
+compile: matrix
+	gcc ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main ${BIN_DIR}/matrix -pthread
+
+c_main: compile
+	./${BIN_DIR}/main RAND 500 NORMAL
+
+c_main_multithread: compile
+	./${BIN_DIR}/main_multithread
+
+c_perf: compile
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main RAND 500 NORMAL
+
+c_perf_multithread: compile
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_multithread
+
+c_perf_taskset: compile
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main --taskset
+
+c_perf_multithread_takset: compile
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_multithread --taskset
+
+# --------------------------------------------------------------------------- #
+# PYTHON FILES
+# py_main:
+# 	python3 ${SRC_DIR}/main.py zeros
+
+# py_main_multithread:
+# 	@@echo "Hola"
+
+py_perf:
+	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros
+
+py_perf_multithread:
+	@@echo Hola
+
+py_perf_taskset:
+	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros --taskset
+
+py_perf_multithread_taskset:
+	@@echo hola
+# --------------------------------------------------------------------------- #
+
+execution:
+	bash execution.sh
+
+
+
+
+

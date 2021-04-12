@@ -217,14 +217,7 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     my_stop_events(eventSet, num_events, values);
-    printf("%s\n", "+---------------------------------------+--------------+");
-    printf("| %-38s| %-13s|\n", "Event", "Value");
-    printf("%s\n", "+---------------------------------------+--------------+");
-    for (int i = 0; i < num_events; i++)
-    {
-        printf("| %-38s| %-13lld|\n", events[i], values[i]);
-    }
-    printf("%s\n", "+---------------------------------------+--------------+");
+    my_print_values(num_events, events, values);
     free(values);
 #endif // MY_PAPI
 
