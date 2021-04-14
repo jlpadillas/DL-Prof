@@ -59,6 +59,9 @@ int my_PAPI_hl_region_end(const char *region);
 void my_print_values(int numEvents, const char *events[],
                      long long *values);
 
+void my_print_values_perf(int numEvents, const char *events[],
+                          long long *values);
+
 int my_start_events(const char *events[], int numEvents);
 
 int my_stop_events(int eventSet, int numEvents, long long *values);

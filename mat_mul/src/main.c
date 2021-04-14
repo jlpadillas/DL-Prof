@@ -12,6 +12,7 @@
  *   use to perform the multiplication.
  */
 
+#include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,6 +25,8 @@
 
 // #define MY_PAPI
 // #define DEBUG
+#define RAW
+
 #define MAX_MATRIX_SIZE 100000
 
 enum MATRIX_TYPE
@@ -203,6 +206,9 @@ int main(int argc, char const *argv[])
     switch (Mul_type)
     {
     case MULTITHREAD:
+#ifdef MY_PAPI
+        my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
+#endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         break;
     case NORMAL:
@@ -217,7 +223,11 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     my_stop_events(eventSet, num_events, values);
+#ifndef RAW
     my_print_values(num_events, events, values);
+#else
+    my_print_values_perf(num_events, events, values);
+#endif
     free(values);
 #endif // MY_PAPI
 

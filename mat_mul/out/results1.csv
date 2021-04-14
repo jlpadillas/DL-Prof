@@ -95,4 +95,3 @@ SEQ_512_TRANSPOSE_main_perf_YES
 0::simd_fp_256.packed_double:112001154:26,22::
 0::simd_fp_256.packed_single:112000353:26,22::
 
-EOF

@@ -105,9 +105,9 @@ eval "${CC}" -shared -o "${LIB_DIR}"/libmy_papi.so "${BIN_DIR}"/my_papi.o \
 eval "${CC}" "${CFLAGS}" -c "${SRC_DIR}"/matrix.c -o "${BIN_DIR}"/matrix.o
 eval "${CC}" "${CFLAGS}" -c "${SRC_DIR}"/matrix.c -DMY_PAPI -o \
   "${BIN_DIR}"/matrix_papi.o
-# ! main
+# ! main_perf
 eval "${CC}" "${CFLAGS}" "$SRC_DIR"/main.c "${BIN_DIR}"/matrix.o -pthread -o \
-  "${BIN_DIR}"/main
+  "${BIN_DIR}"/main_perf
 # ! main_papi
 eval "${CC}" "${CFLAGS}" "${SRC_DIR}"/main.c -o "${BIN_DIR}"/main_papi \
   -DMY_PAPI -Wl,-rpath="$LIB_DIR" "${BIN_DIR}"/matrix_papi.o -L"${LIB_DIR}" \
@@ -123,6 +123,9 @@ declare -a M_TYPE=( "SEQ" )
 declare -a M_SIZE=( 512 )
 # declare -a M_MULT=( "MULTITHREAD" "NORMAL" "TRANSPOSE" )
 declare -a M_MULT=( "MULTITHREAD" "TRANSPOSE" )
+
+# Se indica si la salida de datos es "raw", como en perf o no.
+RAW=true # true or false
 {
   for m_type in "${M_TYPE[@]}"; do
     # Tipo de matriz: RANDOM o SEQUENTIAL
@@ -133,44 +136,48 @@ declare -a M_MULT=( "MULTITHREAD" "TRANSPOSE" )
       for m_mult in "${M_MULT[@]}"; do
         # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
 
-        for program in "main_papi" "main"
+        for program in "main_papi" "main_perf"
         do
 
-          for taskset in "" #"--taskset"
+          for taskset in "" "--taskset" # ! Change this!
           do
 
             tskst=NO
             if [[ $taskset == *"--taskset"* ]]; then
                 tskst=YES
             fi
+
+            if [[ $RAW == "true" ]]; then
+              printf "\n%s_%s_%s_%s_%s\n" "$m_type" "$m_size" "$m_mult" "$program" "$tskst"
+            else
 printf "\n%s\n" "+=============+=============+========================+===========+=========+"
 printf "|%+12s |%+12s |%+23s |%+10s |%+8s |\n" "MATRIX TYPE" "MATRIX SIZE" \
   "TYPE OF MULTIPLICATION" "PROGRAM" "TASKSET"
 printf "%s\n" "+=============+=============+========================+===========+=========+"
 printf "|%+12s |%+12s |%+23s |%+10s |%+8s |\n" "$m_type" "$m_size" "$m_mult" "$program" "$tskst"
 printf "%s\n" "+=============+=============+========================+===========+=========+"
+            fi
 
-# TODO: Falta anhadir el parametro taskset. Comprobar que el multithread funciona
-# TODO: PAPI No mide bien multithread sin taskset
-
-            for season in 1 2; do
+            # for season in 1 2; do # ! change this!
               # 2 estaciones de prueba
 
-              printf "\n\tSeason: %s\n\n" "$season" # numero de season
-              for (( i = 1; i <= 3; i++ )); do # 3 = 2 + 1 de warm-up
+              # printf "\n\tSeason: %s\n\n" "$season" # numero de season
+              for (( i = 1; i <= 1; i++ )); do # 3 = 2 + 1 de warm-up
 
                 if [[ $program == *"papi"* ]]; then
-                  eval bash "${SRC_DIR}/"perf.sh --papi $taskset \
+                  eval bash "${SRC_DIR}/"perf.sh --papi "$taskset" \
                     "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
                 else
-                  AUX=$(eval bash "${SRC_DIR}/"perf.sh $taskset \
-                  "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
-                  format "$AUX"
+                  # AUX=$(eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                  # "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
+                  # format "$AUX"
+                  eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                  "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
                 fi
 
                 sleep 1
               done
-            done          
+            # done
 
           done
 

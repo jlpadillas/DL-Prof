@@ -2,7 +2,7 @@
 #define MATRIX_H
 
 #define MAX_RANDOM 10 // Maximum value of a single element of the arrays
-#define NUM_THREADS 8 // Number of threads
+#define NUM_THREADS 4 // Number of threads
 
 typedef struct __mat_mul_arg
 {

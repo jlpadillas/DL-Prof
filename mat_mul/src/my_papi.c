@@ -152,6 +152,16 @@ void my_print_values(int numEvents, const char *events[],
     printf("%s\n", "+---------------------------------------+-----------------+");
 }
 
+void my_print_values_perf(int numEvents, const char *events[],
+                         long long *values)
+{
+    char separator = ':';
+    for (int i = 0; i < numEvents; i++)
+    {
+        printf("%'lld%c%c%s\n", values[i], separator, separator, events[i]);
+    }
+}
+
 // char *print_time(double *array, int length)
 // {
 //     // numero maximo de cifras = 18
