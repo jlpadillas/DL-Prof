@@ -46,7 +46,7 @@ format () {
   readarray -t array <<< "$1"
   printf "%s\n" "+---------------------------------------+-----------------+"
   printf "| %-38s| %-16s|\n" "Event" "Value"
-  printf "%s\n" "+---------------------------------------+-----------------+"
+  printf "%s\n" "+=======================================+=================+"
   for line in "${array[@]}"; do
     readarray -td: data <<< "$line"
     local counter_val="${data[0]}"

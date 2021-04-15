@@ -144,7 +144,7 @@ void my_print_values(int numEvents, const char *events[],
     setlocale(LC_NUMERIC, "");
     printf("%s\n", "+---------------------------------------+-----------------+");
     printf("| %-38s| %-16s|\n", "Event", "Value");
-    printf("%s\n", "+---------------------------------------+-----------------+");
+    printf("%s\n", "+=======================================+=================+");
     for (int i = 0; i < numEvents; i++)
     {
         printf("| %-38s| %'-16lld|\n", events[i], values[i]);
