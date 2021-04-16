@@ -43,21 +43,29 @@ if __name__ == "__main__":
     dim_y = dim_x
 
     # Se crea el objeto
-    mat = matrix(dim_x, dim_y)
+    mat = matrix()
     # mat = matrix()
 
     # Se generan las dos matrices
     if option == "empty":
-        mat.init_empty()
+        M = mat.init_empty(rows=dim_x, cols=dim_y)
+        N = mat.init_empty(rows=dim_x, cols=dim_y)
     elif option == "zeros":
-        mat.init_zeros()
+        M = mat.init_zeros(rows=dim_x, cols=dim_y)
+        N = mat.init_zeros(rows=dim_x, cols=dim_y)
+    elif option == "seq":
+        M = mat.init_seq(rows=dim_x, cols=dim_y)
+        N = mat.init_seq(rows=dim_x, cols=dim_y)
+    elif option == "rand":
+        M = mat.init_rand(rows=dim_x, cols=dim_y)
+        N = mat.init_rand(rows=dim_x, cols=dim_y)
     else:
         print("ERROR: Wrong generation of matrices. Run the program with "
-              "argument 'empty' or 'zeros'.")
+              "argument 'empty', 'zeros', 'seq' or 'rand'.")
         raise mat.Error
 
     # ROI -> Se multiplican
-    mat.mat_mul()
+    mat.mat_mul(M, N)
 
     # print(M)
     # print(N)

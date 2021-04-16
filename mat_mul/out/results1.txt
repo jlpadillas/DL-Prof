@@ -1,98 +1,98 @@
 
 SEQ_512_MULTITHREAD_main_papi_NO
-73004::cycles
-12418::instructions
-0::fp_comp_ops_exe.sse_packed_single
-0::fp_comp_ops_exe.sse_scalar_double
-39::fp_comp_ops_exe.x87
-0::simd_fp_256.packed_single
-
-SEQ_512_MULTITHREAD_main_papi_YES
-81802::cycles
-12380::instructions
+73023::cycles
+12324::instructions
 0::fp_comp_ops_exe.sse_packed_single
 0::fp_comp_ops_exe.sse_scalar_double
 48::fp_comp_ops_exe.x87
 0::simd_fp_256.packed_single
 
+SEQ_512_MULTITHREAD_main_papi_YES
+89698::cycles
+12438::instructions
+0::fp_comp_ops_exe.sse_packed_single
+0::fp_comp_ops_exe.sse_scalar_double
+54::fp_comp_ops_exe.x87
+0::simd_fp_256.packed_single
+
 SEQ_512_MULTITHREAD_main_perf_NO
-3378509440::cycles:322514077:33,80::
-3525343127::instructions:397558136:41,66:1:insn per cycle
-0::fp_assist.any:407961856:42,75::
-0::fp_assist.simd_input:415881381:43,58::
-0::fp_assist.simd_output:423852077:44,42::
-0::fp_assist.x87_input:431820948:45,25::
-0::fp_assist.x87_output:287624112:30,14::
-0::fp_comp_ops_exe.sse_packed_double:282539536:29,61::
-0::fp_comp_ops_exe.sse_packed_single:274610606:28,78::
-729426879::fp_comp_ops_exe.sse_scalar_double:266645240:27,94::
-0::fp_comp_ops_exe.sse_scalar_single:258679509:27,11::
-19809::fp_comp_ops_exe.x87:255844560:26,81::
-0::simd_fp_256.packed_double:255802794:26,81::
-0::simd_fp_256.packed_single:255799289:26,81::
+3553328408::cycles:342459444:33,51::
+3510569870::instructions:416874096:40,79:0:insn per cycle
+0::fp_assist.any:418689632:40,96::
+0::fp_assist.simd_input:430669805:42,14::
+0::fp_assist.simd_output:445049233:43,54::
+0::fp_assist.x87_input:458902669:44,90::
+0::fp_assist.x87_output:309629255:30,29::
+0::fp_comp_ops_exe.sse_packed_double:301625836:29,51::
+0::fp_comp_ops_exe.sse_packed_single:293627271:28,73::
+692518236::fp_comp_ops_exe.sse_scalar_double:287810309:28,16::
+0::fp_comp_ops_exe.sse_scalar_single:293788759:28,74::
+19199::fp_comp_ops_exe.x87:289812005:28,35::
+0::simd_fp_256.packed_double:283431142:27,73::
+0::simd_fp_256.packed_single:275394668:26,94::
 
 SEQ_512_MULTITHREAD_main_perf_YES
-2211319446::cycles:222658265:35,83::
-3514569830::instructions:269438730:43,36:1:insn per cycle
-0::fp_assist.any:269440473:43,36::
-0::fp_assist.simd_input:269445309:43,36::
-0::fp_assist.simd_output:269437329:43,36::
-0::fp_assist.x87_input:269436609:43,36::
-0::fp_assist.x87_output:175998087:28,32::
-0::fp_comp_ops_exe.sse_packed_double:175993513:28,32::
-0::fp_comp_ops_exe.sse_packed_single:175998954:28,32::
-656903695::fp_comp_ops_exe.sse_scalar_double:175997472:28,32::
-0::fp_comp_ops_exe.sse_scalar_single:175998709:28,32::
-16170::fp_comp_ops_exe.x87:175997489:28,32::
-0::simd_fp_256.packed_double:175998432:28,32::
-0::simd_fp_256.packed_single:175998233:28,32::
+2639225007::cycles:260334084:34,68::
+3558122154::instructions:316318459:42,14:1:insn per cycle
+0::fp_assist.any:320327878:42,67::
+0::fp_assist.simd_input:324313610:43,21::
+0::fp_assist.simd_output:328319086:43,74::
+0::fp_assist.x87_input:332318333:44,27::
+0::fp_assist.x87_output:222324597:29,62::
+0::fp_comp_ops_exe.sse_packed_double:218319915:29,09::
+0::fp_comp_ops_exe.sse_packed_single:214312404:28,55::
+624516370::fp_comp_ops_exe.sse_scalar_double:210322274:28,02::
+0::fp_comp_ops_exe.sse_scalar_single:207984273:27,71::
+17819::fp_comp_ops_exe.x87:208002432:27,71::
+0::simd_fp_256.packed_double:208002475:27,71::
+0::simd_fp_256.packed_single:207990707:27,71::
 
 SEQ_512_TRANSPOSE_main_papi_NO
-1352156694::cycles
-3500945798::instructions
+1637829956::cycles
+3500945846::instructions
 0::fp_comp_ops_exe.sse_packed_single
-270927100::fp_comp_ops_exe.sse_scalar_double
-1735::fp_comp_ops_exe.x87
+271938014::fp_comp_ops_exe.sse_scalar_double
+2751::fp_comp_ops_exe.x87
 0::simd_fp_256.packed_single
 
 SEQ_512_TRANSPOSE_main_papi_YES
-1352358380::cycles
-3500945804::instructions
+1385452200::cycles
+3500945852::instructions
 0::fp_comp_ops_exe.sse_packed_single
-270773198::fp_comp_ops_exe.sse_scalar_double
-1770::fp_comp_ops_exe.x87
+270940747::fp_comp_ops_exe.sse_scalar_double
+9::fp_comp_ops_exe.x87
 0::simd_fp_256.packed_single
 
 SEQ_512_TRANSPOSE_main_perf_NO
-1467669840::cycles:142663013:34,82::
-3517772209::instructions:174585862:42,61:2:insn per cycle
-0::fp_assist.any:178577886:43,59::
-0::fp_assist.simd_input:182563941:44,56::
-0::fp_assist.simd_output:185906234:45,38::
-0::fp_assist.x87_input:185917158:45,38::
-0::fp_assist.x87_output:119190137:29,09::
-0::fp_comp_ops_exe.sse_packed_double:115206683:28,12::
-0::fp_comp_ops_exe.sse_packed_single:111884984:27,31::
-279171541::fp_comp_ops_exe.sse_scalar_double:111882234:27,31::
-0::fp_comp_ops_exe.sse_scalar_single:111925549:27,32::
-7203::fp_comp_ops_exe.x87:111922948:27,32::
-0::simd_fp_256.packed_double:111902354:27,31::
-0::simd_fp_256.packed_single:111894180:27,31::
+1445434587::cycles:142683022:35,35::
+3445871627::instructions:174639496:43,27:2:insn per cycle
+0::fp_assist.any:178637449:44,26::
+0::fp_assist.simd_input:179735857:44,53::
+0::fp_assist.simd_output:179754601:44,54::
+0::fp_assist.x87_input:179780058:44,54::
+0::fp_assist.x87_output:113023153:28,00::
+0::fp_comp_ops_exe.sse_packed_double:111929409:27,73::
+0::fp_comp_ops_exe.sse_packed_single:111946448:27,74::
+283681307::fp_comp_ops_exe.sse_scalar_double:111915523:27,73::
+0::fp_comp_ops_exe.sse_scalar_single:111937904:27,73::
+9529::fp_comp_ops_exe.x87:111933240:27,73::
+0::simd_fp_256.packed_double:111897457:27,72::
+0::simd_fp_256.packed_single:111902925:27,73::
 
 SEQ_512_TRANSPOSE_main_perf_YES
-1507192783::cycles:143183273:33,52::
-3519561191::instructions:175178556:41,01:2:insn per cycle
-0::fp_assist.any:179176754:41,95::
-0::fp_assist.simd_input:183174075:42,88::
-0::fp_assist.simd_output:187169570:43,82::
-0::fp_assist.x87_input:191164414:44,75::
-0::fp_assist.x87_output:128001059:29,97::
-0::fp_comp_ops_exe.sse_packed_double:128000550:29,97::
-0::fp_comp_ops_exe.sse_packed_single:127978461:29,96::
-273189226::fp_comp_ops_exe.sse_scalar_double:123982377:29,03::
-0::fp_comp_ops_exe.sse_scalar_single:119982564:28,09::
-8223::fp_comp_ops_exe.x87:115984142:27,16::
-0::simd_fp_256.packed_double:112001154:26,22::
-0::simd_fp_256.packed_single:112000353:26,22::
+1385396834::cycles:126989713:33,51::
+3483640137::instructions:154989976:40,90:2:insn per cycle
+0::fp_assist.any:155440254:41,01::
+0::fp_assist.simd_input:159437487:42,07::
+0::fp_assist.simd_output:163436806:43,13::
+0::fp_assist.x87_input:167430429:44,18::
+0::fp_assist.x87_output:111999143:29,55::
+0::fp_comp_ops_exe.sse_packed_double:111999370:29,55::
+0::fp_comp_ops_exe.sse_packed_single:111994387:29,55::
+277475690::fp_comp_ops_exe.sse_scalar_double:111996300:29,55::
+0::fp_comp_ops_exe.sse_scalar_single:111559533:29,44::
+9988::fp_comp_ops_exe.x87:107561305:28,38::
+0::simd_fp_256.packed_double:103565753:27,33::
+0::simd_fp_256.packed_single:99568104:26,27::
 
 EOF

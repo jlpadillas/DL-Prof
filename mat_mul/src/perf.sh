@@ -126,7 +126,6 @@ fi
 PROGRAM=$1
 PARAMS=""
 if [ "$#" -gt 1 ]; then
-    # PARAMS="${@:2}"
     PARAMS=("${@:2}")
 fi
 
@@ -157,6 +156,7 @@ if [[ -z ${TASKSET+x} ]]; then
 fi
 
 FORMAT=-x:
+# FORMAT=""
 
 # ------------------------------------------------------------------------ #
 # Start measure

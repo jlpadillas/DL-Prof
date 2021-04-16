@@ -1,7 +1,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "papi.h"
+// #include "papi.h"
 #include "my_papi.h"
 
 // /* Number of the events to measure */
@@ -33,11 +33,35 @@ int my_PAPI_add_named_event(int EventSet, const char *EventName)
     return retval;
 }
 
+int my_PAPI_assign_eventset_component(int EventSet, int cidx)
+{
+    if ((retval = PAPI_assign_eventset_component(EventSet, cidx)) != PAPI_OK)
+        ERROR_RETURN(retval);
+    return retval;
+}
+
 int my_PAPI_create_eventset(int *EventSet)
 {
     if ((retval = PAPI_create_eventset(EventSet)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
+}
+
+const PAPI_hw_info_t *my_PAPI_get_hardware_info(void)
+{
+    const PAPI_hw_info_t *hwinfo;
+    if ((hwinfo = PAPI_get_hardware_info()) == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error getting the HW info. %s:line %d: \n",
+                __FILE__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    return hwinfo;
+}
+
+int my_PAPI_get_opt(int option, PAPI_option_t *ptr)
+{
+    return PAPI_get_opt(option, ptr);
 }
 
 /* This initializes the library and checks the version number of the
@@ -77,6 +101,13 @@ int my_PAPI_unregister_thread(void)
     return retval;
 }
 
+int my_PAPI_set_opt(int option, PAPI_option_t *ptr)
+{
+    if ((retval = PAPI_set_opt(option, ptr)) != PAPI_OK)
+        ERROR_RETURN(retval);
+    return retval;
+}
+
 void my_PAPI_shutdown(void)
 {
     PAPI_shutdown();
@@ -105,6 +136,88 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void))
 }
 
 // *********************************************************************** //
+int *my_attach_and_start(int ncpus, const int *cpus[],
+                         const char *events[], int numEvents)
+{
+    size_t i, j;
+    int num_cpus = ncpus;
+    // int eventSet[MAX_CPUS];
+    int *eventSet = (int *)malloc(sizeof(int) * MAX_CPUS);
+
+    const PAPI_hw_info_t *hwinfo;
+    PAPI_option_t opts;
+
+    my_PAPI_library_init(PAPI_VER_CURRENT); // Se crea la libreria
+
+    // Se carga la info. del HW obtenida por PAPI
+    hwinfo = my_PAPI_get_hardware_info();
+    num_cpus = hwinfo->totalcpus;
+    if (num_cpus < 2)
+    {
+        fprintf(stderr, "[ERROR] Need at least 1 CPU\n");
+        exit(EXIT_FAILURE);
+    }
+    if (num_cpus > MAX_CPUS)
+    {
+        num_cpus = MAX_CPUS;
+    }
+
+    for (i = 0; i < num_cpus; i++)
+    {
+        // Se crea el conjunto de eventos
+        eventSet[i] = PAPI_NULL;
+        my_PAPI_create_eventset(&eventSet[i]);
+        /* Force event set to be associated with component 0 */
+        /* (perf_events component provides all core events)  */
+        my_PAPI_assign_eventset_component(eventSet[i], 0);
+
+        /* Attach this event set to cpu i */
+        opts.cpu.eventset = eventSet[i];
+        opts.cpu.cpu_num = i;
+
+        my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
+        // Se anhaden los eventos
+        for (j = 0; j < numEvents; j++)
+        {
+            my_PAPI_add_named_event(eventSet[i], events[j]);
+        }
+    }
+
+    int tmp;
+    PAPI_option_t options;
+
+    tmp = my_PAPI_get_opt(PAPI_DEFGRN, NULL);
+    printf("Default granularity is: %d\n", tmp);
+
+    options.granularity.eventset = eventSet[0];
+    tmp = my_PAPI_get_opt(PAPI_GRANUL, &options);
+    printf("Eventset[0] granularity is: %d\n", options.granularity.granularity);
+
+    // Empieza las medidas
+    for (i = 0; i < num_cpus; i++)
+    {
+        my_PAPI_start(eventSet[i]);
+    }
+
+    return eventSet;
+}
+
+int my_attach_and_stop(int ncpus, int *eventSet, int numEventSet,
+                       long long *values, int numEvents)
+{
+    size_t i;
+    // long long aux_values[MAX_CPUS][numEvents];
+    long long *aux_values = (long long*)malloc(sizeof(long long) * MAX_CPUS * numEvents);
+
+    int num_cpus = ncpus;
+
+    for (i = 0; i < num_cpus; i++)
+    {
+        my_PAPI_stop(eventSet[i], &aux_values[i]);
+    }
+    values = aux_values;
+    return EXIT_SUCCESS;
+}
 
 int my_start_events(const char *events[], int numEvents)
 {
@@ -153,7 +266,7 @@ void my_print_values(int numEvents, const char *events[],
 }
 
 void my_print_values_perf(int numEvents, const char *events[],
-                         long long *values)
+                          long long *values)
 {
     char separator = ':';
     for (int i = 0; i < numEvents; i++)

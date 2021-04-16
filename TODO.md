@@ -100,6 +100,22 @@ El resultado de ejecutar la traspuesta y el multithread es [abrir [results1_1.tx
 
 ---
 
+attachar papi a un core. hace falta pasarle el úmero /numero de cores.
+
+width/with
+
+pasarle info a papi. de donde ejecuto mi tensorflow.
+
+papi_cpu_attach ->mirar. granurality. tipo sistem.
+papi options.
+attach para cada core. mdir por separado.
+
+0-2 y 4-6
+
+attachment por core.
+
+---
+
 [execution.sh]:   mat_mul/execution.sh
 [main.c]:         mat_mul/src/main.c
 [main.py]:        mat_mul/src/main.py

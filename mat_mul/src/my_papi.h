@@ -1,5 +1,6 @@
 #ifndef MY_PAPI_H
 #define MY_PAPI_H
+#include "papi.h"
 
 #define ERROR_RETURN(retval)                                \
     {                                                       \
@@ -7,6 +8,11 @@
                 retval, __FILE__, __LINE__);                \
         exit(retval);                                       \
     }
+
+// -----------------------------------------------------------------------
+// Constants
+// -----------------------------------------------------------------------
+#define MAX_CPUS 16
 
 // -----------------------------------------------------------------------
 // Low_level
@@ -17,8 +23,17 @@ int my_PAPI_add_event(int EventSet, int Event);
 // add an event by name to a PAPI event set
 int my_PAPI_add_named_event(int EventSet, const char *EventName);
 
+// Assign a component index to an existing but empty EventSet
+int my_PAPI_assign_eventset_component(int EventSet, int cidx);
+
 // create a new empty PAPI event set
 int my_PAPI_create_eventset(int *EventSet);
+
+// get information about the system hardware
+const PAPI_hw_info_t *my_PAPI_get_hardware_info(void);
+
+// Get PAPI library or event set options
+int my_PAPI_get_opt(int option, PAPI_option_t *ptr);
 
 // initialize the PAPI library
 int my_PAPI_library_init(int version);
@@ -28,6 +43,9 @@ int my_PAPI_list_events(int EventSet, int *Events, int *number);
 
 // inform PAPI of the existence of a new thread
 int my_PAPI_register_thread(void);
+
+// Set PAPI library or event set options
+int my_PAPI_set_opt(int option, PAPI_option_t *ptr);
 
 // finish using PAPI and free all related resources
 void my_PAPI_shutdown(void);
@@ -56,6 +74,9 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
+int *my_attach_and_start(int num_cpus, const int *cpus[],
+                        const char *events[], int numEvents);
+
 void my_print_values(int numEvents, const char *events[],
                      long long *values);
 
