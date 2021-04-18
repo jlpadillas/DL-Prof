@@ -1,98 +1,10 @@
 
 SEQ_512_MULTITHREAD_main_papi_NO
-73023::cycles
-12324::instructions
-0::fp_comp_ops_exe.sse_packed_single
-0::fp_comp_ops_exe.sse_scalar_double
-48::fp_comp_ops_exe.x87
-0::simd_fp_256.packed_single
+[MyPapi] Error -11 /home/jlpadillas01/TFG/mat_mul/src/my_papi.c:line 121: 
+[PERF] Error on line 177
 
 SEQ_512_MULTITHREAD_main_papi_YES
-89698::cycles
-12438::instructions
-0::fp_comp_ops_exe.sse_packed_single
-0::fp_comp_ops_exe.sse_scalar_double
-54::fp_comp_ops_exe.x87
-0::simd_fp_256.packed_single
-
-SEQ_512_MULTITHREAD_main_perf_NO
-3553328408::cycles:342459444:33,51::
-3510569870::instructions:416874096:40,79:0:insn per cycle
-0::fp_assist.any:418689632:40,96::
-0::fp_assist.simd_input:430669805:42,14::
-0::fp_assist.simd_output:445049233:43,54::
-0::fp_assist.x87_input:458902669:44,90::
-0::fp_assist.x87_output:309629255:30,29::
-0::fp_comp_ops_exe.sse_packed_double:301625836:29,51::
-0::fp_comp_ops_exe.sse_packed_single:293627271:28,73::
-692518236::fp_comp_ops_exe.sse_scalar_double:287810309:28,16::
-0::fp_comp_ops_exe.sse_scalar_single:293788759:28,74::
-19199::fp_comp_ops_exe.x87:289812005:28,35::
-0::simd_fp_256.packed_double:283431142:27,73::
-0::simd_fp_256.packed_single:275394668:26,94::
-
-SEQ_512_MULTITHREAD_main_perf_YES
-2639225007::cycles:260334084:34,68::
-3558122154::instructions:316318459:42,14:1:insn per cycle
-0::fp_assist.any:320327878:42,67::
-0::fp_assist.simd_input:324313610:43,21::
-0::fp_assist.simd_output:328319086:43,74::
-0::fp_assist.x87_input:332318333:44,27::
-0::fp_assist.x87_output:222324597:29,62::
-0::fp_comp_ops_exe.sse_packed_double:218319915:29,09::
-0::fp_comp_ops_exe.sse_packed_single:214312404:28,55::
-624516370::fp_comp_ops_exe.sse_scalar_double:210322274:28,02::
-0::fp_comp_ops_exe.sse_scalar_single:207984273:27,71::
-17819::fp_comp_ops_exe.x87:208002432:27,71::
-0::simd_fp_256.packed_double:208002475:27,71::
-0::simd_fp_256.packed_single:207990707:27,71::
-
-SEQ_512_TRANSPOSE_main_papi_NO
-1637829956::cycles
-3500945846::instructions
-0::fp_comp_ops_exe.sse_packed_single
-271938014::fp_comp_ops_exe.sse_scalar_double
-2751::fp_comp_ops_exe.x87
-0::simd_fp_256.packed_single
-
-SEQ_512_TRANSPOSE_main_papi_YES
-1385452200::cycles
-3500945852::instructions
-0::fp_comp_ops_exe.sse_packed_single
-270940747::fp_comp_ops_exe.sse_scalar_double
-9::fp_comp_ops_exe.x87
-0::simd_fp_256.packed_single
-
-SEQ_512_TRANSPOSE_main_perf_NO
-1445434587::cycles:142683022:35,35::
-3445871627::instructions:174639496:43,27:2:insn per cycle
-0::fp_assist.any:178637449:44,26::
-0::fp_assist.simd_input:179735857:44,53::
-0::fp_assist.simd_output:179754601:44,54::
-0::fp_assist.x87_input:179780058:44,54::
-0::fp_assist.x87_output:113023153:28,00::
-0::fp_comp_ops_exe.sse_packed_double:111929409:27,73::
-0::fp_comp_ops_exe.sse_packed_single:111946448:27,74::
-283681307::fp_comp_ops_exe.sse_scalar_double:111915523:27,73::
-0::fp_comp_ops_exe.sse_scalar_single:111937904:27,73::
-9529::fp_comp_ops_exe.x87:111933240:27,73::
-0::simd_fp_256.packed_double:111897457:27,72::
-0::simd_fp_256.packed_single:111902925:27,73::
-
-SEQ_512_TRANSPOSE_main_perf_YES
-1385396834::cycles:126989713:33,51::
-3483640137::instructions:154989976:40,90:2:insn per cycle
-0::fp_assist.any:155440254:41,01::
-0::fp_assist.simd_input:159437487:42,07::
-0::fp_assist.simd_output:163436806:43,13::
-0::fp_assist.x87_input:167430429:44,18::
-0::fp_assist.x87_output:111999143:29,55::
-0::fp_comp_ops_exe.sse_packed_double:111999370:29,55::
-0::fp_comp_ops_exe.sse_packed_single:111994387:29,55::
-277475690::fp_comp_ops_exe.sse_scalar_double:111996300:29,55::
-0::fp_comp_ops_exe.sse_scalar_single:111559533:29,44::
-9988::fp_comp_ops_exe.x87:107561305:28,38::
-0::simd_fp_256.packed_double:103565753:27,33::
-0::simd_fp_256.packed_single:99568104:26,27::
+[MyPapi] Error -11 /home/jlpadillas01/TFG/mat_mul/src/my_papi.c:line 121: 
+[PERF] Error on line 177
 
 EOF

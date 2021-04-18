@@ -25,7 +25,7 @@
 
 // #define MY_PAPI
 // #define DEBUG
-#define RAW
+// #define RAW
 
 #define MAX_MATRIX_SIZE 100000
 
@@ -191,13 +191,16 @@ int main(int argc, char const *argv[])
         // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
         "fp_comp_ops_exe.x87",
         // "simd_fp_256.packed_double",
-        "simd_fp_256.packed_single"
-    };
+        "simd_fp_256.packed_single"};
 
     // NOTA: num. max. de eventos que puede medir papi simultaneamente
     // es igual a 6. Si se ejecuta mas, se lanza un error.
     const unsigned num_events = 6;
     long long *values = (long long *)malloc(num_events * sizeof(long long));
+
+    int num_cpus = 2;
+    int *eventSets = (int *)malloc(sizeof(int) * num_cpus);
+    const int cpus[] = {0,1};
 
     int eventSet = my_start_events(events, num_events);
 #endif // MY_PAPI
@@ -207,7 +210,15 @@ int main(int argc, char const *argv[])
     {
     case MULTITHREAD:
 #ifdef MY_PAPI
-        my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
+        // The measure is multithread, so we need to stop the regular measure
+        my_stop_events(eventSet, num_events, values);
+        free(values);
+
+        values = (long long *)malloc(num_events * sizeof(long long) * num_cpus);
+        // and create a new one wich measures the cores selected
+        eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
+
+        // my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
 #endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         break;
@@ -222,12 +233,28 @@ int main(int argc, char const *argv[])
     }
 
 #ifdef MY_PAPI
-    my_stop_events(eventSet, num_events, values);
+    if (Mul_type == MULTITHREAD)
+    {
+        my_attach_and_stop(num_cpus, eventSets, values, num_events);
+//         for (size_t i = 0; i < num_cpus; i++)
+//         {
+// #ifndef RAW
+//             my_print_values(num_events, events, &values[i]);
+// #else
+//             my_print_values_perf(num_events, events, &values[i]);
+// #endif
+//         }
+        free(eventSets);
+    }
+    else
+    {
+        my_stop_events(eventSet, num_events, values);
 #ifndef RAW
-    my_print_values(num_events, events, values);
+        my_print_values(num_events, events, values);
 #else
-    my_print_values_perf(num_events, events, values);
+        my_print_values_perf(num_events, events, values);
 #endif
+    }
     free(values);
 #endif // MY_PAPI
 

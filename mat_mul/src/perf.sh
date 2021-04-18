@@ -40,7 +40,7 @@ set_environment () {
 set -e
 
 err_report() {
-    echo "Error on line $1"
+    echo "[PERF] Error on line $1"
 }
 
 trap 'err_report $LINENO' ERR

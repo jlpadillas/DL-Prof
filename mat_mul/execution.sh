@@ -122,7 +122,7 @@ declare -a M_TYPE=( "SEQ" )
 # declare -a M_SIZE=( 1024 10240 )
 declare -a M_SIZE=( 512 )
 # declare -a M_MULT=( "MULTITHREAD" "NORMAL" "TRANSPOSE" )
-declare -a M_MULT=( "MULTITHREAD" "TRANSPOSE" )
+declare -a M_MULT=( "MULTITHREAD" ) #"TRANSPOSE" )
 
 # Se indica si la salida de datos es "raw", como en perf o no.
 RAW=true # true or false
@@ -136,7 +136,7 @@ RAW=true # true or false
       for m_mult in "${M_MULT[@]}"; do
         # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
 
-        for program in "main_papi" "main_perf"
+        for program in "main_papi" #"main_perf"
         do
 
           for taskset in "" "--taskset" # ! Change this!

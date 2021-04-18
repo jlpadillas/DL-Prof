@@ -12,7 +12,7 @@
 // -----------------------------------------------------------------------
 // Constants
 // -----------------------------------------------------------------------
-#define MAX_CPUS 16
+#define MAX_CPUS 8
 
 // -----------------------------------------------------------------------
 // Low_level
@@ -74,8 +74,11 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
-int *my_attach_and_start(int num_cpus, const int *cpus[],
+int *my_attach_and_start(int num_cpus, const int cpus[],
                         const char *events[], int numEvents);
+
+int my_attach_and_stop(int num_cpus, int *eventSets, long long *values,
+                       int numEvents);
 
 void my_print_values(int numEvents, const char *events[],
                      long long *values);
