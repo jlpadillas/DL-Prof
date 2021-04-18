@@ -4,6 +4,10 @@
 #include <string.h>
 #include "matrix.h"
 
+#ifdef MY_PAPI
+#include "my_papi.h"
+#endif // MY_PAPI
+
 MAT_MUL *mat_multiplying;
 
 char *arr_to_str(const double *M,
@@ -134,6 +138,10 @@ double *mat_mul_multithread(const double *M_a,
     unsigned int rows_per_thread = rows_a / NUM_THREADS;
     unsigned int rest_of_matrix = rows_a % NUM_THREADS;
 
+    // #ifdef MY_PAPI
+    //     my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
+    // #endif // MY_PAPI
+
     // initializes the thread attributes with default values
     pthread_attr_init(&attr);
 
@@ -178,6 +186,9 @@ double *mat_mul_multithread(const double *M_a,
 
 void *__multi(void *arg)
 {
+#ifdef MY_PAPI
+    my_PAPI_register_thread();
+#endif // MY_PAPI
     size_t i, j, k;
     MAT_MUL_ARG *aux = (MAT_MUL_ARG *)arg;
 
@@ -187,6 +198,47 @@ void *__multi(void *arg)
     double *M_b = mat_multiplying->M_b;        // Matrix B
     // unsigned rows_b = mat_multiplying->rows_b; // Number of rows in matrix B
     unsigned cols_b = mat_multiplying->cols_b; // Number of cols in matrix B
+
+// #ifdef MY_PAPI
+//     // TODO: pasar los eventos??
+//     // ! Modify this lines
+//     // portatil
+//     // const char *events[] = {
+//     //     "cycles",
+//     //     "instructions",
+//     //     "fp_arith_inst_retired.128b_packed_double",
+//     //     "fp_arith_inst_retired.128b_packed_single",
+//     //     // "fp_arith_inst_retired.256b_packed_double",
+//     //     // "fp_arith_inst_retired.256b_packed_single",
+//     //     "fp_arith_inst_retired.scalar_double",
+//     //     "fp_arith_inst_retired.scalar_single"
+//     //     // "fp_assist.any"
+//     // };
+
+//     // PC
+//     const char *events[] = {
+//         "cycles",
+//         "instructions",
+//         // "fp_assist.any",
+//         // "fp_assist.simd_input",
+//         // "fp_assist.simd_output",
+//         // "fp_assist.x87_input",
+//         // "fp_assist.x87_output",
+//         // "fp_comp_ops_exe.sse_packed_double",
+//         "fp_comp_ops_exe.sse_packed_single",
+//         "fp_comp_ops_exe.sse_scalar_double",
+//         // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
+//         "fp_comp_ops_exe.x87",
+//         // "simd_fp_256.packed_double",
+//         "simd_fp_256.packed_single"};
+
+//     // NOTA: num. max. de eventos que puede medir papi simultaneamente
+//     // es igual a 6. Si se ejecuta mas, se lanza un error.
+//     const unsigned num_events = 6;
+//     long long *values = (long long *)malloc(num_events * sizeof(long long));
+
+//     int eventSet1 = my_start_events(events, num_events);
+// #endif // MY_PAPI
 
     for (i = aux->rows_c_start; i < aux->rows_c_end; i++)
     {
@@ -200,6 +252,16 @@ void *__multi(void *arg)
             aux->M_c[i * cols_b + k] = sum;
         }
     }
+
+// #ifdef MY_PAPI
+//     my_stop_events(eventSet1, num_events, values);
+//     my_print_values(num_events, events, values);
+//     free(values);
+// #endif // MY_PAPI
+
+#ifdef MY_PAPI
+    my_PAPI_unregister_thread();
+#endif // MY_PAPI
     pthread_exit(NULL);
     free(aux);
 }

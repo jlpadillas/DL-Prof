@@ -66,7 +66,9 @@ Options:
    -p, --papi
         executes the program and dont measure it with perf
    -t, --taskset
-        executes the program in one CPU (cpu=0)
+        executes the program only on the list of CPUs provided. Receives a
+        numerical list of processors. Numbers are separated by commas and
+        may include ranges. e.g: 0,5,8-11
 HELP_USAGE
 }
 
@@ -85,12 +87,11 @@ while [[ $# -gt 0 ]]; do
         -p|--papi)
         PAPI=YES
         shift # past argument
-        # shift # past value
         ;;
         -t|--taskset)
-        TASKSET=YES
+        CPU="$2"
         shift # past argument
-        # shift # past value
+        shift # past value
         ;;
         # -s|--searchpath)
         # SEARCHPATH="$2"
@@ -115,12 +116,16 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 # ------------------------------------------------------------------------ #
 PERF=$(which perf)
 if [[ -z $PERF ]]; then
-    echo "[ERROR] The program needs to have perf installed." >&2
+    echo "[PERF] Error, the program needs to have perf installed." >&2
     exit 1
 else
     EVENTS=$($PERF list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g')
     EVENTS=cycles,instructions,${EVENTS%,}
 fi
+
+# Format of the perf output
+FORMAT=-x:
+# FORMAT=""
 
 # Saves the name of the program to execute and its parameters
 PROGRAM=$1
@@ -149,14 +154,28 @@ if [[ $PROGRAM == *"."* ]]; then # It has an extension
     fi
 fi
 
-# Check taskset param
-TASKSET_PAR=" --cpu=0 taskset -c 0"
-if [[ -z ${TASKSET+x} ]]; then
-    TASKSET_PAR=""
+# The command that will be executed
+COMMAND="sudo"
+
+if [[ -z ${PAPI+x} ]]; then # Executing WITHOUT PAPI (using PERF)
+    COMMAND="${COMMAND} ${PERF} stat ${FORMAT} --event ${EVENTS}"
 fi
 
-FORMAT=-x:
-# FORMAT=""
+# Check the taskset param
+if [[ -n ${CPU} ]]; then
+    if [[ -z ${PAPI+x} ]]; then # PERF measures the same CPUs
+        COMMAND="${COMMAND} --cpu=${CPU}"
+    fi
+    COMMAND="${COMMAND} taskset --cpu-list ${CPU}"
+fi
+
+# Check if it is a binary or need a program to be executed (python)
+if [[ -n ${EXEC} ]]; then
+    COMMAND="${COMMAND} ${EXEC}"
+fi
+
+# Pass the program and its params
+COMMAND="${COMMAND} ${PROGRAM} ${PARAMS[*]}"
 
 # ------------------------------------------------------------------------ #
 # Start measure
@@ -164,19 +183,10 @@ FORMAT=-x:
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
 
-if [[ -z ${PAPI+x} ]]; then
-    if [[ $FILE_EXTN == "" ]]; then
-        eval sudo "${PERF}" stat $FORMAT --event "${EVENTS}""${TASKSET_PAR}" \
-            "${PROGRAM}" "${PARAMS[@]}"
-    else
-        eval sudo "${PERF}" stat $FORMAT --event "${EVENTS}""${TASKSET_PAR}" \
-            "${EXEC}" "${PROGRAM}" "${PARAMS[@]}"
-    fi
-else
-    # Just execute the program
-    eval sudo "${PROGRAM}" "${PARAMS[@]}"
-fi
+eval "${COMMAND}" # Run the command generated
 
 sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal
 sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
 # ------------------------------------------------------------------------ #
+
+exit 0

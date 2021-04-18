@@ -29,6 +29,43 @@
 
 #define MAX_MATRIX_SIZE 100000
 
+#ifdef MY_PAPI
+// ? NOTA: num. max. de eventos que puede medir papi simultaneamente
+// ? es igual a 6. Si se ejecuta mas, se lanza un error.
+const unsigned num_events = 6;
+
+// ! Modify the next lines depending on the executing PC
+// portatil
+// const char *events[] = {
+//     "cycles",
+//     "instructions",
+//     "fp_arith_inst_retired.128b_packed_double",
+//     "fp_arith_inst_retired.128b_packed_single",
+//     // "fp_arith_inst_retired.256b_packed_double",
+//     // "fp_arith_inst_retired.256b_packed_single",
+//     "fp_arith_inst_retired.scalar_double",
+//     "fp_arith_inst_retired.scalar_single"
+//     // "fp_assist.any"
+// };
+
+// sobremesa
+const char *events[] = {
+    "cycles",
+    "instructions",
+    // "fp_assist.any",
+    // "fp_assist.simd_input",
+    // "fp_assist.simd_output",
+    // "fp_assist.x87_input",
+    // "fp_assist.x87_output",
+    // "fp_comp_ops_exe.sse_packed_double",
+    "fp_comp_ops_exe.sse_packed_single",
+    "fp_comp_ops_exe.sse_scalar_double",
+    // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
+    "fp_comp_ops_exe.x87",
+    // "simd_fp_256.packed_double",
+    "simd_fp_256.packed_single"};
+#endif
+
 enum MATRIX_TYPE
 {
     RAND,
@@ -162,47 +199,12 @@ int main(int argc, char const *argv[])
     }
 
 #ifdef MY_PAPI
-    // ! Modify this lines
-    // portatil
-    // const char *events[] = {
-    //     "cycles",
-    //     "instructions",
-    //     "fp_arith_inst_retired.128b_packed_double",
-    //     "fp_arith_inst_retired.128b_packed_single",
-    //     // "fp_arith_inst_retired.256b_packed_double",
-    //     // "fp_arith_inst_retired.256b_packed_single",
-    //     "fp_arith_inst_retired.scalar_double",
-    //     "fp_arith_inst_retired.scalar_single"
-    //     // "fp_assist.any"
-    // };
-
-    // PC
-    const char *events[] = {
-        "cycles",
-        "instructions",
-        // "fp_assist.any",
-        // "fp_assist.simd_input",
-        // "fp_assist.simd_output",
-        // "fp_assist.x87_input",
-        // "fp_assist.x87_output",
-        // "fp_comp_ops_exe.sse_packed_double",
-        "fp_comp_ops_exe.sse_packed_single",
-        "fp_comp_ops_exe.sse_scalar_double",
-        // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
-        "fp_comp_ops_exe.x87",
-        // "simd_fp_256.packed_double",
-        "simd_fp_256.packed_single"};
-
-    // NOTA: num. max. de eventos que puede medir papi simultaneamente
-    // es igual a 6. Si se ejecuta mas, se lanza un error.
-    const unsigned num_events = 6;
-    long long *values = (long long *)malloc(num_events * sizeof(long long));
-
-    int num_cpus = 2;
-    int *eventSets = (int *)malloc(sizeof(int) * num_cpus);
-    const int cpus[] = {0,1};
-
-    int eventSet = my_start_events(events, num_events);
+    // ? Define values
+    // int eventSet = my_start_events(events, num_events);
+    // long long *values = (long long *)my_malloc(num_events * sizeof(long long));
+    int num_cpus = 8;
+    int *m_eventSets;
+    const int cpus[] = {0, 1, 2, 3, 4, 5, 6, 7};
 #endif // MY_PAPI
 
     // ROI -> Matrices are multiplied
@@ -211,14 +213,9 @@ int main(int argc, char const *argv[])
     case MULTITHREAD:
 #ifdef MY_PAPI
         // The measure is multithread, so we need to stop the regular measure
-        my_stop_events(eventSet, num_events, values);
-        free(values);
-
-        values = (long long *)malloc(num_events * sizeof(long long) * num_cpus);
-        // and create a new one wich measures the cores selected
-        eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
-
-        // my_PAPI_thread_init((unsigned long (*)(void))(pthread_self));
+        // my_stop_events(eventSet, num_events, NULL);
+        // my_free(values);
+        m_eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
 #endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         break;
@@ -235,27 +232,30 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
     if (Mul_type == MULTITHREAD)
     {
-        my_attach_and_stop(num_cpus, eventSets, values, num_events);
-//         for (size_t i = 0; i < num_cpus; i++)
-//         {
+        long long **m_values;
+        m_values = my_attach_and_stop(num_cpus, m_eventSets, num_events);
+
+        for (int i = 0; i < num_cpus; i++)
+        {
+            for (int j = 0; j < num_events; j++)
+            {
+                printf("[CPU = %d] Event[%d] = %lld\n", i, j, m_values[i][j]);
+            }
+        }
+
+        my_free(m_eventSets);
+        my_free(m_values);
+    }
+//     else
+//     {
+//         my_stop_events(eventSet, num_events, values);
 // #ifndef RAW
-//             my_print_values(num_events, events, &values[i]);
+//         my_print_values(num_events, events, values);
 // #else
-//             my_print_values_perf(num_events, events, &values[i]);
+//         my_print_values_perf(num_events, events, values);
 // #endif
-//         }
-        free(eventSets);
-    }
-    else
-    {
-        my_stop_events(eventSet, num_events, values);
-#ifndef RAW
-        my_print_values(num_events, events, values);
-#else
-        my_print_values_perf(num_events, events, values);
-#endif
-    }
-    free(values);
+//     }
+    // free(values);
 #endif // MY_PAPI
 
 #ifdef DEBUG

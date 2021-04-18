@@ -1,10 +1,122 @@
 
 SEQ_512_MULTITHREAD_main_papi_NO
-[MyPapi] Error -11 /home/jlpadillas01/TFG/mat_mul/src/my_papi.c:line 121: 
-[PERF] Error on line 177
+[CPU = 0] Event[0] = 0
+[CPU = 0] Event[1] = 0
+[CPU = 0] Event[2] = 0
+[CPU = 0] Event[3] = 0
+[CPU = 0] Event[4] = 0
+[CPU = 0] Event[5] = 0
+[CPU = 1] Event[0] = 52686
+[CPU = 1] Event[1] = 11743
+[CPU = 1] Event[2] = 0
+[CPU = 1] Event[3] = 0
+[CPU = 1] Event[4] = 38
+[CPU = 1] Event[5] = 0
+[CPU = 2] Event[0] = 0
+[CPU = 2] Event[1] = 0
+[CPU = 2] Event[2] = 0
+[CPU = 2] Event[3] = 0
+[CPU = 2] Event[4] = 0
+[CPU = 2] Event[5] = 0
+[CPU = 3] Event[0] = 170056
+[CPU = 3] Event[1] = 19202
+[CPU = 3] Event[2] = 0
+[CPU = 3] Event[3] = 0
+[CPU = 3] Event[4] = 54
+[CPU = 3] Event[5] = 0
+[CPU = 4] Event[0] = 0
+[CPU = 4] Event[1] = 0
+[CPU = 4] Event[2] = 0
+[CPU = 4] Event[3] = 0
+[CPU = 4] Event[4] = 0
+[CPU = 4] Event[5] = 0
+[CPU = 5] Event[0] = 0
+[CPU = 5] Event[1] = 0
+[CPU = 5] Event[2] = 0
+[CPU = 5] Event[3] = 0
+[CPU = 5] Event[4] = 0
+[CPU = 5] Event[5] = 0
+[CPU = 6] Event[0] = 0
+[CPU = 6] Event[1] = 0
+[CPU = 6] Event[2] = 0
+[CPU = 6] Event[3] = 0
+[CPU = 6] Event[4] = 0
+[CPU = 6] Event[5] = 0
+[CPU = 7] Event[0] = 0
+[CPU = 7] Event[1] = 0
+[CPU = 7] Event[2] = 0
+[CPU = 7] Event[3] = 0
+[CPU = 7] Event[4] = 0
+[CPU = 7] Event[5] = 0
 
 SEQ_512_MULTITHREAD_main_papi_YES
-[MyPapi] Error -11 /home/jlpadillas01/TFG/mat_mul/src/my_papi.c:line 121: 
-[PERF] Error on line 177
+[CPU = 0] Event[0] = 105213
+[CPU = 0] Event[1] = 16756
+[CPU = 0] Event[2] = 0
+[CPU = 0] Event[3] = 0
+[CPU = 0] Event[4] = 41
+[CPU = 0] Event[5] = 0
+[CPU = 1] Event[0] = 0
+[CPU = 1] Event[1] = 0
+[CPU = 1] Event[2] = 0
+[CPU = 1] Event[3] = 0
+[CPU = 1] Event[4] = 0
+[CPU = 1] Event[5] = 0
+[CPU = 2] Event[0] = 0
+[CPU = 2] Event[1] = 0
+[CPU = 2] Event[2] = 0
+[CPU = 2] Event[3] = 0
+[CPU = 2] Event[4] = 0
+[CPU = 2] Event[5] = 0
+[CPU = 3] Event[0] = 0
+[CPU = 3] Event[1] = 0
+[CPU = 3] Event[2] = 0
+[CPU = 3] Event[3] = 0
+[CPU = 3] Event[4] = 0
+[CPU = 3] Event[5] = 0
+[CPU = 4] Event[0] = 0
+[CPU = 4] Event[1] = 0
+[CPU = 4] Event[2] = 0
+[CPU = 4] Event[3] = 0
+[CPU = 4] Event[4] = 0
+[CPU = 4] Event[5] = 0
+[CPU = 5] Event[0] = 0
+[CPU = 5] Event[1] = 0
+[CPU = 5] Event[2] = 0
+[CPU = 5] Event[3] = 0
+[CPU = 5] Event[4] = 0
+[CPU = 5] Event[5] = 0
+[CPU = 6] Event[0] = 0
+[CPU = 6] Event[1] = 0
+[CPU = 6] Event[2] = 0
+[CPU = 6] Event[3] = 0
+[CPU = 6] Event[4] = 0
+[CPU = 6] Event[5] = 0
+[CPU = 7] Event[0] = 0
+[CPU = 7] Event[1] = 0
+[CPU = 7] Event[2] = 0
+[CPU = 7] Event[3] = 0
+[CPU = 7] Event[4] = 0
+[CPU = 7] Event[5] = 0
+
+SEQ_512_MULTITHREAD_main_perf_NO
++---------------------------------------+-----------------+
+| Event                                 | Value           |
++=======================================+=================+
+| cycles                                | 2.166.084.276   |
+| instructions                          | 3.547.419.707   |
+| fp_comp_ops_exe.sse_scalar_double     | 658.391.193     |
+| fp_comp_ops_exe.x87                   | 10.018          |
++---------------------------------------+-----------------+
+
+SEQ_512_MULTITHREAD_main_perf_YES
++---------------------------------------+-----------------+
+| Event                                 | Value           |
++=======================================+=================+
+| cycles                                | 2.181.775.645   |
+| instructions                          | 3.533.593.213   |
+| fp_comp_ops_exe.sse_scalar_double     | 652.170.730     |
+| fp_comp_ops_exe.x87                   | 15.269          |
++---------------------------------------+-----------------+
 
 EOF

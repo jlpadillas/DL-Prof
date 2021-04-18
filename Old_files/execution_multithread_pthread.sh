@@ -109,19 +109,21 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$LIB_DIR:/usr/local/lib
 # echo "$LD_LIBRARY_PATH"
 
 # Se compilan los programas
-# ! matrix
-eval "${CC}" "${CFLAGS}" -c "${SRC_DIR}"/matrix.c -o "${BIN_DIR}"/matrix.o
 # ! my_papi
 eval "${CC}" "${CFLAGS}" -fPIC -c "${SRC_DIR}"/my_papi.c -o \
   "${BIN_DIR}"/my_papi.o
 eval "${CC}" -shared -o "${LIB_DIR}"/libmy_papi.so "${BIN_DIR}"/my_papi.o \
   -L/usr/local/lib -lpapi
+# ! matrix
+eval "${CC}" "${CFLAGS}" -c "${SRC_DIR}"/matrix.c -o "${BIN_DIR}"/matrix.o
+eval "${CC}" "${CFLAGS}" -c "${SRC_DIR}"/matrix.c -DMY_PAPI -o \
+  "${BIN_DIR}"/matrix_papi.o
 # ! main_perf
-eval "${CC}" "${CFLAGS}" "${SRC_DIR}"/main.c -o "${BIN_DIR}"/main_perf \
-  "${BIN_DIR}"/matrix.o -pthread
+eval "${CC}" "${CFLAGS}" "$SRC_DIR"/main.c "${BIN_DIR}"/matrix.o -pthread -o \
+  "${BIN_DIR}"/main_perf
 # ! main_papi
 eval "${CC}" "${CFLAGS}" "${SRC_DIR}"/main.c -o "${BIN_DIR}"/main_papi \
-  -DMY_PAPI -Wl,-rpath="$LIB_DIR" "${BIN_DIR}"/matrix.o -L"${LIB_DIR}" \
+  -DMY_PAPI -Wl,-rpath="$LIB_DIR" "${BIN_DIR}"/matrix_papi.o -L"${LIB_DIR}" \
   -lmy_papi -pthread
 
 # --------------------------------------------------------------------------- #
@@ -147,10 +149,10 @@ RAW=true # true or false
       for m_mult in "${M_MULT[@]}"; do
         # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
 
-        for program in "main_papi" "main_perf"
+        for program in "main_papi" #"main_perf"
         do
 
-          for taskset in "" "--taskset 0" # ! Change this!
+          for taskset in "" "--taskset" # ! Change this!
           do
 
             tskst=NO
@@ -179,11 +181,11 @@ printf "%s\n" "+=============+=============+========================+===========
                   eval bash "${SRC_DIR}/"perf.sh --papi "$taskset" \
                     "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
                 else
-                  AUX=$(eval bash "${SRC_DIR}/"perf.sh "$taskset" \
-                  "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
-                  format "$AUX"
-                  # eval bash "${SRC_DIR}/"perf.sh "$taskset" \
-                  # "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
+                  # AUX=$(eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                  # "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
+                  # format "$AUX"
+                  eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                  "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
                 fi
 
                 sleep 1
