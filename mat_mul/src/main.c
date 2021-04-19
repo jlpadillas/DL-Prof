@@ -214,7 +214,6 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
         // The measure is multithread, so we need to stop the regular measure
         my_stop_events(eventSet, num_events, NULL);
-        my_free(values);
         m_eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
 #endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);

@@ -284,10 +284,10 @@ int *my_attach_and_start(int num_cpus, const int cpus[],
         /* (perf_events component provides all core events)  */
         my_PAPI_assign_eventset_component(eventSet[i], 0);
 
-        // /* Force granularity to PAPI_GRN_SYS */
-        // opts.granularity.eventset = eventSet[i];
-        // opts.granularity.granularity = PAPI_GRN_SYS_CPU;
-        // PAPI_set_opt(PAPI_GRANUL, &opts);
+        /* Force granularity to PAPI_GRN_SYS */
+        opts.granularity.eventset = eventSet[i];
+        opts.granularity.granularity = PAPI_GRN_SYS; // PAPI_GRN_THR;
+        my_PAPI_set_opt(PAPI_GRANUL, &opts);
 
         /* Attach this event set to cpu i */
         opts.cpu.eventset = eventSet[i];
