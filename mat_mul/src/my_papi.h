@@ -74,15 +74,18 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
-
 void *my_malloc(size_t size);
 
 void my_free(void *ptr);
 
 int *my_attach_and_start(int num_cpus, const int cpus[],
-                        const char *events[], int numEvents);
+                         const char *events[], int numEvents);
 
 long long **my_attach_and_stop(int num_cpus, int *eventSets, int numEvents);
+
+void my_print_attached_values(int numEvents, const char *events[],
+                              long long **values, int num_cpus,
+                              const int cpus[]);
 
 // ! Cambiar por paso de resultado por parametro (?)
 // int my_attach_and_stop(int num_cpus, int *eventSets, long long **values,

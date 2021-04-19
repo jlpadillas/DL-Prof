@@ -58,9 +58,9 @@ format () {
   printf "%s\n" "+---------------------------------------+-----------------+"
 }
 
-# ------------------------------------------------------------------------ #
+# --------------------------------------------------------------------------- #
 # Error handling
-# ------------------------------------------------------------------------ #
+# --------------------------------------------------------------------------- #
 set -e
 
 err_report() {
@@ -90,12 +90,6 @@ rm -rf "${BIN_DIR:?}/"* "${LIB_DIR:?}/"* >/dev/null
 
 # Se crean los directorios en caso de no existir
 mkdir -p "$BIN_DIR" "$LIB_DIR" "$OUT_DIR"
-# Se elimina y se vuelve a crear el fichero de resultados
-FILE=$OUT_DIR/results1.txt
-if [ -f "$FILE" ]; then
-  rm "$FILE"
-fi
-touch "$FILE"
 
 # --------------------------------------------------------------------------- #
 # C
@@ -130,28 +124,32 @@ eval "${CC}" "${CFLAGS}" "${SRC_DIR}"/main.c -o "${BIN_DIR}"/main_papi \
 # Definimos las matrices a ejecutar
 # declare -a M_TYPE=( "RAND" "SEQ" )
 declare -a M_TYPE=( "SEQ" )
-# declare -a M_SIZE=( 1024 10240 )
 declare -a M_SIZE=( 512 )
 # declare -a M_MULT=( "MULTITHREAD" "NORMAL" "TRANSPOSE" )
-declare -a M_MULT=( "MULTITHREAD" ) #"TRANSPOSE" )
+declare -a M_MULT=( "MULTITHREAD" "TRANSPOSE" )
 
 # Se indica si la salida de datos es "raw", como en perf o no.
-RAW=true # true or false
-{
-  for m_type in "${M_TYPE[@]}"; do
-    # Tipo de matriz: RANDOM o SEQUENTIAL
+RAW=false # true or false
 
-    for m_size in "${M_SIZE[@]}"; do
-      # Tamanho de la matriz: 1024, ..., 10240
+for m_type in "${M_TYPE[@]}"; do
+  # Tipo de matriz: RANDOM o SEQUENTIAL
 
+  for m_size in "${M_SIZE[@]}"; do
+    # Tamanho de la matriz: 512, 1024, ..., 10240
+
+    # Se elimina y se vuelve a crear el fichero de resultados
+    FILE=${OUT_DIR}/results_${m_type}_${m_size}.txt
+    if [ -f "$FILE" ]; then
+      rm "$FILE"
+    fi
+    touch "$FILE"
+    {
       for m_mult in "${M_MULT[@]}"; do
-        # Tipo de multiplicacion a realizar: multithread, normal, transpose, ...
+        # Tipo de multiplicacion a realizar: multithread, normal, transpose
 
-        for program in "main_papi" "main_perf"
-        do
+        for program in "main_papi" "main_perf"; do
 
-          for taskset in "" "--taskset 0" # ! Change this!
-          do
+          for taskset in "" "--taskset 0"; do
 
             tskst=NO
             if [[ $taskset == *"--taskset"* ]]; then
@@ -159,14 +157,15 @@ RAW=true # true or false
             fi
 
             if [[ $RAW == "true" ]]; then
-              printf "\n%s_%s_%s_%s_%s\n" "$m_type" "$m_size" "$m_mult" "$program" "$tskst"
+              printf "\n%s_%s_%s_%s_%s\n" "$m_type" "$m_size" "$m_mult" \
+                "$program" "$tskst"
             else
-printf "\n%s\n" "+=============+=============+========================+===========+=========+"
-printf "|%+12s |%+12s |%+23s |%+10s |%+8s |\n" "MATRIX TYPE" "MATRIX SIZE" \
-  "TYPE OF MULTIPLICATION" "PROGRAM" "TASKSET"
-printf "%s\n" "+=============+=============+========================+===========+=========+"
-printf "|%+12s |%+12s |%+23s |%+10s |%+8s |\n" "$m_type" "$m_size" "$m_mult" "$program" "$tskst"
-printf "%s\n" "+=============+=============+========================+===========+=========+"
+              printf "\n%s\n" "+========================+===========+=========+"
+              printf "|%+23s |%+10s |%+8s |\n" "TYPE OF MULTIPLICATION" \
+                "PROGRAM" "TASKSET"
+              printf "%s\n" "+========================+===========+=========+"
+              printf "|%+23s |%+10s |%+8s |\n" "$m_mult" "$program" "$tskst"
+              printf "%s\n" "+========================+===========+=========+"
             fi
 
             # for season in 1 2; do # ! change this!
@@ -179,25 +178,26 @@ printf "%s\n" "+=============+=============+========================+===========
                   eval bash "${SRC_DIR}/"perf.sh --papi "$taskset" \
                     "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
                 else
-                  AUX=$(eval bash "${SRC_DIR}/"perf.sh "$taskset" \
-                  "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
-                  format "$AUX"
-                  # eval bash "${SRC_DIR}/"perf.sh "$taskset" \
-                  # "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
+                  if [[ $RAW == "true" ]]; then
+                    eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                    "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1
+                  else
+                    AUX=$(eval bash "${SRC_DIR}/"perf.sh "$taskset" \
+                    "${BIN_DIR}/"${program} "$m_type" "$m_size" "$m_mult" 2>&1)
+                    format "$AUX"
+                  fi
                 fi
 
                 sleep 1
               done
             # done
-
           done
-
         done
       done
-    done
+      printf "\nEOF\n"
+    } >> "$FILE"
   done
-  printf "\nEOF\n"
-} >> "$FILE"
+done
 
 # Ending program!
 end=$(date +%s)

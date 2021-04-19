@@ -255,7 +255,7 @@ void my_stop_events_attached_cpus(int eventSets[], int num_eventSets,
     }
 }
 
-// ! -- !
+// ! Se usan estas funciones para attach cpu --> !
 int *my_attach_and_start(int num_cpus, const int cpus[],
                          const char *events[], int numEvents)
 {
@@ -284,15 +284,14 @@ int *my_attach_and_start(int num_cpus, const int cpus[],
         /* (perf_events component provides all core events)  */
         my_PAPI_assign_eventset_component(eventSet[i], 0);
 
-        /* Force granularity to PAPI_GRN_SYS */
-        opts.granularity.eventset = eventSet[i];
-        opts.granularity.granularity = PAPI_GRN_THR;
-        PAPI_set_opt(PAPI_GRANUL, &opts);
+        // /* Force granularity to PAPI_GRN_SYS */
+        // opts.granularity.eventset = eventSet[i];
+        // opts.granularity.granularity = PAPI_GRN_SYS_CPU;
+        // PAPI_set_opt(PAPI_GRANUL, &opts);
 
         /* Attach this event set to cpu i */
         opts.cpu.eventset = eventSet[i];
         opts.cpu.cpu_num = cpus[i];
-
         my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
         // Se anhaden los eventos
         for (j = 0; j < numEvents; j++)
@@ -332,7 +331,18 @@ long long **my_attach_and_stop(int num_cpus, int *eventSets, int numEvents)
     return values;
 }
 
-// ! -- !
+
+void my_print_attached_values(int numEvents, const char *events[],
+                              long long **values, int num_cpus,
+                              const int cpus[])
+{
+    for (int i = 0; i < num_cpus; i++)
+    {
+        printf("[CPU = %d]\n", cpus[i]);
+        my_print_values(numEvents, events, values[i]);
+    }    
+}
+// ! <-- !
 
 // int my_attach_and_stop(int num_cpus, int *eventSets, long long **values,
 //                        int numEvents)
@@ -407,13 +417,18 @@ int my_stop_events(int eventSet, int numEvents, long long *values)
 void my_print_values(int numEvents, const char *events[],
                      long long *values)
 {
+    int i, val;
     setlocale(LC_NUMERIC, "");
     printf("%s\n", "+---------------------------------------+-----------------+");
     printf("| %-38s| %-16s|\n", "Event", "Value");
     printf("%s\n", "+=======================================+=================+");
-    for (int i = 0; i < numEvents; i++)
+    for (i = 0; i < numEvents; i++)
     {
-        printf("| %-38s| %'-16lld|\n", events[i], values[i]);
+        val = values[i];
+        if (val != 0)
+        {
+            printf("| %-38s| %'-16lld|\n", events[i], values[i]);
+        }
     }
     printf("%s\n", "+---------------------------------------+-----------------+");
 }
