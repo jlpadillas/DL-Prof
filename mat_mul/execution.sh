@@ -44,18 +44,21 @@ format () {
 
   # Se separa el contenido para leerlo
   readarray -t array <<< "$1"
-  printf "%s\n" "+---------------------------------------+-----------------+"
-  printf "| %-38s| %-16s|\n" "Event" "Value"
-  printf "%s\n" "+=======================================+=================+"
+  printf "%s\n" \
+    "+-------------------------------------------+-----------------+"
+  printf "| %-42s| %-16s|\n" "Event" "Value"
+  printf "%s\n" \
+    "+===========================================+=================+"
   for line in "${array[@]}"; do
     readarray -td: data <<< "$line"
     local counter_val="${data[0]}"
     local event_name="${data[2]}"
     if [[ $counter_val -ne 0 ]]; then
-      printf "| %-38s| %'-16lld|\n" "${event_name}" "${counter_val}"
+      printf "| %-42s| %'-16lld|\n" "${event_name}" "${counter_val}"
     fi
   done
-  printf "%s\n" "+---------------------------------------+-----------------+"
+  printf "%s\n" \
+    "+-------------------------------------------+-----------------+"
 }
 
 # --------------------------------------------------------------------------- #
