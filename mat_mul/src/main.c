@@ -36,34 +36,34 @@ const unsigned num_events = 6;
 
 // ! Modify the next lines depending on the executing PC
 // portatil
-const char *events[] = {
-    "cycles",
-    "instructions",
-    "fp_arith_inst_retired.128b_packed_double",
-    "fp_arith_inst_retired.128b_packed_single",
-    // "fp_arith_inst_retired.256b_packed_double",
-    // "fp_arith_inst_retired.256b_packed_single",
-    "fp_arith_inst_retired.scalar_double",
-    "fp_arith_inst_retired.scalar_single"
-    // "fp_assist.any"
-};
-
-// sobremesa
 // const char *events[] = {
 //     "cycles",
 //     "instructions",
-//     // "fp_assist.any",
-//     // "fp_assist.simd_input",
-//     // "fp_assist.simd_output",
-//     // "fp_assist.x87_input",
-//     // "fp_assist.x87_output",
-//     // "fp_comp_ops_exe.sse_packed_double",
-//     "fp_comp_ops_exe.sse_packed_single",
-//     "fp_comp_ops_exe.sse_scalar_double",
-//     // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
-//     "fp_comp_ops_exe.x87",
-//     // "simd_fp_256.packed_double",
-//     "simd_fp_256.packed_single"};
+//     "fp_arith_inst_retired.128b_packed_double",
+//     "fp_arith_inst_retired.128b_packed_single",
+//     // "fp_arith_inst_retired.256b_packed_double",
+//     // "fp_arith_inst_retired.256b_packed_single",
+//     "fp_arith_inst_retired.scalar_double",
+//     "fp_arith_inst_retired.scalar_single"
+//     // "fp_assist.any"
+// };
+
+// sobremesa
+const char *events[] = {
+    "cycles",
+    "instructions",
+    // "fp_assist.any",
+    // "fp_assist.simd_input",
+    // "fp_assist.simd_output",
+    // "fp_assist.x87_input",
+    // "fp_assist.x87_output",
+    // "fp_comp_ops_exe.sse_packed_double",
+    "fp_comp_ops_exe.sse_packed_single",
+    "fp_comp_ops_exe.sse_scalar_double",
+    // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
+    "fp_comp_ops_exe.x87",
+    // "simd_fp_256.packed_double",
+    "simd_fp_256.packed_single"};
 #endif
 
 enum MATRIX_TYPE

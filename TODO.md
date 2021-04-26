@@ -116,6 +116,26 @@ attachment por core.
 
 ---
 
+viernes 23-abr
+
+makefile y python.
+
+makefile  test.
+
+libreria aparte. c q llama a papi
+
+bash -> a python.
+
+generar csv
+
+tensorflow.
+
+usable a modo usuario.
+
+virtualenv.
+
+---
+
 [execution.sh]:   mat_mul/execution.sh
 [main.c]:         mat_mul/src/main.c
 [main.py]:        mat_mul/src/main.py

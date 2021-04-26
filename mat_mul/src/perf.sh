@@ -124,8 +124,8 @@ else
 fi
 
 # Format of the perf output
-FORMAT=-x:
-# FORMAT=""
+# FORMAT=-x:
+FORMAT=""
 
 # Saves the name of the program to execute and its parameters
 PROGRAM=$1
@@ -180,13 +180,13 @@ COMMAND="${COMMAND} ${PROGRAM} ${PARAMS[*]}"
 # ------------------------------------------------------------------------ #
 # Start measure
 # ------------------------------------------------------------------------ #
-sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
-sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
+# sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
+# sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
 
 eval "${COMMAND}" # Run the command generated
 
-sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal
-sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
+# sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null # Back to normal
+# sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null # Enable NMI
 # ------------------------------------------------------------------------ #
 
 exit 0
