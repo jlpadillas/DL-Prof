@@ -78,7 +78,7 @@ int my_PAPI_hl_region_end(const char *region);
 int my_attach_all_cpus_and_start(const char *events[], int numEvents,
                              int *eventSets);
 
-int my_attach_all_cpus_stop(const char *event[], int numEvents,
+int my_attach_all_cpus_and_stop(const char *event[], int numEvents,
                             int *eventSets, long long **values);
 
 void *my_malloc(size_t size);

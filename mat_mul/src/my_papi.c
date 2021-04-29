@@ -158,7 +158,7 @@ int my_PAPI_hl_region_end(const char *region)
 // -----------------------------------------------------------------------
 // Para medir todo el sistema
 int my_attach_all_cpus_and_start(const char *events[], int numEvents,
-                             int *eventSets)
+                                 int *eventSets)
 {
     size_t i, j;
     int num_cpus;
@@ -177,7 +177,7 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
     local_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
 
     int cidx = 0;
-    for (i = 0; i < numEvents; i++)
+    for (i = 0; i < num_cpus; i++)
     {
         local_eventSets[i] = PAPI_NULL;
         my_PAPI_create_eventset(&local_eventSets[i]);
@@ -189,8 +189,8 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
         my_PAPI_set_opt(PAPI_GRANUL, &opts);
 
         // attach event set to cpu i
-		opts.cpu.eventset = local_eventSets[i];
-		opts.cpu.cpu_num = i;
+        opts.cpu.eventset = local_eventSets[i];
+        opts.cpu.cpu_num = i;
         my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
 
         // Se anhaden los eventos
@@ -210,8 +210,8 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
     return EXIT_SUCCESS;
 }
 
-int my_attach_all_cpus_stop(const char *event[], int numEvents,
-                            int *eventSets, long long **values)
+int my_attach_all_cpus_and_stop(const char *event[], int numEvents,
+                                int *eventSets, long long **values)
 {
     size_t i;
     int num_cpus;
