@@ -220,8 +220,6 @@ int main(int argc, char const *argv[])
     {
 #ifdef MY_PAPI
         // Get the total num of cpus
-        // const PAPI_hw_info_t *hwinfo;
-        // hwinfo = my_PAPI_get_hardware_info();
         int num_cpus = my_get_total_cpus();
         // Allocate memory for the event sets
         int *m_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
@@ -240,7 +238,7 @@ int main(int argc, char const *argv[])
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 #ifdef MY_PAPI
         // ! Stop measure
-        my_attach_all_cpus_and_stop(num_events, m_eventSets, m_values);
+        my_attach_all_cpus_and_stop(num_events, m_eventSets, m_values, num_cpus);
         // TODO: Cambiar esto:
         my_print_attached_values(num_events, events, m_values, num_cpus, NULL);
         // Free memory

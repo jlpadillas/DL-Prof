@@ -81,7 +81,7 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
                                  int *eventSets, int num_cpus);
 
 int my_attach_all_cpus_and_stop(int numEvents, int *eventSets,
-                                long long **values);
+                                long long **values, int num_cpus);
 
 int my_get_total_cpus();
 

@@ -171,20 +171,10 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
                                  int *eventSets, int num_cpus)
 {
     size_t i, j;
-    // int num_cpus;
-    const PAPI_hw_info_t *hwinfo;
     PAPI_option_t opts;
-    // int *local_eventSets;
 
     // Se carga la liberia
     my_PAPI_library_init(PAPI_VER_CURRENT);
-
-    // Load info of the HW and get the local num of cpus
-    hwinfo = PAPI_get_hardware_info();
-    num_cpus = hwinfo->totalcpus;
-
-    // Allocate memory for the eventsets
-    // local_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
 
     int cidx = 0;
     for (i = 0; i < num_cpus; i++)
@@ -219,24 +209,9 @@ int my_attach_all_cpus_and_start(const char *events[], int numEvents,
 }
 
 int my_attach_all_cpus_and_stop(int numEvents, int *eventSets,
-                                long long **values)
+                                long long **values, int num_cpus)
 {
     size_t i;
-    int num_cpus;
-    const PAPI_hw_info_t *hwinfo;
-
-    // Load info of the HW and get the local num of cpus
-    hwinfo = PAPI_get_hardware_info();
-    num_cpus = hwinfo->totalcpus;
-
-    // 1er malloc
-    values = (long long **)my_malloc(num_cpus * sizeof(long long *));
-    // 2o malloc
-    for (i = 0; i < num_cpus; i++)
-    {
-        values[i] = (long long *)my_malloc(numEvents * sizeof(long long));
-    }
-
     for (i = 0; i < num_cpus; i++)
     {
         // printf("[M_P] Eventset[%zu] = %d\n", i, eventSets[i]);
@@ -480,32 +455,6 @@ void my_print_attached_values(int numEvents, const char *events[],
 //     return EXIT_SUCCESS;
 // }
 
-// int my_start_events(const char *events[], int numEvents)
-// {
-//     int eventSet = PAPI_NULL;
-//     size_t i;
-//     // Se crea la libreria
-//     my_PAPI_library_init(PAPI_VER_CURRENT);
-
-//     // Se crea el conjunto de eventos
-//     my_PAPI_create_eventset(&eventSet);
-
-//     // Se anhaden los eventos
-//     for (i = 0; i < numEvents; i++)
-//     {
-//         // printf("\tPAPI_EVENT to add: %s\n", events[i]);
-//         my_PAPI_add_named_event(eventSet, events[i]);
-//     }
-
-//     // Comprueba que se ha anhadido el numero correcto de eventos
-//     // int count;
-//     // my_PAPI_list_events(eventSet, count, numEvents);
-
-//     my_PAPI_start(eventSet);
-
-//     return eventSet;
-// }
-
 int my_start_events(const char *events[], int numEvents, int *eventSet)
 {
     int eventSet_aux = PAPI_NULL;
@@ -523,9 +472,6 @@ int my_start_events(const char *events[], int numEvents, int *eventSet)
         my_PAPI_add_named_event(eventSet_aux, events[i]);
     }
 
-    // Comprueba que se ha anhadido el numero correcto de eventos
-    // int count;
-    // my_PAPI_list_events(eventSet, count, numEvents);
     *eventSet = eventSet_aux;
     my_PAPI_start(eventSet_aux);
     return EXIT_SUCCESS;
@@ -533,7 +479,6 @@ int my_start_events(const char *events[], int numEvents, int *eventSet)
 
 int my_stop_events(int eventSet, int numEvents, long long *values)
 {
-    // Tengo que hacer el malloc aqui y otra funcion donde libere los datos (?)
     return my_PAPI_stop(eventSet, values);
 }
 
