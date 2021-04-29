@@ -32,7 +32,7 @@
 #ifdef MY_PAPI
 // ? NOTA: num. max. de eventos que puede medir papi simultaneamente
 // ? es igual a 6. Si se ejecuta mas, se lanza un error.
-const unsigned num_events = 6;
+const unsigned num_events = 3;
 
 // ! Modify the next lines depending on the executing PC
 // portatil
@@ -70,14 +70,14 @@ const unsigned num_events = 6;
 const char *events[] = {
     "cycles",
     "instructions",
-    "fp_arith_inst_retired.128b_packed_double",
-    "fp_arith_inst_retired.128b_packed_single",
+    // "fp_arith_inst_retired.128b_packed_double",
+    // "fp_arith_inst_retired.128b_packed_single",
     // "fp_arith_inst_retired.256b_packed_double",
     // "fp_arith_inst_retired.256b_packed_single",
     // "fp_arith_inst_retired.512b_packed_double",
     // "fp_arith_inst_retired.512b_packed_single",
     "fp_arith_inst_retired.scalar_double",
-    "fp_arith_inst_retired.scalar_single"
+    // "fp_arith_inst_retired.scalar_single"
     // "fp_assist.any"
 };
 
@@ -222,6 +222,7 @@ int main(int argc, char const *argv[])
     int num_cpus = 8;
     int *m_eventSets;
     const int cpus[] = {0, 1, 2, 3, 4, 5, 6, 7};
+    my_attach_all_cpus_start();
 #endif // MY_PAPI
 
     // ROI -> Matrices are multiplied

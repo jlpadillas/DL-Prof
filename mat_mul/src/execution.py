@@ -25,7 +25,8 @@ if __name__ == "__main__":
     import locale
     import os
     import pathlib
-
+    import subprocess
+    from subprocess import run
     # 3rd party packages
 
     # local source
@@ -54,6 +55,12 @@ if __name__ == "__main__":
     M_MULT = ["MULTITHREAD"]
 
     RAW = True
+
+    # -------------------------------------------------------------------- #
+    # Compile
+    # -------------------------------------------------------------------- #
+    command = ["make", "-C", PWD, "test_compile"]
+    run(command, stdout=subprocess.DEVNULL)  # , stderr=subprocess.STDOUT)
 
     # -------------------------------------------------------------------- #
     # Execution

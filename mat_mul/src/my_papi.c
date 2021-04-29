@@ -156,6 +156,43 @@ int my_PAPI_hl_region_end(const char *region)
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
+// Para medir todo el sistema
+int my_attach_all_cpus_start()
+// const char *event[], int numEvents,
+//                              int *eventSets)
+{
+    size_t i;
+    int num_cpus;
+    const PAPI_hw_info_t *hwinfo;
+	PAPI_option_t opts;
+    int *local_eventSets;
+    // Tenemos que ver todas las cpus que cuenta nuestro sistema
+
+
+    //
+    my_PAPI_library_init(PAPI_VER_CURRENT);
+
+    //
+    hwinfo = PAPI_get_hardware_info();
+
+    // Get the total num of cpus
+    num_cpus = hwinfo->totalcpus;
+
+    printf("[HOLA] num_cpus = %d\n", num_cpus);
+
+    // Allocate memory for the eventsets
+    // local_eventSets = (int *)my_malloc(numEvents * sizeof(int));
+
+
+
+    // eventSets = local_eventSets;
+    return EXIT_SUCCESS;
+}
+
+int my_attach_all_cpus_stop(const char *event[], int numEvents,
+                            int *eventSets, long long **values);
+
+
 void *my_malloc(size_t size)
 {
     void *ptr;

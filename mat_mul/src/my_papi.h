@@ -74,6 +74,13 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
+// Para medir todo el sistema
+int my_attach_all_cpus_start();//const char *event[], int numEvents,
+                            //  int *eventSets);
+
+int my_attach_all_cpus_stop(const char *event[], int numEvents,
+                            int *eventSets, long long **values);
+
 void *my_malloc(size_t size);
 
 void my_free(void *ptr);
