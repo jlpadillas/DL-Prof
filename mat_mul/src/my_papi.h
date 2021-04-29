@@ -75,8 +75,8 @@ int my_PAPI_hl_region_end(const char *region);
 // Propios
 // -----------------------------------------------------------------------
 // Para medir todo el sistema
-int my_attach_all_cpus_start();//const char *event[], int numEvents,
-                            //  int *eventSets);
+int my_attach_all_cpus_and_start(const char *events[], int numEvents,
+                             int *eventSets);
 
 int my_attach_all_cpus_stop(const char *event[], int numEvents,
                             int *eventSets, long long **values);

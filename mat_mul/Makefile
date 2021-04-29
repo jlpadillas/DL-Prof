@@ -37,7 +37,7 @@ test_compile: my_papi
 
 test_run: test_compile
 # Executing
-	taskset -c 0 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
+	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
 
 my_papi:

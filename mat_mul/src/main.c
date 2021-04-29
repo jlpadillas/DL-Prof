@@ -219,10 +219,9 @@ int main(int argc, char const *argv[])
     // ? Define values
     int eventSet = my_start_events(events, num_events);
     long long *values = (long long *)my_malloc(num_events * sizeof(long long));
-    int num_cpus = 8;
-    int *m_eventSets;
-    const int cpus[] = {0, 1, 2, 3, 4, 5, 6, 7};
-    my_attach_all_cpus_start();
+    int num_cpus = 64;
+    int m_eventSets;// = (int *)my_malloc(num_cpus * sizeof(int));;
+    // const int cpus[] = {0, 1, 2, 3, 4, 5, 6, 7};
 #endif // MY_PAPI
 
     // ROI -> Matrices are multiplied
@@ -232,7 +231,8 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
         // The measure is multithread, so we need to stop the regular measure
         my_stop_events(eventSet, num_events, NULL);
-        m_eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
+        // m_eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
+        my_attach_all_cpus_and_start(events, num_events, &m_eventSets);
 #endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         break;
@@ -249,11 +249,12 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
     if (Mul_type == MULTITHREAD)
     {
-        long long **m_values;
-        m_values = my_attach_and_stop(num_cpus, m_eventSets, num_events);
-        my_print_attached_values(num_events, events, m_values, num_cpus, cpus);
-        my_free(m_eventSets);
-        my_free(m_values);
+        long long *m_values;
+        // m_values = my_attach_and_stop(num_cpus, m_eventSets, num_events);
+        my_attach_all_cpus_stop(events, num_events, &m_eventSets, &m_values);
+        my_print_attached_values(num_events, events, &m_values, num_cpus, NULL);
+        my_free(&m_eventSets);
+        my_free(&m_values);
     }
     else
     {

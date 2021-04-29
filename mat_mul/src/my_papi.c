@@ -157,41 +157,85 @@ int my_PAPI_hl_region_end(const char *region)
 // Propios
 // -----------------------------------------------------------------------
 // Para medir todo el sistema
-int my_attach_all_cpus_start()
-// const char *event[], int numEvents,
-//                              int *eventSets)
+int my_attach_all_cpus_and_start(const char *events[], int numEvents,
+                             int *eventSets)
 {
-    size_t i;
+    size_t i, j;
     int num_cpus;
     const PAPI_hw_info_t *hwinfo;
-	PAPI_option_t opts;
+    PAPI_option_t opts;
     int *local_eventSets;
-    // Tenemos que ver todas las cpus que cuenta nuestro sistema
 
-
-    //
+    // Se carga la liberia
     my_PAPI_library_init(PAPI_VER_CURRENT);
 
-    //
+    // Load info of the HW and get the local num of cpus
     hwinfo = PAPI_get_hardware_info();
-
-    // Get the total num of cpus
     num_cpus = hwinfo->totalcpus;
 
-    printf("[HOLA] num_cpus = %d\n", num_cpus);
-
     // Allocate memory for the eventsets
-    // local_eventSets = (int *)my_malloc(numEvents * sizeof(int));
+    local_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
 
+    int cidx = 0;
+    for (i = 0; i < numEvents; i++)
+    {
+        local_eventSets[i] = PAPI_NULL;
+        my_PAPI_create_eventset(&local_eventSets[i]);
+        my_PAPI_assign_eventset_component(local_eventSets[i], cidx);
 
+        /* Force granularity to PAPI_GRN_SYS */
+        opts.granularity.eventset = local_eventSets[i];
+        opts.granularity.granularity = PAPI_GRN_SYS;
+        my_PAPI_set_opt(PAPI_GRANUL, &opts);
 
-    // eventSets = local_eventSets;
+        // attach event set to cpu i
+		opts.cpu.eventset = local_eventSets[i];
+		opts.cpu.cpu_num = i;
+        my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
+
+        // Se anhaden los eventos
+        for (j = 0; j < numEvents; j++)
+        {
+            my_PAPI_add_named_event(local_eventSets[i], events[j]);
+        }
+    }
+
+    eventSets = local_eventSets;
+
+    // Empieza las medidas
+    for (i = 0; i < num_cpus; i++)
+    {
+        my_PAPI_start(eventSets[i]);
+    }
     return EXIT_SUCCESS;
 }
 
 int my_attach_all_cpus_stop(const char *event[], int numEvents,
-                            int *eventSets, long long **values);
+                            int *eventSets, long long **values)
+{
+    size_t i;
+    int num_cpus;
+    const PAPI_hw_info_t *hwinfo;
 
+    // Load info of the HW and get the local num of cpus
+    hwinfo = PAPI_get_hardware_info();
+    num_cpus = hwinfo->totalcpus;
+
+    // 1er malloc
+    values = (long long **)my_malloc(num_cpus * sizeof(long long *));
+    // 2o malloc
+    for (i = 0; i < num_cpus; i++)
+    {
+        values[i] = (long long *)my_malloc(numEvents * sizeof(long long));
+    }
+
+    for (i = 0; i < num_cpus; i++)
+    {
+        // printf("[M_P] Eventset[%zu] = %d\n", i, eventSets[i]);
+        my_PAPI_stop(eventSets[i], values[i]);
+    }
+    return EXIT_SUCCESS;
+}
 
 void *my_malloc(size_t size)
 {
@@ -368,16 +412,15 @@ long long **my_attach_and_stop(int num_cpus, int *eventSets, int numEvents)
     return values;
 }
 
-
 void my_print_attached_values(int numEvents, const char *events[],
                               long long **values, int num_cpus,
                               const int cpus[])
 {
     for (int i = 0; i < num_cpus; i++)
     {
-        printf("[CPU = %d]\n", cpus[i]);
+        printf("[CPU = %d]\n", i);
         my_print_values(numEvents, events, values[i]);
-    }    
+    }
 }
 // ! <-- !
 
