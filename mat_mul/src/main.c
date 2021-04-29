@@ -215,58 +215,70 @@ int main(int argc, char const *argv[])
         break; // This line should never be executed
     }
 
-#ifdef MY_PAPI
-    // ? Define values
-    int eventSet = my_start_events(events, num_events);
-    long long *values = (long long *)my_malloc(num_events * sizeof(long long));
-    int num_cpus = 64;
-    int *m_eventSets;// = (int *)my_malloc(num_cpus * sizeof(int));;
-    // const int cpus[] = {0, 1, 2, 3, 4, 5, 6, 7};
-#endif // MY_PAPI
-
     // ROI -> Matrices are multiplied
-    switch (Mul_type)
-    {
-    case MULTITHREAD:
-#ifdef MY_PAPI
-        // The measure is multithread, so we need to stop the regular measure
-        my_stop_events(eventSet, num_events, NULL);
-        // m_eventSets = my_attach_and_start(num_cpus, cpus, events, num_events);
-        my_attach_all_cpus_and_start(events, num_events, m_eventSets);
-#endif // MY_PAPI
-        M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-        break;
-    case NORMAL:
-        M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-        break;
-    case TRANSPOSE:
-        M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-        break;
-    default:
-        break; // This line should never be executed
-    }
-
-#ifdef MY_PAPI
     if (Mul_type == MULTITHREAD)
     {
-        long long *m_values;
-        // m_values = my_attach_and_stop(num_cpus, m_eventSets, num_events);
-        my_attach_all_cpus_and_stop(events, num_events, m_eventSets, &m_values);
-        my_print_attached_values(num_events, events, &m_values, num_cpus, NULL);
-        my_free(&m_eventSets);
-        my_free(&m_values);
+#ifdef MY_PAPI
+        // Get the total num of cpus
+        // const PAPI_hw_info_t *hwinfo;
+        // hwinfo = my_PAPI_get_hardware_info();
+        int num_cpus = my_get_total_cpus();
+        // Allocate memory for the event sets
+        int *m_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
+        // Allocate memory for the results
+        long long **m_values = (long long **)my_malloc(num_cpus *
+                                                       sizeof(long long *));
+        // Each cpu has "num_events" events to measure
+        for (int i = 0; i < num_cpus; i++)
+        {
+            m_values[i] = (long long *)my_malloc(num_events *
+                                                 sizeof(long long));
+        }
+        // ! Start measure
+        my_attach_all_cpus_and_start(events, num_events, m_eventSets, num_cpus);
+#endif // MY_PAPI
+        M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+#ifdef MY_PAPI
+        // ! Stop measure
+        my_attach_all_cpus_and_stop(num_events, m_eventSets, m_values);
+        // TODO: Cambiar esto:
+        my_print_attached_values(num_events, events, m_values, num_cpus, NULL);
+        // Free memory
+        for (size_t i = 0; i < num_cpus; i++)
+        {
+            my_free(m_values[i]);
+        }
+        my_free(m_values);
+#endif // MY_PAPI
     }
     else
     {
+#ifdef MY_PAPI
+        // Set the common variables for non multithreading execution
+        long long *values = (long long *)my_malloc(num_events * sizeof(long long));
+        int eventSet;
+        my_start_events(events, num_events, &eventSet);
+#endif // MY_PAPI
+        if (Mul_type == NORMAL)
+        {
+            M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+        }
+        else if (Mul_type == TRANSPOSE)
+        {
+            M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+        }
+#ifdef MY_PAPI
         my_stop_events(eventSet, num_events, values);
+        // TODO: Cambiar esto:
 #ifndef RAW
         my_print_values(num_events, events, values);
 #else
         my_print_values_perf(num_events, events, values);
-#endif
-    }
-    my_free(values);
+#endif // RAW
+        // Free memory
+        my_free(values);
 #endif // MY_PAPI
+    }
 
 #ifdef DEBUG
     printf("Matrix A: %s\n", arr_to_str(M_a, rows_a, cols_a));

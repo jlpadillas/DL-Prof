@@ -35,6 +35,8 @@ const PAPI_hw_info_t *my_PAPI_get_hardware_info(void);
 // Get PAPI library or event set options
 int my_PAPI_get_opt(int option, PAPI_option_t *ptr);
 
+int my_PAPI_is_initialized(void);
+
 // initialize the PAPI library
 int my_PAPI_library_init(int version);
 
@@ -76,10 +78,12 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Para medir todo el sistema
 int my_attach_all_cpus_and_start(const char *events[], int numEvents,
-                             int *eventSets);
+                                 int *eventSets, int num_cpus);
 
-int my_attach_all_cpus_and_stop(const char *event[], int numEvents,
-                            int *eventSets, long long **values);
+int my_attach_all_cpus_and_stop(int numEvents, int *eventSets,
+                                long long **values);
+
+int my_get_total_cpus();
 
 void *my_malloc(size_t size);
 
@@ -112,7 +116,7 @@ void my_print_values(int numEvents, const char *events[],
 void my_print_values_perf(int numEvents, const char *events[],
                           long long *values);
 
-int my_start_events(const char *events[], int numEvents);
+int my_start_events(const char *events[], int numEvents, int *eventSet);
 
 int my_stop_events(int eventSet, int numEvents, long long *values);
 
