@@ -120,7 +120,11 @@ if [[ -z $PERF ]]; then
     exit 1
 else
     EVENTS=$($PERF list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g')
-    EVENTS=cycles,instructions,${EVENTS%,}
+    if [[ -z ${EVENTS+x} ]]; then # There is no fp events
+        EVENTS=cycles,instructions
+    else
+        EVENTS=cycles,instructions,${EVENTS%,}
+    fi
 fi
 
 # Format of the perf output
@@ -155,7 +159,7 @@ if [[ $PROGRAM == *"."* ]]; then # It has an extension
 fi
 
 # The command that will be executed
-COMMAND="sudo"
+COMMAND="" # Not a sudo command
 
 if [[ -z ${PAPI+x} ]]; then # Executing WITHOUT PAPI (using PERF)
     COMMAND="${COMMAND} ${PERF} stat ${FORMAT} --event ${EVENTS}"

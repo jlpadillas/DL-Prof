@@ -49,21 +49,38 @@ const unsigned num_events = 6;
 // };
 
 // sobremesa
+// const char *events[] = {
+//     "cycles",
+//     "instructions",
+//     // "fp_assist.any",
+//     // "fp_assist.simd_input",
+//     // "fp_assist.simd_output",
+//     // "fp_assist.x87_input",
+//     // "fp_assist.x87_output",
+//     // "fp_comp_ops_exe.sse_packed_double",
+//     "fp_comp_ops_exe.sse_packed_single",
+//     "fp_comp_ops_exe.sse_scalar_double",
+//     // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
+//     "fp_comp_ops_exe.x87",
+//     // "simd_fp_256.packed_double",
+//     "simd_fp_256.packed_single"
+// };
+
+// NODO
 const char *events[] = {
     "cycles",
     "instructions",
-    // "fp_assist.any",
-    // "fp_assist.simd_input",
-    // "fp_assist.simd_output",
-    // "fp_assist.x87_input",
-    // "fp_assist.x87_output",
-    // "fp_comp_ops_exe.sse_packed_double",
-    "fp_comp_ops_exe.sse_packed_single",
-    "fp_comp_ops_exe.sse_scalar_double",
-    // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
-    "fp_comp_ops_exe.x87",
-    // "simd_fp_256.packed_double",
-    "simd_fp_256.packed_single"};
+    "fp_arith_inst_retired.128b_packed_double",
+    "fp_arith_inst_retired.128b_packed_single",
+    // "fp_arith_inst_retired.256b_packed_double",
+    // "fp_arith_inst_retired.256b_packed_single",
+    // "fp_arith_inst_retired.512b_packed_double",
+    // "fp_arith_inst_retired.512b_packed_single",
+    "fp_arith_inst_retired.scalar_double",
+    "fp_arith_inst_retired.scalar_single"
+    // "fp_assist.any"
+};
+
 #endif
 
 enum MATRIX_TYPE
