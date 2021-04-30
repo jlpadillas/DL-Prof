@@ -233,14 +233,15 @@ int main(int argc, char const *argv[])
                                                  sizeof(long long));
         }
         // ! Start measure
-        my_attach_all_cpus_and_start(events, num_events, m_eventSets, num_cpus);
+        my_attach_cpus(num_cpus, NULL, m_eventSets);
+        my_start_events(events, num_events, m_eventSets, num_cpus);
 #endif // MY_PAPI
         M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
 #ifdef MY_PAPI
         // ! Stop measure
-        my_attach_all_cpus_and_stop(num_events, m_eventSets, m_values, num_cpus);
+        my_stop_events(num_events, m_eventSets, num_cpus, m_values);
         // TODO: Cambiar esto:
-        my_print_attached_values(num_events, events, m_values, num_cpus, NULL);
+        // my_print_attached_values(num_events, events, m_values, num_cpus, NULL);
         // Free memory
         for (size_t i = 0; i < num_cpus; i++)
         {
@@ -255,7 +256,7 @@ int main(int argc, char const *argv[])
         // Set the common variables for non multithreading execution
         long long *values = (long long *)my_malloc(num_events * sizeof(long long));
         int eventSet;
-        my_start_events(events, num_events, &eventSet);
+        my_start_events(events, num_events, &eventSet, 1);
 #endif // MY_PAPI
         if (Mul_type == NORMAL)
         {
@@ -266,7 +267,7 @@ int main(int argc, char const *argv[])
             M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         }
 #ifdef MY_PAPI
-        my_stop_events(eventSet, num_events, values);
+        my_stop_events(num_events, &eventSet, 1, &values);
         // TODO: Cambiar esto:
 #ifndef RAW
         my_print_values(num_events, events, values);
