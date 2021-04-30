@@ -36,3 +36,6 @@ sudo make install-all
 sudo apt install linux-tools-common linux-tools-generic \
     linux-tools-`uname -r` -y
 
+# ----
+# Para instalar las dependencias de python:
+# 

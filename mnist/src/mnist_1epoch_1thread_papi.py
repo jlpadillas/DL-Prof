@@ -15,38 +15,52 @@
 # Comando: perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
 # -------------------------------------------------------------------------------------------
 
-
+import os
+import pathlib
 import sys
-sys.path.append("/home/jlpadillas01/TFG/3.binding/src/")
+
+# Forces the program to execute on CPU
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# Just disables the warning, doesn't take advantage of AVX/FMA to run faster
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# -------------------------------------------------------------------- #
+# Params
+# -------------------------------------------------------------------- #
+# Current working directory (Makefile from)
+PWD = pathlib.Path(__file__).parent.parent.absolute()
+# Carpeta donde se encuentran los ejecutables
+BIN_DIR = PWD / "bin"
+# Carpeta donde se encuentran las librerias generadas
+LIB_DIR = PWD / "lib"
+# Carpeta donde se vuelcan los datos de salida
+OUT_DIR = PWD / "out"
+# Carpeta donde se encuentran los archivos fuente
+SRC_DIR = PWD / "src"
+
+sys.path.append(SRC_DIR)
 from my_papi import my_papi
 # Se crea un objeto de la clase my_papi
-libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
+libname = SRC_DIR / "libmy_papi.so"
 mp = my_papi(libname)
 events = [
-    # "fp_assist.any",
-    # "fp_assist.simd_input",
-    # "fp_assist.simd_output",
-    # "fp_assist.x87_input",
-    # "fp_assist.x87_output",
-    # "fp_comp_ops_exe.sse_packed_double",
-    "fp_comp_ops_exe.sse_packed_single",
-    "fp_comp_ops_exe.sse_scalar_double",
-    # "fp_comp_ops_exe.sse_scalar_single", # no encuentra el evento!!!!!
-    # "fp_comp_ops_exe.x87",
-    # "simd_fp_256.packed_double",
-    "simd_fp_256.packed_single",
     "cycles",
-    "instructions"
+    "instructions",
+    # "fp_arith_inst_retired.128b_packed_double",
+    # "fp_arith_inst_retired.128b_packed_single",
+    # "fp_arith_inst_retired.256b_packed_double",
+    # "fp_arith_inst_retired.256b_packed_single",
+    # "fp_arith_inst_retired.512b_packed_double",
+    # "fp_arith_inst_retired.512b_packed_single",
+    "fp_arith_inst_retired.scalar_double",
+    "fp_arith_inst_retired.scalar_single",
+    # "fp_assist.any"
 ]
 mp.start_measure(events)
 
 
 
-
-
-
 # TensorFlow ≥2.0 is required
-import os
 import tensorflow as tf
 assert tf.__version__ >= "2.0"
 
@@ -71,9 +85,6 @@ tf.config.threading.set_intra_op_parallelism_threads(1)
 
 # print(tf.config.threading.get_inter_op_parallelism_threads(), 
 #     tf.config.threading.get_intra_op_parallelism_threads())
-
-# Just disables the warning, doesn't take advantage of AVX/FMA to run faster
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 fashion_mnist = keras.datasets.fashion_mnist
 (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
