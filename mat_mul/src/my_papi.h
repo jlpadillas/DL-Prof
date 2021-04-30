@@ -84,29 +84,19 @@ int my_get_total_cpus();
 
 void *my_malloc(size_t size);
 
-int my_start_events(const char *events[], int num_events, int *eventSets,
+void my_print_values(int num_events, const char *events[], int num_cpus,
+                     const int cpus[], long long **values);
+
+int my_start_events(int num_events, const char *events[], int *eventSets,
                     int num_eventSets);
 
 int my_stop_events(int num_events, int *eventSets, int num_eventSets,
                    long long **values);
 
-int my_attach_all_cpus_and_stop(int numEvents, int *eventSets,
-                                long long **values, int num_cpus);
+// -----------------------------------------------------------------------
 
-int *my_attach_and_start(int num_cpus, const int cpus[],
-                         const char *events[], int numEvents);
-
-long long **my_attach_and_stop(int num_cpus, int *eventSets, int numEvents);
-
-void my_print_attached_values(int numEvents, const char *events[],
-                              long long **values, int num_cpus,
-                              const int cpus[]);
-
-void my_stop_events_attached_cpus(int eventSets[], int num_eventSets,
-                                  long long *values[], int numEvents);
-
-void my_print_values(int numEvents, const char *events[],
-                     long long *values);
+void __my_print_values(int num_events, const char *events[],
+                       long long *values);
 
 void my_print_values_perf(int numEvents, const char *events[],
                           long long *values);
