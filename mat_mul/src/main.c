@@ -240,8 +240,7 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
         // ! Stop measure
         my_stop_events(num_events, m_eventSets, num_cpus, m_values);
-        // TODO: Cambiar esto:
-        // my_print_attached_values(num_events, events, m_values, num_cpus, NULL);
+        my_print_values(num_events, events, num_cpus, NULL, m_values);
         // Free memory
         for (size_t i = 0; i < num_cpus; i++)
         {
@@ -269,7 +268,6 @@ int main(int argc, char const *argv[])
         }
 #ifdef MY_PAPI
         my_stop_events(num_events, &eventSet, num_eventSets, &values);
-        // TODO: Cambiar esto:
 #ifndef RAW
         my_print_values(num_events, events, num_eventSets, NULL, &values);
 #else
@@ -290,6 +288,10 @@ int main(int argc, char const *argv[])
     mat_free(M_a);
     mat_free(M_b);
     mat_free(M_c);
+
+#ifdef MY_PAPI
+    my_PAPI_shutdown();
+#endif // MY_PAPI
 
     return EXIT_SUCCESS;
 }

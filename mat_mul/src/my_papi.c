@@ -279,19 +279,18 @@ int my_stop_events(int num_events, int *eventSets, int num_eventSets,
     }
     else
     {
-        int i, j;
-        for (i = 0; i < num_eventSets; i++)
+        for (int i = 0; i < num_eventSets; i++)
         {
             my_PAPI_stop(eventSets[i], values[i]);
         }
         // ! esto es un print - deberia ir aparte
-        for (i = 0; i < num_eventSets; i++)
-        {
-            for (j = 0; j < num_events; j++)
-            {
-                printf("[CPU = %d] Event[%d] = %lld\n", i, j, values[i][j]);
-            }
-        }
+        // for (i = 0; i < num_eventSets; i++)
+        // {
+        //     for (j = 0; j < num_events; j++)
+        //     {
+        //         printf("[CPU = %d] Event[%d] = %lld\n", i, j, values[i][j]);
+        //     }
+        // }
     }
     return EXIT_SUCCESS;
 }
@@ -326,7 +325,8 @@ void my_print_values(int num_events, const char *events[], int num_cpus,
 void __my_print_values(int num_events, const char *events[],
                        long long *values)
 {
-    int i, val;
+    int i;
+    long long val;
     setlocale(LC_NUMERIC, "");
     printf("%s\n",
            "+-------------------------------------------+-----------------+");
@@ -336,10 +336,10 @@ void __my_print_values(int num_events, const char *events[],
     for (i = 0; i < num_events; i++)
     {
         val = values[i];
-        if (val != 0)
-        {
-            printf("| %-42s| %'-16lld|\n", events[i], values[i]);
-        }
+        // if (val != 0)
+        // {
+            printf("| %-42s| %'-16lld|\n", events[i], val);
+        // }
     }
     printf("%s\n",
            "+-------------------------------------------+-----------------+");
