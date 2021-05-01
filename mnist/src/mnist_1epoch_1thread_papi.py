@@ -41,7 +41,7 @@ SRC_DIR = PWD / "src"
 sys.path.append(SRC_DIR)
 from my_papi import my_papi
 # Se crea un objeto de la clase my_papi
-libname = SRC_DIR / "libmy_papi.so"
+libname = LIB_DIR / "libmy_papi.so"
 mp = my_papi(libname)
 events = [
     "cycles",
@@ -58,14 +58,11 @@ events = [
 ]
 mp.start_measure(events)
 
-
-
 # TensorFlow ≥2.0 is required
 import tensorflow as tf
 assert tf.__version__ >= "2.0"
 
 from tensorflow import keras
-
 
 # ------------------------------------------------------------------------ #
 

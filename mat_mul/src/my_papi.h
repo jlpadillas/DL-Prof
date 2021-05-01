@@ -76,7 +76,10 @@ int my_PAPI_hl_region_end(const char *region);
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
+// attach to each cpu
 int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets);
+
+int my_configure_eventSet(int *eventSet);
 
 void my_free(void *ptr);
 
@@ -100,6 +103,5 @@ void __my_print_values(int num_events, const char *events[],
 
 void my_print_values_perf(int numEvents, const char *events[],
                           long long *values);
-
 
 #endif

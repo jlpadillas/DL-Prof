@@ -11,18 +11,18 @@ from ctypes import *
 # local source
 from system_setup import system_setup
 
-# ------------------------------------------------------------------------ #
+# --------------------------------------------------------------------------- #
 __author__ = "Juan Luis Padilla Salomé"
 __copyright__ = "Copyright 2021"
-__credits__ = ["Universidad de Cantabria", "Pablo Abad"]
+__credits__ = ["Universidad de Cantabria", "Pablo Abad", "Pablo Prieto"]
 __license__ = "GPL"
 __version__ = "1.0.0"
 __maintainer__ = "Juan Luis Padilla Salomé"
 __email__ = "juan-luis.padilla@alumnos.unican.es"
 __status__ = "Production"
-# ------------------------------------------------------------------------ #
+# --------------------------------------------------------------------------- #
 
-# ------------------------------------------------------------------------ #
+# --------------------------------------------------------------------------- #
 
 
 class my_papi(system_setup):
@@ -34,9 +34,10 @@ class my_papi(system_setup):
     # self.cores = [] # Array de cores logicos pertenecientes al mismo fisico
     default_events = ["cycles", "instructions"]
     # self.p_lib = CDLL # Con el se puede acceder a la liberia y sus func.
-    # self. ptr_EventSet # Puntero que indica la loc. en mem. del eventSet
-    # self.events = [] # Eventos a ser medidos
-    # selg.values = [] # lista con los valores medidos
+    # self.events = []  # Eventos a ser medidos
+    # selg.values = []  # lista con los valores medidos
+
+    # self. ptr_EventSets # Puntero que indica la loc. en mem. del eventSet
 
     def __init__(self, path):
         """Constructor de la clase my_papi que recibe por parametro la 
@@ -49,19 +50,17 @@ class my_papi(system_setup):
 
         # Establish the warning format
         warnings.formatwarning = self.__warning_on_one_line
+    # ----------------------------------------------------------------------- #
 
-    # -------------------------------------------------------------------- #
-
-    def start_measure(self, events=None):
+    def start_measure(self, events=None, cpus=None):
         """Gets the events to be measured and starts it."""
 
-        # If none events is passed, it just measured the default events.
+        # If none events is passed, it just measures the default events.
         if events is None:
             warnings.warn(
                 "No input events, measuring default events!", Warning)
             self.events = self.default_events
         else:
-            # Se guarda como un atributo de la clase
             self.events = events
 
         # Se convierte a bytes para pasarlo a la funcion en C
@@ -75,13 +74,37 @@ class my_papi(system_setup):
         # Corta el string para eliminar el last char = \n
         events_array[:-1] = events_bytes
 
-        # Es necesario reducir el nivel de perf para poder medir
-        self.set_perf_event_paranoid(1)
+        # ------------------------------------------------------------------- #
+        num_events = len(events)
+        self.event_set = c_int()
+        num_event_set = 1
 
-        # Empieza la medida de los eventos
+        # Dependiendo del numero de cpus a medir, se tiene que hacer en
+        # multithreading o no
+        if cpus is None:
+            self.event_set = self.p_lib.my_malloc(sizeof())
+            self.p_lib.my_configure_eventSet(byref(self.event_set))
+        else:
+            # --------------------------------------------------------------- #
+            # int my_attach_cpus(int num_cpus, const int cpus[],
+            #                    int *eventSets)
+            my_attach_cpus = self.p_lib.my_attach_cpus
+            my_cpus = c_int * len(cpus)
+            my_attach_cpus.argtypes = [c_int, my_cpus, POINTER(c_int)]
+            my_attach_cpus.restype = c_int
+            # --------------------------------------------------------------- #
+            num_event_set = len(cpus)
+            my_attach_cpus(num_event_set, my_cpus, byref(self.event_set))
+        # ------------------------------------------------------------------- #
+        # ! Se prepara las funciones para llamar al stop
+        self.values = (c_longlong * len(self.events))()
+        self.ptr_EventSets
+
+        # Empieza la medida de los eventos para multithreading
+        # TODO: editar?
         self.ptr_EventSet = self.p_lib.my_start_events(
             events_array, len(self.events))
-    # -------------------------------------------------------------------- #
+    # ----------------------------------------------------------------------- #
 
     def stop_measure(self):
         """Detiene la lectura de datos y guarda los valores obtenidos."""
@@ -95,9 +118,8 @@ class my_papi(system_setup):
         self.p_lib.my_stop_events(
             self.ptr_EventSet, len(self.events), self.values)
 
-        self.set_perf_event_paranoid()  # Default perf
-
-    # -------------------------------------------------------------------- #
+        # self.set_perf_event_paranoid()  # Default perf
+    # ----------------------------------------------------------------------- #
 
     def get_results(self, format=dict):
         """
@@ -117,7 +139,7 @@ class my_papi(system_setup):
             return self.values_dict
         elif format is list:
             return self.values_list
-    # -------------------------------------------------------------------- #
+    # ----------------------------------------------------------------------- #
 
     def print_results(self, format=dict):
         """
@@ -149,8 +171,40 @@ class my_papi(system_setup):
             print(*self.values_list, sep="\t")
             # for v in self.values_list:
             #     print("{:>20}".format(locale.format_string('%.0f', v, grouping=True)))
+    # ----------------------------------------------------------------------- #
 
-    # -------------------------------------------------------------------- #
+    def free(self, ptr):
+        """Frees memory of a pointer passed by parameter."""
+
+        # Defining input/output parameters of function:
+        # void my_free(void *ptr)
+        my_free = self.p_lib.my_free
+        my_free.argtypes = [POINTER(c_int)]
+        my_free.restype = None
+
+        # calling the function (casting int -> pointer to int)
+        my_free(cast(ptr, POINTER(c_int)))
+
+    def malloc(self, size):
+        """Performs a reserver of memory of a size passed by parameter 
+        (which) has to be an integer and positive (gt 0). The value return
+        is of type c_void_p (pointer to void)."""
+
+        # size must be an integer positive
+        if (not isinstance(size, int)) or (size < 0):
+            raise self.WrongParameterError
+
+        # Defining input/output parameters of function:
+        # void *my_malloc(size_t size)
+        my_malloc = self.p_lib.my_malloc
+        my_malloc.argtypes = [c_size_t]
+        my_malloc.restype = c_void_p
+
+        # Creating a param of type "c_size_t" with the value of arg. size
+        size_param = c_size_t(size)
+
+        # return call of c
+        return my_malloc(size_param)
 
     def __format_values(self):
         """Transform the results obtanied as an array and as a dictionary"""
@@ -168,15 +222,78 @@ class my_papi(system_setup):
         self.values_dict = {}
         for i in range(len(self.events)):
             self.values_dict[self.events[i]] = self.values[i]
-    # -------------------------------------------------------------------- #
+    # ----------------------------------------------------------------------- #
+
+    def __load_functions(self):
+        """Creates the main functions that may be used for the user."""
+
+        # ------------------------------------------------------------------- #
+        # int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_attach_cpus.argtypes = [c_int, c_int, POINTER(c_int)]
+        self.p_lib.my_attach_cpus.restype = c_int
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # int my_configure_eventSet(int *eventSet)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_configure_eventSet.argtypes = [POINTER(c_int)]
+        self.p_lib.my_configure_eventSet.restype = c_int
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # void my_free(void *ptr)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_free.argtypes = [POINTER(c_int)]
+        self.p_lib.my_free.restype = None
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # void *my_malloc(size_t size)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_malloc.argtypes = [c_size_t]
+        self.p_lib.my_malloc.restype = c_void_p
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # void my_print_values(int num_events, const char *events[],
+        #                      int num_cpus, const int cpus[],
+        #                      long long **values)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_print_values.argtypes = [c_int, c_char_p, c_int, c_int,
+                                               POINTER(POINTER(c_longlong))]
+        self.p_lib.my_print_values.restype = None
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # int my_start_events(int num_events, const char *events[],
+        #                     int *eventSets, int num_eventSets);
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_start_events.argtypes = [c_int, c_char_p, POINTER(c_int),
+                                               c_int]
+        self.p_lib.my_start_events.restype = c_int
+        # ------------------------------------------------------------------- #
+
+        # ------------------------------------------------------------------- #
+        # int my_stop_events(int num_events, int *eventSets, int num_eventSets,
+        #                    long long **values)
+        # ------------------------------------------------------------------- #
+        self.p_lib.my_stop_events.argtypes = [c_int, POINTER(c_int), c_int,
+                                              POINTER(POINTER(c_longlong))]
+        self.p_lib.my_stop_events.restype = c_int
+        # ------------------------------------------------------------------- #
+
+    # ----------------------------------------------------------------------- #
 
     def __set_my_lib(self, libname):
         """Carga la libreria de libmy_papi.so, para ello es necesario 
         indicar su PATH."""
 
         # Load the shared library into ctypes
+        print(libname)
         self.p_lib = CDLL(libname)
-    # -------------------------------------------------------------------- #
+        self.__load_functions()
+    # ----------------------------------------------------------------------- #
 
     def __warning_on_one_line(self, message, category, filename, lineno,
                               file=None, line=None):
@@ -184,9 +301,9 @@ class my_papi(system_setup):
 
         return '%s:%s:\n\t%s: %s\n' % (filename, lineno, category.__name__,
                                        message)
-    # -------------------------------------------------------------------- #
+    # ----------------------------------------------------------------------- #
 
-    # -------------------------------------------------------------------- #
+    # ----------------------------------------------------------------------- #
     # define Python user-defined exceptions
 
     class Error(Exception):
@@ -194,7 +311,11 @@ class my_papi(system_setup):
         pass
 
     class NoMeasureFinishedError(Error):
-        """Raised when there is no result obtnaied."""
+        """Raised when there is no result obtained."""
         pass
-    # -------------------------------------------------------------------- #
-# ------------------------------------------------------------------------ #
+
+    class WrongParameterError(Error):
+        """Raised when there is an incorrect parameter."""
+        pass
+    # ----------------------------------------------------------------------- #
+# --------------------------------------------------------------------------- #

@@ -283,18 +283,18 @@ int my_stop_events(int num_events, int *eventSets, int num_eventSets,
         {
             my_PAPI_stop(eventSets[i], values[i]);
         }
-        // ! esto es un print - deberia ir aparte
-        // for (i = 0; i < num_eventSets; i++)
-        // {
-        //     for (j = 0; j < num_events; j++)
-        //     {
-        //         printf("[CPU = %d] Event[%d] = %lld\n", i, j, values[i][j]);
-        //     }
-        // }
     }
     return EXIT_SUCCESS;
 }
 
+int my_configure_eventSet(int *eventSet)
+{
+    // Se crea la libreria
+    my_PAPI_library_init(PAPI_VER_CURRENT);
+    *eventSet = PAPI_NULL;
+    my_PAPI_create_eventset(eventSet);
+    return EXIT_SUCCESS;
+}
 // -----------------------------------------------------------------------
 
 void my_print_values(int num_events, const char *events[], int num_cpus,

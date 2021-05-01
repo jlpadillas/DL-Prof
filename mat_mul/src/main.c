@@ -255,6 +255,7 @@ int main(int argc, char const *argv[])
         // Set the common variables for non multithreading execution
         long long *values = (long long *)my_malloc(num_events * sizeof(long long));
         int eventSet;
+        my_configure_eventSet(&eventSet);
         int num_eventSets = 1;
         my_start_events(num_events, events, &eventSet, num_eventSets);
 #endif // MY_PAPI
