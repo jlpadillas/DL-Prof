@@ -57,53 +57,73 @@ class my_papi(system_setup):
 
         # If none events is passed, it just measures the default events.
         if events is None:
-            warnings.warn(
-                "No input events, measuring default events!", Warning)
-            self.events = self.default_events
-        else:
-            self.events = events
+            warnings.warn("No input events, measuring defaults!", Warning)
+            events = self.default_events
 
-        # Se convierte a bytes para pasarlo a la funcion en C
+        # Stores the values in attributes
+        self.events = events
+        self.cpus = cpus
+
+        # ------------------------------------------------------------------- #
+        # Convert the EVENTS to pass them to the functions on C
         events_bytes = []
-        for i in range(len(self.events)):
-            events_bytes.append(bytes(self.events[i], 'utf-8'))
+        for i in range(len(events)):
+            events_bytes.append(bytes(events[i], 'utf-8'))
 
         # Se crea un array con los eventos a pasar
-        events_array = (c_char_p * (len(events_bytes) + 1))()
+        events = (c_char_p * (len(events_bytes) + 1))()
 
         # Corta el string para eliminar el last char = \n
-        events_array[:-1] = events_bytes
+        events[:-1] = events_bytes
+        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
-        num_events = len(events)
-        self.event_set = c_int()
-        num_event_set = 1
+        # Converts the CPUS to pass them to the functions on C
+        if cpus is not None:
+            cpus = (c_int * len(cpus))(*cpus)
+        # Ctypes uses None as NULL in C
+        # ------------------------------------------------------------------- #
 
-        # Dependiendo del numero de cpus a medir, se tiene que hacer en
-        # multithreading o no
-        if cpus is None:
-            self.event_set = self.p_lib.my_malloc(sizeof())
-            self.p_lib.my_configure_eventSet(byref(self.event_set))
+        # ------------------------------------------------------------------- #
+        # Params for the functions
+        # ------------------------------------------------------------------- #
+        num_events = c_int(len(events))
+        event_set = c_int()
+        num_event_set = c_int(1)
+
+        # Depends if the measure is on multiples cpus or not
+        if not cpus: # cpus is [] -> single cpu
+            # Call the C function my_configure_eventSet(...)
+            self.p_lib.my_configure_eventSet(byref(event_set))
         else:
-            # --------------------------------------------------------------- #
-            # int my_attach_cpus(int num_cpus, const int cpus[],
-            #                    int *eventSets)
-            my_attach_cpus = self.p_lib.my_attach_cpus
-            my_cpus = c_int * len(cpus)
-            my_attach_cpus.argtypes = [c_int, my_cpus, POINTER(c_int)]
-            my_attach_cpus.restype = c_int
-            # --------------------------------------------------------------- #
-            num_event_set = len(cpus)
-            my_attach_cpus(num_event_set, my_cpus, byref(self.event_set))
-        # ------------------------------------------------------------------- #
-        # ! Se prepara las funciones para llamar al stop
-        self.values = (c_longlong * len(self.events))()
-        self.ptr_EventSets
+            # Call the function my_attach_cpus(...)
+            self.p_lib.my_attach_cpus(len(cpus), cpus_array, byref(event_set))
 
-        # Empieza la medida de los eventos para multithreading
-        # TODO: editar?
-        self.ptr_EventSet = self.p_lib.my_start_events(
-            events_array, len(self.events))
+
+        # Call the function my_start_events(...)
+        self.p_lib.my_start_events(num_events, events, cpus, )
+
+        print(event_set.value)
+
+        #     # --------------------------------------------------------------- #
+        #     # int my_attach_cpus(int num_cpus, const int cpus[],
+        #     #                    int *eventSets)
+        #     my_attach_cpus = self.p_lib.my_attach_cpus
+        #     my_cpus = c_int * len(cpus)
+        #     my_attach_cpus.argtypes = [c_int, my_cpus, POINTER(c_int)]
+        #     my_attach_cpus.restype = c_int
+        #     # --------------------------------------------------------------- #
+        #     num_event_set = len(cpus)
+        #     my_attach_cpus(num_event_set, my_cpus, byref(self.event_set))
+        # # ------------------------------------------------------------------- #
+        # # ! Se prepara las funciones para llamar al stop
+        # self.values = (c_longlong * len(self.events))()
+        # self.ptr_EventSets
+
+        # # Empieza la medida de los eventos para multithreading
+        # # TODO: editar?
+        # self.ptr_EventSet = self.p_lib.my_start_events(
+        #     events_array, len(self.events))
     # ----------------------------------------------------------------------- #
 
     def stop_measure(self):
@@ -114,9 +134,48 @@ class my_papi(system_setup):
         self.p_lib.my_stop_events.restype = c_int
 
         # Se guarda espacio en memoria y se leen los resultados
-        self.values = (c_longlong * len(self.events))()
-        self.p_lib.my_stop_events(
-            self.ptr_EventSet, len(self.events), self.values)
+        # Reserve space in memory
+        # long long **m_values = (long long **)my_malloc(num_cpus *
+        #                                        sizeof(long long *));
+
+        # Allocate memory for the pointers of cpus
+        # if self.cpus is None or len(self.cpus) == 0:
+        #     # One pointer for one cpu
+        #     self.events = (c_longlong)()
+        # else:
+        #     # As much as # of cpus we are measuring
+        #     self.events = (c_longlong * len(self.cpus))()
+
+        # Defining the common params to pass the function
+        num_events = c_int(len(self.events))
+        values = POINTER(c_longlong)()
+        event_set = self.event_set
+        # And now, depending on the type of measure, we fill the params
+        if self.cpus is None or len(self.cpus) == 0:
+            num_event_set = c_int(1)
+        else:
+            num_event_set = c_int(len(self.cpus))
+
+        # Call the function "my_stop_events(...)"
+        self.p_lib.my_stop_events(num_events, event_set, num_event_set,
+                                  byref(values))
+
+        # Stores the result
+        self.values = values
+
+        # if self.cpus is None:
+        #     # If the cpus is None, then we have to measure only one core
+
+        #     self.values = self.p_lib.my_malloc()
+
+        # else:
+        #     # If the number of cups is not None, then we have a multithreaded
+        #     # measure, and we need to use a double pointer for the results
+
+        # self.values = self.p_lib.my_malloc()
+        # self.values = (c_longlong * len(self.events))()
+        # self.p_lib.my_stop_events(
+        #     self.ptr_EventSet, len(self.events), self.values)
 
         # self.set_perf_event_paranoid()  # Default perf
     # ----------------------------------------------------------------------- #
@@ -244,7 +303,7 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # void my_free(void *ptr)
         # ------------------------------------------------------------------- #
-        self.p_lib.my_free.argtypes = [POINTER(c_int)]
+        self.p_lib.my_free.argtypes = [c_void_p]
         self.p_lib.my_free.restype = None
         # ------------------------------------------------------------------- #
 

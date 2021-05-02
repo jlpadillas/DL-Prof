@@ -61,7 +61,9 @@ if __name__ == "__main__":
 
     # print(casa)
 
-    # mp.start_measure()
+    mp.start_measure()
+
+    
 
     # mp.stop_measure()
 
