@@ -88,4 +88,4 @@ borrar:
 	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test -DMY_PAPI \
 		-Wl,-rpath=${LIB_DIR} ${BIN_DIR}/matrix.o -L${LIB_DIR} -lmy_papi \
 		-pthread
-	./${BIN_DIR}/test SEQ 512 MULTITHREAD
+	./${BIN_DIR}/test

@@ -1,7 +1,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
-// #include "papi.h"
+#include <string.h>
 #include "my_papi.h"
 
 // /* Number of the events to measure */
@@ -13,9 +13,9 @@
 /* We use retval to keep track of the number of the return value */
 int retval;
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // Low_level
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 int my_PAPI_add_event(int EventSet, int Event)
 {
     if ((retval = PAPI_add_event(EventSet, Event)) != PAPI_OK)
@@ -139,9 +139,9 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void))
     return retval;
 }
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // High_level
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 int my_PAPI_hl_region_begin(const char *region)
 {
     if ((retval = PAPI_hl_region_begin(region)) != PAPI_OK)
@@ -163,43 +163,136 @@ int my_PAPI_hl_region_end(const char *region)
     return retval;
 }
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // For python
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                        int num_event_sets, int *event_sets)
 {
+    int i, j;
     FILE *fp;
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t line_length;
-    char events[MAX_NUM_EVENTS][MAX_LENGTH_EVENT_NAME];
+    char *line;
+    char **events;
+    size_t num_events;
 
-    if (num_cpus < 0 || num_cpus > my_get_total_cpus())
+    /* -------------------------- Checking PARAMS -------------------------- */
+    if (num_cpus < 0 || num_cpus > MAX_CPUS)
     {
         fprintf(stderr, "[MyPapi] Error: wrong number of cpus '%d'\n",
                 num_cpus);
         exit(EXIT_FAILURE);
     }
 
+    if (num_cpus != num_event_sets)
+    {
+        fprintf(stderr, "[MyPapi] Error: number of cpus must be the same as "
+                        "the number of eventsets (%d != %d)\n",
+                num_cpus, num_event_sets);
+        exit(EXIT_FAILURE);
+    }
+
     fp = fopen(input_file_name, "r");
-    if (!fp)
+    if (fp == NULL)
     {
         fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
                 input_file_name);
         exit(EXIT_FAILURE);
     }
+    /* ------------------------ END checking PARAMS ------------------------ */
 
-    // Counting lines of file
-    size_t lines = 0;
-    while ((line_length = getline(&line, &len, fp)) != -1)
+    /* ------------------------ FIRST READ of file ------------------------- */
+    // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
+    num_events = 0;
+    line = (char *)malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    if (line == NULL)
     {
-        events[lines] = line;
-        lines++;
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
+    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
+    {
+        num_events++;
+    }
+    /* ----------------------- END FIRST READ of file ---------------------- */
+
+    events = (char **)malloc(sizeof(char **) * num_events);
+    if (events == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
     }
 
+    /* ------------------------ SECOND READ of file ------------------------ */
+    // Extract the events from each line and store in the array
+    i = 0;
+    rewind(fp);
+    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
+    {
+        events[i] = (char *)malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        if (events[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
+        // Substitute '\n' for '\0'
+        if (line[strlen(line) - 1] == '\n')
+        {
+            line[strlen(line) - 1] = '\0';
+        }
+        strncpy(events[i++], line, strlen(line));
+    }
+    free(line);
     fclose(fp);
-    
+    /* ---------------------- END SECOND READ of file ---------------------- */
+
+    /* ---------------------------- CONFIG PAPI ---------------------------- */
+    int cidx = 0;
+    PAPI_option_t opts;
+    my_PAPI_library_init(PAPI_VER_CURRENT);
+    if (num_cpus == 1)
+    {
+        *event_sets = PAPI_NULL;
+        my_PAPI_create_eventset(event_sets);
+        for (j = 0; j < num_events; j++)
+        {
+            my_PAPI_add_named_event(*event_sets, events[j]);
+        }
+    }
+    else
+    {
+        for (i = 0; i < num_cpus; i++)
+        {
+            event_sets[i] = PAPI_NULL;
+            my_PAPI_create_eventset(&event_sets[i]);
+            my_PAPI_assign_eventset_component(event_sets[i], cidx);
+
+            /* Force granularity to PAPI_GRN_SYS */
+            opts.granularity.eventset = event_sets[i];
+            opts.granularity.granularity = PAPI_GRN_SYS;
+            my_PAPI_set_opt(PAPI_GRANUL, &opts);
+
+            // attach event set to cpu i
+            opts.cpu.eventset = event_sets[i];
+            // if cpus == NULL then, order by num
+            if (cpus == NULL)
+            {
+                // The first "num_cpus" cpus to be attached
+                opts.cpu.cpu_num = i;
+            }
+            else
+            {
+                opts.cpu.cpu_num = cpus[i];
+            }
+            my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
+            // Adding events
+            for (j = 0; j < num_events; j++)
+            {
+                my_PAPI_add_named_event(event_sets[i], events[j]);
+            }
+        }
+    }
+    /* -------------------------- END CONFIG PAPI -------------------------- */
+    return EXIT_SUCCESS;
 }
 
 // -----------------------------------------------------------------------
