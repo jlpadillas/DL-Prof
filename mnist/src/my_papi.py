@@ -66,15 +66,25 @@ class my_papi(system_setup):
 
         # ------------------------------------------------------------------- #
         # Convert the EVENTS to pass them to the functions on C
+        # TODO: Change this
+        # events_bytes = []
+        # for i in range(len(events)):
+        #     events_bytes.append(bytes(events[i], 'utf-8'))
+
+        # # Se crea un array con los eventos a pasar
+        # events = (c_char_p * (len(events_bytes) + 1))()
+
+        # # Take all items except the last one
+        # events[:-1] = events_bytes
         events_bytes = []
         for i in range(len(events)):
             events_bytes.append(bytes(events[i], 'utf-8'))
 
         # Se crea un array con los eventos a pasar
-        events = (c_char_p * (len(events_bytes) + 1))()
+        events_array = (c_char_p * (len(events_bytes) + 1))()
 
         # Corta el string para eliminar el last char = \n
-        events[:-1] = events_bytes
+        events_array[:-1] = events_bytes
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
@@ -92,18 +102,25 @@ class my_papi(system_setup):
         num_event_set = c_int(1)
 
         # Depends if the measure is on multiples cpus or not
-        if not cpus: # cpus is [] -> single cpu
+        if cpus is None or len(cpus) < 2:
             # Call the C function my_configure_eventSet(...)
             self.p_lib.my_configure_eventSet(byref(event_set))
         else:
+            num_cpus = c_int(len(cpus))
             # Call the function my_attach_cpus(...)
-            self.p_lib.my_attach_cpus(len(cpus), cpus_array, byref(event_set))
+            self.p_lib.my_attach_cpus(num_cpus, cpus, byref(event_set))
+            num_event_set = c_int(len(cpus))
 
+        # We need to modify the definition of second argument
+        self.p_lib.my_start_events.argtypes = [c_int, c_char_p * len(events_array),
+                                               POINTER(c_int), c_int]
 
         # Call the function my_start_events(...)
-        self.p_lib.my_start_events(num_events, events, cpus, )
+        self.p_lib.my_start_events(
+            num_events, events_array, byref(event_set), num_event_set)
 
-        print(event_set.value)
+        # Store important parameters
+        self.event_set = event_set
 
         #     # --------------------------------------------------------------- #
         #     # int my_attach_cpus(int num_cpus, const int cpus[],
@@ -130,8 +147,13 @@ class my_papi(system_setup):
         """Detiene la lectura de datos y guarda los valores obtenidos."""
 
         # Se definen los parametros de entrada y salida de la funcion C
-        self.p_lib.my_stop_events.argtypes = c_int, c_int, POINTER(c_longlong)
-        self.p_lib.my_stop_events.restype = c_int
+        # self.p_lib.my_stop_events.argtypes = c_int, c_int, POINTER(c_longlong)
+        res_measure = (POINTER(c_longlong * len(self.events)))()
+        # res_all = POINTER()
+        # self.p_lib.my_stop_events.argtypes = [c_int, POINTER(c_int), c_int,
+        #                                 # POINTER(POINTER(c_longlong))]
+        #                                 res_measure]
+        # self.p_lib.my_stop_events.restype = c_int
 
         # Se guarda espacio en memoria y se leen los resultados
         # Reserve space in memory
@@ -148,7 +170,8 @@ class my_papi(system_setup):
 
         # Defining the common params to pass the function
         num_events = c_int(len(self.events))
-        values = POINTER(c_longlong)()
+        self.values = POINTER(c_longlong)()
+        # self.values = POINTER(POINTER(c_longlong))
         event_set = self.event_set
         # And now, depending on the type of measure, we fill the params
         if self.cpus is None or len(self.cpus) == 0:
@@ -157,11 +180,14 @@ class my_papi(system_setup):
             num_event_set = c_int(len(self.cpus))
 
         # Call the function "my_stop_events(...)"
-        self.p_lib.my_stop_events(num_events, event_set, num_event_set,
-                                  byref(values))
+        self.p_lib.my_stop_events(num_events, event_set, num_event_set, # self.values)
+                                #   byref(self.values))
+                                res_measure)
+
+        print("Comida", res_measure)
 
         # Stores the result
-        self.values = values
+        # self.values = byref(values)
 
         # if self.cpus is None:
         #     # If the cpus is None, then we have to measure only one core
@@ -328,8 +354,8 @@ class my_papi(system_setup):
         # int my_start_events(int num_events, const char *events[],
         #                     int *eventSets, int num_eventSets);
         # ------------------------------------------------------------------- #
-        self.p_lib.my_start_events.argtypes = [c_int, c_char_p, POINTER(c_int),
-                                               c_int]
+        # self.p_lib.my_start_events.argtypes = [c_int, c_char_p, POINTER(c_int),
+        #                                        c_int]
         self.p_lib.my_start_events.restype = c_int
         # ------------------------------------------------------------------- #
 
@@ -337,8 +363,8 @@ class my_papi(system_setup):
         # int my_stop_events(int num_events, int *eventSets, int num_eventSets,
         #                    long long **values)
         # ------------------------------------------------------------------- #
-        self.p_lib.my_stop_events.argtypes = [c_int, POINTER(c_int), c_int,
-                                              POINTER(POINTER(c_longlong))]
+        # self.p_lib.my_stop_events.argtypes = [c_int, POINTER(c_int), c_int,
+        #                                       POINTER(POINTER(c_longlong))]
         self.p_lib.my_stop_events.restype = c_int
         # ------------------------------------------------------------------- #
 

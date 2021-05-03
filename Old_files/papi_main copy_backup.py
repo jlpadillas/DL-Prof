@@ -11,7 +11,8 @@ import ctypes
 from ctypes import *
 
 # local source
-sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
+sys.path.append("/home/jlpadillas01/TFG/mnist/src/")
+sys.path.append("/home/jlpadillas01/TFG/mat_mul/src/")
 from system_setup import system_setup
 from matrix import matrix
 
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     dim_y = dim_x
 
     # Se crea el objeto
-    mat = matrix(dim_x, dim_y)
+    mat = matrix()
 
     # Se generan las dos matrices
     if option == "empty":
@@ -63,7 +64,7 @@ if __name__ == "__main__":
         raise mat.Error
 
     # Load the shared library into ctypes
-    libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
+    libname = "/home/jlpadillas01/TFG/mat_mul/lib/libmy_papi.so"
     p_lib = CDLL(libname)
 
     # TODO: Hay que cambiar el path para que se pueda encontrar el .so
@@ -120,10 +121,16 @@ if __name__ == "__main__":
 
 
     # Es necesario reducir el nivel de perf para poder medir
-    setup.set_perf_event_paranoid(1)
+    # setup.set_perf_event_paranoid(1)
+
+    print(len(events), len(events_array))
 
     # Empieza la medida de los eventos
-    ptr_EventSet = p_lib.my_start_events(events_array, len(events))
+    ptr = c_int()
+    p_lib.my_start_events(len(events), events_array, byref(ptr), 1)
+
+    quit()
+
 
     # ROI
     mat.mat_mul()
