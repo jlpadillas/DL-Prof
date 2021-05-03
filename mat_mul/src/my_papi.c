@@ -164,6 +164,45 @@ int my_PAPI_hl_region_end(const char *region)
 }
 
 // -----------------------------------------------------------------------
+// For python
+// -----------------------------------------------------------------------
+int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
+                       int num_event_sets, int *event_sets)
+{
+    FILE *fp;
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t line_length;
+    char events[MAX_NUM_EVENTS][MAX_LENGTH_EVENT_NAME];
+
+    if (num_cpus < 0 || num_cpus > my_get_total_cpus())
+    {
+        fprintf(stderr, "[MyPapi] Error: wrong number of cpus '%d'\n",
+                num_cpus);
+        exit(EXIT_FAILURE);
+    }
+
+    fp = fopen(input_file_name, "r");
+    if (!fp)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
+                input_file_name);
+        exit(EXIT_FAILURE);
+    }
+
+    // Counting lines of file
+    size_t lines = 0;
+    while ((line_length = getline(&line, &len, fp)) != -1)
+    {
+        events[lines] = line;
+        lines++;
+    }
+
+    fclose(fp);
+    
+}
+
+// -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------
 int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets)
@@ -338,7 +377,7 @@ void __my_print_values(int num_events, const char *events[],
         val = values[i];
         // if (val != 0)
         // {
-            printf("| %-42s| %'-16lld|\n", events[i], val);
+        printf("| %-42s| %'-16lld|\n", events[i], val);
         // }
     }
     printf("%s\n",

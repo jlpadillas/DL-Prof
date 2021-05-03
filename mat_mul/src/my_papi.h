@@ -13,6 +13,8 @@
 // Constants
 // -----------------------------------------------------------------------
 #define MAX_CPUS 64
+#define MAX_NUM_EVENTS 10
+#define MAX_LENGTH_EVENT_NAME 150
 
 // -----------------------------------------------------------------------
 // Low_level
@@ -74,8 +76,21 @@ int my_PAPI_hl_region_begin(const char *region);
 int my_PAPI_hl_region_end(const char *region);
 
 // -----------------------------------------------------------------------
-// Propios
+// For python
 // -----------------------------------------------------------------------
+// Prepare the env. befor starting the measurement
+int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
+                       int num_event_sets, int *event_sets);
+// Starts the measurement
+int my_start_measure(int num_event_sets, int *event_sets);
+// Stop the measurement
+int my_stop_measure(char *input_file_name, char *output_file_name,
+                    int num_event_sets, int *event_sets,
+                    long long **values);
+// Print the results
+int my_print_measure();
+// -----------------------------------------------------------------------
+
 // attach to each cpu
 int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets);
 
