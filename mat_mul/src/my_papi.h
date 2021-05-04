@@ -93,9 +93,6 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
 // Read a file and get the events from it
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events);
-
-// Print results
-int __print_values(long long **values);
 // ----------------------------------------------------------------------------
 
 // attach to each cpu

@@ -215,75 +215,54 @@ int main(int argc, char const *argv[])
         break; // This line should never be executed
     }
 
-    // ROI -> Matrices are multiplied
+#ifdef MY_PAPI
+    // Set the common variables for my_PAPI execution
+    // TODO: Modify this lines:
+    // char *file = "src/events_pc.cfg";
+    // char *file = "src/events_node.cfg";
+    char *file = "src/events_laptop.cfg";
+    int *cpus = NULL;
+    int num_cpus = 1;
+    // If the measure is multihread, we have to modify the values
     if (Mul_type == MULTITHREAD)
     {
-#ifdef MY_PAPI
-        // Get the total num of cpus
-        int num_cpus = my_get_total_cpus();
-        // Allocate memory for the event sets
-        int *m_eventSets = (int *)my_malloc(num_cpus * sizeof(int));
-        // Allocate memory for the results
-        long long **m_values = (long long **)my_malloc(num_cpus *
-                                                       sizeof(long long *));
-        // Each cpu has "num_events" events to measure
-        for (int i = 0; i < num_cpus; i++)
-        {
-            m_values[i] = (long long *)my_malloc(num_events *
-                                                 sizeof(long long));
-        }
-        // ! Start measure
-        my_attach_cpus(num_cpus, NULL, m_eventSets);
-        my_start_events(num_events, events, m_eventSets, num_cpus);
-#endif // MY_PAPI
-        M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-#ifdef MY_PAPI
-        // ! Stop measure
-        my_stop_events(num_events, m_eventSets, num_cpus, m_values);
-        my_print_values(num_events, events, num_cpus, NULL, m_values);
-        // Free memory
-        for (size_t i = 0; i < num_cpus; i++)
-        {
-            my_free(m_values[i]);
-        }
-        my_free(m_values);
-#endif // MY_PAPI
+        num_cpus = my_get_total_cpus();
     }
-    else
+    int num_event_sets = num_cpus;
+    int event_sets;
+    long long *values;
+
+    // ! Start measure
+    my_prepare_measure(file, num_cpus, cpus, num_event_sets, &event_sets);
+    my_start_measure(num_cpus, &event_sets);
+#endif // MY_PAPI
+
+    /* ------------------------- Region of Interest ------------------------ */
+    // Matrices are multiplied
+    switch (Mul_type)
     {
-#ifdef MY_PAPI
-        // Set the common variables for non multithreading execution
-        // long long *values = (long long *)my_malloc(num_events * sizeof(long long));
-        // int eventSet;
-        // my_configure_eventSet(&eventSet);
-        // int num_eventSets = 1;
-        // my_start_events(num_events, events, &eventSet, num_eventSets);
-        char *file = "src/events_pc.cfg";
-        // char *file = "src/events_node.cfg";
-        // char *file = "src/events_laptop.cfg";
-        int num_cpus = 1;
-        int *cpus = NULL;
-        int num_event_sets = num_cpus;
-        int event_sets;
-        long long *values;
-        my_prepare_measure(file, num_cpus, cpus, num_event_sets, &event_sets);
-        my_start_measure(num_cpus, &event_sets);
-#endif // MY_PAPI
-        if (Mul_type == NORMAL)
-        {
-            M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-        }
-        else if (Mul_type == TRANSPOSE)
-        {
-            M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
-        }
-#ifdef MY_PAPI
-        my_stop_measure(num_cpus, &event_sets, &values);
-        my_print_measure(num_cpus, cpus, &values, NULL);
-        // Free memory
-        my_free(values);
-#endif // MY_PAPI
+    case MULTITHREAD:
+        M_c = mat_mul_multithread(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+        break;
+    case NORMAL:
+        M_c = mat_mul(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+        break;
+    case TRANSPOSE:
+        M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
+        break;
+    default:
+        // Never should execute this option
+        break;
     }
+    /* ----------------------- END Region of Interest ---------------------- */
+
+#ifdef MY_PAPI
+    my_stop_measure(num_cpus, &event_sets, &values);
+    my_print_measure(num_cpus, cpus, &values, NULL);
+    // Free memory
+    my_free(values);
+    my_PAPI_shutdown();
+#endif // MY_PAPI
 
 #ifdef DEBUG
     printf("Matrix A: %s\n", arr_to_str(M_a, rows_a, cols_a));
@@ -295,10 +274,6 @@ int main(int argc, char const *argv[])
     mat_free(M_a);
     mat_free(M_b);
     mat_free(M_c);
-
-#ifdef MY_PAPI
-    my_PAPI_shutdown();
-#endif // MY_PAPI
 
     return EXIT_SUCCESS;
 }

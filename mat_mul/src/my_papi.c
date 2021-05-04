@@ -304,7 +304,6 @@ int my_start_measure(int num_event_sets, int *event_sets)
 int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
 {
     int i;
-    long long **values_local;
 
     /* -------------------------- Checking PARAMS -------------------------- */
     if (num_event_sets < 1)
@@ -314,38 +313,18 @@ int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
     }
     /* ------------------------ END checking PARAMS ------------------------ */
 
-    /* -------------------------- STOP PAPI -------------------------- */
-    values_local = (long long **)malloc(sizeof(long long **) * num_event_sets);
-    if (values_local == NULL)
-    {
-        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
-        exit(EXIT_FAILURE);
-    }
-
+    /* -------------------------- STOP measure -------------------------- */
     for (i = 0; i < num_event_sets; i++)
     {
-        values_local[i] = (long long *)malloc(sizeof(long long *) * num_events);
-        if (values_local[i] == NULL)
+        values[i] = (long long *)malloc(sizeof(long long *) * num_events);
+        if (values[i] == NULL)
         {
             fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
             exit(EXIT_FAILURE);
         }
+        my_PAPI_stop(event_sets[i], values[i]);
     }
-
-    if (num_event_sets == 1)
-    {
-        my_PAPI_stop(*event_sets, *values_local);
-        *values = *values_local;
-    }
-    else
-    {
-        for (i = 0; i < num_event_sets; i++)
-        {
-            my_PAPI_stop(event_sets[i], values_local[i]);
-        }
-        values = values_local;
-    }
-    /* -------------------------- STOP PAPI -------------------------- */
+    /* ------------------------ END STOP measure ------------------------ */
     return EXIT_SUCCESS;
 }
 
@@ -358,12 +337,26 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     int *cpus_local;
     setlocale(LC_NUMERIC, "");
 
-    if (num_cpus == 1)
+    cpus_local = (int *)malloc(sizeof(int *) * num_cpus);
+    if (cpus_local == NULL)
     {
-        // -1 implies that we dont know the cpu were the measure was executed
-        cpus_local = (int *)malloc(sizeof(int *));
-        cpus_local[0] = -1;
-        fp = stdout;
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (cpus == NULL)
+    {
+        if (num_cpus > 1)
+        {
+            for (i = 0; i < num_cpus; i++)
+            {
+                cpus_local[i] = i;
+            }
+        }
+        else
+        {
+            cpus_local[0] = -1;
+        }
     }
     else
     {
@@ -380,6 +373,10 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
             exit(EXIT_FAILURE);
         }
     }
+    else
+    {
+        fp = stdout;
+    }
 
     for (i = 0; i < num_cpus; i++)
     {
@@ -390,7 +387,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
                             "==+=================+");
         for (j = 0; j < num_events; j++)
         {
-            val = (*values)[j];
+            val = values[i][j];
             if (val != 0)
             {
                 fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", cpus_local[i],
@@ -485,7 +482,6 @@ int __get_events_from_file(char *input_file_name, int *num_events,
     free(events_local);
     return EXIT_SUCCESS;
 }
-
 // -----------------------------------------------------------------------
 // Propios
 // -----------------------------------------------------------------------

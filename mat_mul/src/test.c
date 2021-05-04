@@ -8,26 +8,32 @@
 
 int main(int argc, char const *argv[])
 {
-    int eventsets;
-    int num_cpus = 1;
-    char *file = "src/events_pc.cfg";
+    // -----------------------------------
+    // char *file = "src/events_pc.cfg";
     // char *file = "src/events_node.cfg";
-    // char *file = "src/events_laptop.cfg";
-    my_prepare_measure(file, num_cpus, NULL, num_cpus, &eventsets);
-    // my_prepare_measure(file, 1, NULL, 1, &eventsets);
+    char *file = "src/events_laptop.cfg";
+    // -----------------------------------
 
-    my_start_measure(1, &eventsets);
-    printf("Hola\n");
+    int *event_sets;
+    int *cpus = NULL;
+    int num_cpus;
+    num_cpus = 1;
+    num_cpus = my_get_total_cpus();
+    int num_event_sets = num_cpus;
 
-    long long *m_values;
-    my_stop_measure(num_cpus, &eventsets, &m_values);
-    // for (i = 0; i < num_events; i++)
-    // {
-    //     printf("ev[%d]=%lld\n", i, (*values_local)[i]);
-    // }
-    // printf("valor = %lln\n", m_values);
+    event_sets = (int *)malloc(sizeof(int *) * num_cpus);
 
-    my_print_measure(num_cpus, NULL, &m_values, NULL);
+    my_prepare_measure(file, num_cpus, cpus, num_event_sets, event_sets);
+
+    my_start_measure(num_event_sets, event_sets);
+    
+    printf("Soy el ROI\n");
+
+    long long **values = (long long **)malloc(sizeof(long long **) * num_cpus);
+    
+    my_stop_measure(num_event_sets, event_sets, values);
+
+    my_print_measure(num_cpus, NULL, values, NULL);
 
     my_PAPI_shutdown();
 
