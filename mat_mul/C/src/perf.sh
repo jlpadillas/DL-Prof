@@ -149,12 +149,13 @@ if [[ $PROGRAM == *"."* ]]; then # It has an extension
     # Check if it is a python program and modify the exec
     if [[ $FILE_EXTN == "py" ]]; then
         EXEC=$(which python3)
-    else
-        # Check if it's: ./[anything]
-        if ! [[ $FILE_EXTN == /* ]]; then
-            echoerr "[ERROR] Extension '$FILE_EXTN' not supported."
-            exit 1
-        fi
+    # TODO: modify lines for permit execute *.out files
+    # else
+    #     # Check if it's: ./[anything]
+    #     if ! [[ $FILE_EXTN == /* ]]; then
+    #         echoerr "[ERROR] Extension '$FILE_EXTN' not supported."
+    #         exit 1
+    #     fi
     fi
 fi
 

@@ -3,9 +3,31 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
+# Shared objects (inc. Windows DLLs)
+*.dll
 *.so
+*.so.*
+*.dylib
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Object files
 *.o
+*.ko
+*.obj
+*.elf
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
 
 # Distribution / packaging
 .Python

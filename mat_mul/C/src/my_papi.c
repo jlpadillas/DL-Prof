@@ -367,7 +367,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
 
     if (output_file_name != NULL)
     {
-        fp = fopen(output_file_name, "r");
+        fp = fopen(output_file_name, "w");
         if (fp == NULL)
         {
             fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
@@ -393,11 +393,12 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
                 if (print_cpu && !print_header)
                 {
                     print_header = true;
-                    fprintf(fp, "%s\n", "+-----+-----------------------------------------"
-                                        "--+-----------------+");
-                    fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event", "Value");
-                    fprintf(fp, "%s\n", "+=====+========================================="
-                                        "==+=================+");
+                    fprintf(fp, "%s\n", "+-----+------------------------------"
+                                        "-------------+-----------------+");
+                    fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event",
+                            "Value");
+                    fprintf(fp, "%s\n", "+=====+=============================="
+                                        "=============+=================+");
                 }
                 fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", cpus_local[i],
                         events[j], val);
@@ -405,8 +406,8 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
         }
         if (print_cpu)
         {
-            fprintf(fp, "%s\n", "+-----+-----------------------------------------"
-                    "--+-----------------+");
+            fprintf(fp, "%s\n", "+-----+--------------------------------------"
+                                "-----+-----------------+");
         }
     }
 

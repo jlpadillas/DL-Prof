@@ -30,57 +30,12 @@
 #define MAX_MATRIX_SIZE 100000
 
 #ifdef MY_PAPI
-// ? NOTA: num. max. de eventos que puede medir papi simultaneamente
-// ? es igual a 6. Si se ejecuta mas, se lanza un error.
-const unsigned num_events = 3;
-
-// ! Modify the next lines depending on the executing PC
-// portatil
-// const char *events[] = {
-//     "cycles",
-//     "instructions",
-//     "fp_arith_inst_retired.128b_packed_double",
-//     "fp_arith_inst_retired.128b_packed_single",
-//     // "fp_arith_inst_retired.256b_packed_double",
-//     // "fp_arith_inst_retired.256b_packed_single",
-//     "fp_arith_inst_retired.scalar_double",
-//     "fp_arith_inst_retired.scalar_single"
-//     // "fp_assist.any"
-// };
-
-// sobremesa
-// const char *events[] = {
-//     "cycles",
-//     "instructions",
-//     // "fp_assist.any",
-//     // "fp_assist.simd_input",
-//     // "fp_assist.simd_output",
-//     // "fp_assist.x87_input",
-//     // "fp_assist.x87_output",
-//     // "fp_comp_ops_exe.sse_packed_double",
-//     "fp_comp_ops_exe.sse_packed_single",
-//     "fp_comp_ops_exe.sse_scalar_double",
-//     // "fp_comp_ops_exe.sse_scalar_single", // no encuentra el evento!!!!!
-//     "fp_comp_ops_exe.x87",
-//     // "simd_fp_256.packed_double",
-//     "simd_fp_256.packed_single"
-// };
-
-// NODO
-const char *events[] = {
-    "cycles",
-    "instructions",
-    // "fp_arith_inst_retired.128b_packed_double",
-    // "fp_arith_inst_retired.128b_packed_single",
-    // "fp_arith_inst_retired.256b_packed_double",
-    // "fp_arith_inst_retired.256b_packed_single",
-    // "fp_arith_inst_retired.512b_packed_double",
-    // "fp_arith_inst_retired.512b_packed_single",
-    "fp_arith_inst_retired.scalar_double",
-    // "fp_arith_inst_retired.scalar_single"
-    // "fp_assist.any"
-};
-
+// ! NOTA: num. max. de eventos que puede medir papi simultaneamente
+// ! es igual a 6. Si se ejecuta mas, se produce un error.
+// TODO: Modify this lines:
+char *file = "conf/events_pc.cfg";
+// char *file = "conf/events_node.cfg";
+// char *file = "conf/events_laptop.cfg";
 #endif
 
 enum MATRIX_TYPE
@@ -217,10 +172,6 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     // Set the common variables for my_PAPI execution
-    // TODO: Modify this lines:
-    // char *file = "src/events_pc.cfg";
-    char *file = "src/events_node.cfg";
-    // char *file = "src/events_laptop.cfg";
     int *cpus = NULL;
     int num_cpus = 1;
     // If the measure is multihread, we have to modify the values
