@@ -89,6 +89,10 @@ int my_stop_measure(char *input_file_name, char *output_file_name,
                     long long **values);
 // Print the results
 int my_print_measure();
+
+// Read a file and get the events from it
+int __get_events_from_file(char *input_file_name, int *num_events,
+                           char **events);
 // -----------------------------------------------------------------------
 
 // attach to each cpu
