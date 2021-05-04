@@ -1,6 +1,7 @@
 #include <locale.h>
-#include <stdlib.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "my_papi.h"
 
@@ -335,6 +336,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     FILE *fp;
     long long val;
     int *cpus_local;
+    bool print_cpu, print_header;
     setlocale(LC_NUMERIC, "");
 
     cpus_local = (int *)malloc(sizeof(int *) * num_cpus);
@@ -380,22 +382,32 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
 
     for (i = 0; i < num_cpus; i++)
     {
-        fprintf(fp, "%s\n", "+-----+-----------------------------------------"
-                            "--+-----------------+");
-        fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event", "Value");
-        fprintf(fp, "%s\n", "+=====+========================================="
-                            "==+=================+");
+        print_cpu = false;
+        print_header = false;
         for (j = 0; j < num_events; j++)
         {
             val = values[i][j];
             if (val != 0)
             {
+                print_cpu = true;
+                if (print_cpu && !print_header)
+                {
+                    print_header = true;
+                    fprintf(fp, "%s\n", "+-----+-----------------------------------------"
+                                        "--+-----------------+");
+                    fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event", "Value");
+                    fprintf(fp, "%s\n", "+=====+========================================="
+                                        "==+=================+");
+                }
                 fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", cpus_local[i],
                         events[j], val);
             }
         }
-        fprintf(fp, "%s\n", "+-----+-----------------------------------------"
-                            "--+-----------------+");
+        if (print_cpu)
+        {
+            fprintf(fp, "%s\n", "+-----+-----------------------------------------"
+                    "--+-----------------+");
+        }
     }
 
     if (output_file_name != NULL)
@@ -407,6 +419,17 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
         fflush(fp);
     }
     free(cpus_local);
+    return EXIT_SUCCESS;
+}
+
+int my_free_measure(long long **values, int num_event_sets)
+{
+    int i;
+    for (i = 0; i < num_event_sets; i++)
+    {
+        free(values[i]);
+    }
+    free(values);
     return EXIT_SUCCESS;
 }
 

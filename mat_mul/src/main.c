@@ -260,7 +260,7 @@ int main(int argc, char const *argv[])
     my_stop_measure(num_cpus, event_sets, values);
     my_print_measure(num_cpus, cpus, values, NULL);
     // Free memory
-    my_free(values);
+    my_free_measure(values, num_event_sets);
     my_PAPI_shutdown();
 #endif // MY_PAPI
 

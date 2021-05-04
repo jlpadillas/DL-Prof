@@ -89,6 +89,8 @@ int my_stop_measure(int num_event_sets, int *event_sets, long long **values);
 // Print the results
 int my_print_measure(int num_cpus, int *cpus, long long **values,
                      char *output_file_name);
+// Free values of measurement
+int my_free_measure(long long **values, int num_event_sets);
 
 // Read a file and get the events from it
 int __get_events_from_file(char *input_file_name, int *num_events,

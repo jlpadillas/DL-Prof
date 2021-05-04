@@ -35,6 +35,8 @@ int main(int argc, char const *argv[])
 
     my_print_measure(num_cpus, NULL, values, NULL);
 
+    my_free_measure(values, num_event_sets);
+
     my_PAPI_shutdown();
 
     return 0;
