@@ -15,6 +15,7 @@
 #define MAX_CPUS 64
 #define MAX_NUM_EVENTS 10
 #define MAX_LENGTH_EVENT_NAME 150
+// #define PRINT_AS_PERF
 
 // ----------------------------------------------------------------------------
 // Low_level
@@ -86,11 +87,15 @@ int my_start_measure(int num_event_sets, int *event_sets);
 // Stop the measurement
 int my_stop_measure(int num_event_sets, int *event_sets, long long **values);
 // Print the results
-int my_print_measure(long long **values, char *output_file_name);
+int my_print_measure(int num_cpus, int *cpus, long long **values,
+                     char *output_file_name);
 
 // Read a file and get the events from it
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events);
+
+// Print results
+int __print_values(long long **values);
 // ----------------------------------------------------------------------------
 
 // attach to each cpu

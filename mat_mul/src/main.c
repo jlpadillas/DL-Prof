@@ -253,11 +253,19 @@ int main(int argc, char const *argv[])
     {
 #ifdef MY_PAPI
         // Set the common variables for non multithreading execution
-        long long *values = (long long *)my_malloc(num_events * sizeof(long long));
-        int eventSet;
-        my_configure_eventSet(&eventSet);
-        int num_eventSets = 1;
-        my_start_events(num_events, events, &eventSet, num_eventSets);
+        // long long *values = (long long *)my_malloc(num_events * sizeof(long long));
+        // int eventSet;
+        // my_configure_eventSet(&eventSet);
+        // int num_eventSets = 1;
+        // my_start_events(num_events, events, &eventSet, num_eventSets);
+        char *file = "src/events_laptop.cfg";
+        int num_cpus = 1;
+        int *cpus = NULL;
+        int num_event_sets = num_cpus;
+        int event_sets;
+        long long *values;
+        my_prepare_measure(file, num_cpus, cpus, num_event_sets, &event_sets);
+        my_start_measure(num_cpus, &event_sets);
 #endif // MY_PAPI
         if (Mul_type == NORMAL)
         {
@@ -268,12 +276,15 @@ int main(int argc, char const *argv[])
             M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         }
 #ifdef MY_PAPI
-        my_stop_events(num_events, &eventSet, num_eventSets, &values);
-#ifndef RAW
-        my_print_values(num_events, events, num_eventSets, NULL, &values);
-#else
-        my_print_values_perf(num_events, events, values);
-#endif // RAW
+//         my_stop_events(num_events, &eventSet, num_eventSets, &values);
+// #ifndef RAW
+//         my_print_values(num_events, events, num_eventSets, NULL, &values);
+// #else
+//         my_print_values_perf(num_events, events, values);
+// #endif // RAW
+
+        my_stop_measure(num_cpus, &event_sets, &values);
+        my_print_measure(num_cpus, cpus, &values, NULL);
         // Free memory
         my_free(values);
 #endif // MY_PAPI

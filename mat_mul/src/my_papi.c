@@ -349,14 +349,70 @@ int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
     return EXIT_SUCCESS;
 }
 
-int my_print_measure(long long **values, char *output_file_name)
+int my_print_measure(int num_cpus, int *cpus, long long **values,
+                     char *output_file_name)
 {
+    int i;
+    setlocale(LC_NUMERIC, "");
+
+    if (num_cpus == 1)
+    {
+        // Printa una cpu con el valor medido
+        for (i = 0; i < num_events; i++)
+        {
+            printf("ev[%d]=%lld\n", i, (*values)[i]);
+        }
+        // __print_values(values);
+    }
+
+
+    // if (cpus == NULL)
+    // {
+    //     // No cpus list passed
+    //     for (i = 0; i < num_cpus; i++)
+    //     {
+    //         // Get the n first cpus
+    //         printf("[CPU = %d] ??\n", i);
+    //         __print_values(values);
+    //     }
+    // }
+    // else
+    // {
+    //     for (i = 0; i < num_cpus; i++)
+    //     {
+    //         printf("[CPU = %d]\n", cpus[i]);
+    //         __print_values(values);
+    //     }
+    // }
+    
     // for (i = 0; i < num_events; i++)
     // {
     //     printf("ev[%d]=%lld\n", i, (*values_local)[i]);
     // }
     return EXIT_SUCCESS;
 }
+
+// int __print_values(long long **values)
+// {
+//     int i;
+//     long long val;
+//     setlocale(LC_NUMERIC, "");
+//     printf("%s\n",
+//            "+-------------------------------------------+-----------------+");
+//     printf("| %-42s| %-16s|\n", "Event", "Value");
+//     printf("%s\n",
+//            "+===========================================+=================+");
+//     for (i = 0; i < num_events; i++)
+//     {
+//         val = values[i];
+//         // if (val != 0)
+//         // {
+//         printf("| %-42s| %'-16lld|\n", events[i], val);
+//         // }
+//     }
+//     printf("%s\n",
+//            "+-------------------------------------------+-----------------+");
+// }
 
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events)
