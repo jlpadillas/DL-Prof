@@ -4,9 +4,9 @@
     "python.analysis.extraPaths": [
         "/home/jlpadillas01/.local/lib/python3.8/site-packages/",
         "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/",
-        "/home/jlpadillas01/TFG/1.mat_mul/src/",
-        "/home/jlpadillas01/TFG/2.compilation/src/",
-        "/home/jlpadillas01/TFG/3.binding/src/",
+        "/home/jlpadillas01/TFG/mat_mul/C/src/",
+        "/home/jlpadillas01/TFG/mat_mul/Python/src/",
+        "/home/jlpadillas01/TFG/mnist/src/",
         // "~/TFG/1.mat_mul/src/"
     ],
     "files.associations": {

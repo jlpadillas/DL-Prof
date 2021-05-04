@@ -30,23 +30,23 @@ setup:
 compile: my_papi
 # Compiling
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
-	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_perf.out \
+	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_perf \
 		${BIN_DIR}/matrix.o -pthread
-	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_papi.out -DMY_PAPI \
+	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_papi -DMY_PAPI \
 		-Wl,-rpath=${LIB_DIR} ${BIN_DIR}/matrix.o -L${LIB_DIR} -lmy_papi \
 		-pthread
 
 # --------------------------------------------------------------------------- #
 # Executing
 run_multithread:
-	./${BIN_DIR}/main_papi.out SEQ 512 MULTITHREAD
-	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf.out SEQ 512 MULTITHREAD
+	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
 
 run:
 	./${BIN_DIR}/main_papi SEQ 512 NORMAL
-	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf.out SEQ 512 NORMAL
 	./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
-	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf.out SEQ 512 TRANSPOSE
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 NORMAL
+	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
 
 # --------------------------------------------------------------------------- #
 my_papi:
@@ -74,7 +74,7 @@ execution:
 
 test: my_papi
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
-	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test.out -DMY_PAPI \
+	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test -DMY_PAPI \
 		-Wl,-rpath=${LIB_DIR} ${BIN_DIR}/matrix.o -L${LIB_DIR} -lmy_papi \
 		-pthread
-	./${BIN_DIR}/test.out
+	./${BIN_DIR}/test

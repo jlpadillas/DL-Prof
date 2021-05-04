@@ -6,6 +6,8 @@
 # --------------------------------------------------------------------------- #
 # Directory where binaries are saved
 BIN_DIR = bin
+# Directory where configuration files are saved
+CFG_DIR = conf
 # Directory where libraries are saved
 LIB_DIR = lib
 # Directory where result files are saved
@@ -14,7 +16,7 @@ OUT_DIR = out
 SRC_DIR = src
 # Flags used to compile c files
 CFLAGS = -Wall -Werror
-CC = gcc
+CC = python3
 # --------------------------------------------------------------------------- #
 all: clean setup
 
@@ -22,10 +24,25 @@ clean:
 	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
 
 setup:
-	mkdir -p ${BIN_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
+	mkdir -p ${BIN_DIR} ${CFG_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
 
 # --------------------------------------------------------------------------- #
-# C FILES
+# Getting the my_papi lib
+my_papi:
+	cp ../C/${LIB_DIR}/* ${LIB_DIR}/
+
+# --------------------------------------------------------------------------- #
+# Pytohn FILES
+main_papi: my_papi
+# PC
+	${CC} ${SRC_DIR}/main_papi.py seq
+	perf stat -e cycles,instructions,fp_assist.any,fp_assist.simd_input,fp_assist.simd_output,fp_assist.x87_input,fp_assist.x87_output,fp_comp_ops_exe.sse_packed_double,fp_comp_ops_exe.sse_packed_single,fp_comp_ops_exe.sse_scalar_double,fp_comp_ops_exe.sse_scalar_single,fp_comp_ops_exe.x87,simd_fp_256.packed_double,simd_fp_256.packed_single,arith.fpu_div,arith.fpu_div_active ${CC} ${SRC_DIR}/main.py seq
+
+main_papi_node: my_papi
+# NODE
+	${CC} ${SRC_DIR}/main_papi.py seq
+	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
+
 test_compile: my_papi
 # Compiling
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
@@ -39,12 +56,6 @@ test_run: test_compile
 # Executing
 	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
-
-my_papi:
-# my_papi library
-	${CC} ${CFLAGS} -fPIC -c ${SRC_DIR}/my_papi.c -o ${BIN_DIR}/my_papi.o
-	${CC} -shared -o ${LIB_DIR}/libmy_papi.so ${BIN_DIR}/my_papi.o \
-		-L/usr/local/lib -lpapi
 
 # --------------------------------------------------------------------------- #
 # ! Permissions
