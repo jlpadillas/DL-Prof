@@ -4,14 +4,12 @@
 #include <string.h>
 #include "my_papi.h"
 
-// /* Number of the events to measure */
-// int num_events;
-// /* Must be initialized to PAPI_NULL before calling PAPI_create_event */
-// int EventSet = PAPI_NULL;
-// /* This is where we store the values we read from the eventset */
-// long long *values;
-/* We use retval to keep track of the number of the return value */
+// We use retval to keep track of the number of the return value
 int retval;
+// Array of strings which corresponds to the events to be measured
+static char **events;
+// Number of the events
+static size_t num_events;
 
 // ----------------------------------------------------------------------------
 // Low_level
@@ -169,8 +167,9 @@ int my_PAPI_hl_region_end(const char *region)
 int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                        int num_event_sets, int *event_sets)
 {
-    char *events;
-    int i, j, num_events;
+    int i, j;
+    FILE *fp;
+    char *line;
 
     /* -------------------------- Checking PARAMS -------------------------- */
     if (num_cpus < 0 || num_cpus > MAX_CPUS)
@@ -187,14 +186,60 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                 num_cpus, num_event_sets);
         exit(EXIT_FAILURE);
     }
+
+    fp = fopen(input_file_name, "r");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
+                input_file_name);
+        exit(EXIT_FAILURE);
+    }
     /* ------------------------ END checking PARAMS ------------------------ */
 
-    __get_events_from_file(input_file_name, &num_events, &events);
+    /* ------------------------ FIRST READ of file ------------------------- */
+    // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
+    num_events = 0;
+    line = (char *)malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    if (line == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
+    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
+    {
+        num_events++;
+    }
+    /* ----------------------- END FIRST READ of file ---------------------- */
 
-    // for (i = 0; i < num_events; i++)
-    // {
-    //     printf("event[%d] = %s\n", i, (&events)[i]);
-    // }
+    events = (char **)malloc(sizeof(char **) * num_events);
+    if (events == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    /* ------------------------ SECOND READ of file ------------------------ */
+    // Extract the events from each line and store in the array
+    i = 0;
+    rewind(fp);
+    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
+    {
+        events[i] = (char *)malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        if (events[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
+        // Substitute '\n' for '\0'
+        if (line[strlen(line) - 1] == '\n')
+        {
+            line[strlen(line) - 1] = '\0';
+        }
+        strncpy(events[i++], line, strlen(line));
+    }
+    free(line);
+    fclose(fp);
+    /* ---------------------- END SECOND READ of file ---------------------- */
 
     /* ---------------------------- CONFIG PAPI ---------------------------- */
     int cidx = 0;
@@ -206,7 +251,7 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
         my_PAPI_create_eventset(event_sets);
         for (j = 0; j < num_events; j++)
         {
-            my_PAPI_add_named_event(*event_sets, (&events)[j]);
+            my_PAPI_add_named_event(*event_sets, events[j]);
         }
     }
     else
@@ -238,17 +283,11 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
             // Adding events
             for (j = 0; j < num_events; j++)
             {
-                my_PAPI_add_named_event(event_sets[i], (&events)[j]);
-                free((&events)[j]);
+                my_PAPI_add_named_event(event_sets[i], events[j]);
             }
         }
     }
     /* -------------------------- END CONFIG PAPI -------------------------- */
-    // for (size_t i = 0; i < count; i++)
-    // {
-    //     /* code */
-    // }    
-    free(events);
     return EXIT_SUCCESS;
 }
 
@@ -262,60 +301,60 @@ int my_start_measure(int num_event_sets, int *event_sets)
     return EXIT_SUCCESS;
 }
 
-int my_stop_measure(char *input_file_name, char *output_file_name,
-                    int num_event_sets, int *event_sets,
-                    long long **values)
+int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
 {
-    // FILE *fp;
-    char *events;
-    int num_events;
-    // long long **values_local;
+    int i;
+    long long **values_local;
 
+    /* -------------------------- Checking PARAMS -------------------------- */
     if (num_event_sets < 1)
     {
         fprintf(stderr, "[MyPapi] Error: wrong number of event set\n");
         return EXIT_FAILURE;
     }
+    /* ------------------------ END checking PARAMS ------------------------ */
 
-    __get_events_from_file(input_file_name, &num_events, &events);
+    /* -------------------------- STOP PAPI -------------------------- */
+    values_local = (long long **)malloc(sizeof(long long **) * num_event_sets);
+    if (values_local == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
 
-    // values_local = (long long**)malloc(sizeof(long long**) * num_event_sets);
-    // if (values_local == NULL)
-    // {
-    //     fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
-    //     exit(EXIT_FAILURE);
-    // }
+    for (i = 0; i < num_event_sets; i++)
+    {
+        values_local[i] = (long long *)malloc(sizeof(long long *) * num_events);
+        if (values_local[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
+    }
 
-    // if (num_event_sets == 1)
-    // {
-    //     my_PAPI_stop(*event_sets, *values_local);
-    //     *values = *values_local;
-    // }
-    // else
-    // {
-    //     for (i = 0; i < num_event_sets; i++)
-    //     {
-    //         my_PAPI_stop(event_sets[i], values_local[i]);
-    //     }
-    //     values = values_local;
-    // }
-    // if (output_file_name != NULL)
-    // {
-    //     // Store the result in a file
-    //     fp = fopen(input_file_name, "r");
-    //     if (fp == NULL)
-    //     {
-    //         fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
-    //                 input_file_name);
-    //         exit(EXIT_FAILURE);
-    //     }
-    // }
+    if (num_event_sets == 1)
+    {
+        my_PAPI_stop(*event_sets, *values_local);
+        *values = *values_local;
+    }
+    else
+    {
+        for (i = 0; i < num_event_sets; i++)
+        {
+            my_PAPI_stop(event_sets[i], values_local[i]);
+        }
+        values = values_local;
+    }
+    /* -------------------------- STOP PAPI -------------------------- */
     return EXIT_SUCCESS;
 }
 
-int my_print_measure()
+int my_print_measure(long long **values, char *output_file_name)
 {
-
+    // for (i = 0; i < num_events; i++)
+    // {
+    //     printf("ev[%d]=%lld\n", i, (*values_local)[i]);
+    // }
     return EXIT_SUCCESS;
 }
 
@@ -375,9 +414,9 @@ int __get_events_from_file(char *input_file_name, int *num_events,
         {
             line[strlen(line) - 1] = '\0';
         }
-        // strncpy(events_local[i++], line, strlen(line));
+        strncpy(events_local[i++], line, strlen(line));
         // memcpy(events_local[i++], line, strlen(line));
-        bstrcpy(events_local[i++], line, strlen(line));
+        // bstrcpy(events_local[i++], line, strlen(line));
     }
     free(line);
     fclose(fp);

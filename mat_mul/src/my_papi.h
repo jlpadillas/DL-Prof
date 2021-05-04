@@ -9,16 +9,16 @@
         exit(retval);                                       \
     }
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // Constants
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 #define MAX_CPUS 64
 #define MAX_NUM_EVENTS 10
 #define MAX_LENGTH_EVENT_NAME 150
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // Low_level
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // add single PAPI preset or native hardware event to an event set
 int my_PAPI_add_event(int EventSet, int Event);
 
@@ -66,34 +66,32 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void));
 // inform PAPI that a previously registered thread is disappearing
 int my_PAPI_unregister_thread(void);
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // High_level
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 int my_PAPI_hl_read(const char *region);
 
 int my_PAPI_hl_region_begin(const char *region);
 
 int my_PAPI_hl_region_end(const char *region);
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // For python
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // Prepare the env. befor starting the measurement
 int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                        int num_event_sets, int *event_sets);
 // Starts the measurement
 int my_start_measure(int num_event_sets, int *event_sets);
 // Stop the measurement
-int my_stop_measure(char *input_file_name, char *output_file_name,
-                    int num_event_sets, int *event_sets,
-                    long long **values);
+int my_stop_measure(int num_event_sets, int *event_sets, long long **values);
 // Print the results
-int my_print_measure();
+int my_print_measure(long long **values, char *output_file_name);
 
 // Read a file and get the events from it
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events);
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 // attach to each cpu
 int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets);
@@ -115,7 +113,7 @@ int my_start_events(int num_events, const char *events[], int *eventSets,
 int my_stop_events(int num_events, int *eventSets, int num_eventSets,
                    long long **values);
 
-// -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 void __my_print_values(int num_events, const char *events[],
                        long long *values);
