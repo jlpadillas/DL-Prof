@@ -10,7 +10,9 @@ int main(int argc, char const *argv[])
 {
     int eventsets;
     int num_cpus = 1;
-    char *file = "src/events_laptop.cfg";
+    char *file = "src/events_pc.cfg";
+    // char *file = "src/events_node.cfg";
+    // char *file = "src/events_laptop.cfg";
     my_prepare_measure(file, num_cpus, NULL, num_cpus, &eventsets);
     // my_prepare_measure(file, 1, NULL, 1, &eventsets);
 
@@ -26,6 +28,8 @@ int main(int argc, char const *argv[])
     // printf("valor = %lln\n", m_values);
 
     my_print_measure(num_cpus, NULL, &m_values, NULL);
+
+    my_PAPI_shutdown();
 
     return 0;
 }

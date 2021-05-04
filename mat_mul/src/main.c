@@ -258,7 +258,9 @@ int main(int argc, char const *argv[])
         // my_configure_eventSet(&eventSet);
         // int num_eventSets = 1;
         // my_start_events(num_events, events, &eventSet, num_eventSets);
-        char *file = "src/events_laptop.cfg";
+        char *file = "src/events_pc.cfg";
+        // char *file = "src/events_node.cfg";
+        // char *file = "src/events_laptop.cfg";
         int num_cpus = 1;
         int *cpus = NULL;
         int num_event_sets = num_cpus;
@@ -276,13 +278,6 @@ int main(int argc, char const *argv[])
             M_c = mat_mul_transpose(M_a, rows_a, cols_a, M_b, rows_b, cols_b);
         }
 #ifdef MY_PAPI
-//         my_stop_events(num_events, &eventSet, num_eventSets, &values);
-// #ifndef RAW
-//         my_print_values(num_events, events, num_eventSets, NULL, &values);
-// #else
-//         my_print_values_perf(num_events, events, values);
-// #endif // RAW
-
         my_stop_measure(num_cpus, &event_sets, &values);
         my_print_measure(num_cpus, cpus, &values, NULL);
         // Free memory
