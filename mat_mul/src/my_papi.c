@@ -433,6 +433,9 @@ int my_free_measure(long long **values, int num_event_sets)
     return EXIT_SUCCESS;
 }
 
+// ----------------------------------------------------------------------------
+// Propios
+// ----------------------------------------------------------------------------
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events)
 {
@@ -505,9 +508,7 @@ int __get_events_from_file(char *input_file_name, int *num_events,
     free(events_local);
     return EXIT_SUCCESS;
 }
-// -----------------------------------------------------------------------
-// Propios
-// -----------------------------------------------------------------------
+
 int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets)
 {
     size_t i;
