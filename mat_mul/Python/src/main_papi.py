@@ -59,26 +59,13 @@ if __name__ == "__main__":
     mp = my_papi(libname)
 
     # -------------------------------------------------------------------- #
-    events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
-    # events_file = CFG_DIR / "events_node.cfg"
-
-    # -------------------------------------------------------------------- #
-    # Execution
-    # -------------------------------------------------------------------- #
-    cpus = list(range(0,int(mp.get_num_logical_cores())))
-    print(cpus)
-    mp.prepare_measure(str(events_file), cpus)
-    mp.start_measure()
-
-    # -------------------------------------------------------------------- #
-        # Se lee el argumento pasado
+    # Se lee el argumento pasado
     option = None
     if len(sys.argv) > 1:
         option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 6000
+    dim_x = 1000
     dim_y = dim_x
 
     # Se crea el objeto
@@ -102,8 +89,30 @@ if __name__ == "__main__":
         print("ERROR: Wrong generation of matrices. Run the program with "
               "argument 'empty', 'zeros', 'seq' or 'rand'.")
         raise mat.Error
+
+    # -------------------------------------------------------------------- #
+    # MY_PAPI
+    # -------------------------------------------------------------------- #
+    # events_file = CFG_DIR / "events_pc.cfg"
+    events_file = CFG_DIR / "events_laptop.cfg"
+    # events_file = CFG_DIR / "events_node.cfg"
+    # -------------------------------------------------------------------- #
+    cpus = list(range(0, int(mp.get_num_logical_cores())))
+    # print(cpus)
+    mp.prepare_measure(str(events_file), cpus)
+    # mp.start_measure()
+    # -------------------------------------------------------------------- #
+
     # ROI -> Se multiplican
     mat.mat_mul(M, N)
+
+    # -------------------------------------------------------------------- #
+    # MY_PAPI
+    # -------------------------------------------------------------------- #
+    # mp.stop_measure()
+    # mp.print_measure()
+    mp.end_measure()
+    # -------------------------------------------------------------------- #
 
     # print(M)
     # print(N)
@@ -113,47 +122,3 @@ if __name__ == "__main__":
         num = (dim_x * dim_x) * (2 * dim_x - 1)
         print("\n FP operations expected (aprox.): " +
               locale.format_string('%.0f', num, grouping=True))
-    # -------------------------------------------------------------------- #
-
-    mp.stop_measure()
-    mp.print_measure()
-    mp.end_measure()
-
-
-
-    ########################################################################
-    #
-    # Ejemplo de multiplicacion de matrices de tamanho 3x3:
-    #
-    # +-----+-----+-----+     +-----+-----+-----+
-    # |  0  |  1  |  2  |     |  8  |  7  |  6  |
-    # +-----+-----+-----+     +-----+-----+-----+
-    # |  3  |  4  |  5  |  *  |  5  |  4  |  3  |  =
-    # +-----+-----+-----+     +-----+-----+-----+
-    # |  6  |  7  |  8  |     |  2  |  1  |  0  |
-    # +-----+-----+-----+     +-----+-----+-----+
-    #
-    #   +-------------------+-------------------+-------------------+
-    #   |  0*8 + 1*5 + 2*2  |  0*7 + 1*4 + 2*1  |  0*6 + 1*3 + 2*0  |
-    #   +-------------------+-------------------+-------------------+
-    #   |  3*8 + 4*5 + 5*2  |  3*7 + 4*4 + 5*1  |  3*6 + 4*3 + 5*0  |  =
-    #   +-------------------+-------------------+-------------------+
-    #   |  6*8 + 7*5 + 8*2  |  6*7 + 7*4 + 8*1  |  6*6 + 7*3 + 8*0  |
-    #   +-------------------+-------------------+-------------------+
-    #
-    #       +------+------+------+
-    #       |   9  |   6  |   3  |
-    #       +------+------+------+
-    #       |  54  |   1  |   2  |
-    #       +------+------+------+
-    #       |  99  |  78  |  57  |
-    #       +------+------+------+
-    #
-    # Así, si tenemos matrices cuadradas de nxn, entonces el número de
-    # multiplicaciones es igual a n**3.
-    #
-    # Sin embargo, hay que tener en cuenta las sumas que, también, son
-    # medidas. Así, la ecuación a utilizar es: n**2(2n-1)
-    #
-    ########################################################################
-# ------------------------------------------------------------------------ #

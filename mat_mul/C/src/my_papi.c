@@ -117,7 +117,7 @@ void my_PAPI_shutdown(void)
 
 int my_PAPI_start(int EventSet)
 {
-    printf("[My_Papi] Starting event set = %d\n", EventSet);
+    // printf("[My_Papi] Starting event set = %d\n", EventSet);
     if ((retval = PAPI_start(EventSet)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -125,7 +125,7 @@ int my_PAPI_start(int EventSet)
 
 int my_PAPI_stop(int EventSet, long long *values)
 {
-    printf("[My_Papi] Stoping event set = %d\n", EventSet);
+    // printf("[My_Papi] Stoping event set = %d\n", EventSet);
     if ((retval = PAPI_stop(EventSet, values)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -212,7 +212,7 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     /* ------------------------ FIRST READ of file ------------------------- */
     // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
     num_events = 0;
-    line = (char *)my_malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    line = (char *)my_malloc((MAX_LENGTH_EVENT_NAME + 1) * sizeof(char *));
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
         num_events++;
@@ -225,6 +225,8 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     // Extract the events from each line and store in the array
     i = 0;
     rewind(fp);
+    my_free(line);
+    line = (char *)my_malloc((MAX_LENGTH_EVENT_NAME + 1) * sizeof(char *));
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
         events[i] = (char *)my_malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
@@ -239,10 +241,10 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
 
-    // for (i = 0; i < num_events; i++)
-    // {
-    //     printf("Ev[%d] = %s\n", i, events[i]);
-    // }
+    for (i = 0; i < num_events; i++)
+    {
+        printf("Ev[%d] = '%s'\n", i, events[i]);
+    }
 
     /* ---------------------------- CONFIG PAPI ---------------------------- */
     int cidx = 0;
