@@ -139,136 +139,8 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void))
 }
 
 // ----------------------------------------------------------------------------
-// High_level
-// ----------------------------------------------------------------------------
-int my_PAPI_hl_region_begin(const char *region)
-{
-    if ((retval = PAPI_hl_region_begin(region)) != PAPI_OK)
-        ERROR_RETURN(retval);
-    return retval;
-}
-
-int my_PAPI_hl_read(const char *region)
-{
-    if ((retval = PAPI_hl_read(region)) != PAPI_OK)
-        ERROR_RETURN(retval);
-    return retval;
-}
-
-int my_PAPI_hl_region_end(const char *region)
-{
-    if ((retval = PAPI_hl_region_end(region)) != PAPI_OK)
-        ERROR_RETURN(retval);
-    return retval;
-}
-
 // Propios
 // ----------------------------------------------------------------------------
-int __get_events_from_file(char *input_file_name, int *num_events,
-                           char **events)
-{
-    int i;
-    FILE *fp;
-    char *line;
-    char **events_local;
-    size_t num_events_local;
-
-    fp = fopen(input_file_name, "r");
-    if (fp == NULL)
-    {
-        fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
-                input_file_name);
-        exit(EXIT_FAILURE);
-    }
-
-    /* ------------------------ FIRST READ of file ------------------------- */
-    // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
-    num_events_local = 0;
-    line = (char *)my_malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
-    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
-    {
-        num_events_local++;
-    }
-    /* ----------------------- END FIRST READ of file ---------------------- */
-
-    events_local = (char **)my_malloc(sizeof(char **) * num_events_local);
-
-    /* ------------------------ SECOND READ of file ------------------------ */
-    // Extract the events from each line and store in the array
-    i = 0;
-    rewind(fp);
-    while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
-    {
-        events_local[i] = (char *)my_malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
-        // Substitute '\n' for '\0'
-        if (line[strlen(line) - 1] == '\n')
-        {
-            line[strlen(line) - 1] = '\0';
-        }
-        strncpy(events_local[i++], line, strlen(line));
-        // memcpy(events_local[i++], line, strlen(line));
-        // bstrcpy(events_local[i++], line, strlen(line));
-    }
-    my_free(line);
-    fclose(fp);
-    /* ---------------------- END SECOND READ of file ---------------------- */
-    *num_events = num_events_local;
-    for (i = 0; i < num_events_local; i++)
-    {
-        events[i] = strdup((const char *)events_local[i]);
-        my_free(events_local[i]);
-    }
-    my_free(events_local);
-    return EXIT_SUCCESS;
-}
-
-int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets)
-{
-    size_t i;
-    int aux;
-    PAPI_option_t opts;
-    // Se crea la libreria
-    my_PAPI_library_init(PAPI_VER_CURRENT);
-    if (num_cpus < 1)
-    {
-        fprintf(stderr, "[ERROR] Need at least 1 CPU\n");
-        exit(EXIT_FAILURE);
-    }
-    aux = my_get_total_cpus(); // Gets the total num of cpus
-    if (num_cpus > aux)
-    {
-        num_cpus = aux;
-    }
-
-    int cidx = 0;
-    for (i = 0; i < num_cpus; i++)
-    {
-        eventSets[i] = PAPI_NULL;
-        my_PAPI_create_eventset(&eventSets[i]);
-        my_PAPI_assign_eventset_component(eventSets[i], cidx);
-
-        /* Force granularity to PAPI_GRN_SYS */
-        opts.granularity.eventset = eventSets[i];
-        opts.granularity.granularity = PAPI_GRN_SYS;
-        my_PAPI_set_opt(PAPI_GRANUL, &opts);
-
-        // attach event set to cpu i
-        opts.cpu.eventset = eventSets[i];
-        // if cpus == NULL then, order by num
-        if (cpus == NULL)
-        {
-            // The first "num_cpus" cpus to be attached
-            opts.cpu.cpu_num = i;
-        }
-        else
-        {
-            opts.cpu.cpu_num = cpus[i];
-        }
-        my_PAPI_set_opt(PAPI_CPU_ATTACH, &opts);
-    }
-    return EXIT_SUCCESS;
-}
-
 void my_free(void *ptr)
 {
     if (!ptr)
@@ -283,7 +155,6 @@ void my_free(void *ptr)
 int my_get_total_cpus()
 {
     const PAPI_hw_info_t *hwinfo;
-    // Loads the library
     my_PAPI_library_init(PAPI_VER_CURRENT);
     // Load info of the HW and get the local num of cpus
     hwinfo = my_PAPI_get_hardware_info();
@@ -301,116 +172,6 @@ void *my_malloc(size_t size)
         exit(EXIT_FAILURE);
     }
     return ptr;
-}
-
-int my_start_events(int num_events, const char *events[], int *eventSets,
-                    int num_eventSets)
-{
-    size_t i, j;
-    for (i = 0; i < num_eventSets; i++)
-    {
-        // Se anhaden los eventos
-        for (j = 0; j < num_events; j++)
-        {
-            my_PAPI_add_named_event(eventSets[i], events[j]);
-        }
-    }
-    // Empieza las medidas
-    for (i = 0; i < num_eventSets; i++)
-    {
-        my_PAPI_start(eventSets[i]);
-    }
-    return EXIT_SUCCESS;
-}
-
-int my_stop_events(int num_events, int *eventSets, int num_eventSets,
-                   long long **values)
-{
-    if (num_eventSets < 1 || num_events < 1)
-    {
-        fprintf(stderr, "[MyPapi] Error passing params (my_stop_events())\n");
-        return EXIT_FAILURE;
-    }
-    if (num_eventSets == 1)
-    {
-        return my_PAPI_stop(*eventSets, *values);
-    }
-    else
-    {
-        for (int i = 0; i < num_eventSets; i++)
-        {
-            my_PAPI_stop(eventSets[i], values[i]);
-        }
-    }
-    return EXIT_SUCCESS;
-}
-
-int my_configure_eventSet(int *eventSet)
-{
-    // Se crea la libreria
-    my_PAPI_library_init(PAPI_VER_CURRENT);
-    *eventSet = PAPI_NULL;
-    my_PAPI_create_eventset(eventSet);
-    return EXIT_SUCCESS;
-}
-// -----------------------------------------------------------------------
-
-void my_print_values(int num_events, const char *events[], int num_cpus,
-                     const int cpus[], long long **values)
-{
-    int i;
-
-    if (cpus == NULL)
-    {
-        // No cpus list passed
-        for (i = 0; i < num_cpus; i++)
-        {
-            printf("[CPU = %d] ??\n", i); // get the n first cpus
-            __my_print_values(num_events, events, values[i]);
-        }
-    }
-    else
-    {
-        // cpus list passed
-        for (i = 0; i < num_cpus; i++)
-        {
-            printf("[CPU = %d]\n", cpus[i]);
-            __my_print_values(num_events, events, values[i]);
-        }
-    }
-}
-
-void __my_print_values(int num_events, const char *events[],
-                       long long *values)
-{
-    int i;
-    long long val;
-    setlocale(LC_NUMERIC, "");
-    printf("%s\n",
-           "+-------------------------------------------+-----------------+");
-    printf("| %-42s| %-16s|\n", "Event", "Value");
-    printf("%s\n",
-           "+===========================================+=================+");
-    for (i = 0; i < num_events; i++)
-    {
-        val = values[i];
-        // if (val != 0)
-        // {
-        printf("| %-42s| %'-16lld|\n", events[i], val);
-        // }
-    }
-    printf("%s\n",
-           "+-------------------------------------------+-----------------+");
-}
-
-void my_print_values_perf(int numEvents, const char *events[],
-                          long long *values)
-{
-    char separator = ':';
-    for (int i = 0; i < numEvents; i++)
-    {
-        printf("%'lld%c%c%s\n", values[i], separator, separator, events[i]);
-    }
 }
 
 // ----------------------------------------------------------------------------
@@ -477,6 +238,11 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     my_free(line);
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
+
+    // for (i = 0; i < num_events; i++)
+    // {
+    //     printf("Ev[%d] = %s\n", i, events[i]);
+    // }
 
     /* ---------------------------- CONFIG PAPI ---------------------------- */
     int cidx = 0;
@@ -566,11 +332,9 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     int i, j;
     FILE *fp;
     long long val;
-    int *cpus_local;
+    int cpus_local[MAX_CPUS];
     bool print_cpu, print_header;
     setlocale(LC_NUMERIC, "");
-
-    cpus_local = (int *)my_malloc(sizeof(int *) * num_cpus);
 
     if (cpus == NULL)
     {
@@ -588,7 +352,11 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     }
     else
     {
-        cpus_local = cpus;
+        // cpus_local = cpus
+        for (i = 0; i < num_cpus; i++)
+        {
+            cpus_local[i] = cpus[i];
+        }
     }
 
     if (output_file_name != NULL)
@@ -645,21 +413,20 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     // {
     //     fflush(fp);
     // }
-    // my_free(cpus_local);
     return EXIT_SUCCESS;
 }
 
 int my_free_measure(long long **values, int num_event_sets)
 {
     int i;
-    // Free events
+    // Events
     for (i = 0; i < num_events; i++)
     {
         my_free(events[i]);
     }
     my_free(events);
 
-    // Free values
+    // Values
     for (i = 0; i < num_event_sets; i++)
     {
         my_free(values[i]);

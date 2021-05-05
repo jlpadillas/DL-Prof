@@ -119,8 +119,6 @@ class my_papi(system_setup):
             num_event_sets = c_int(len(self.cpus))
         event_sets = self.event_sets
 
-        print(event_sets)
-
         # ------------------------------------------------------------------- #
         # Call for the functions
         # ------------------------------------------------------------------- #
@@ -154,6 +152,8 @@ class my_papi(system_setup):
             output_file_name = file_name
 
         values = self.values
+
+        print()
 
         # ------------------------------------------------------------------- #
         # Call for the functions

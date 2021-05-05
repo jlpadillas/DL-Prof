@@ -13,9 +13,7 @@
 // Constants
 // ----------------------------------------------------------------------------
 #define MAX_CPUS 64
-#define MAX_NUM_EVENTS 10
 #define MAX_LENGTH_EVENT_NAME 150
-// #define PRINT_AS_PERF
 
 // ----------------------------------------------------------------------------
 // Low_level
@@ -68,13 +66,13 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void));
 int my_PAPI_unregister_thread(void);
 
 // ----------------------------------------------------------------------------
-// High_level
+// Propios
 // ----------------------------------------------------------------------------
-int my_PAPI_hl_read(const char *region);
+void my_free(void *ptr);
 
-int my_PAPI_hl_region_begin(const char *region);
+int my_get_total_cpus();
 
-int my_PAPI_hl_region_end(const char *region);
+void *my_malloc(size_t size);
 
 // ----------------------------------------------------------------------------
 // For python
@@ -96,33 +94,5 @@ int my_free_measure(long long **values, int num_event_sets);
 int __get_events_from_file(char *input_file_name, int *num_events,
                            char **events);
 // ----------------------------------------------------------------------------
-
-// attach to each cpu
-int my_attach_cpus(int num_cpus, const int cpus[], int *eventSets);
-
-int my_configure_eventSet(int *eventSet);
-
-void my_free(void *ptr);
-
-int my_get_total_cpus();
-
-void *my_malloc(size_t size);
-
-void my_print_values(int num_events, const char *events[], int num_cpus,
-                     const int cpus[], long long **values);
-
-int my_start_events(int num_events, const char *events[], int *eventSets,
-                    int num_eventSets);
-
-int my_stop_events(int num_events, int *eventSets, int num_eventSets,
-                   long long **values);
-
-// ----------------------------------------------------------------------------
-
-void __my_print_values(int num_events, const char *events[],
-                       long long *values);
-
-void my_print_values_perf(int numEvents, const char *events[],
-                          long long *values);
 
 #endif
