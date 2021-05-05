@@ -415,13 +415,11 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     {
         fclose(fp);
     }
-    else
-    {
-        fflush(fp);
-    }
-    // ! Si descomento la siguiente linea da un error:
-    // ! free(): invalid pointer
-    // free(cpus_local);
+    // else
+    // {
+    //     fflush(fp);
+    // }
+    free(cpus_local);
     return EXIT_SUCCESS;
 }
 

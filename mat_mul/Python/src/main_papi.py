@@ -59,9 +59,9 @@ if __name__ == "__main__":
     mp = my_papi(libname)
 
     # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    # events_file = CFG_DIR / "events_node.cfg"
 
     # -------------------------------------------------------------------- #
     # Execution
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
 
     mp.stop_measure()
-    mp.print_measure()
+    mp.print_measure(file_name="out/comida.csv")
     mp.end_measure()
 
 
