@@ -66,6 +66,9 @@ class my_papi(system_setup):
             num_cpus = c_int(1)
         else:
             num_cpus = c_int(len(cpus))
+            # Cast the cpu list to: int*
+            aux = cpus
+            cpus = (c_int * num_cpus.value)(*aux)
         num_event_sets = num_cpus
 
         # ------------------------------------------------------------------- #

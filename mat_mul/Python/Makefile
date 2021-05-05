@@ -43,6 +43,11 @@ main_papi_node: my_papi
 	${CC} ${SRC_DIR}/main_papi.py seq
 	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
 
+main_papi_node: my_papi
+# NODE
+	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
+	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
+
 test_compile: my_papi
 # Compiling
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o

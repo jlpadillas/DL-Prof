@@ -33,8 +33,8 @@
 // ! NOTA: num. max. de eventos que puede medir papi simultaneamente
 // ! es igual a 6. Si se ejecuta mas, se produce un error.
 // TODO: Modify this lines:
-char *file = "conf/events_pc.cfg";
-// char *file = "conf/events_node.cfg";
+// char *file = "conf/events_pc.cfg";
+char *file = "conf/events_node.cfg";
 // char *file = "conf/events_laptop.cfg";
 #endif
 
