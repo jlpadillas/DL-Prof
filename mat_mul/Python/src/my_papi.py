@@ -29,10 +29,13 @@ class my_papi(system_setup):
 
     # Attributes
     # ----------
-    # self.cores = []   # Array de cores logicos pertenecientes al mismo fisico
-    # self.p_lib = CDLL # Con el se puede acceder a la liberia y sus func.
-    # self.events = []  # Eventos a ser medidos
-    # selg.values = []  # lista con los valores medidos
+    # self.cores          # Array de cores logicos pertenecientes al mismo fisico
+    # self.p_lib          # Con el se puede acceder a la liberia y sus func.
+    # self.num_event_sets # numero de event_sets
+    # self.event_sets     # lista con los event_sets
+    # self.num_cpus       # num de cpus
+    # self.cpus           # lista con las cpus
+    # self.values           # lista con los resultados
 
     def __init__(self, path):
         """Constructor de la clase my_papi que recibe por parametro la 
@@ -53,31 +56,35 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Params for the functions
         # ------------------------------------------------------------------- #
+        # We need to save the event_sets for start and stop the measure
         input_file_name = events_file.encode('utf-8')
-        num_cpus = c_int()
-        # cpus
-        num_event_sets = c_int()
-        event_sets = c_int()
+        # self.num_cpus = c_int()
+        # self.cpus
+        self.num_event_sets = c_int()
+        self.event_sets = c_int()
 
         # Setup the params
         if cpus is None:
-            num_cpus = c_int(1)
+            self.num_cpus = c_int(1)
+            self.cpus = cpus
         else:
-            num_cpus = c_int(len(cpus))
+            self.num_cpus = c_int(len(cpus))
             # Cast the cpu list to: int*
-            aux = cpus
-            cpus = (c_int * num_cpus.value)(*aux)
-        num_event_sets = num_cpus
+            self.cpus = (c_int * self.num_cpus.value)(*cpus)
+        self.num_event_sets = self.num_cpus
 
         # ------------------------------------------------------------------- #
         # Call for the functions
         # ------------------------------------------------------------------- #
-        self.p_lib.my_prepare_measure(input_file_name, num_cpus, cpus, 
-                                      num_event_sets, byref(event_sets))
+        self.p_lib.my_prepare_measure(input_file_name,
+                                      self.num_cpus, self.cpus,
+                                      self.num_event_sets, byref(self.event_sets))
 
-        # We need to save the event_sets for start and stop the measure
-        self.event_sets = event_sets
-        self.cpus = cpus
+        # print("[MyPapi.py] 'input_file_name' to C: ", input_file_name)
+        # print("[MyPapi.py] 'cpus' to C: ", list(self.cpus))
+        # print("[MyPapi.py] 'num_cpus' to C: ", self.num_cpus)
+        # print("[MyPapi.py] 'num_event_sets' to C: ", self.num_event_sets)
+        # print("[MyPapi.py] 'event_sets' to C: ", byref(self.event_sets))
     # ----------------------------------------------------------------------- #
 
     def start_measure(self):
@@ -86,20 +93,21 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Params for the functions
         # ------------------------------------------------------------------- #
-        num_event_sets = c_int()
-        event_sets = c_int()
+        # num_event_sets = c_int()
+        # event_sets = c_int()
 
-        # Setup the params
-        if self.cpus is None:
-            num_event_sets = c_int(1)
-        else:
-            num_event_sets = c_int(len(self.cpus))
-        event_sets = self.event_sets
+        # # Setup the params
+        # if self.cpus is None:
+        #     num_event_sets = c_int(1)
+        # else:
+        #     num_event_sets = c_int(len(self.cpus))
+        # event_sets = self.event_sets
 
         # ------------------------------------------------------------------- #
         # Call for the functions
         # ------------------------------------------------------------------- #
-        self.p_lib.my_start_measure(num_event_sets, byref(event_sets))
+        self.p_lib.my_start_measure(self.num_event_sets,
+                                    byref(self.event_sets))
     # ----------------------------------------------------------------------- #
 
     def stop_measure(self):
@@ -108,24 +116,28 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Params for the functions
         # ------------------------------------------------------------------- #
-        num_event_sets = c_int()
-        event_sets = c_int()
-        values = POINTER(c_longlong)()
+        # num_event_sets = c_int()
+        # event_sets = c_int()
+        self.values = POINTER(c_longlong)()
 
-        # Setup the params
-        if self.cpus is None:
-            num_event_sets = c_int(1)
-        else:
-            num_event_sets = c_int(len(self.cpus))
-        event_sets = self.event_sets
+        # # Setup the params
+        # if self.cpus is None:
+        #     num_event_sets = c_int(1)
+        # else:
+        #     num_event_sets = c_int(len(self.cpus))
+        # event_sets = self.event_sets
+
+        # print("[MyPapi.py] 'num_event_sets' to C: ", num_event_sets)
+        # print("[MyPapi.py] 'event_sets' to C: ", byref(event_sets))
+        # print("[MyPapi.py] 'values' to C: ", byref(values))
 
         # ------------------------------------------------------------------- #
         # Call for the functions
         # ------------------------------------------------------------------- #
-        self.p_lib.my_stop_measure(num_event_sets, byref(event_sets), 
-                                   byref(values))
+        self.p_lib.my_stop_measure(self.num_event_sets, byref(self.event_sets), 
+                                   byref(self.values))
         # We need to save the event_sets for start and stop the measure
-        self.values = values
+        # self.values = values
     # ----------------------------------------------------------------------- #
 
     def print_measure(self, file_name=None):
@@ -134,31 +146,29 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Params for the functions
         # ------------------------------------------------------------------- #
-        num_cpus = c_int()
-        cpus = c_int()
-        values = POINTER(c_longlong)()
+        # num_cpus = c_int()
+        # cpus = c_int()
+        # values = POINTER(c_longlong)()
 
-        # Setup the params
-        if self.cpus is None:
-            num_cpus = c_int(1)
-            cpus = None
-        else:
-            num_cpus = c_int(len(self.cpus))
-            cpus = self.cpus
+        # # Setup the params
+        # if self.cpus is None:
+        #     num_cpus = c_int(1)
+        #     cpus = None
+        # else:
+        #     num_cpus = c_int(len(self.cpus))
+        #     cpus = self.cpus
 
         if file_name is not None:
             output_file_name = file_name.encode('utf-8')
         else:
             output_file_name = file_name
 
-        values = self.values
-
-        print()
+        # values = self.values
 
         # ------------------------------------------------------------------- #
         # Call for the functions
         # ------------------------------------------------------------------- #
-        self.p_lib.my_print_measure(num_cpus, cpus, byref(values), 
+        self.p_lib.my_print_measure(self.num_cpus, self.cpus, byref(self.values), 
                                    output_file_name)
         
         # ------------------------------------------------------------------- #
