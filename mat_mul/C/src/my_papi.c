@@ -273,6 +273,7 @@ void my_free(void *ptr)
 {
     if (!ptr)
     {
+        // ptr is null
         fprintf(stderr, "[MyPapi] Error, invalid pointer.\n");
         exit(EXIT_FAILURE);
     }
@@ -295,6 +296,7 @@ void *my_malloc(size_t size)
     ptr = malloc(size);
     if (!ptr)
     {
+        // ptr is null
         fprintf(stderr, "[MyPapi] Error, couldn't allocate memory.\n");
         exit(EXIT_FAILURE);
     }
@@ -543,18 +545,18 @@ int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
     /* -------------------------- Checking PARAMS -------------------------- */
     if (num_event_sets < 1)
     {
-        fprintf(stderr, "[MyPapi] Error: wrong number of event set\n");
+        fprintf(stderr, "[MyPapi] Error: wrong number of event sets\n");
         return EXIT_FAILURE;
     }
     /* ------------------------ END checking PARAMS ------------------------ */
 
-    /* -------------------------- STOP measure -------------------------- */
+    /* -------------------------- STOPPING measure ------------------------- */
     for (i = 0; i < num_event_sets; i++)
     {
         values[i] = (long long *)my_malloc(sizeof(long long *) * num_events);
         my_PAPI_stop(event_sets[i], values[i]);
     }
-    /* ------------------------ END STOP measure ------------------------ */
+    /* ------------------------ END STOPPING measure ----------------------- */
     return EXIT_SUCCESS;
 }
 
@@ -643,13 +645,21 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     // {
     //     fflush(fp);
     // }
-    my_free(cpus_local);
+    // my_free(cpus_local);
     return EXIT_SUCCESS;
 }
 
 int my_free_measure(long long **values, int num_event_sets)
 {
     int i;
+    // Free events
+    for (i = 0; i < num_events; i++)
+    {
+        my_free(events[i]);
+    }
+    my_free(events);
+
+    // Free values
     for (i = 0; i < num_event_sets; i++)
     {
         my_free(values[i]);

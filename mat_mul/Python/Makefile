@@ -32,7 +32,7 @@ my_papi:
 	cp ../C/${LIB_DIR}/* ${LIB_DIR}/
 
 # --------------------------------------------------------------------------- #
-# Pytohn FILES
+# PYTHON FILES
 main_papi: my_papi
 # PC
 	${CC} ${SRC_DIR}/main_papi.py seq
@@ -47,20 +47,6 @@ main_papi_node_taskset: my_papi
 # NODE
 	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
 	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
-
-test_compile: my_papi
-# Compiling
-	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
-	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_perf \
-		${BIN_DIR}/matrix.o -pthread
-	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_papi -DMY_PAPI \
-		-Wl,-rpath=${LIB_DIR} ${BIN_DIR}/matrix.o -L${LIB_DIR} -lmy_papi \
-		-pthread
-
-test_run: test_compile
-# Executing
-	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
-	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
 
 # --------------------------------------------------------------------------- #
 # ! Permissions
@@ -82,26 +68,15 @@ permissions_enabled:
 # py_main_multithread:
 # 	@@echo "Hola"
 
-py_perf:
-	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros
+# py_perf:
+# 	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros
 
-py_perf_multithread:
-	@@echo Hola
+# py_perf_multithread:
+# 	@@echo Hola
 
-py_perf_taskset:
-	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros --taskset
+# py_perf_taskset:
+# 	bash ${SRC_DIR}/perf.sh ${SRC_DIR}/main.py zeros --taskset
 
-py_perf_multithread_taskset:
-	@@echo hola
+# py_perf_multithread_taskset:
+# 	@@echo hola
 # --------------------------------------------------------------------------- #
-
-execution:
-	bash execution.sh
-
-
-borrar:
-	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
-	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test -DMY_PAPI \
-		-Wl,-rpath=${LIB_DIR} ${BIN_DIR}/matrix.o -L${LIB_DIR} -lmy_papi \
-		-pthread
-	./${BIN_DIR}/test

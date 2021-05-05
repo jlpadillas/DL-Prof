@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
 
     mp.stop_measure()
-    mp.print_measure(file_name="out/comida.csv")
+    mp.print_measure()
     mp.end_measure()
 
 

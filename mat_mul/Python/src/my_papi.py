@@ -29,12 +29,10 @@ class my_papi(system_setup):
 
     # Attributes
     # ----------
-    # self.cores = [] # Array de cores logicos pertenecientes al mismo fisico
+    # self.cores = []   # Array de cores logicos pertenecientes al mismo fisico
     # self.p_lib = CDLL # Con el se puede acceder a la liberia y sus func.
     # self.events = []  # Eventos a ser medidos
     # selg.values = []  # lista con los valores medidos
-
-    # self. ptr_EventSets # Puntero que indica la loc. en mem. del eventSet
 
     def __init__(self, path):
         """Constructor de la clase my_papi que recibe por parametro la 
@@ -120,6 +118,8 @@ class my_papi(system_setup):
         else:
             num_event_sets = c_int(len(self.cpus))
         event_sets = self.event_sets
+
+        print(event_sets)
 
         # ------------------------------------------------------------------- #
         # Call for the functions
