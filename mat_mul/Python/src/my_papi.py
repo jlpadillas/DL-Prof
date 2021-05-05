@@ -217,9 +217,9 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # int my_free_measure(long long **values, int num_event_sets)
         # ------------------------------------------------------------------- #
-        self.p_lib.my_free_measure.argtypes = [POINTER(POINTER(c_longlong)), 
-                                               c_int]
-        self.p_lib.my_free_measure.restype = c_int
+        # self.p_lib.my_free_measure.argtypes = [POINTER(POINTER(c_longlong)), 
+        #                                        c_int]
+        # self.p_lib.my_free_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #

@@ -43,7 +43,7 @@ main_papi_node: my_papi
 	${CC} ${SRC_DIR}/main_papi.py seq
 	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
 
-main_papi_node: my_papi
+main_papi_node_taskset: my_papi
 # NODE
 	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
 	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq

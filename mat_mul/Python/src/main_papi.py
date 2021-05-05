@@ -59,7 +59,9 @@ if __name__ == "__main__":
     mp = my_papi(libname)
 
     # -------------------------------------------------------------------- #
-    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_node.cfg"
 
     # -------------------------------------------------------------------- #
     # Execution
