@@ -66,7 +66,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # Execution
     # -------------------------------------------------------------------- #
-    cpus = mp.get_cores()
+    cpus = list(range(0,int(mp.get_num_logical_cores())))
+    print(cpus)
     mp.prepare_measure(str(events_file), cpus)
     mp.start_measure()
 

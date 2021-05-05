@@ -117,7 +117,7 @@ void my_PAPI_shutdown(void)
 
 int my_PAPI_start(int EventSet)
 {
-    // printf("[My_Papi] Starting event set = %d\n", EventSet);
+    printf("[My_Papi] Starting event set = %d\n", EventSet);
     if ((retval = PAPI_start(EventSet)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -125,7 +125,7 @@ int my_PAPI_start(int EventSet)
 
 int my_PAPI_stop(int EventSet, long long *values)
 {
-    // printf("[My_Papi] Stoping event set = %d\n", EventSet);
+    printf("[My_Papi] Stoping event set = %d\n", EventSet);
     if ((retval = PAPI_stop(EventSet, values)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
