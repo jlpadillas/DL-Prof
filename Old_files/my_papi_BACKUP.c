@@ -184,14 +184,24 @@ int __get_events_from_file(char *input_file_name, int *num_events,
     /* ------------------------ FIRST READ of file ------------------------- */
     // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
     num_events_local = 0;
-    line = (char *)my_malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    line = (char *)malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    if (line == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
         num_events_local++;
     }
     /* ----------------------- END FIRST READ of file ---------------------- */
 
-    events_local = (char **)my_malloc(sizeof(char **) * num_events_local);
+    events_local = (char **)malloc(sizeof(char **) * num_events_local);
+    if (events_local == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
 
     /* ------------------------ SECOND READ of file ------------------------ */
     // Extract the events from each line and store in the array
@@ -199,7 +209,12 @@ int __get_events_from_file(char *input_file_name, int *num_events,
     rewind(fp);
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
-        events_local[i] = (char *)my_malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        events_local[i] = (char *)malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        if (events_local[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
         // Substitute '\n' for '\0'
         if (line[strlen(line) - 1] == '\n')
         {
@@ -209,16 +224,16 @@ int __get_events_from_file(char *input_file_name, int *num_events,
         // memcpy(events_local[i++], line, strlen(line));
         // bstrcpy(events_local[i++], line, strlen(line));
     }
-    my_free(line);
+    free(line);
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
     *num_events = num_events_local;
     for (i = 0; i < num_events_local; i++)
     {
         events[i] = strdup((const char *)events_local[i]);
-        my_free(events_local[i]);
+        free(events_local[i]);
     }
-    my_free(events_local);
+    free(events_local);
     return EXIT_SUCCESS;
 }
 
@@ -293,7 +308,7 @@ void *my_malloc(size_t size)
 {
     void *ptr;
     ptr = malloc(size);
-    if (!ptr)
+    if (ptr == NULL)
     {
         fprintf(stderr, "[MyPapi] Error, couldn't allocate memory.\n");
         exit(EXIT_FAILURE);
@@ -449,14 +464,24 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     /* ------------------------ FIRST READ of file ------------------------- */
     // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
     num_events = 0;
-    line = (char *)my_malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    line = (char *)malloc(MAX_LENGTH_EVENT_NAME * sizeof(char *));
+    if (line == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
         num_events++;
     }
     /* ----------------------- END FIRST READ of file ---------------------- */
 
-    events = (char **)my_malloc(sizeof(char **) * num_events);
+    events = (char **)malloc(sizeof(char **) * num_events);
+    if (events == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
 
     /* ------------------------ SECOND READ of file ------------------------ */
     // Extract the events from each line and store in the array
@@ -464,7 +489,12 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     rewind(fp);
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
-        events[i] = (char *)my_malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        events[i] = (char *)malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
+        if (events[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
         // Substitute '\n' for '\0'
         if (line[strlen(line) - 1] == '\n')
         {
@@ -472,7 +502,7 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
         }
         strncpy(events[i++], line, strlen(line));
     }
-    my_free(line);
+    free(line);
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
 
@@ -551,7 +581,12 @@ int my_stop_measure(int num_event_sets, int *event_sets, long long **values)
     /* -------------------------- STOP measure -------------------------- */
     for (i = 0; i < num_event_sets; i++)
     {
-        values[i] = (long long *)my_malloc(sizeof(long long *) * num_events);
+        values[i] = (long long *)malloc(sizeof(long long *) * num_events);
+        if (values[i] == NULL)
+        {
+            fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
         my_PAPI_stop(event_sets[i], values[i]);
     }
     /* ------------------------ END STOP measure ------------------------ */
@@ -568,7 +603,12 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     bool print_cpu, print_header;
     setlocale(LC_NUMERIC, "");
 
-    cpus_local = (int *)my_malloc(sizeof(int *) * num_cpus);
+    cpus_local = (int *)malloc(sizeof(int *) * num_cpus);
+    if (cpus_local == NULL)
+    {
+        fprintf(stderr, "[MyPapi] Error: couldn't allocate memory.\n");
+        exit(EXIT_FAILURE);
+    }
 
     if (cpus == NULL)
     {
@@ -643,7 +683,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     // {
     //     fflush(fp);
     // }
-    my_free(cpus_local);
+    free(cpus_local);
     return EXIT_SUCCESS;
 }
 
@@ -652,9 +692,9 @@ int my_free_measure(long long **values, int num_event_sets)
     int i;
     for (i = 0; i < num_event_sets; i++)
     {
-        my_free(values[i]);
+        free(values[i]);
     }
-    my_free(values);
+    // free(values);
     return EXIT_SUCCESS;
 }
 // ----------------------------------------------------------------------------
