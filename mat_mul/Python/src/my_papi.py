@@ -62,7 +62,6 @@ class my_papi(system_setup):
         # self.cpus
         self.num_event_sets = c_int()
         self.event_sets = c_int()
-        print("event_sets = ", self.event_sets._b_needsfree_)
 
         # Setup the params
         if cpus is None:
@@ -71,15 +70,14 @@ class my_papi(system_setup):
         else:
             self.num_cpus = c_int(len(cpus))
             # Cast the cpu list to: int*
-            aux = cpus.copy()
-            self.cpus = (c_int * self.num_cpus.value)(*aux)
+            # aux = cpus.copy()
+            self.cpus = (c_int * self.num_cpus.value)(*cpus)
         self.num_event_sets = self.num_cpus
 
-
-        print("len(cpus) = ", self.num_cpus.value)
-        print("list(self.cpus) = ", list(self.cpus))
-        print("num_event_sets = ", self.num_event_sets.value)
-        print("event_sets = ", byref(self.event_sets))
+        # print("len(cpus) = ", self.num_cpus.value)
+        # print("list(self.cpus) = ", list(self.cpus))
+        # print("num_event_sets = ", self.num_event_sets.value)
+        # print("event_sets = ", byref(self.event_sets))
 
         # ------------------------------------------------------------------- #
         # Calling the function
@@ -88,7 +86,6 @@ class my_papi(system_setup):
                                       self.cpus, self.num_event_sets,
                                       byref(self.event_sets))
 
-        print("event_sets = ", self.event_sets.contents)
     # ----------------------------------------------------------------------- #
 
     def start_measure(self):

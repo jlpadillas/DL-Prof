@@ -6,11 +6,11 @@
 #include "my_papi.h"
 
 // We use retval to keep track of the number of the return value
-int retval;
+int retval = 0;
 // Array of strings which corresponds to the events to be measured
-static char **events;
+static char **events = NULL;
 // Number of the events
-static size_t num_events;
+static size_t num_events = 0;
 
 // ----------------------------------------------------------------------------
 // Low_level
@@ -182,7 +182,7 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
 {
     int i, j;
     FILE *fp;
-    char *line;
+    char line[MAX_LENGTH_EVENT_NAME];
 
     /* -------------------------- Checking PARAMS -------------------------- */
     if (num_cpus < 0 || num_cpus > MAX_CPUS)
@@ -212,39 +212,34 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
     /* ------------------------ FIRST READ of file ------------------------- */
     // Read lines of a maximum size equals to MAX_LENGTH_EVENT_NAME
     num_events = 0;
-    line = (char *)my_malloc((MAX_LENGTH_EVENT_NAME + 1) * sizeof(char *));
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
         num_events++;
+        // printf(" - Ev[%zu] = '%s'\n", num_events, line);
     }
     /* ----------------------- END FIRST READ of file ---------------------- */
 
-    events = (char **)my_malloc(sizeof(char **) * num_events);
+    events = (char **)calloc(sizeof(char **), num_events);
 
     /* ------------------------ SECOND READ of file ------------------------ */
     // Extract the events from each line and store in the array
     i = 0;
     rewind(fp);
-    my_free(line);
-    line = (char *)my_malloc((MAX_LENGTH_EVENT_NAME + 1) * sizeof(char *));
     while (fgets(line, MAX_LENGTH_EVENT_NAME, fp) != NULL)
     {
-        events[i] = (char *)my_malloc(sizeof(char *) * MAX_LENGTH_EVENT_NAME);
-        // Substitute '\n' for '\0'
-        if (line[strlen(line) - 1] == '\n')
-        {
-            line[strlen(line) - 1] = '\0';
-        }
+        events[i] = (char *)calloc(sizeof(char *), MAX_LENGTH_EVENT_NAME);
+        // Substitute '\n' or '\r' for '\0'
+        line[strcspn(line, "\r\n")] = 0;
+        // printf("%ld\n", strlen(line));
         strncpy(events[i++], line, strlen(line));
     }
-    my_free(line);
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
 
-    for (i = 0; i < num_events; i++)
-    {
-        printf("Ev[%d] = '%s'\n", i, events[i]);
-    }
+    // for (i = 0; i < num_events; i++)
+    // {
+    //     printf("Ev[%d] = '%s'\n", i, events[i]);
+    // }
 
     /* ---------------------------- CONFIG PAPI ---------------------------- */
     int cidx = 0;
@@ -363,7 +358,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
 
     if (output_file_name != NULL)
     {
-        fp = fopen(output_file_name, "w");
+        fp = fopen(output_file_name, "w+");
         if (fp == NULL)
         {
             fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",

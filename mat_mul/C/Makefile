@@ -45,6 +45,7 @@ run_multithread:
 run:
 	./${BIN_DIR}/main_papi SEQ 512 NORMAL
 	./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
+	taskset -c 0 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 NORMAL
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
 

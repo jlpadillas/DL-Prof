@@ -100,7 +100,7 @@ if __name__ == "__main__":
     cpus = list(range(0, int(mp.get_num_logical_cores())))
     # print(cpus)
     mp.prepare_measure(str(events_file), cpus)
-    # mp.start_measure()
+    mp.start_measure()
     # -------------------------------------------------------------------- #
 
     # ROI -> Se multiplican
@@ -109,8 +109,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    # mp.stop_measure()
-    # mp.print_measure()
+    mp.stop_measure()
+    mp.print_measure(file_name="out/fich.csv")
     mp.end_measure()
     # -------------------------------------------------------------------- #
 
