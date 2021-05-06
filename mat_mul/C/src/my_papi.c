@@ -230,16 +230,10 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
         events[i] = (char *)calloc(sizeof(char *), MAX_LENGTH_EVENT_NAME);
         // Substitute '\n' or '\r' for '\0'
         line[strcspn(line, "\r\n")] = 0;
-        // printf("%ld\n", strlen(line));
         strncpy(events[i++], line, strlen(line));
     }
     fclose(fp);
     /* ---------------------- END SECOND READ of file ---------------------- */
-
-    // for (i = 0; i < num_events; i++)
-    // {
-    //     printf("Ev[%d] = '%s'\n", i, events[i]);
-    // }
 
     /* ---------------------------- CONFIG PAPI ---------------------------- */
     int cidx = 0;
@@ -267,9 +261,9 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
             opts.granularity.granularity = PAPI_GRN_SYS;
             my_PAPI_set_opt(PAPI_GRANUL, &opts);
 
-            // attach event set to cpu i
+            // Attach event set to cpu i
             opts.cpu.eventset = event_sets[i];
-            // if cpus == NULL then, order by num
+            // If cpus == NULL then, order by num
             if (cpus == NULL)
             {
                 // The first "num_cpus" cpus to be attached
@@ -288,6 +282,55 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
         }
     }
     /* -------------------------- END CONFIG PAPI -------------------------- */
+#ifdef DEBUGGING
+    /* ----------------------------- DEBUGGING ----------------------------- */
+    printf("[MyPapi] input_file_name = '%s'\n", input_file_name);
+    printf("[MyPapi] num_cpus = '%d'\n", num_cpus);
+    if (cpus != NULL)
+    {
+        printf("[MyPapi] cpus = [");
+        for (i = 0; i < num_cpus; i++)
+        {
+            printf("'%d'", cpus[i]);
+            if (i != num_cpus - 1)
+            {
+                printf(", ");
+            }
+            else
+            {
+                printf("]\n");
+            }
+        }
+    }
+    printf("[MyPapi] events = [");
+    for (i = 0; i < num_events; i++)
+    {
+        printf("'%s'", events[i]);
+        if (i != num_events - 1)
+        {
+            printf(", ");
+        }
+        else
+        {
+            printf("]\n");
+        }
+    }
+    printf("[MyPapi] num_event_sets = '%d'\n", num_event_sets);
+    printf("[MyPapi] event_sets = [");
+    for (i = 0; i < num_event_sets; i++)
+    {
+        printf("'%d'", event_sets[i]);
+        if (i != num_event_sets - 1)
+        {
+            printf(", ");
+        }
+        else
+        {
+            printf("]\n");
+        }
+    }
+    /* --------------------------- END DEBUGGING --------------------------- */
+#endif
     return EXIT_SUCCESS;
 }
 
@@ -330,7 +373,6 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     FILE *fp;
     long long val;
     int cpus_local[MAX_CPUS];
-    bool print_cpu, print_header;
     setlocale(LC_NUMERIC, "");
 
     if (cpus == NULL)
@@ -371,6 +413,25 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
         fp = stdout;
     }
 
+#ifdef CSV
+    // Separator
+    char sep = ':';
+    for (i = 0; i < num_cpus; i++)
+    {
+        for (j = 0; j < num_events; j++)
+        {
+            val = values[i][j];
+            if (val != 0)
+            {
+                // fprintf(fp, "%d%c%'lld%c%c%s\n", cpus_local[i], sep, val, sep,
+                //         sep, events[j]);
+                fprintf(fp, "%d%c%lld%c%c%s\n", cpus_local[i], sep, val, sep,
+                        sep, events[j]);
+            }
+        }
+    }
+#else
+    bool print_cpu, print_header;
     for (i = 0; i < num_cpus; i++)
     {
         print_cpu = false;
@@ -401,6 +462,7 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
                                 "-----+-----------------+");
         }
     }
+#endif
 
     if (output_file_name != NULL)
     {

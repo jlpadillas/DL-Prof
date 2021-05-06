@@ -39,7 +39,7 @@ if __name__ == "__main__":
         option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 6000
+    dim_x = 1000
     dim_y = dim_x
 
     # Se crea el objeto

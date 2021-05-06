@@ -39,3 +39,11 @@ sudo apt install linux-tools-common linux-tools-generic \
 # ----
 # Para instalar las dependencias de python:
 # 
+cd ~
+mkdir -p Environments
+cd Environments
+PYTHON=`which python3`
+virtualenv -p $PYTHON py3_tensorflow_env
+source py3_tensorflow_env/bin/activate
+pip install matplotlib numpy pandas scipy scikit-learn
+pip install tensorflow

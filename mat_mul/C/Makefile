@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------- #
 # @author: 
 .PHONY = all clean setup
-.DEFAULT_GOAL = clean
+.DEFAULT_GOAL = compile
 
 # --------------------------------------------------------------------------- #
 # Directory where binaries are saved
@@ -18,7 +18,7 @@ SRC_DIR = src
 CFLAGS = -Wall -Werror
 CC = gcc
 # --------------------------------------------------------------------------- #
-all: clean setup
+all: clean setup compile
 
 clean:
 	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
@@ -37,6 +37,13 @@ compile: my_papi
 		-pthread
 
 # --------------------------------------------------------------------------- #
+my_papi:
+# my_papi library
+	${CC} ${CFLAGS} -fPIC -c ${SRC_DIR}/my_papi.c -o ${BIN_DIR}/my_papi.o
+	${CC} -shared -o ${LIB_DIR}/libmy_papi.so ${BIN_DIR}/my_papi.o \
+		-L/usr/local/lib -lpapi
+
+# --------------------------------------------------------------------------- #
 # Executing
 run_multithread:
 	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
@@ -48,14 +55,6 @@ run:
 	taskset -c 0 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 NORMAL
 	bash ${SRC_DIR}/perf.sh ${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
-
-# --------------------------------------------------------------------------- #
-my_papi:
-# my_papi library
-	${CC} ${CFLAGS} -fPIC -c ${SRC_DIR}/my_papi.c -o ${BIN_DIR}/my_papi.o
-	${CC} -shared -o ${LIB_DIR}/libmy_papi.so ${BIN_DIR}/my_papi.o \
-		-L/usr/local/lib -lpapi
-# --------------------------------------------------------------------------- #
 
 # --------------------------------------------------------------------------- #
 # ! Permissions

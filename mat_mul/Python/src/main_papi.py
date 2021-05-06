@@ -22,6 +22,7 @@ if __name__ == "__main__":
     """
 
     # standard library
+    # import gc
     import sys
     import locale
     import pathlib
@@ -34,6 +35,8 @@ if __name__ == "__main__":
 
     # Define the locale format
     locale.setlocale(locale.LC_ALL, '')
+
+    # gc.disable()
 
     # -------------------------------------------------------------------- #
     # Params
@@ -93,13 +96,16 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
-    events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_laptop.cfg"
     # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
+    cpus = [5, 6, 7]
     # print(cpus)
     mp.prepare_measure(str(events_file), cpus)
+    # mp.prepare_measure(str(events_file), None)
+
     mp.start_measure()
     # -------------------------------------------------------------------- #
 
@@ -110,7 +116,7 @@ if __name__ == "__main__":
     # MY_PAPI
     # -------------------------------------------------------------------- #
     mp.stop_measure()
-    mp.print_measure(file_name="out/fich.csv")
+    mp.print_measure() #file_name="out/fich.csv")
     mp.end_measure()
     # -------------------------------------------------------------------- #
 
