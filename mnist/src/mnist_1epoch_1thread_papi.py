@@ -72,8 +72,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
-    events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_laptop.cfg"
     # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     mp.stop_measure()
     print("After stop")
-    mp.print_results("out/FICH.csv")
+    mp.print_measure()  #"out/FICH.csv")
     print("After print")
     # mp.end_measure()
     print("EOF")

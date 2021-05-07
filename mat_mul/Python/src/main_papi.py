@@ -96,8 +96,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
-    events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_laptop.cfg"
     # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
