@@ -58,7 +58,6 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # We need to save the event_sets for start and stop the measure
         input_file_name = events_file.encode('utf-8')
-        self.num_event_sets = c_int()
 
         if cpus is None:
             self.num_cpus = c_int(1)
@@ -67,15 +66,12 @@ class my_papi(system_setup):
             self.num_cpus = c_int(len(cpus))
             # Cast the cpu list to: int*
             self.cpus = (c_int * self.num_cpus.value)(*cpus)
-        self.num_event_sets = self.num_cpus
-        self.event_sets = (c_int * self.num_event_sets.value)()
 
         # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
         self.p_lib.my_prepare_measure(input_file_name, self.num_cpus,
-                                      self.cpus, self.num_event_sets,
-                                      self.event_sets)
+                                      self.cpus)
     # ----------------------------------------------------------------------- #
 
     def start_measure(self):
@@ -84,23 +80,16 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
-        self.p_lib.my_start_measure(self.num_event_sets,
-                                    self.event_sets)
+        self.p_lib.my_start_measure()
     # ----------------------------------------------------------------------- #
 
     def stop_measure(self):
         """Gets the events to be measured and starts it."""
 
         # ------------------------------------------------------------------- #
-        # Params for the functions
-        # ------------------------------------------------------------------- #
-        self.values = POINTER(c_longlong)()
-
-        # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
-        self.p_lib.my_stop_measure(self.num_event_sets, self.event_sets,
-                                   byref(self.values))
+        self.p_lib.my_stop_measure()
     # ----------------------------------------------------------------------- #
 
     def print_measure(self, file_name=None):
@@ -117,21 +106,15 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
-        self.p_lib.my_print_measure(self.num_cpus, self.cpus, byref(self.values),
-                                    output_file_name)
+        self.p_lib.my_print_measure(output_file_name)
 
-    def end_measure(self):
+    def finalize_measure(self):
         """Gets the events to be measured and starts it."""
-
-        # ------------------------------------------------------------------- #
-        # Run the my_free_measure() function too
-        # ------------------------------------------------------------------- #
-        # self.p_lib.my_free_measure(byref(self.values), self.num_event_sets)
 
         # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
-        self.p_lib.my_PAPI_shutdown()
+        self.p_lib.my_finalize_measure()
     # ----------------------------------------------------------------------- #
 
     def __load_functions(self):
@@ -139,46 +122,39 @@ class my_papi(system_setup):
 
         # ------------------------------------------------------------------- #
         # int my_prepare_measure(char *input_file_name, int num_cpus,
-        #                       int *cpus, int num_event_sets, int *event_sets)
+        #                       int *cpus)
         # ------------------------------------------------------------------- #
         self.p_lib.my_prepare_measure.argtypes = [c_char_p, c_int,
-                                                  POINTER(c_int), c_int,
                                                   POINTER(c_int)]
         self.p_lib.my_prepare_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
-        # int my_start_measure(int num_event_sets, int *event_sets)
+        # int my_start_measure()
         # ------------------------------------------------------------------- #
-        self.p_lib.my_start_measure.argtypes = [c_int, POINTER(c_int)]
+        self.p_lib.my_start_measure.argtypes = None
         self.p_lib.my_start_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
-        # int my_stop_measure(int num_event_sets, int *event_sets,
-        #                     long long **values)
+        # int my_stop_measure()
         # ------------------------------------------------------------------- #
-        self.p_lib.my_stop_measure.argtypes = [c_int, POINTER(c_int),
-                                               POINTER(POINTER(c_longlong))]
+        self.p_lib.my_stop_measure.argtypes = None
         self.p_lib.my_stop_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
-        # int my_print_measure(int num_cpus, int *cpus, long long **values,
-        #                      char *output_file_name)
+        # int my_print_measure(char *output_file_name)
         # ------------------------------------------------------------------- #
-        self.p_lib.my_print_measure.argtypes = [c_int, POINTER(c_int),
-                                                POINTER(POINTER(c_longlong)),
-                                                c_char_p]
+        self.p_lib.my_print_measure.argtypes = [c_char_p]
         self.p_lib.my_print_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
-        # int my_free_measure(long long **values, int num_event_sets)
+        # int my_finalize_measure()
         # ------------------------------------------------------------------- #
-        self.p_lib.my_free_measure.argtypes = [POINTER(POINTER(c_longlong)),
-                                               c_int]
-        self.p_lib.my_free_measure.restype = c_int
+        self.p_lib.my_finalize_measure.argtypes = None
+        self.p_lib.my_finalize_measure.restype = c_int
         # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #

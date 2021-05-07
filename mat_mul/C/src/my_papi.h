@@ -16,7 +16,7 @@
 #define MAX_EVENTS 10
 #define MAX_LENGTH_EVENT_NAME 150
 // #define DEBUGGING
-#define CSV
+// #define CSV
 
 // ----------------------------------------------------------------------------
 // Low_level
@@ -74,19 +74,20 @@ int my_get_total_cpus();
 // ----------------------------------------------------------------------------
 // For python
 // ----------------------------------------------------------------------------
-// Prepare the env. befor starting the measurement
-int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
-                       int num_event_sets, int *event_sets);
+// Prepare the env. before starting the measurement
+int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus);
 
 // Starts the measurement
-int my_start_measure(int num_event_sets, int *event_sets);
+int my_start_measure();
 
 // Stop the measurement
-int my_stop_measure(int num_event_sets, int *event_sets, long long **values);
+int my_stop_measure();
 
 // Print the results
-int my_print_measure(int num_cpus, int *cpus, long long **values,
-                     char *output_file_name);
+int my_print_measure(char *output_file_name);
+
+// Ends the execution of the program
+int my_finalize_measure();
 
 // ----------------------------------------------------------------------------
 #endif
