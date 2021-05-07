@@ -69,22 +69,6 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
     mp = my_papi(libname)
 
-    # -------------------------------------------------------------------- #
-    # MY_PAPI
-    # -------------------------------------------------------------------- #
-    events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
-    # events_file = CFG_DIR / "events_node.cfg"
-    # -------------------------------------------------------------------- #
-    cpus = list(range(0, int(mp.get_num_logical_cores())))
-    mp.prepare_measure(str(events_file), cpus)
-    # mp.prepare_measure(str(events_file), None)
-    mp.start_measure()
-
-    # -------------------------------------------------------------------- #
-    # ROI
-    # -------------------------------------------------------------------- #
-
     # TensorFlow ≥2.0 is required
     import tensorflow as tf
     assert tf.__version__ >= "2.0"
@@ -121,6 +105,23 @@ if __name__ == "__main__":
     model.compile(loss="sparse_categorical_crossentropy",
                   optimizer="sgd",
                   metrics=["accuracy"])
+
+
+    # -------------------------------------------------------------------- #
+    # MY_PAPI
+    # -------------------------------------------------------------------- #
+    # events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_node.cfg"
+    # -------------------------------------------------------------------- #
+    cpus = list(range(0, int(mp.get_num_logical_cores())))
+    mp.prepare_measure(str(events_file), cpus)
+    # mp.prepare_measure(str(events_file), None)
+    mp.start_measure()
+
+    # -------------------------------------------------------------------- #
+    # ROI
+    # -------------------------------------------------------------------- #
 
     history = model.fit(X_train, y_train, epochs=1,
                         validation_data=(X_valid, y_valid))
