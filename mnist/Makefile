@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------- #
-# @author: 
+# @author:
 .PHONY = all clean setup
 .DEFAULT_GOAL = compile
 
@@ -30,22 +30,12 @@ PYTHON_PATH = ../mat_mul/Python
 compile:
 	make -C ${PYTHON_PATH} compile
 	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
+	cp ${PYTHON_PATH}/${SRC_DIR}/system_setup.py ${SRC_DIR}/
+	cp ${PYTHON_PATH}/${SRC_DIR}/my_papi.py ${SRC_DIR}/
 
 # --------------------------------------------------------------------------- #
-
-INCLUDE = -I./${SRC_DIR}
-
 PERF_PATH=../1.mat_mul/${SRC_DIR}/perf.sh
 # --------------------------------------------------------------------------- #
-all: clean setup
-clean:
-	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
-
-setup:
-	mkdir -p ${BIN_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
-# Copies the lib to this location
-	cp ../mat_mul/${LIB_DIR}/* ${LIB_DIR}/
-
 perf:
 	bash ${PERF_PATH} ${SRC_DIR}/mnist_1epoch_1thread.py
 	# bash ${SRC_DIR}/perf.sh mnist_1epoch_1thread.py
@@ -54,5 +44,19 @@ perf:
 perf_taskset:
 	bash ${PERF_PATH} ${SRC_DIR}/mnist_1epoch_1thread.py --taskset
 
-papi:
+papi: compile
 	python3 ${SRC_DIR}/mnist_1epoch_1thread_papi.py
+
+# --------------------------------------------------------------------------- #
+# ! Permissions
+permissions_disabled:
+# Back to normal and enable NMI
+	sudo sysctl -w kernel.perf_event_paranoid=4
+	sudo sysctl -w kernel.nmi_watchdog=1
+
+permissions_enabled:
+# Disable NMI and allow perf measure
+	sudo sysctl -w kernel.nmi_watchdog=0
+	sudo sysctl -w kernel.perf_event_paranoid=0
+
+# --------------------------------------------------------------------------- #

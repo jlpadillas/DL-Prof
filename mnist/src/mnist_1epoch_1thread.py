@@ -19,7 +19,7 @@
 import os
 
 # Forces the program to execute on CPU
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 

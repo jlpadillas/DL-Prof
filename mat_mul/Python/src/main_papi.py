@@ -23,9 +23,9 @@ if __name__ == "__main__":
 
     # standard library
     # import gc
-    import sys
     import locale
     import pathlib
+    import sys
 
     # 3rd party packages
 
@@ -96,8 +96,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
+    # events_file = CFG_DIR / "events_pc.cfg"
+    events_file = CFG_DIR / "events_laptop.cfg"
     # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     # MY_PAPI
     # -------------------------------------------------------------------- #
     mp.stop_measure()
-    mp.print_measure() #file_name="out/fich.csv")
+    mp.print_measure()  # file_name="out/fich.csv")
     mp.end_measure()
     # -------------------------------------------------------------------- #
 
