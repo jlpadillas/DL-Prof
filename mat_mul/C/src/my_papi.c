@@ -5,17 +5,29 @@
 #include <string.h>
 #include "my_papi.h"
 
+// ----------------------------------------------------------------------------
+// Global parameters
+// ----------------------------------------------------------------------------
 // We use retval to keep track of the number of the return value
-int retval = 0;
+static int retval = 0;
+
 // Array of strings which corresponds to the events to be measured
 static char **events = NULL;
-// Number of the events
+
+// Number of the events to be measured
 static size_t num_events = 0;
+
+// Array of event sets
+// static int event_sets[MAX_CPUS] = {PAPI_NULL};
+
+// Number of event sets
+// static int num_event_sets = 0;
+
 // Matrix were the results are stored
-static long long g_values[MAX_CPUS][MAX_EVENTS] = { 0 };
+static long long g_values[MAX_CPUS][MAX_EVENTS] = {0};
 
 // ----------------------------------------------------------------------------
-// Low_level
+// Low_level functions
 // ----------------------------------------------------------------------------
 int my_PAPI_add_event(int EventSet, int Event)
 {
@@ -143,17 +155,6 @@ int my_PAPI_thread_init(unsigned long (*id_fn)(void))
 // ----------------------------------------------------------------------------
 // Propios
 // ----------------------------------------------------------------------------
-void my_free(void *ptr)
-{
-    if (!ptr)
-    {
-        // ptr is null
-        fprintf(stderr, "[MyPapi] Error, invalid pointer.\n");
-        exit(EXIT_FAILURE);
-    }
-    free(ptr);
-}
-
 int my_get_total_cpus()
 {
     const PAPI_hw_info_t *hwinfo;
@@ -161,19 +162,6 @@ int my_get_total_cpus()
     // Load info of the HW and get the local num of cpus
     hwinfo = my_PAPI_get_hardware_info();
     return hwinfo->totalcpus;
-}
-
-void *my_malloc(size_t size)
-{
-    void *ptr;
-    ptr = malloc(size);
-    if (!ptr)
-    {
-        // ptr is null
-        fprintf(stderr, "[MyPapi] Error, couldn't allocate memory.\n");
-        exit(EXIT_FAILURE);
-    }
-    return ptr;
 }
 
 // ----------------------------------------------------------------------------
@@ -193,7 +181,6 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                 num_cpus);
         exit(EXIT_FAILURE);
     }
-
     if (num_cpus != num_event_sets)
     {
         fprintf(stderr, "[MyPapi] Error: number of cpus must be the same as "
@@ -201,7 +188,6 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
                 num_cpus, num_event_sets);
         exit(EXIT_FAILURE);
     }
-
     fp = fopen(input_file_name, "r");
     if (fp == NULL)
     {
@@ -284,55 +270,55 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus,
         }
     }
     /* -------------------------- END CONFIG PAPI -------------------------- */
-// #ifdef DEBUGGING
-//     /* ----------------------------- DEBUGGING ----------------------------- */
-//     printf("[MyPapi] input_file_name = '%s'\n", input_file_name);
-//     printf("[MyPapi] num_cpus = '%d'\n", num_cpus);
-//     if (cpus != NULL)
-//     {
-//         printf("[MyPapi] cpus = [");
-//         for (i = 0; i < num_cpus; i++)
-//         {
-//             printf("'%d'", cpus[i]);
-//             if (i != num_cpus - 1)
-//             {
-//                 printf(", ");
-//             }
-//             else
-//             {
-//                 printf("]\n");
-//             }
-//         }
-//     }
-//     printf("[MyPapi] events = [");
-//     for (i = 0; i < num_events; i++)
-//     {
-//         printf("'%s'", events[i]);
-//         if (i != num_events - 1)
-//         {
-//             printf(", ");
-//         }
-//         else
-//         {
-//             printf("]\n");
-//         }
-//     }
-//     printf("[MyPapi] num_event_sets = '%d'\n", num_event_sets);
-//     printf("[MyPapi] event_sets = [");
-//     for (i = 0; i < num_event_sets; i++)
-//     {
-//         printf("'%d'", event_sets[i]);
-//         if (i != num_event_sets - 1)
-//         {
-//             printf(", ");
-//         }
-//         else
-//         {
-//             printf("]\n");
-//         }
-//     }
-//     /* --------------------------- END DEBUGGING --------------------------- */
-// #endif
+    // #ifdef DEBUGGING
+    //     /* ----------------------------- DEBUGGING ----------------------------- */
+    //     printf("[MyPapi] input_file_name = '%s'\n", input_file_name);
+    //     printf("[MyPapi] num_cpus = '%d'\n", num_cpus);
+    //     if (cpus != NULL)
+    //     {
+    //         printf("[MyPapi] cpus = [");
+    //         for (i = 0; i < num_cpus; i++)
+    //         {
+    //             printf("'%d'", cpus[i]);
+    //             if (i != num_cpus - 1)
+    //             {
+    //                 printf(", ");
+    //             }
+    //             else
+    //             {
+    //                 printf("]\n");
+    //             }
+    //         }
+    //     }
+    //     printf("[MyPapi] events = [");
+    //     for (i = 0; i < num_events; i++)
+    //     {
+    //         printf("'%s'", events[i]);
+    //         if (i != num_events - 1)
+    //         {
+    //             printf(", ");
+    //         }
+    //         else
+    //         {
+    //             printf("]\n");
+    //         }
+    //     }
+    //     printf("[MyPapi] num_event_sets = '%d'\n", num_event_sets);
+    //     printf("[MyPapi] event_sets = [");
+    //     for (i = 0; i < num_event_sets; i++)
+    //     {
+    //         printf("'%d'", event_sets[i]);
+    //         if (i != num_event_sets - 1)
+    //         {
+    //             printf(", ");
+    //         }
+    //         else
+    //         {
+    //             printf("]\n");
+    //         }
+    //     }
+    //     /* --------------------------- END DEBUGGING --------------------------- */
+    // #endif
     return EXIT_SUCCESS;
 }
 
@@ -515,22 +501,4 @@ int my_print_measure(int num_cpus, int *cpus, long long **values,
     return EXIT_SUCCESS;
 }
 
-int my_free_measure(long long **values, int num_event_sets)
-{
-    int i;
-    // Events
-    for (i = 0; i < num_events; i++)
-    {
-        my_free(events[i]);
-    }
-    my_free(events);
-
-    // Values
-    for (i = 0; i < num_event_sets; i++)
-    {
-        my_free(values[i]);
-    }
-    my_free(values);
-    return EXIT_SUCCESS;
-}
 // ----------------------------------------------------------------------------
