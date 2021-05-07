@@ -58,12 +58,8 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # We need to save the event_sets for start and stop the measure
         input_file_name = events_file.encode('utf-8')
-        # self.num_cpus = c_int()
-        # self.cpus
         self.num_event_sets = c_int()
-        # self.event_sets = POINTER(c_int)
 
-        # Setup the params
         if cpus is None:
             self.num_cpus = c_int(1)
             self.cpus = cpus
@@ -71,15 +67,8 @@ class my_papi(system_setup):
             self.num_cpus = c_int(len(cpus))
             # Cast the cpu list to: int*
             self.cpus = (c_int * self.num_cpus.value)(*cpus)
-
         self.num_event_sets = self.num_cpus
         self.event_sets = (c_int * self.num_event_sets.value)()
-
-        # print("len(self.cpus) = ", self.num_cpus.value)
-        # # print("list(self.cpus) = ", list(self.cpus))
-        # print("self.cpus = ", self.cpus)
-        # print("num_event_sets = ", self.num_event_sets.value)
-        # print("event_sets = ", self.event_sets)
 
         # ------------------------------------------------------------------- #
         # Calling the function
@@ -87,8 +76,6 @@ class my_papi(system_setup):
         self.p_lib.my_prepare_measure(input_file_name, self.num_cpus,
                                       self.cpus, self.num_event_sets,
                                       self.event_sets)
-                                    #   byref(self.event_sets))
-        # print("list(self.event_sets) = ", list(self.event_sets))
     # ----------------------------------------------------------------------- #
 
     def start_measure(self):
@@ -98,7 +85,6 @@ class my_papi(system_setup):
         # Calling the function
         # ------------------------------------------------------------------- #
         self.p_lib.my_start_measure(self.num_event_sets,
-                                    # byref(self.event_sets))
                                     self.event_sets)
     # ----------------------------------------------------------------------- #
 
@@ -113,7 +99,7 @@ class my_papi(system_setup):
         # ------------------------------------------------------------------- #
         # Calling the function
         # ------------------------------------------------------------------- #
-        self.p_lib.my_stop_measure(self.num_event_sets, self.event_sets, #byref(self.event_sets),
+        self.p_lib.my_stop_measure(self.num_event_sets, self.event_sets,
                                    byref(self.values))
     # ----------------------------------------------------------------------- #
 

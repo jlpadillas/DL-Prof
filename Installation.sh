@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Se necesitan los siguientes paquetes para ejecutar nuestro programa
 
@@ -12,13 +13,13 @@ sudo apt install git -y
 
 # ----
 # PAPI
-cd ~
+cd ~ || exit
 git clone https://bitbucket.org/icl/papi.git
-cd papi
+cd papi || exit
 git pull https://bitbucket.org/icl/papi.git
 
 # Install in linux
-cd src
+cd src || exit
 
 sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null # Disable NMI
 sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null # Allow perf measure
@@ -34,16 +35,28 @@ sudo make install-all
 # ----
 # PERF
 sudo apt install linux-tools-common linux-tools-generic \
-    linux-tools-`uname -r` -y
+    linux-tools-"$(uname -r)" -y
 
 # ----
-# Para instalar las dependencias de python:
+# CREATING VIRTUAL ENVIRON.
 # 
-cd ~
+# Create a general folder in home
+cd ~ || exit
 mkdir -p Environments
-cd Environments
-PYTHON=`which python3`
-virtualenv -p $PYTHON py3_tensorflow_env
+cd Environments || exit
+
+# Inside, create a virtualenv
+virtualenv -p /usr/bin/python3 py3_tensorflow_env
+
+# Activates it
 source py3_tensorflow_env/bin/activate
+
+# Install dependencies
 pip install matplotlib numpy pandas scipy scikit-learn
 pip install tensorflow
+
+# Deactivate it
+deactivate
+
+# ! To remove the env
+# rm -rf py3_tensorflow_env/

@@ -1,20 +1,37 @@
 # --------------------------------------------------------------------------- #
 # @author: 
-.PHONY = clean
-.DEFAULT_GOAL = all
+.PHONY = all clean setup
+.DEFAULT_GOAL = compile
 
 # --------------------------------------------------------------------------- #
 # Directory where binaries are saved
 BIN_DIR = bin
+# Directory where configuration files are saved
+CFG_DIR = conf
 # Directory where libraries are saved
 LIB_DIR = lib
 # Directory where result files are saved
 OUT_DIR = out
 # Directory where scripts are saved
 SRC_DIR = src
-# Flags used to compile c files
-CFLAGS = -Wall -Werror
-CC = gcc
+CC = python3
+# --------------------------------------------------------------------------- #
+all: clean setup compile
+
+clean:
+	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
+
+setup:
+	mkdir -p ${BIN_DIR} ${CFG_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
+
+# --------------------------------------------------------------------------- #
+# Getting the my_papi lib
+PYTHON_PATH = ../mat_mul/Python
+compile:
+	make -C ${PYTHON_PATH} compile
+	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
+
+# --------------------------------------------------------------------------- #
 
 INCLUDE = -I./${SRC_DIR}
 
