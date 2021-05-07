@@ -98,10 +98,10 @@ if __name__ == "__main__":
     # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
-    cpus = [5, 6, 7]
+    # cpus = [0]
     # print(cpus)
-    mp.prepare_measure(str(events_file), cpus)
-    # mp.prepare_measure(str(events_file), None)
+    # mp.prepare_measure(str(events_file), cpus)
+    mp.prepare_measure(str(events_file), None)
 
     mp.start_measure()
     # -------------------------------------------------------------------- #
@@ -113,15 +113,20 @@ if __name__ == "__main__":
     # MY_PAPI
     # -------------------------------------------------------------------- #
     mp.stop_measure()
-    mp.print_measure()  # file_name="out/fich.csv")
+    file_name_output = "out/fich.csv"
+    mp.print_measure(file_name=file_name_output)
     mp.finalize_measure()
+
+    mp.check_results(file_name=file_name_output)
+
+
     # -------------------------------------------------------------------- #
 
     # print(M)
     # print(N)
     # print(A)
 
-    if dim_x == dim_y:
-        num = (dim_x * dim_x) * (2 * dim_x - 1)
-        print("\n FP operations expected (aprox.): " +
-              locale.format_string('%.0f', num, grouping=True))
+    # if dim_x == dim_y:
+    #     num = (dim_x * dim_x) * (2 * dim_x - 1)
+    #     print("\n FP operations expected (aprox.): " +
+    #           locale.format_string('%.0f', num, grouping=True))
