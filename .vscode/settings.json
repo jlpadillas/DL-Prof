@@ -6,7 +6,8 @@
         "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/",
         "/home/jlpadillas01/TFG/mat_mul/C/src/",
         "/home/jlpadillas01/TFG/mat_mul/Python/src/",
-        "/home/jlpadillas01/TFG/mnist/src/",
+        "/home/jlpadillas01/TFG/tensorflow/mnist/src/",
+        "/home/jlpadillas01/TFG/tensorflow/cifar100/src/",
         // "~/TFG/1.mat_mul/src/"
     ],
     "files.associations": {
@@ -25,7 +26,8 @@
         "typeinfo": "c",
         "perf_event.h": "c",
         "unistd.h": "c",
-        "unistd_64.h": "c"
+        "unistd_64.h": "c",
+        "string.h": "c"
     },
     "cSpell.words": [
         "Cantabria"

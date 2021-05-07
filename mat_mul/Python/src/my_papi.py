@@ -117,9 +117,24 @@ class my_papi(system_setup):
     # ----------------------------------------------------------------------- #
 
     def check_results(self, file_name):
-        """"""
+        """Test the values in the file and check the total amount of each event
+        """
 
         import pandas as pd
+
+        # Setting the dict of event name and how many computations represent
+        # each count
+        computations_dict = {
+            "fp_arith_inst_retired.128b_packed_double": 2,
+            "fp_arith_inst_retired.128b_packed_single": 4,
+            "fp_arith_inst_retired.256b_packed_double": 4,
+            "fp_arith_inst_retired.256b_packed_single": 8,
+            "fp_arith_inst_retired.512b_packed_double": 8,
+            "fp_arith_inst_retired.512b_packed_single": 16,
+            "fp_arith_inst_retired.scalar_double": 1,
+            "fp_arith_inst_retired.scalar_single": 1,
+            "fp_assist.any": 1
+        }
 
         # Read events from file
         with open(self.events_file) as f:
@@ -140,9 +155,14 @@ class my_papi(system_setup):
 
         # Print the sum of the events
         locale.setlocale(locale.LC_ALL, '')
+        total_fp_events = 0
+        for k, v in events_sum.items():
+            print("Sum [", k, "] =", locale.format_string('%.0f', v, True))
+            if computations_dict.get(k) is not None:
+                total_fp_events += computations_dict[k] * v
+        print("Total fp measured =", locale.format_string('%.0f',
+                                                          total_fp_events, True))
 
-        for k,v in events_sum.items():
-            print("Sum [",k,"] =",locale.format_string('%.0f', v, True))
     # ----------------------------------------------------------------------- #
 
     def __load_functions(self):

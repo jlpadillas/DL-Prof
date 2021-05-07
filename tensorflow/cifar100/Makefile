@@ -26,9 +26,12 @@ setup:
 
 # --------------------------------------------------------------------------- #
 # Getting the my_papi lib
+PYTHON_PATH = ../../mat_mul/Python
 compile:
-	make -C ../C/ my_papi
-	cp ../C/${LIB_DIR}/* ${LIB_DIR}/
+	make -C ${PYTHON_PATH} compile
+	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
+	cp ${PYTHON_PATH}/${SRC_DIR}/system_setup.py ${SRC_DIR}/
+	cp ${PYTHON_PATH}/${SRC_DIR}/my_papi.py ${SRC_DIR}/
 
 # --------------------------------------------------------------------------- #
 # PYTHON FILES

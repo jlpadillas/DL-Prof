@@ -26,7 +26,7 @@ setup:
 
 # --------------------------------------------------------------------------- #
 # Getting the my_papi lib
-PYTHON_PATH = ../mat_mul/Python
+PYTHON_PATH = ../../mat_mul/Python
 compile:
 	make -C ${PYTHON_PATH} compile
 	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
