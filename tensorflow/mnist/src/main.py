@@ -18,7 +18,19 @@ if __name__ == "__main__":
     TODO
     """
 
+    # standard library
+    import os
     import pathlib
+
+    # Forces the program to execute on CPU
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
+    # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+    # 3rd party packages
+
+    # local source
     from my_papi import my_papi
     from mnist import mnist
 
@@ -49,12 +61,14 @@ if __name__ == "__main__":
 
     mnst.setup()
 
+    mnst.set_parallelism(None, None)
+
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    # events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
 
     cpus = list(range(0, int(mp.get_num_logical_cores())))

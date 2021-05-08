@@ -51,12 +51,12 @@ papi: compile
 # ! Permissions
 permissions_disabled:
 # Back to normal and enable NMI
-	sudo sysctl -w kernel.perf_event_paranoid=4
-	sudo sysctl -w kernel.nmi_watchdog=1
+	sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
+	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 
 permissions_enabled:
 # Disable NMI and allow perf measure
-	sudo sysctl -w kernel.nmi_watchdog=0
-	sudo sysctl -w kernel.perf_event_paranoid=0
+	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
+	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
 
 # --------------------------------------------------------------------------- #
