@@ -36,16 +36,8 @@ compile:
 # --------------------------------------------------------------------------- #
 PERF_PATH=../1.mat_mul/${SRC_DIR}/perf.sh
 # --------------------------------------------------------------------------- #
-perf:
-	bash ${PERF_PATH} ${SRC_DIR}/mnist_1epoch_1thread.py
-	# bash ${SRC_DIR}/perf.sh mnist_1epoch_1thread.py
-
-# perf -e XXXX -C <n> taskset -c <n>x mnist_1epoch_1thread.py
-perf_taskset:
-	bash ${PERF_PATH} ${SRC_DIR}/mnist_1epoch_1thread.py --taskset
-
 papi: compile
-	python3 ${SRC_DIR}/mnist_1epoch_1thread_papi.py
+	python3 ${SRC_DIR}/main.py
 
 # --------------------------------------------------------------------------- #
 # ! Permissions

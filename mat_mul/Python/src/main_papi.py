@@ -65,7 +65,7 @@ if __name__ == "__main__":
         option = sys.argv[1]
 
     # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 1000
+    dim_x = 6000
     dim_y = dim_x
 
     # Se crea el objeto
@@ -94,13 +94,13 @@ if __name__ == "__main__":
     # MY_PAPI
     # -------------------------------------------------------------------- #
     # events_file = CFG_DIR / "events_pc.cfg"
-    events_file = CFG_DIR / "events_laptop.cfg"
-    # events_file = CFG_DIR / "events_node.cfg"
+#    events_file = CFG_DIR / "events_laptop.cfg"
+    events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
     cpus = list(range(0, int(mp.get_num_logical_cores())))
-    # cpus = [0]
+#    cpus = [0]
     # print(cpus)
-    # mp.prepare_measure(str(events_file), cpus)
+#    mp.prepare_measure(str(events_file), cpus)
     mp.prepare_measure(str(events_file), None)
 
     mp.start_measure()

@@ -1,4 +1,4 @@
-0:30701825::cycles
-0:1520::instructions
-0:2698758::fp_arith_inst_retired.128b_packed_double
-0:33::fp_arith_inst_retired.scalar_double
+0:27632680197::cycles
+0:48317459956::instructions
+0:54144000000::fp_arith_inst_retired.512b_packed_double
+0:2::fp_arith_inst_retired.scalar_double

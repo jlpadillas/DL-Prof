@@ -35,25 +35,25 @@ compile:
 main_papi: compile
 # PC
 	${CC} ${SRC_DIR}/main_papi.py seq
-	perf stat -e cycles,instructions,fp_assist.any,fp_assist.simd_input,fp_assist.simd_output,fp_assist.x87_input,\
-	fp_assist.x87_output,fp_comp_ops_exe.sse_packed_double,fp_comp_ops_exe.sse_packed_single,fp_comp_ops_exe.sse_scalar_double,\
-	fp_comp_ops_exe.sse_scalar_single,fp_comp_ops_exe.x87,simd_fp_256.packed_double,simd_fp_256.packed_single,arith.fpu_div,arith.fpu_div_active \
-	${CC} ${SRC_DIR}/main.py seq
+#	perf stat -e cycles,instructions,fp_assist.any,fp_assist.simd_input,fp_assist.simd_output,fp_assist.x87_input,\
+#	fp_assist.x87_output,fp_comp_ops_exe.sse_packed_double,fp_comp_ops_exe.sse_packed_single,fp_comp_ops_exe.sse_scalar_double,\
+#	fp_comp_ops_exe.sse_scalar_single,fp_comp_ops_exe.x87,simd_fp_256.packed_double,simd_fp_256.packed_single,arith.fpu_div,arith.fpu_div_active \
+#	${CC} ${SRC_DIR}/main.py seq
 
 main_papi_node: compile
 # NODE
 	${CC} ${SRC_DIR}/main_papi.py seq
-	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,\
-	fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,\
-	fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
+#	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,\
+#	fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,\
+#	fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
 
 main_papi_node_taskset: compile
 # NODE
 	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
-	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,\
-	fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,\
-	fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any \
-	${CC} ${SRC_DIR}/main.py seq
+#	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,\
+#	fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,\
+#	fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any \
+#	${CC} ${SRC_DIR}/main.py seq
 
 # --------------------------------------------------------------------------- #
 # ! Permissions
