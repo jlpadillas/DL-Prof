@@ -66,9 +66,10 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # MY_PAPI
     # -------------------------------------------------------------------- #
-#    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    # events_file = CFG_DIR / "events_node.cfg"
+    events_file = CFG_DIR / "events_node_mnist.cfg"
     # -------------------------------------------------------------------- #
 
     cpus = list(range(0, int(mp.get_num_logical_cores())))
@@ -93,4 +94,6 @@ if __name__ == "__main__":
 
     mp.finalize_measure()
 
-    mp.check_results(output_file)
+    # mp.check_results(output_file)
+
+    mp.create_table(output_file)

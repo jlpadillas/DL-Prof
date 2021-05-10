@@ -162,7 +162,36 @@ class my_papi(system_setup):
                 total_fp_events += computations_dict[k] * v
         print("Total fp measured =", locale.format_string('%.0f',
                                                           total_fp_events, True))
+    # ----------------------------------------------------------------------- #
 
+    def create_table(self, file_name):
+        """Test the values in the file and check the total amount of each event
+        """
+
+        import plotly.graph_objects as go
+        import pandas as pd
+
+        # Read events from file
+        with open(self.events_file) as f:
+            events = f.read().splitlines()
+
+        # Read csv
+        df = pd.read_csv(file_name, header=None, sep=":", names=range(4))
+
+        # Assign new header
+        header = ["CPU", "Value", "Unit", "Event Name"]
+        df.columns = header
+
+        fig = go.Figure(data=[go.Table(
+            header=dict(values=list(df.columns),
+                        fill_color='paleturquoise',
+                        align='left'),
+            cells=dict(values=df["CPU"],
+                       fill_color='lavender',
+                       align='left'))
+        ])
+
+        fig.write_html("out/file.html")
     # ----------------------------------------------------------------------- #
 
     def __load_functions(self):

@@ -65,37 +65,40 @@ class my_callbacks(keras.callbacks.Callback):
     # ------------------------- Batch-level methods ------------------------- #
 
     def on_train_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during training/testing/predicting."""
+        """Called right before processing a batch during training."""
 
         keys = list(logs.keys())
         print("...Training: start of batch {}; got log keys: {}".format(batch, keys))
 
     def on_train_batch_end(self, batch, logs=None):
-        """Called at the end of training/testing/predicting a batch. Within this method, logs is a dict containing the metrics results."""
+        """Called at the end of training a batch. Within this method, logs is a
+        dict containing the metrics results."""
 
         keys = list(logs.keys())
         print("...Training: end of batch {}; got log keys: {}".format(batch, keys))
 
     def on_test_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during training/testing/predicting."""
+        """Called right before processing a batch during testing."""
 
         keys = list(logs.keys())
         print("...Evaluating: start of batch {}; got log keys: {}".format(batch, keys))
 
     def on_test_batch_end(self, batch, logs=None):
-        """Called at the end of training/testing/predicting a batch. Within this method, logs is a dict containing the metrics results."""
+        """Called at the end of testing a batch. Within this method, logs is a
+        dict containing the metrics results."""
 
         keys = list(logs.keys())
         print("...Evaluating: end of batch {}; got log keys: {}".format(batch, keys))
 
     def on_predict_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during training/testing/predicting."""
+        """Called right before processing a batch during predicting."""
 
         keys = list(logs.keys())
         print("...Predicting: start of batch {}; got log keys: {}".format(batch, keys))
 
     def on_predict_batch_end(self, batch, logs=None):
-        """Called at the end of training/testing/predicting a batch. Within this method, logs is a dict containing the metrics results."""
+        """Called at the end of predicting a batch. Within this method, logs is
+        a dict containing the metrics results."""
 
         keys = list(logs.keys())
         print("...Predicting: end of batch {}; got log keys: {}".format(batch, keys))
