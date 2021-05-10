@@ -32,6 +32,7 @@ if __name__ == "__main__":
 
     # local source
     from my_papi import my_papi
+    from my_callbacks import my_callbacks
     from mnist import mnist
 
     # -------------------------------------------------------------------- #
@@ -76,13 +77,18 @@ if __name__ == "__main__":
 
     mp.prepare_measure(str(events_file), cpus)
 
+    batch_size = 1719
+    epoch = 1
+    callbacks = [my_callbacks()]
+
     mp.start_measure()
 
     # -------------------------------------------------------------------- #
     # ROI
     # -------------------------------------------------------------------- #
 
-    mnst.fit()
+    mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
+             my_callbacks=callbacks)
 
     # -------------------------------------------------------------------- #
     # END ROI
@@ -96,4 +102,4 @@ if __name__ == "__main__":
 
     # mp.check_results(output_file)
 
-    mp.create_table(output_file)
+    # mp.create_table(output_file)
