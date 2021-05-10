@@ -4,8 +4,8 @@
 # standard library
 
 # 3rd party packages
-from tensorflow import keras
 import tensorflow as tf
+from tensorflow import keras
 
 # local source
 
@@ -43,9 +43,12 @@ class mnist(object):
     # ----------------------------------------------------------------------- #
 
     def setup(self):
+        """setup"""
+
         fashion_mnist = keras.datasets.fashion_mnist
         (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
 
+        # The validation set contains 5,000 images, and the test set contains 10,000 images:
         self.X_valid, self.X_train = X_train_full[:5000] / \
             255., X_train_full[5000:] / 255.
         self.y_valid, self.y_train = y_train_full[:5000], y_train_full[5000:]
@@ -82,7 +85,12 @@ class mnist(object):
               "intra_op_parallelis_threads =",
               tf.config.threading.get_intra_op_parallelism_threads())
 
+    # def fit(self, epoch=1, my_callbacks=None):
     def fit(self):
-        self.history = self.model.fit(self.X_train, self.y_train, epochs=1,
-                                      validation_data=(self.X_valid, self.y_valid))
+        """Fit function"""
+
+        self.history = self.model.fit(self.X_train, self.y_train,# epochs=epoch,
+                                      validation_data=(self.X_valid,
+                                                       self.y_valid))
+
         return self.history
