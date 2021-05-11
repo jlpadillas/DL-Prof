@@ -21,20 +21,13 @@ if __name__ == "__main__":
     # standard library
     import os
     import pathlib
+    import sys
 
     # Forces the program to execute on CPU
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
     # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-    # 3rd party packages
-
-    # local source
-    from my_papi import my_papi
-    from my_callbacks import my_callbacks
-    from mnist import mnist
-    from format_results import format_results
 
     # -------------------------------------------------------------------- #
     # Params
@@ -52,6 +45,21 @@ if __name__ == "__main__":
     OUT_DIR = PWD / "out"
     # Carpeta donde se encuentran los archivos fuente
     SRC_DIR = PWD / "src"
+
+    # Adding path to my_papi lib (path_to_import from TFG folder)
+    path_to_import = PWD.parent.parent.absolute() / "mat_mul/Python/src"
+    sys.path.insert(0, str(path_to_import))
+
+    # 3rd party packages
+
+    # local source
+    from my_papi import my_papi
+    from my_callbacks import my_callbacks
+    from mnist import mnist
+    from format_results import format_results
+
+
+
     # -------------------------------------------------------------------- #
 
     # Se crea un objeto de la clase my_papi
