@@ -56,28 +56,45 @@ class mnist(object):
         # The dataset is already split inot a training set and a test set
         (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
 
-        # We'll create a validation set
-        # The validation set contains 5,000 images, and the test set contains 10,000 images:
+        # We'll create a validation set which will contain 5,000 images, and
+        # the test set will contain 10,000 images. So, the others 55.000 images
+        # will be used as trainning set
         self.X_valid, self.X_train = X_train_full[:5000] / \
             255., X_train_full[5000:] / 255.
         self.y_valid, self.y_train = y_train_full[:5000], y_train_full[5000:]
         X_test = X_test / 255.
 
+        # # List of class names
         # class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
         #                "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
 
-        # Creating the model using the Sequential API
+        # ----------- Creating the model using the Sequential API ----------- #
         # 1. Creates a Sequential model. Layers connected sequentially
         self.model = keras.models.Sequential()
-        self.model.add(keras.layers.Flatten(input_shape=[28, 28]))
-        self.model.add(keras.layers.Dense(300, activation="relu"))
-        self.model.add(keras.layers.Dense(100, activation="relu"))
-        self.model.add(keras.layers.Dense(10, activation="softmax"))
-        
 
+        # 2. Adds a flatten layer whose role is to convert each input image
+        # into a 1D array.
+        self.model.add(keras.layers.Flatten(input_shape=[28, 28]))
+
+        # 3. Adds a dense hidden layer with 300 neurons using the ReLU
+        # activation function. Each one manages its own weight matrix.
+        self.model.add(keras.layers.Dense(300, activation="relu"))
+
+        # 4. Adds a second dense hidden layer with 100 neurons using the ReLU
+        # activation function.
+        self.model.add(keras.layers.Dense(100, activation="relu"))
+
+        # 5. Finaly, add a dense output layer with 10 neurons (one per class),
+        # using the softmax activation function (beacuse the classes are
+        # exclusive).
+        self.model.add(keras.layers.Dense(10, activation="softmax"))
+        # ------------------------------------------------------------------- #
+
+        # ----------------------- Compiling the model ----------------------- #
         self.model.compile(loss="sparse_categorical_crossentropy",
                            optimizer="sgd",
                            metrics=["accuracy"])
+        # ------------------------------------------------------------------- #
     # ----------------------------------------------------------------------- #
 
     def set_parallelism(self, inter=None, intra=None):
@@ -100,7 +117,7 @@ class mnist(object):
 
     def fit(self, my_batch_size=32, my_epoch=1, my_callbacks=None):
         # def fit(self):
-        """Fit function"""
+        """Fit function with 55.000 images"""
 
         self.history = self.model.fit(self.X_train, self.y_train,
                                       batch_size=my_batch_size,

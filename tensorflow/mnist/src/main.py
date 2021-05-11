@@ -34,6 +34,7 @@ if __name__ == "__main__":
     from my_papi import my_papi
     from my_callbacks import my_callbacks
     from mnist import mnist
+    from format_results import format_results
 
     # -------------------------------------------------------------------- #
     # Params
@@ -77,9 +78,11 @@ if __name__ == "__main__":
 
     mp.prepare_measure(str(events_file), cpus)
 
-    batch_size = 1719
+    batch_size = 128
     epoch = 1
-    callbacks = [my_callbacks()]
+    callbacks = [my_callbacks(path_to_lib=str(libname),
+                              events_file=str(events_file))]
+    # callbacks = None
 
     mp.start_measure()
 
@@ -95,11 +98,14 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     mp.stop_measure()
 
-    output_file = "out/FICH.csv"
+    output_file = "out/file.csv"
     mp.print_measure(output_file)
 
     mp.finalize_measure()
 
+    # fm = format_results()
+    # fm.create_dash_table(events_file, output_file)
+
     # mp.check_results(output_file)
 
-    # mp.create_table(output_file)
+    # mp.create_dash_table(output_file)
