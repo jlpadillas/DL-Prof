@@ -53,8 +53,7 @@ if __name__ == "__main__":
     # 3rd party packages
 
     # local source
-    from my_papi import my_papi
-    # from my_callbacks import my_callbacks
+    from my_callbacks import my_callbacks
     from mnist import mnist
     from format_results import format_results
 
@@ -62,7 +61,6 @@ if __name__ == "__main__":
 
     # Se crea un objeto de la clase my_papi
     libname = LIB_DIR / "libmy_papi.so"
-    mp = my_papi(libname)
 
     # Create an object mnist
     mnst = mnist()
@@ -80,35 +78,24 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
     # -------------------------------------------------------------------- #
 
-    cpus = list(range(0, int(mp.get_num_logical_cores())))
-
-    mp.prepare_measure(str(events_file), cpus)
-
-    batch_size = 128
-    epoch = 1
+    # batch_size = 128
+    # epoch = 1
     # callbacks = [my_callbacks(path_to_lib=str(libname),
     #                           events_file=str(events_file))]
-    callbacks = None
+    # # callbacks = None
 
-    mp.start_measure()
+    # # -------------------------------------------------------------------- #
+    # # ROI
+    # # -------------------------------------------------------------------- #
 
-    # -------------------------------------------------------------------- #
-    # ROI
-    # -------------------------------------------------------------------- #
-
-    mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
-             my_callbacks=callbacks)
+    # mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
+    #          my_callbacks=callbacks)
 
     # -------------------------------------------------------------------- #
     # END ROI
     # -------------------------------------------------------------------- #
-    mp.stop_measure()
-
     csv_file = "out/file.csv"
     html_file = "out/file.html"
-    mp.print_measure(csv_file)
-
-    mp.finalize_measure()
 
     # fm = format_results()
     # fm.create_plotly_table(csv_file, html_file)

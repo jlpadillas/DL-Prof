@@ -98,9 +98,11 @@ class format_results(object):
 
         import plotly.graph_objects as go
         import pandas as pd
-        # import dash
-        # import dash_html_components as html
-        # import dash_table
+        import dash
+        import dash_html_components as html
+        import dash_table
+        # from dash_table import DataTable, FormatTemplate
+        from dash_table.Format import Format
 
         # Read csv
         header = ["CPU", "Value", "Unit", "Event Name"]
@@ -110,7 +112,53 @@ class format_results(object):
         df = df.pivot_table(index=["CPU"], columns=[
                             "Event Name"], values=["Value"]).fillna(0)
 
-        # Drop the fist multiindex
+        # Drop the first multiindex
+        df.columns = df.columns.droplevel()
+
+        # Group params to pass them to plotly
+        columns = []
+        columns.insert(0, {"name": "CPU", "id": "CPU", "type": "numeric"})
+        for i in df.columns:
+            columns.append({"name": i, "id": i, "type": "numeric",
+                           "format": Format().group(True)})
+
+        data = df.to_dict('records')
+        index = df.index.values.tolist()
+        for i in range(0, len(data)):
+            dictionary = data[i]
+            dictionary["CPU"] = index[i]
+
+        # Create the app
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dash_table.DataTable(
+                id='table',
+                columns=columns,
+                data=data,
+                style_cell=dict(textAlign='left'),
+                style_header=dict(backgroundColor="paleturquoise"),
+                style_data=dict(backgroundColor="lavender")
+            )
+        ])
+        app.run_server(debug=True)
+    # ----------------------------------------------------------------------- #
+
+    def create_plotly_table(self, csv_file, html_file):
+        """Test the values in the file and check the total amount of each event
+        """
+
+        import plotly.graph_objects as go
+        import pandas as pd
+
+        # Read csv
+        header = ["CPU", "Value", "Unit", "Event Name"]
+        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+
+        # Pivot it
+        df = df.pivot_table(index=["CPU"], columns=[
+                            "Event Name"], values=["Value"]).fillna(0)
+
+        # Drop the first multiindex
         df.columns = df.columns.droplevel()
 
         # Group params to pass them to plotly
@@ -121,18 +169,25 @@ class format_results(object):
         bd.insert(0, df.index)
 
         fig = go.Figure(data=[go.Table(
-            header=dict(values=hd,
-                        fill_color='paleturquoise', align='left'),
-            cells=dict(values=bd,
-                       fill_color='lavender', align='left'))
+            header=dict(values=hd, fill_color='paleturquoise', align='left'),
+            cells=dict(values=bd, fill_color='lavender', align='left'))
         ])
 
-        # Display it at the end
+        # Display it at the end of execution
         # fig.show()
-        # Save it and don't open it now
+        # Save it in a file and don't open it now
         fig.write_html(html_file)
+    # ----------------------------------------------------------------------- #
 
+    def calculate_IPC(self, instructions, cycles):
+        aux = []
+        if len(instructions) != len(cycles):
+            return -1
 
+        for i in range(0, len(instructions)):
+            aux.append(instructions[i] / cycles[i])
+
+        return aux
     # ----------------------------------------------------------------------- #
 
     def __warning_on_one_line(self, message, category, filename, lineno,

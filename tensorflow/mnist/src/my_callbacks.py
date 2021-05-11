@@ -31,12 +31,12 @@ class my_callbacks(keras.callbacks.Callback):
         super(my_callbacks, self).__init__()
 
         # Creates an object of the class my_papi
-        # self.mp = my_papi(path_to_lib)
+        self.mp = my_papi(path_to_lib)
 
-        # # Prepares the measure on all cpus
-        # cpus = list(range(0, int(self.mp.get_num_logical_cores())))
-        # self.mp.prepare_measure(events_file, cpus)
-        # self.output_file = "out/callback_output.csv"
+        # Prepares the measure on all cpus
+        cpus = list(range(0, int(self.mp.get_num_logical_cores())))
+        self.mp.prepare_measure(events_file, cpus)
+        self.output_file = "out/file.csv"
 
     # --------------------------- Global methods ---------------------------- #
     def on_train_begin(self, logs=None):
@@ -83,7 +83,6 @@ class my_callbacks(keras.callbacks.Callback):
     # ------------------------- END Global methods -------------------------- #
 
     # ------------------------- Batch-level methods ------------------------- #
-
     def on_train_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during training."""
 
@@ -128,23 +127,22 @@ class my_callbacks(keras.callbacks.Callback):
         # keys = list(logs.keys())
         # print("...Predicting: end of batch {}; got log keys: {}".format(batch, keys))
         pass
-
     # ----------------------- END Batch-level methods ----------------------- #
 
     # ------------------------- Epoch-level methods ------------------------- #
     def on_epoch_begin(self, epoch, logs=None):
         """Called at the beginning of an epoch during training."""
 
-        # self.mp.start_measure()
-        # keys = list(logs.keys())
-        # print("Start epoch {} of training; got log keys: {}".format(epoch, keys))
+        self.mp.start_measure()
+        keys = list(logs.keys())
+        print("Start epoch {} of training; got log keys: {}".format(epoch, keys))
 
     def on_epoch_end(self, epoch, logs=None):
         """Called at the end of an epoch during training."""
 
-        # self.mp.stop_measure()
-        # self.mp.print_measure(self.output_file)
-        # self.mp.finalize_measure()
-        # keys = list(logs.keys())
-        # print("End epoch {} of training; got log keys: {}".format(epoch, keys))
+        self.mp.stop_measure()
+        self.mp.print_measure(self.output_file)
+        self.mp.finalize_measure()
+        keys = list(logs.keys())
+        print("End epoch {} of training; got log keys: {}".format(epoch, keys))
     # ----------------------- END Epoch-level methods ----------------------- #
