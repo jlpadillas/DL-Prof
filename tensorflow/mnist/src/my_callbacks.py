@@ -36,7 +36,7 @@ class my_callbacks(keras.callbacks.Callback):
         # Prepares the measure on all cpus
         cpus = list(range(0, int(self.mp.get_num_logical_cores())))
         self.mp.prepare_measure(events_file, cpus)
-        self.output_file = "out/file.csv"
+        self.output_file = "out/file_w_callbacks.csv"
 
     # --------------------------- Global methods ---------------------------- #
     def on_train_begin(self, logs=None):

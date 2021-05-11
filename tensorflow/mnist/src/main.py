@@ -104,8 +104,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     mp.stop_measure()
 
-    csv_file = "out/file.csv"
-    html_file = "out/file.html"
+    csv_file = "out/main_file.csv"
+    html_file = "out/main_file.html"
     mp.print_measure(csv_file)
 
     mp.finalize_measure()

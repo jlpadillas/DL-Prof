@@ -78,24 +78,24 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
     # -------------------------------------------------------------------- #
 
-    # batch_size = 128
-    # epoch = 1
-    # callbacks = [my_callbacks(path_to_lib=str(libname),
-    #                           events_file=str(events_file))]
+    batch_size = 128
+    epoch = 1
+    callbacks = [my_callbacks(path_to_lib=str(libname),
+                              events_file=str(events_file))]
     # # callbacks = None
 
     # # -------------------------------------------------------------------- #
     # # ROI
     # # -------------------------------------------------------------------- #
 
-    # mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
-    #          my_callbacks=callbacks)
+    mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
+             my_callbacks=callbacks)
 
     # -------------------------------------------------------------------- #
     # END ROI
     # -------------------------------------------------------------------- #
-    csv_file = "out/file.csv"
-    html_file = "out/file.html"
+    csv_file = "out/file_w_callbacks.csv"
+    html_file = "out/main_w_callbacks_file.html"
 
     # fm = format_results()
     # fm.create_plotly_table(csv_file, html_file)
