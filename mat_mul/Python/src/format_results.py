@@ -10,6 +10,13 @@ import warnings
 from ctypes import *
 
 # local source
+import pandas as pd
+import dash
+import dash_html_components as html
+import dash_table
+# from dash_table import DataTable, FormatTemplate
+from dash_table.Format import Format, Scheme
+import dash_html_components as html
 
 # --------------------------------------------------------------------------- #
 __author__ = "Juan Luis Padilla Salomé"
@@ -92,17 +99,9 @@ class format_results(object):
                                                           total_fp_events, True))
     # ----------------------------------------------------------------------- #
 
-    def create_dash_table(self, csv_file, html_file):
+    def create_dash_table(self, csv_file):
         """Test the values in the file and check the total amount of each event
         """
-
-        import plotly.graph_objects as go
-        import pandas as pd
-        import dash
-        import dash_html_components as html
-        import dash_table
-        # from dash_table import DataTable, FormatTemplate
-        from dash_table.Format import Format
 
         # Read csv
         header = ["CPU", "Value", "Unit", "Event Name"]
@@ -128,19 +127,43 @@ class format_results(object):
             dictionary = data[i]
             dictionary["CPU"] = index[i]
 
+        # Adding IPC
+        columns.append({"name": "IPC", "id": "IPC", "type": "numeric", "format":Format(precision=4, scheme=Scheme.fixed)})
+        ipc = self.calculate_rate(df["instructions"], df["cycles"])
+        for i in range(0, len(data)):
+            data[i]["IPC"] = ipc[i]
+        # Adding branch %
+        columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric", "format":Format(precision=2, scheme=Scheme.percentage)})
+        brnch = self.calculate_rate(df["branch-misses"], df["branch-instructions"])
+        for i in range(0, len(data)):
+            data[i]["Branch acc."] = brnch[i]
+
         # Create the app
         app = dash.Dash(__name__)
-        app.layout = html.Div([
-            dash_table.DataTable(
-                id='table',
-                columns=columns,
-                data=data,
-                style_cell=dict(textAlign='left'),
-                style_header=dict(backgroundColor="paleturquoise"),
-                style_data=dict(backgroundColor="lavender")
-            )
-        ])
-        app.run_server(debug=True)
+        # app.layout = html.Div([
+        app.layout = dash_table.DataTable(
+            sort_action='native',
+            id='table',
+            columns=columns,
+            data=data,
+            style_table={'overflowX': 'auto'},
+            style_cell={
+                'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
+                'overflow': 'hidden',
+                'textOverflow': 'ellipsis',
+                'height': 'auto',
+                'whiteSpace': 'normal',
+            },
+            style_header={
+                'backgroundColor': 'paleturquoise',
+                'fontWeight': 'bold'
+            },
+            # style_header=dict(backgroundColor="paleturquoise"),
+            style_data=dict(backgroundColor="lavender")
+        )
+        # ])
+
+        app.run_server(debug=False)
     # ----------------------------------------------------------------------- #
 
     def create_plotly_table(self, csv_file, html_file):
@@ -179,13 +202,13 @@ class format_results(object):
         fig.write_html(html_file)
     # ----------------------------------------------------------------------- #
 
-    def calculate_IPC(self, instructions, cycles):
+    def calculate_rate(self, dividend, divisor):
         aux = []
-        if len(instructions) != len(cycles):
-            return -1
+        if len(dividend) != len(divisor):
+            return
 
-        for i in range(0, len(instructions)):
-            aux.append(instructions[i] / cycles[i])
+        for i in range(0, len(dividend)):
+            aux.append(dividend[i] / divisor[i])
 
         return aux
     # ----------------------------------------------------------------------- #
@@ -220,8 +243,15 @@ if __name__ == "__main__":
 
     from format_results import format_results
 
-    csv_file = "out/file.csv"
-    html_file = "out/file.html"
-
+    # Creates a object
     fm = format_results()
-    fm.create_dash_table(csv_file, html_file)
+
+    csv_file = "out/file_w_callbacks.csv"
+    html_file = "out/file_w_callbacks.html"
+    # fm.create_plotly_table(csv_file, html_file)
+    fm.create_dash_table(csv_file)
+
+    csv_file = "out/main_file.csv"
+    html_file = "out/main_file.html"
+    # fm.create_plotly_table(csv_file, html_file)
+    # fm.create_dash_table(csv_file)
