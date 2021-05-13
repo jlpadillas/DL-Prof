@@ -13,9 +13,6 @@ __status__ = "Production"
 # ------------------------------------------------------------------------ #
 
 # ------------------------------------------------------------------------ #
-from my_papi import my_callbacks_on_epochs
-
-
 if __name__ == "__main__":
     """
     TODO
@@ -52,12 +49,12 @@ if __name__ == "__main__":
     # Adding path to my_papi lib (path_to_import from TFG folder)
     path_to_import = PWD.parent.parent.absolute() / "mat_mul/Python/src"
     sys.path.insert(0, str(path_to_import))
+    # -------------------------------------------------------------------- #
 
     # 3rd party packages
 
     # local source
-    from my_callbacks_on_epochs import my_callback_on_epochs
-    from my_callbacks import my_callbacks
+    from my_callbacks import my_callbacks_on_epochs
     from mnist import mnist
     # from format_results import format_results
 
@@ -71,10 +68,10 @@ if __name__ == "__main__":
 
     mnst.setup()
 
-    mnst.set_parallelism(None, None)
+    # mnst.set_parallelism(None, None)
 
     # -------------------------------------------------------------------- #
-    # MY_PAPI
+    # EVENTS
     # -------------------------------------------------------------------- #
     # events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
@@ -82,10 +79,10 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
     # -------------------------------------------------------------------- #
 
-    batch_size = 128
-    epoch = 1
-    callbacks = [my_callback_on_epochs(path_to_lib=str(libname),
-                                       events_file=str(events_file))]
+    # batch_size = 128
+    epoch = 2
+    callbacks = my_callbacks_on_epochs(lib_path=str(libname),
+                                       events_file=str(events_file))
     # callbacks = [my_callbacks_on_epochs()]
     # callbacks = None
 
@@ -93,12 +90,12 @@ if __name__ == "__main__":
     # ROI
     # -------------------------------------------------------------------- #
 
-    mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
-             my_callbacks=callbacks)
+    mnst.fit(my_callbacks=callbacks, my_epoch=epoch)
 
     # -------------------------------------------------------------------- #
     # END ROI
     # -------------------------------------------------------------------- #
+    callbacks.finalize_measure()
     # csv_file = "out/file_w_callbacks.csv"
     # html_file = "out/main_w_callbacks_file.html"
 

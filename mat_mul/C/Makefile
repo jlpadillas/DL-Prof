@@ -69,9 +69,6 @@ permissions_enabled:
 	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
 
 # --------------------------------------------------------------------------- #
-execution:
-	bash execution.sh
-
 test: my_papi
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
 	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test -DMY_PAPI \

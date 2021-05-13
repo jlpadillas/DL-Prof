@@ -30,8 +30,7 @@ PYTHON_PATH = ../../mat_mul/Python
 compile:
 	make -C ${PYTHON_PATH} compile
 	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
-	cp ${PYTHON_PATH}/${SRC_DIR}/system_setup.py ${SRC_DIR}/
-	cp ${PYTHON_PATH}/${SRC_DIR}/my_papi.py ${SRC_DIR}/
+	# cp ${PYTHON_PATH}/${SRC_DIR}/my_papi.py ${SRC_DIR}/
 
 # --------------------------------------------------------------------------- #
 PERF_PATH=../1.mat_mul/${SRC_DIR}/perf.sh

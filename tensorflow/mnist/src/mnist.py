@@ -115,7 +115,7 @@ class mnist(object):
               tf.config.threading.get_intra_op_parallelism_threads())
     # ----------------------------------------------------------------------- #
 
-    def fit(self, my_batch_size=32, my_epoch=1, my_callbacks=None):
+    def fit(self, my_batch_size=None, my_epoch=1, my_callbacks=None):
         # def fit(self):
         """Fit function with 55.000 images"""
 

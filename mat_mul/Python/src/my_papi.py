@@ -3,7 +3,6 @@
 
 # standard library
 import locale
-import warnings
 from datetime import datetime
 
 # 3rd party packages
@@ -53,7 +52,7 @@ class my_papi(object):
 
     def __init__(self, lib_path):
         """
-        My_papi Class Constructor to initialize the object.
+        My_papi class constructor to initialize the object.
 
         Parameters
         ----------
@@ -65,9 +64,6 @@ class my_papi(object):
 
         # Loads the library path
         self.__set_my_lib(lib_path)
-
-        # Establish the warning format
-        warnings.formatwarning = self.__warning_on_one_line
     # ----------------------------------------------------------------------- #
 
     def prepare_measure(self, events_file, cpus=None):
@@ -248,7 +244,7 @@ class my_papi(object):
             Path to the library
         """
 
-        _lib_path = lib_path
+        _library_file = lib_path
         self.p_lib = CDLL(lib_path)
 
         # ------------------------------------------------------------------- #
@@ -290,89 +286,6 @@ class my_papi(object):
         self.p_lib.my_PAPI_shutdown.restype = None
     # ----------------------------------------------------------------------- #
 
-    def __warning_on_one_line(self, message, category, filename, lineno,
-                              file=None, line=None):
-        """Format the warning output."""
-
-        return '%s:%s:\n\t%s: %s\n' % (filename, lineno, category.__name__,
-                                       message)
-    # ----------------------------------------------------------------------- #
-
-# --------------------------------------------------------------------------- #
-# --------------------------------------------------------------------------- #
-
-
-class my_callbacks_on_epochs(keras.callbacks.Callback):
-    """
-    Custom callback to run with my_papi library and measures the system in each
-    epoch.
-
-    Attributes
-    ----------
-    self.cores : int
-        Number of logical cores of the system
-    self.p_lib : CDLL
-        Library of my_papi
-
-    Methods
-    -------
-    says(sound=None)
-        Prints the animals name and what sound it makes
-
-    """
-
-    def __init__(self, path_to_lib, events_file):
-        """
-        Class Constructor to initialize the object.
-
-        Parameters
-        ----------
-        lib_path : Path
-            Path to the library
-        """
-
-        super(my_callbacks_on_epochs, self).__init__()
-
-        # Creates an object of the class my_papi
-        self.mp = my_papi(path_to_lib)
-
-        # Prepares the measure on all cpus
-        cpus = list(range(0, int(self.mp.get_num_logical_cores())))
-        self.mp.prepare_measure(events_file, cpus)
-        # ! Path were the results will be stored
-        self.path = "out/"
-        self.extension = ".csv"
-
-    # ------------------------- Epoch-level methods ------------------------- #
-    def on_epoch_begin(self, epoch, logs=None):
-        """Called at the beginning of an epoch during training."""
-
-        # Creates a csv name depending on the starting date
-        self.start_time = datetime.now()
-        self.output_file = self.path + __name__ + "_" + \
-            self.start_time.strftime("%Y-%m-%d_%H:%M:%S") + "_epoch-" + \
-            str(epoch) + self.extension
-
-        # Starts the measure with my_papi library
-        self.mp.start_measure()
-    # ----------------------------------------------------------------------- #
-
-    def on_epoch_end(self, epoch, logs=None):
-        """Called at the end of an epoch during training."""
-
-        # Stops the measure with my_papi library
-        self.mp.stop_measure()
-
-        # Saves time of finish
-        # self.stop_time = datetime.now()
-
-        # Saves the results on a file
-        self.mp.print_measure(self.output_file)
-
-        # Finalize the measure
-        self.mp.finalize_measure()
-    # ----------------------------------------------------------------------- #
-    # ----------------------- END Epoch-level methods ----------------------- #
 # --------------------------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
