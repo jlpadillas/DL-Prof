@@ -97,11 +97,10 @@ if __name__ == "__main__":
 #    events_file = CFG_DIR / "events_laptop.cfg"
     events_file = CFG_DIR / "events_node.cfg"
     # -------------------------------------------------------------------- #
-    cpus = list(range(0, int(mp.get_num_logical_cores())))
-#    cpus = [0]
+    cpus = [0, 1]
+    cpus = None
     # print(cpus)
-#    mp.prepare_measure(str(events_file), cpus)
-    mp.prepare_measure(str(events_file), None)
+    mp.prepare_measure(str(events_file), cpus)
 
     mp.start_measure()
     # -------------------------------------------------------------------- #
@@ -114,10 +113,12 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     mp.stop_measure()
     file_name_output = "out/fich.csv"
-    mp.print_measure(file_name=file_name_output)
+    # mp.print_measure(file_name=file_name_output)
+    mp.print_measure()
+
     mp.finalize_measure()
 
-    mp.check_results(file_name=file_name_output)
+    # mp.check_results(file_name=file_name_output)
 
 
     # -------------------------------------------------------------------- #

@@ -128,40 +128,52 @@ class format_results(object):
             dictionary["CPU"] = index[i]
 
         # Adding IPC
-        columns.append({"name": "IPC", "id": "IPC", "type": "numeric", "format":Format(precision=4, scheme=Scheme.fixed)})
+        columns.append({"name": "IPC", "id": "IPC", "type": "numeric",
+                       "format": Format(precision=4, scheme=Scheme.fixed)})
         ipc = self.calculate_rate(df["instructions"], df["cycles"])
         for i in range(0, len(data)):
             data[i]["IPC"] = ipc[i]
         # Adding branch %
-        columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric", "format":Format(precision=2, scheme=Scheme.percentage)})
-        brnch = self.calculate_rate(df["branch-misses"], df["branch-instructions"])
+        columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric",
+                       "format": Format(precision=2, scheme=Scheme.percentage)})
+        brnch = self.calculate_rate(
+            df["branch-misses"], df["branch-instructions"])
         for i in range(0, len(data)):
             data[i]["Branch acc."] = brnch[i]
 
         # Create the app
         app = dash.Dash(__name__)
-        # app.layout = html.Div([
-        app.layout = dash_table.DataTable(
-            sort_action='native',
-            id='table',
-            columns=columns,
-            data=data,
-            style_table={'overflowX': 'auto'},
-            style_cell={
-                'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
-                'overflow': 'hidden',
-                'textOverflow': 'ellipsis',
-                'height': 'auto',
-                'whiteSpace': 'normal',
-            },
-            style_header={
-                'backgroundColor': 'paleturquoise',
-                'fontWeight': 'bold'
-            },
-            # style_header=dict(backgroundColor="paleturquoise"),
-            style_data=dict(backgroundColor="lavender")
-        )
-        # ])
+        app.layout = html.Div(children=[
+            # Header
+            html.H1(children=str(csv_file)),
+
+            # Subtitle
+            html.Div(children='''
+                MyPapi: Events measured
+            '''),
+
+            # Table
+            dash_table.DataTable(
+                sort_action='native',
+                id='table',
+                columns=columns,
+                data=data,
+                style_table={'overflowX': 'auto'},
+                style_cell={
+                    'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
+                    'overflow': 'hidden',
+                    'textOverflow': 'ellipsis',
+                    'height': 'auto',
+                    'whiteSpace': 'normal',
+                },
+                style_header={
+                    'backgroundColor': 'paleturquoise',
+                    'fontWeight': 'bold'
+                },
+                # style_header=dict(backgroundColor="paleturquoise"),
+                style_data=dict(backgroundColor="lavender")
+            )
+        ])
 
         app.run_server(debug=False)
     # ----------------------------------------------------------------------- #
@@ -249,9 +261,9 @@ if __name__ == "__main__":
     csv_file = "out/file_w_callbacks.csv"
     html_file = "out/file_w_callbacks.html"
     # fm.create_plotly_table(csv_file, html_file)
-    fm.create_dash_table(csv_file)
+    # fm.create_dash_table(csv_file)
 
     csv_file = "out/main_file.csv"
     html_file = "out/main_file.html"
     # fm.create_plotly_table(csv_file, html_file)
-    # fm.create_dash_table(csv_file)
+    fm.create_dash_table(csv_file)

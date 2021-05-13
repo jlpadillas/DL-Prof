@@ -4,17 +4,18 @@
 # standard library
 import locale
 import warnings
+from datetime import datetime
 
 # 3rd party packages
 from ctypes import *
+from tensorflow import keras
 
 # local source
-from system_setup import system_setup
 
 # --------------------------------------------------------------------------- #
 __author__ = "Juan Luis Padilla Salomé"
 __copyright__ = "Copyright 2021"
-__credits__ = ["Universidad de Cantabria", "Pablo Abad", "Pablo Prieto"]
+__credits__ = ["University of Cantabria", "Pablo Abad", "Pablo Prieto"]
 __license__ = "GPL"
 __version__ = "1.0.0"
 __maintainer__ = "Juan Luis Padilla Salomé"
@@ -22,97 +23,139 @@ __email__ = "juan-luis.padilla@alumnos.unican.es"
 __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
+# --------------------------------------------------------------------------- #
+# Variables used between the classes
 
-class my_papi(system_setup):
-    """Permite realizar medidas de los eventos mediante el uso de la
-    libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI."""
+# Path to the 'libmy_papi.so' library
+_library_file = None
 
-    # Attributes
-    # ----------
-    # self.cores          # Array de cores logicos pertenecientes al mismo fisico
-    # self.p_lib          # Con el se puede acceder a la liberia y sus func.
-    # self.num_event_sets # numero de event_sets
-    # self.event_sets     # lista con los event_setss
+# Path to the file where the events are
+_events_file = None
 
-    def __init__(self, path):
-        """Constructor de la clase my_papi que recibe por parametro la
-        localizacion de la liberia libmy_papi.so."""
+# --------------------------------------------------------------------------- #
+
+
+class my_papi(object):
+    """
+    Class that uses the libmy_papi.so library and perform measures of events.
+    It is based on the Performance Application Programming Interface (PAPI).
+
+    Attributes
+    ----------
+    self.p_lib : ctypes.CDLL
+        Library of my_papi
+    self.cpus : list
+        List of int where the system will measure the events
+    self.events_file : str
+        Path where the file with the events is located
+
+    """
+
+    def __init__(self, lib_path):
+        """
+        My_papi Class Constructor to initialize the object.
+
+        Parameters
+        ----------
+        lib_path : str
+            Path to the shared library libmy_papi.so
+        """
 
         super(my_papi, self).__init__()
 
         # Loads the library path
-        self.__set_my_lib(path)
+        self.__set_my_lib(lib_path)
 
         # Establish the warning format
         warnings.formatwarning = self.__warning_on_one_line
     # ----------------------------------------------------------------------- #
 
     def prepare_measure(self, events_file, cpus=None):
-        """Gets the events to be measured and starts it."""
+        """It performs the necessary adjustments before start measuring.
 
-        self.events_file = events_file
+        A file path is passed as a parameter where the events to be measured
+        are distributed one per line.
 
-        # ------------------------------------------------------------------- #
-        # Params for the functions
-        # ------------------------------------------------------------------- #
-        # We need to save the event_sets for start and stop the measure
-        input_file_name = events_file.encode('utf-8')
+        If the argument `cpus` isn't passed in, then the default CPUs to be
+        measured will be all the logical cores of the system.
+
+        Parameters
+        ----------
+        events_file : str
+            Path where the file is located
+        cpus : list, optional
+            List of integers which corresponds to the cpus where we have to
+            measure the events (default is all)
+        """
 
         if cpus is None:
-            self.num_cpus = c_int(1)
-            self.cpus = cpus
-        else:
-            self.num_cpus = c_int(len(cpus))
-            # Cast the cpu list to: int*
-            self.cpus = (c_int * self.num_cpus.value)(*cpus)
+            import multiprocessing
+            cpus = list(range(0, multiprocessing.cpu_count()))
 
-        # ------------------------------------------------------------------- #
-        # Calling the function
-        # ------------------------------------------------------------------- #
-        self.p_lib.my_prepare_measure(input_file_name, self.num_cpus,
-                                      self.cpus)
+        # Saving the passed arguments
+        self.events_file = events_file
+        self.cpus = cpus
+
+        # Now, we have to cast the data to pass them to the C library
+        # 1. Encode the string
+        # 2. Create a c_int type with the length of the cpu list
+        # 3. Cast the cpu list to: int*
+        len_cpus = len(cpus)
+        self.p_lib.my_prepare_measure(events_file.encode('utf-8'),
+                                      c_int(len_cpus),
+                                      (c_int * len_cpus)(*cpus))
     # ----------------------------------------------------------------------- #
 
     def start_measure(self):
-        """Gets the events to be measured and starts it."""
+        """Calls the C function with the same name and start the measuring.
 
-        # ------------------------------------------------------------------- #
-        # Calling the function
-        # ------------------------------------------------------------------- #
+        Parameters
+        ----------
+        None
+        """
+
         self.p_lib.my_start_measure()
     # ----------------------------------------------------------------------- #
 
     def stop_measure(self):
-        """Gets the events to be measured and starts it."""
+        """Calls the C function with the same name and stop the measuring.
 
-        # ------------------------------------------------------------------- #
-        # Calling the function
-        # ------------------------------------------------------------------- #
+        Parameters
+        ----------
+        None
+        """
+
         self.p_lib.my_stop_measure()
     # ----------------------------------------------------------------------- #
 
-    def print_measure(self, file_name=None):
-        """Gets the events to be measured and starts it."""
+    def print_measure(self, output_file=None):
+        """Print the results to the screen or to a file.
 
-        # ------------------------------------------------------------------- #
-        # Params for the functions
-        # ------------------------------------------------------------------- #
-        if file_name is None:
-            output_file_name = file_name
-        else:
-            output_file_name = file_name.encode('utf-8')
+        If the argument `output_file` isn't passed in, then the default output
+        is the screen.
 
-        # ------------------------------------------------------------------- #
-        # Calling the function
-        # ------------------------------------------------------------------- #
-        self.p_lib.my_print_measure(output_file_name)
+        Parameters
+        ----------
+        output_file : str, optional
+            Path (and name) of the file where the results will be printed.
+        """
+
+        self.output_file = output_file
+        if output_file is not None:
+            output_file = output_file.encode('utf-8')
+
+        self.p_lib.my_print_measure(output_file)
+    # ----------------------------------------------------------------------- #
 
     def finalize_measure(self):
-        """Gets the events to be measured and starts it."""
+        """Calls the C function with the same name which will stop the my_papi
+        library and free the memory used.
 
-        # ------------------------------------------------------------------- #
-        # Calling the function
-        # ------------------------------------------------------------------- #
+        Parameters
+        ----------
+        None
+        """
+
         self.p_lib.my_finalize_measure()
     # ----------------------------------------------------------------------- #
 
@@ -194,61 +237,57 @@ class my_papi(system_setup):
         fig.write_html("out/file.html")
     # ----------------------------------------------------------------------- #
 
-    def __load_functions(self):
-        """Creates the main functions that may be used for the user."""
+    def __set_my_lib(self, lib_path):
+        """
+        Loads the library libmy_papi.so from the PATH passed by parameter and
+        define the input/output of the main functions.
+
+        Parameters
+        ----------
+        lib_path : Path
+            Path to the library
+        """
+
+        _lib_path = lib_path
+        self.p_lib = CDLL(lib_path)
 
         # ------------------------------------------------------------------- #
         # int my_prepare_measure(char *input_file_name, int num_cpus,
         #                       int *cpus)
         # ------------------------------------------------------------------- #
-        self.p_lib.my_prepare_measure.argtypes = [c_char_p, c_int,
-                                                  POINTER(c_int)]
+        self.p_lib.my_prepare_measure.argtypes = [
+            c_char_p, c_int, POINTER(c_int)]
         self.p_lib.my_prepare_measure.restype = c_int
-        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
         # int my_start_measure()
         # ------------------------------------------------------------------- #
         self.p_lib.my_start_measure.argtypes = None
         self.p_lib.my_start_measure.restype = c_int
-        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
         # int my_stop_measure()
         # ------------------------------------------------------------------- #
         self.p_lib.my_stop_measure.argtypes = None
         self.p_lib.my_stop_measure.restype = c_int
-        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
         # int my_print_measure(char *output_file_name)
         # ------------------------------------------------------------------- #
         self.p_lib.my_print_measure.argtypes = [c_char_p]
         self.p_lib.my_print_measure.restype = c_int
-        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
         # int my_finalize_measure()
         # ------------------------------------------------------------------- #
         self.p_lib.my_finalize_measure.argtypes = None
         self.p_lib.my_finalize_measure.restype = c_int
-        # ------------------------------------------------------------------- #
 
         # ------------------------------------------------------------------- #
         # void my_PAPI_shutdown(void)
         # ------------------------------------------------------------------- #
         self.p_lib.my_PAPI_shutdown.argtypes = None
         self.p_lib.my_PAPI_shutdown.restype = None
-        # ------------------------------------------------------------------- #
-    # ----------------------------------------------------------------------- #
-
-    def __set_my_lib(self, libname):
-        """Carga la libreria de libmy_papi.so, para ello es necesario 
-        indicar su PATH."""
-
-        # Load the shared library into ctypes
-        self.p_lib = CDLL(libname)
-        self.__load_functions()
     # ----------------------------------------------------------------------- #
 
     def __warning_on_one_line(self, message, category, filename, lineno,
@@ -259,19 +298,99 @@ class my_papi(system_setup):
                                        message)
     # ----------------------------------------------------------------------- #
 
+# --------------------------------------------------------------------------- #
+# --------------------------------------------------------------------------- #
+
+
+class my_callbacks_on_epochs(keras.callbacks.Callback):
+    """
+    Custom callback to run with my_papi library and measures the system in each
+    epoch.
+
+    Attributes
+    ----------
+    self.cores : int
+        Number of logical cores of the system
+    self.p_lib : CDLL
+        Library of my_papi
+
+    Methods
+    -------
+    says(sound=None)
+        Prints the animals name and what sound it makes
+
+    """
+
+    def __init__(self, path_to_lib, events_file):
+        """
+        Class Constructor to initialize the object.
+
+        Parameters
+        ----------
+        lib_path : Path
+            Path to the library
+        """
+
+        super(my_callbacks_on_epochs, self).__init__()
+
+        # Creates an object of the class my_papi
+        self.mp = my_papi(path_to_lib)
+
+        # Prepares the measure on all cpus
+        cpus = list(range(0, int(self.mp.get_num_logical_cores())))
+        self.mp.prepare_measure(events_file, cpus)
+        # ! Path were the results will be stored
+        self.path = "out/"
+        self.extension = ".csv"
+
+    # ------------------------- Epoch-level methods ------------------------- #
+    def on_epoch_begin(self, epoch, logs=None):
+        """Called at the beginning of an epoch during training."""
+
+        # Creates a csv name depending on the starting date
+        self.start_time = datetime.now()
+        self.output_file = self.path + __name__ + "_" + \
+            self.start_time.strftime("%Y-%m-%d_%H:%M:%S") + "_epoch-" + \
+            str(epoch) + self.extension
+
+        # Starts the measure with my_papi library
+        self.mp.start_measure()
     # ----------------------------------------------------------------------- #
-    # define Python user-defined exceptions
 
-    class Error(Exception):
-        """Base class for other exceptions"""
-        pass
+    def on_epoch_end(self, epoch, logs=None):
+        """Called at the end of an epoch during training."""
 
-    class NoMeasureFinishedError(Error):
-        """Raised when there is no result obtained."""
-        pass
+        # Stops the measure with my_papi library
+        self.mp.stop_measure()
 
-    class WrongParameterError(Error):
-        """Raised when there is an incorrect parameter."""
-        pass
+        # Saves time of finish
+        # self.stop_time = datetime.now()
+
+        # Saves the results on a file
+        self.mp.print_measure(self.output_file)
+
+        # Finalize the measure
+        self.mp.finalize_measure()
     # ----------------------------------------------------------------------- #
+    # ----------------------- END Epoch-level methods ----------------------- #
+# --------------------------------------------------------------------------- #
+# --------------------------------------------------------------------------- #
+
+
+# --------------------------------------------------------------------------- #
+# define Python user-defined exceptions
+
+class Error(Exception):
+    """Base class for other exceptions"""
+    pass
+
+
+class NoMeasureFinishedError(Error):
+    """Raised when there is no result obtained."""
+    pass
+
+
+class WrongParameterError(Error):
+    """Raised when there is an incorrect parameter."""
+    pass
 # --------------------------------------------------------------------------- #

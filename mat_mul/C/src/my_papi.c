@@ -341,6 +341,7 @@ int my_print_measure(char *output_file_name)
     FILE *fp;
     long long val;
     setlocale(LC_NUMERIC, "");
+    bool print_as_csv = false;
 
 #ifdef DEBUGGING
     /* ----------------------------- DEBUGGING ----------------------------- */
@@ -355,6 +356,7 @@ int my_print_measure(char *output_file_name)
     }
     else
     {
+        print_as_csv = true;
         fp = fopen(output_file_name, "w+");
         if (fp == NULL)
         {
@@ -364,54 +366,57 @@ int my_print_measure(char *output_file_name)
         }
     }
 
-#ifdef CSV
-    // Separator
-    char sep = ':';
-    for (i = 0; i < num_event_sets; i++)
+    if (print_as_csv)
     {
-        for (j = 0; j < num_events; j++)
+        // Separator
+        char sep = ':';
+        for (i = 0; i < num_event_sets; i++)
         {
-            val = values[i][j];
-            if (val != 0)
+            for (j = 0; j < num_events; j++)
             {
-                fprintf(fp, "%d%c%lld%c%c%s\n", g_cpus[i], sep, val, sep,
-                        sep, events[j]);
-            }
-        }
-    }
-#else
-    bool print_cpu, print_header;
-    for (i = 0; i < g_num_cpus; i++)
-    {
-        print_cpu = false;
-        print_header = false;
-        for (j = 0; j < num_events; j++)
-        {
-            val = values[i][j];
-            if (val != 0)
-            {
-                print_cpu = true;
-                if (print_cpu && !print_header)
+                val = values[i][j];
+                if (val != 0)
                 {
-                    print_header = true;
-                    fprintf(fp, "%s\n", "+-----+------------------------------"
-                                        "-------------+-----------------+");
-                    fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event",
-                            "Value");
-                    fprintf(fp, "%s\n", "+=====+=============================="
-                                        "=============+=================+");
+                    fprintf(fp, "%d%c%lld%c%c%s\n", g_cpus[i], sep, val, sep,
+                            sep, events[j]);
                 }
-                fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", g_cpus[i],
-                        events[j], val);
             }
         }
-        if (print_cpu)
+    }
+    else
+    {
+        bool print_cpu, print_header;
+        for (i = 0; i < g_num_cpus; i++)
         {
-            fprintf(fp, "%s\n", "+-----+--------------------------------------"
-                                "-----+-----------------+");
+            print_cpu = false;
+            print_header = false;
+            for (j = 0; j < num_events; j++)
+            {
+                val = values[i][j];
+                if (val != 0)
+                {
+                    print_cpu = true;
+                    if (print_cpu && !print_header)
+                    {
+                        print_header = true;
+                        fprintf(fp, "%s\n", "+-----+------------------------------"
+                                            "-------------+-----------------+");
+                        fprintf(fp, "| %s | %-42s| %-16s|\n", "CPU", "Event",
+                                "Value");
+                        fprintf(fp, "%s\n", "+=====+=============================="
+                                            "=============+=================+");
+                    }
+                    fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", g_cpus[i],
+                            events[j], val);
+                }
+            }
+            if (print_cpu)
+            {
+                fprintf(fp, "%s\n", "+-----+--------------------------------------"
+                                    "-----+-----------------+");
+            }
         }
     }
-#endif
 
     if (output_file_name != NULL)
     {

@@ -16,7 +16,6 @@
 #define MAX_EVENTS 10
 #define MAX_LENGTH_EVENT_NAME 150
 // #define DEBUGGING
-#define CSV
 
 // ----------------------------------------------------------------------------
 // Low_level

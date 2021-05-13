@@ -13,6 +13,9 @@ __status__ = "Production"
 # ------------------------------------------------------------------------ #
 
 # ------------------------------------------------------------------------ #
+from my_papi import my_callbacks_on_epochs
+
+
 if __name__ == "__main__":
     """
     TODO
@@ -53,9 +56,10 @@ if __name__ == "__main__":
     # 3rd party packages
 
     # local source
+    from my_callbacks_on_epochs import my_callback_on_epochs
     from my_callbacks import my_callbacks
     from mnist import mnist
-    from format_results import format_results
+    # from format_results import format_results
 
     # -------------------------------------------------------------------- #
 
@@ -80,13 +84,14 @@ if __name__ == "__main__":
 
     batch_size = 128
     epoch = 1
-    callbacks = [my_callbacks(path_to_lib=str(libname),
-                              events_file=str(events_file))]
-    # # callbacks = None
+    callbacks = [my_callback_on_epochs(path_to_lib=str(libname),
+                                       events_file=str(events_file))]
+    # callbacks = [my_callbacks_on_epochs()]
+    # callbacks = None
 
-    # # -------------------------------------------------------------------- #
-    # # ROI
-    # # -------------------------------------------------------------------- #
+    # -------------------------------------------------------------------- #
+    # ROI
+    # -------------------------------------------------------------------- #
 
     mnst.fit(my_batch_size=batch_size, my_epoch=epoch,
              my_callbacks=callbacks)
@@ -94,8 +99,8 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # END ROI
     # -------------------------------------------------------------------- #
-    csv_file = "out/file_w_callbacks.csv"
-    html_file = "out/main_w_callbacks_file.html"
+    # csv_file = "out/file_w_callbacks.csv"
+    # html_file = "out/main_w_callbacks_file.html"
 
     # fm = format_results()
     # fm.create_plotly_table(csv_file, html_file)

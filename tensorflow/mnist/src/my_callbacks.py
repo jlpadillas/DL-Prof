@@ -42,29 +42,29 @@ class my_callbacks(keras.callbacks.Callback):
     def on_train_begin(self, logs=None):
         """Called at the beginning of fit."""
 
-        # keys = list(logs.keys())
-        # print("Starting training; got log keys: {}".format(keys))
+        keys = list(logs.keys())
+        print("Starting training; got log keys: {}".format(keys))
         pass
 
     def on_train_end(self, logs=None):
         """Called at the end of fit."""
 
-        # keys = list(logs.keys())
-        # print("Stop training; got log keys: {}".format(keys))
+        keys = list(logs.keys())
+        print("Stop training; got log keys: {}".format(keys))
         pass
 
     def on_test_begin(self, logs=None):
         """Called at the beginning of evaluate."""
 
-        # keys = list(logs.keys())
-        # print("Start testing; got log keys: {}".format(keys))
+        keys = list(logs.keys())
+        print("Start testing; got log keys: {}".format(keys))
         pass
 
     def on_test_end(self, logs=None):
         """Called at the end of evaluate."""
 
-        # keys = list(logs.keys())
-        # print("Stop testing; got log keys: {}".format(keys))
+        keys = list(logs.keys())
+        print("Stop testing; got log keys: {}".format(keys))
         pass
 
     def on_predict_begin(self, logs=None):
