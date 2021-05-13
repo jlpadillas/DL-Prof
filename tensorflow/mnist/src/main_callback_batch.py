@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # 3rd party packages
 
     # local source
-    from my_callbacks import my_callbacks_on_epochs
+    from my_callbacks import *
     from mnist import mnist
     # from format_results import format_results
 
@@ -79,13 +79,13 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
     # -------------------------------------------------------------------- #
 
-    output_file = OUT_DIR / "each_epoch.csv"
+    output_file = OUT_DIR / "each_batch.csv"
 
-    # batch_size = 128
-    epoch = 5
-    callbacks = my_callbacks_on_epochs(lib_path=str(libname),
-                                       events_file=str(events_file),
-                                       output_file=str(output_file))
+    batch_size = 573
+    epoch = 1
+    callbacks = my_callbacks_on_batches(lib_path=str(libname),
+                                        events_file=str(events_file),
+                                        output_file=str(output_file))
     # callbacks = [my_callbacks_on_epochs()]
     # callbacks = None
 
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     # ROI
     # -------------------------------------------------------------------- #
 
-    mnst.fit(my_callbacks=callbacks, my_epoch=epoch)
+    mnst.fit(my_callbacks=callbacks, my_epoch=epoch, my_batch_size=batch_size)
 
     # -------------------------------------------------------------------- #
     # END ROI
