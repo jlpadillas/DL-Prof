@@ -393,8 +393,8 @@ int my_print_measure(char *output_file_name)
             for (j = 0; j < num_events; j++)
             {
                 val = values[i][j];
-                if (val != 0)
-                {
+                // if (val != 0)
+                // {
                     print_cpu = true;
                     if (print_cpu && !print_header)
                     {
@@ -408,7 +408,7 @@ int my_print_measure(char *output_file_name)
                     }
                     fprintf(fp, "|  %02d | %-42s| %'-16lld|\n", g_cpus[i],
                             events[j], val);
-                }
+                // }
             }
             if (print_cpu)
             {

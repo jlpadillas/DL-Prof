@@ -6,8 +6,8 @@ int main(int argc, char const *argv[])
 {
     // -----------------------------------
     // char *file = "conf/events_pc.cfg";
-    // char *file = "conf/events_node.cfg";
-    char *file = "conf/events_laptop.cfg";
+    char *file = "conf/events_node.cfg";
+    // char *file = "conf/events_laptop.cfg";
     // -----------------------------------
 
     int *cpus = NULL;
