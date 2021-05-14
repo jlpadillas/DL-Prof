@@ -3,11 +3,9 @@
 
 # standard library
 import locale
-from datetime import datetime
 
 # 3rd party packages
 from ctypes import *
-from tensorflow import keras
 
 # local source
 

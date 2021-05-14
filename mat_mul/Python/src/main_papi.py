@@ -70,7 +70,6 @@ if __name__ == "__main__":
 
     # Se crea el objeto
     mat = matrix()
-    # mat = matrix()
 
     # Se generan las dos matrices
     if option == "empty":
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     mp.stop_measure()
     file_name_output = "out/fich.csv"
-    mp.print_measure(file_name=file_name_output)
+    mp.print_measure(file_name_output)
     # mp.print_measure()
 
     mp.finalize_measure()
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     # print(N)
     # print(A)
 
-    # if dim_x == dim_y:
-    #     num = (dim_x * dim_x) * (2 * dim_x - 1)
-    #     print("\n FP operations expected (aprox.): " +
-    #           locale.format_string('%.0f', num, grouping=True))
+    if dim_x == dim_y:
+        num = (dim_x * dim_x) * (2 * dim_x - 1)
+        print("\n FP operations expected (aprox.): " +
+              locale.format_string('%.0f', num, grouping=True))
