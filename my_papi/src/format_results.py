@@ -3,7 +3,6 @@
 
 # standard library
 import locale
-import warnings
 
 # 3rd party packages
 from ctypes import *

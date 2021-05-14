@@ -118,7 +118,6 @@ if __name__ == "__main__":
 
     mp.check_results(file_name=file_name_output)
 
-
     # -------------------------------------------------------------------- #
 
     # print(M)

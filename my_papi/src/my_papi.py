@@ -285,23 +285,3 @@ class my_papi(object):
     # ----------------------------------------------------------------------- #
 
 # --------------------------------------------------------------------------- #
-# --------------------------------------------------------------------------- #
-
-
-# --------------------------------------------------------------------------- #
-# define Python user-defined exceptions
-
-class Error(Exception):
-    """Base class for other exceptions"""
-    pass
-
-
-class NoMeasureFinishedError(Error):
-    """Raised when there is no result obtained."""
-    pass
-
-
-class WrongParameterError(Error):
-    """Raised when there is an incorrect parameter."""
-    pass
-# --------------------------------------------------------------------------- #
