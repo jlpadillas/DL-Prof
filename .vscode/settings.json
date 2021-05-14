@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/jlpadillas01/Environments/tensorflow_env/bin/python3",
+    "python.pythonPath": "/home/jlpadillas01/Environments/py3_tensorflow_env/bin/python3",
     // "python.pythonPath": "/home/jlpadillas01/anaconda3/bin/python",
     "python.analysis.extraPaths": [
         "/home/jlpadillas01/.local/lib/python3.8/site-packages/",

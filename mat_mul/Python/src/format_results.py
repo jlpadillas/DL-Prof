@@ -3,7 +3,6 @@
 
 # standard library
 import locale
-from logging import error
 import warnings
 
 # 3rd party packages
@@ -46,9 +45,6 @@ class format_results(object):
         localizacion de la liberia libmy_papi.so."""
 
         super(format_results, self).__init__()
-
-        # Establish the warning format
-        warnings.formatwarning = self.__warning_on_one_line
     # ----------------------------------------------------------------------- #
 
     def check_results(self, events_file, output_file):
@@ -224,30 +220,6 @@ class format_results(object):
 
         return aux
     # ----------------------------------------------------------------------- #
-
-    def __warning_on_one_line(self, message, category, filename, lineno,
-                              file=None, line=None):
-        """Format the warning output."""
-
-        return '%s:%s:\n\t%s: %s\n' % (filename, lineno, category.__name__,
-                                       message)
-    # ----------------------------------------------------------------------- #
-
-    # ----------------------------------------------------------------------- #
-    # define Python user-defined exceptions
-
-    class Error(Exception):
-        """Base class for other exceptions"""
-        pass
-
-    class NoMeasureFinishedError(Error):
-        """Raised when there is no result obtained."""
-        pass
-
-    class WrongParameterError(Error):
-        """Raised when there is an incorrect parameter."""
-        pass
-    # ----------------------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
 
@@ -258,12 +230,17 @@ if __name__ == "__main__":
     # Creates a object
     fm = format_results()
 
+    # CHECKING RESULTS!
+    events_file = "conf/events_node.cfg"
     csv_file = "out/file_w_callbacks.csv"
-    html_file = "out/file_w_callbacks.html"
+    # html_file = "out/file_w_callbacks.html"
     # fm.create_plotly_table(csv_file, html_file)
     # fm.create_dash_table(csv_file)
 
-    csv_file = "out/main_file.csv"
-    html_file = "out/main_file.html"
+    # csv_file = "out/main_file.csv"
+    # html_file = "out/main_file.html"
     # fm.create_plotly_table(csv_file, html_file)
-    fm.create_dash_table(csv_file)
+    # fm.create_dash_table(csv_file)
+
+
+    fm.check_results(events_file, csv_file)

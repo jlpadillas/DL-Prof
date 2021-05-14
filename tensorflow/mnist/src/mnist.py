@@ -26,18 +26,11 @@ class mnist(object):
 
     # Attributes
     # ----------
-    # self.cores          # Array de cores logicos pertenecientes al mismo fisico
-    # self.p_lib          # Con el se puede acceder a la liberia y sus func.
-    # self.num_event_sets # numero de event_sets
-    # self.event_sets     # lista con los event_setss
 
     def __init__(self):
         """TODO."""
 
         super(mnist, self).__init__()
-
-        # Establish the warning format
-        # warnings.formatwarning = self.__warning_on_one_line
 
         assert tf.__version__ >= "2.0"
     # ----------------------------------------------------------------------- #
