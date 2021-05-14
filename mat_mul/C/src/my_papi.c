@@ -357,7 +357,7 @@ int my_print_measure(char *output_file_name)
     else
     {
         print_as_csv = true;
-        fp = fopen(output_file_name, "w+");
+        fp = fopen(output_file_name, "a+");
         if (fp == NULL)
         {
             fprintf(stderr, "[MyPapi] Error: couldn't open file '%s'\n",
