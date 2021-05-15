@@ -4,17 +4,17 @@
 
 int main(int argc, char const *argv[])
 {
-    // -----------------------------------
-    // char *file = "conf/events_pc.cfg";
-    char *file = "conf/events_node.cfg";
-    // char *file = "conf/events_laptop.cfg";
-    // -----------------------------------
+    // -------------------------------------------------------
+    // char *file = "../../../my_papi/conf/events_pc.cfg";
+    char *file = "../../../my_papi/conf/events_node.cfg";
+    // char *file = "../../../my_papi/conf/events_laptop.cfg";
+    // -------------------------------------------------------
 
     int *cpus = NULL;
     int num_cpus;
     num_cpus = 1;
     num_cpus = my_get_total_cpus();
-    char *output_file_name = "out/test.out.csv";
+    char *output_file_name = "out/test_out.csv";
 
     my_prepare_measure(file, num_cpus, cpus);
 

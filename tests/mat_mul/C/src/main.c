@@ -29,12 +29,11 @@
 #define MAX_MATRIX_SIZE 100000
 
 #ifdef MY_PAPI
-// ! NOTA: num. max. de eventos que puede medir papi simultaneamente
-// ! es igual a 6. Si se ejecuta mas, se produce un error.
+// ! NOTE: num. max. of events is 6. More and PAPI will throw an error
 // TODO: Modify this lines:
-// char *file = "conf/events_pc.cfg";
-char *file = "conf/events_node.cfg";
-// char *file = "conf/events_laptop.cfg";
+// char *file = "../../../my_papi/conf/events_pc.cfg";
+char *file = "../../../my_papi/conf/events_node.cfg";
+// char *file = "../../../my_papi/conf/events_laptop.cfg";
 #endif
 
 enum MATRIX_TYPE
