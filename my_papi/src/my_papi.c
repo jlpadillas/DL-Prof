@@ -293,7 +293,7 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus)
             printf(", ");
         }
     }
-    printf("], num_events = '%d'\n", num_events);
+    printf("], num_events = '%zu'\n", num_events);
     /* --------------------------- END DEBUGGING --------------------------- */
 #endif
     return EXIT_SUCCESS;
