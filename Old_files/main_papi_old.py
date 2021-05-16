@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # local source
     sys.path.append("/home/jlpadillas01/TFG/1.mat_mul/src/")
     from matrix import matrix
-    from my_papi import my_papi
+    from MyPapi import MyPapi
 
     # TODO: Asignar una opción para generar las matrices
     if len(sys.argv) > 1:
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     # Se crea un objeto de la clase my_papi
     libname = "/home/jlpadillas01/TFG/2.compilation/lib/libmy_papi.so"
-    mp = my_papi(libname)
+    mp = MyPapi(libname)
 
     # -----------------------------------------------------
     # Ejecucion

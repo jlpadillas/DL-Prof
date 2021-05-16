@@ -64,10 +64,10 @@ if __name__ == "__main__":
     SRC_DIR = PWD / "src"
 
     # sys.path.append(str(PWD_MAT_MUL / SRC_DIR))
-    from my_papi import my_papi
+    from MyPapi import MyPapi
     # Se crea un objeto de la clase my_papi
     libname = LIB_DIR / "libmy_papi.so"
-    mp = my_papi(libname)
+    mp = MyPapi(libname)
 
     # TensorFlow ≥2.0 is required
     import tensorflow as tf

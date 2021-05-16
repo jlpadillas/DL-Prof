@@ -10,7 +10,7 @@ from tensorflow import keras
 # 3rd party packages
 
 # local source
-from my_papi import my_papi
+from MyPapi import MyPapi
 
 # --------------------------------------------------------------------------- #
 __author__ = "Juan Luis Padilla Salomé"
@@ -59,7 +59,7 @@ class my_callbacks(keras.callbacks.Callback, ABC):
         super(my_callbacks, self).__init__()
 
         # Creates an object of the class my_papi
-        self.mp = my_papi(lib_path=lib_path)
+        self.mp = MyPapi(lib_path=lib_path)
 
         # Prepares the measure on ALL cpus
         self.mp.prepare_measure(events_file=events_file, cpus=None)

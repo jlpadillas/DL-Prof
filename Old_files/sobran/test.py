@@ -11,7 +11,7 @@ import pathlib
 import numpy as np
 
 # local source
-from my_papi import my_papi
+from MyPapi import MyPapi
 
 # ------------------------------------------------------------------------ #
 # Multiplicacion de dos matrices: A = M  N usando numpy
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     # Se crea un objeto de la clase my_papi
     libname = LIB_DIR / "libmy_papi.so"
-    mp = my_papi(libname)
+    mp = MyPapi(libname)
 
     # -------------------------------------------------------------------- #
     events_file = SRC_DIR / "events_laptop.cfg"

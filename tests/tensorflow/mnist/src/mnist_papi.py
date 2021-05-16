@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # Add the source path and import the library
     sys.path.insert(0, str(SRC_DIR))
-    from my_papi import my_papi
+    from MyPapi import MyPapi
 
     # ----------------------------------------------------------------------- #
     # Params for the measure
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # Now, we can create a object of my_papi and setup the config.
-    mp = my_papi(libname)
+    mp = MyPapi(libname)
     mp.prepare_measure(str(events_file), cpus)
     mp.start_measure()
 

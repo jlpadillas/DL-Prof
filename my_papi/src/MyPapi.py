@@ -32,7 +32,7 @@ _events_file = None
 # --------------------------------------------------------------------------- #
 
 
-class my_papi(object):
+class MyPapi(object):
     """
     Class that uses the libmy_papi.so library and perform measures of events.
     It is based on the Performance Application Programming Interface (PAPI).
@@ -58,7 +58,7 @@ class my_papi(object):
             Path to the shared library libmy_papi.so
         """
 
-        super(my_papi, self).__init__()
+        super(MyPapi, self).__init__()
 
         # Loads the library path
         self.__set_my_lib(lib_path)
