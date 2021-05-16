@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 # standard library
-import os
-from datetime import datetime
 from tensorflow import keras
 
 # 3rd party packages
@@ -34,10 +32,6 @@ class Callbacks(keras.callbacks.Callback):
     self.output_file : str
         Path (and name) of the file where the results will be printed. If it's
         `None`, then the results will be printed on screen
-    self.output_file_name : str
-        Name of the output file, in case of there's a output file.
-    self.extension : str
-        Extension of the output file, in case of there's a output file.
     """
 
     def __init__(self, lib_path, events_file, output_file=None):
@@ -64,10 +58,6 @@ class Callbacks(keras.callbacks.Callback):
         self.mp.prepare_measure(events_file=events_file, cpus=None)
 
         # Save the output file variable for later
-        if output_file is not None:
-            aux = os.path.splitext(output_file)
-            self.output_file_name = aux[0]
-            self.extension = aux[1]
         self.output_file = output_file
 
     # --------------------------- Global methods ---------------------------- #
@@ -168,10 +158,6 @@ class MeasureOnEachEpoch(Callbacks):
     self.output_file : str
         Path (and name) of the file where the results will be printed. If it's
         `None`, then the results will be printed on screen
-    self.output_file_name : str
-        Name of the output file, in case of there's a output file.
-    self.extension : str
-        Extension of the output file, in case of there's a output file.
     """
 
     def __init__(self, lib_path, events_file, output_file=None):
@@ -190,15 +176,12 @@ class MeasureOnEachEpoch(Callbacks):
         """
 
         super(MeasureOnEachEpoch, self).__init__(events_file=events_file,
-                                                     lib_path=lib_path,
-                                                     output_file=output_file)
+                                                 lib_path=lib_path,
+                                                 output_file=output_file)
 
     # ------------------------- Epoch-level methods ------------------------- #
     def on_epoch_begin(self, epoch, logs=None):
         """Called at the beginning of an epoch during training."""
-
-        # Save the starting date
-        self.start_time = datetime.now()
 
         # Starts the measure with my_papi library
         self.mp.start_measure()
@@ -209,20 +192,8 @@ class MeasureOnEachEpoch(Callbacks):
         # Stops the measure with my_papi library
         self.mp.stop_measure()
 
-        # Creates a csv name depending on the starting date
-        if self.output_file is not None:
-            output_file = self.output_file_name + "_" + \
-                self.start_time.strftime(
-                    "%Y-%m-%d_%H:%M:%S") + "_epoch-" + str(epoch) + \
-                self.extension
-        else:
-            output_file = self.output_file
-
-        # Saves end time ?
-        # self.stop_time = datetime.now()
-
         # Saves the results on a file
-        self.mp.print_measure(output_file)
+        self.mp.print_measure(self.output_file)
     # ----------------------- END Epoch-level methods ----------------------- #
 # --------------------------------------------------------------------------- #
 
@@ -239,10 +210,6 @@ class MeasureOnEachBatch(Callbacks):
     self.output_file : str
         Path (and name) of the file where the results will be printed. If it's
         `None`, then the results will be printed on screen
-    self.output_file_name : str
-        Name of the output file, in case of there's a output file.
-    self.extension : str
-        Extension of the output file, in case of there's a output file.
     """
 
     def __init__(self, lib_path, events_file, output_file=None):
@@ -261,41 +228,12 @@ class MeasureOnEachBatch(Callbacks):
         """
 
         super(MeasureOnEachBatch, self).__init__(events_file=events_file,
-                                                      lib_path=lib_path,
-                                                      output_file=output_file)
-
-    # --------------------------- Global methods ---------------------------- #
-    def on_train_begin(self, logs=None):
-        """Called at the beginning of fit."""
-        pass
-
-    def on_train_end(self, logs=None):
-        """Called at the end of fit."""
-        pass
-
-    def on_test_begin(self, logs=None):
-        """Called at the beginning of evaluate."""
-        pass
-
-    def on_test_end(self, logs=None):
-        """Called at the end of evaluate."""
-        pass
-
-    def on_predict_begin(self, logs=None):
-        """Called at the beginning of predict."""
-        pass
-
-    def on_predict_end(self, logs=None):
-        """Called at the end of predict."""
-        pass
-    # ------------------------- END Global methods -------------------------- #
+                                                 lib_path=lib_path,
+                                                 output_file=output_file)
 
     # ------------------------- Batch-level methods ------------------------- #
     def on_train_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during training."""
-
-        # Save the starting date
-        self.start_time = datetime.now()
 
         # Starts the measure with my_papi library
         self.mp.start_measure()
@@ -307,17 +245,8 @@ class MeasureOnEachBatch(Callbacks):
         # Stops the measure with my_papi library
         self.mp.stop_measure()
 
-        # Creates a csv name depending on the starting date
-        if self.output_file is not None:
-            output_file = self.output_file_name + "_" + \
-                self.start_time.strftime(
-                    "%Y-%m-%d_%H:%M:%S") + "_batch-" + str(batch) + \
-                self.extension
-        else:
-            output_file = self.output_file
-
         # Saves the results on a file
-        self.mp.print_measure(output_file)
+        self.mp.print_measure(self.output_file)
 
     def on_test_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during testing."""
@@ -337,14 +266,4 @@ class MeasureOnEachBatch(Callbacks):
         a dict containing the metrics results."""
         pass
     # ----------------------- END Batch-level methods ----------------------- #
-
-    # ------------------------- Epoch-level methods ------------------------- #
-    def on_epoch_begin(self, epoch, logs=None):
-        """Called at the beginning of an epoch during training."""
-        pass
-
-    def on_epoch_end(self, epoch, logs=None):
-        """Called at the end of an epoch during training."""
-        pass
-    # ----------------------- END Epoch-level methods ----------------------- #
 # --------------------------------------------------------------------------- #

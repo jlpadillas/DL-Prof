@@ -50,12 +50,12 @@ if __name__ == "__main__":
     # 3rd party packages
 
     # local source
-    from format_results import format_results
+    from MyPapiResults import MyResults
 
     # -------------------------------------------------------------------- #
 
     # Creates a object
-    fm = format_results()
+    fm = MyResults()
 
     # ! main_papi.py
     csv_file = "out/main_papi.csv"

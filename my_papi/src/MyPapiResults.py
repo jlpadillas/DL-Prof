@@ -28,7 +28,7 @@ __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
 
-class format_results(object):
+class MyResults(object):
     """Permite realizar medidas de los eventos mediante el uso de la
     libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI."""
 
@@ -43,7 +43,7 @@ class format_results(object):
         """Constructor de la clase my_papi que recibe por parametro la
         localizacion de la liberia libmy_papi.so."""
 
-        super(format_results, self).__init__()
+        super(MyResults, self).__init__()
     # ----------------------------------------------------------------------- #
 
     def check_results(self, events_file, output_file):
@@ -224,10 +224,8 @@ class format_results(object):
 
 if __name__ == "__main__":
 
-    from format_results import format_results
-
     # Creates a object
-    fm = format_results()
+    fm = MyResults()
 
     # CHECKING RESULTS!
     events_file = "conf/events_node.cfg"
