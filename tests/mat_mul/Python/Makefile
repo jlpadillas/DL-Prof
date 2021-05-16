@@ -42,13 +42,13 @@ compile:
 
 run:
 # Executing the program with my_papi library for Python
-	${CC} ${SRC_DIR}/main_papi.py seq
-	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
+	${CC} ${SRC_DIR}/main_papi.py SEQ 4096
+	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
 
 run_with_perf:
 # Executing the program and measures with perf
-	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main_papi.py seq
-	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main_papi.py seq
+	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
+	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
 # --------------------------------------------------------------------------- #
 
 # ! Permissions are needed to execute the perf/PAPI commands w/o sudo

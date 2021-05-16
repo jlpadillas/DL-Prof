@@ -29,7 +29,8 @@
         "perf_event.h": "c",
         "unistd.h": "c",
         "unistd_64.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "pthread.h": "c"
     },
     "cSpell.words": [
         "Cantabria"

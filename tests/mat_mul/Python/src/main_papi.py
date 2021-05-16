@@ -22,103 +22,103 @@ if __name__ == "__main__":
     """
 
     # standard library
+    # import sys
     import locale
-    import pathlib
-    import sys
 
     # 3rd party packages
 
     # local source
     from matrix import matrix
-    from my_papi import my_papi
 
     # Define the locale format
     locale.setlocale(locale.LC_ALL, '')
 
     # -------------------------------------------------------------------- #
-    # Params
+    # Loads the my_papi library
     # -------------------------------------------------------------------- #
-    # Current working directory (Makefile from)
-    PWD = pathlib.Path(__file__).parent.parent.absolute()
-    # Carpeta donde se encuentran los ejecutables
-    BIN_DIR = PWD / "bin"
-    # Carpeta donde se encuentran los archivos de configuracion
-    CFG_DIR = PWD / "conf"
-    # Carpeta donde se encuentran las librerias generadas
-    LIB_DIR = PWD / "lib"
-    # Carpeta donde se vuelcan los datos de salida
-    OUT_DIR = PWD / "out"
-    # Carpeta donde se encuentran los archivos fuente
-    SRC_DIR = PWD / "src"
+    import sys
+    import pathlib
 
-    # Hay que hacer append del path del src para que encuentre ficheros
-    sys.path.append(SRC_DIR)
+    # Absolute path to this script
+    MY_PAPI_DIR = pathlib.Path(__file__).absolute()
+    # Now, we have to move to the root of this workspace ([prev. path]/TFG)
+    MY_PAPI_DIR = MY_PAPI_DIR.parent.parent.parent.parent.parent.absolute()
+    # From the root (TFG/) access to my_papi dir. and its content
+    MY_PAPI_DIR = MY_PAPI_DIR / "my_papi"
+    # Folder where the configuration files are located
+    CFG_DIR = MY_PAPI_DIR / "conf"
+    # Folder where the library is located
+    LIB_DIR = MY_PAPI_DIR / "lib"
+    # Folder where the source codes are located
+    SRC_DIR = MY_PAPI_DIR / "src"
 
-    # Se crea un objeto de la clase my_papi
+    # Add the source path and import the library
+    sys.path.insert(0, str(SRC_DIR))
+    from my_papi import my_papi
+
+    # -------------------------------------------------------------------- #
+    # Params for the measure
+    # -------------------------------------------------------------------- #
+    # Path to the library, needed to create an object of class my_papi
     libname = LIB_DIR / "libmy_papi.so"
-    mp = my_papi(libname)
 
-    # -------------------------------------------------------------------- #
-    # Se lee el argumento pasado
-    option = None
-    if len(sys.argv) > 1:
-        option = sys.argv[1]
-
-    # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 6000
-    dim_y = dim_x
-
-    # Se crea el objeto
-    mat = matrix()
-
-    # Se generan las dos matrices
-    if option == "empty":
-        M = mat.init_empty(rows=dim_x, cols=dim_y)
-        N = mat.init_empty(rows=dim_x, cols=dim_y)
-    elif option == "zeros":
-        M = mat.init_zeros(rows=dim_x, cols=dim_y)
-        N = mat.init_zeros(rows=dim_x, cols=dim_y)
-    elif option == "seq":
-        M = mat.init_seq(rows=dim_x, cols=dim_y)
-        N = mat.init_seq(rows=dim_x, cols=dim_y)
-    elif option == "rand":
-        M = mat.init_rand(rows=dim_x, cols=dim_y)
-        N = mat.init_rand(rows=dim_x, cols=dim_y)
-    else:
-        print("ERROR: Wrong generation of matrices. Run the program with "
-              "argument 'empty', 'zeros', 'seq' or 'rand'.")
-        raise mat.Error
-
-    # -------------------------------------------------------------------- #
-    # MY_PAPI
-    # -------------------------------------------------------------------- #
-    # events_file = CFG_DIR / "events_pc.cfg"
+    # Load a file with the events
+    events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
-    # -------------------------------------------------------------------- #
-    # cpus = [0, 1]
+    # events_file = CFG_DIR / "events_node.cfg"
+
+    # Measures on all cpus
     cpus = None
+
+    # Output file with the measures
+    output_file = "out/main_papi_results.csv"
+    # output_file = None
+    # -------------------------------------------------------------------- #
+
+    # Now, we can create a object of my_papi and setup the config.
+    mp = my_papi(libname)
     mp.prepare_measure(str(events_file), cpus)
 
-    mp.start_measure()
-    # -------------------------------------------------------------------- #
+    # Creates an object of matrix class
+    mat = matrix()
+
+    # Reads the parameters
+    if len(sys.argv) != 3:
+        print("[ERROR] Wrong parameters.\n\tUsage: python3 main.py "
+              "[MATRIX_TYPE] [MATRIX_SIZE]")
+        raise mat.Error
+
+    mat_type = sys.argv[1]
+    dim_x_and_y = int(sys.argv[2])
+
+    # We will use square matrices
+    dim_x = dim_x_and_y
+    dim_y = dim_x_and_y
+
+    # Populates the matrices
+    if mat_type == "EMPTY":
+        M = mat.init_empty(rows=dim_x, cols=dim_y)
+        N = mat.init_empty(rows=dim_x, cols=dim_y)
+    elif mat_type == "RAND":
+        M = mat.init_rand(rows=dim_x, cols=dim_y)
+        N = mat.init_rand(rows=dim_x, cols=dim_y)
+    elif mat_type == "SEQ":
+        M = mat.init_seq(rows=dim_x, cols=dim_y)
+        N = mat.init_seq(rows=dim_x, cols=dim_y)
+    elif mat_type == "ZEROS":
+        M = mat.init_zeros(rows=dim_x, cols=dim_y)
+        N = mat.init_zeros(rows=dim_x, cols=dim_y)
+    else:
+        print("[ERROR] Unknown parameter '{}'. Run the program with "
+              "argument 'EMPTY', 'RAND', 'ZEROS' or 'SEQ'.".format(mat_type))
+        raise mat.Error
 
     # ROI -> Se multiplican
+    mp.start_measure()
     mat.mat_mul(M, N)
-
-    # -------------------------------------------------------------------- #
-    # MY_PAPI
-    # -------------------------------------------------------------------- #
     mp.stop_measure()
-    file_name_output = "out/fich.csv"
-    mp.print_measure(file_name_output)
-    # mp.print_measure()
-
+    mp.print_measure(output_file)
     mp.finalize_measure()
-
-    mp.check_results(file_name=file_name_output)
-
-    # -------------------------------------------------------------------- #
 
     # print(M)
     # print(N)
