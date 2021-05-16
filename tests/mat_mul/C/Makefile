@@ -1,13 +1,12 @@
 # --------------------------------------------------------------------------- #
+
 # @author: 
 .PHONY = all clean setup
 .DEFAULT_GOAL = compile
-
 # --------------------------------------------------------------------------- #
+
 # Directory where binaries are saved
 BIN_DIR = bin
-# Directory where configuration files are saved
-CFG_DIR = conf
 # Directory where libraries are saved
 LIB_DIR = lib
 # Directory where result files are saved
@@ -38,12 +37,11 @@ clean:
 
 setup:
 	mkdir -p ${BIN_DIR} ${OUT_DIR}
-# --------------------------------------------------------------------------- #
 
 compile:
-# Compile my_papi library
+# my_papi library
 	make -C ${MP_PATH} compile
-# Compile tests files
+# matrix and main files
 	${CC} ${CFLAGS} -c ${SRC_DIR}/matrix.c -o ${BIN_DIR}/matrix.o
 	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_perf \
 		${BIN_DIR}/matrix.o -pthread
@@ -52,16 +50,16 @@ compile:
 		-L${MP_LIB_DIR} -lmy_papi -pthread
 # --------------------------------------------------------------------------- #
 
+run:
 # Executing the program with my_papi library
-run: compile
 	./${BIN_DIR}/main_papi SEQ 512 NORMAL
 	./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
 	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 	taskset -c 0 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 # --------------------------------------------------------------------------- #
 
-# Executing the program and measures with perf
 run_with_perf:
+# Executing the program and measures with perf
 	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 NORMAL
 	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
 	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
@@ -71,16 +69,16 @@ run_with_perf:
 test:
 # Compile my_papi library
 	make -C ${MP_PATH} compile
-# Compile test file
+# Compile and execute test file
 	${CC} ${CFLAGS} ${SRC_DIR}/test.c -o ${BIN_DIR}/test -DMY_PAPI \
 		-Wl,-rpath=${MP_LIB_DIR} ${BIN_DIR}/matrix.o -L${MP_LIB_DIR} -lmy_papi \
 		-I${MP_SRC_DIR} -pthread
 	./${BIN_DIR}/test
 # --------------------------------------------------------------------------- #
 
-# ! Permissions
+# ! Permissions are needed to execute the perf/PAPI commands w/o sudo
 permissions_disabled:
-# Back to normal and enable NMI
+# Not allow perf measure and enable NMI
 	sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
 	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 

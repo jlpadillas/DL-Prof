@@ -1,9 +1,10 @@
 # --------------------------------------------------------------------------- #
-# @author: 
-.PHONY = all clean setup
-.DEFAULT_GOAL = compile
 
+# @author: 
+.PHONY = all setup
+.DEFAULT_GOAL = compile
 # --------------------------------------------------------------------------- #
+
 # Directory where binaries are saved
 BIN_DIR = bin
 # Directory where configuration files are saved
@@ -14,51 +15,45 @@ LIB_DIR = lib
 OUT_DIR = out
 # Directory where scripts are saved
 SRC_DIR = src
+# Compiler to use
 CC = python3
+# Events to measure with perf
+EVENTS = $(shell perf list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g')cycles,instructions
 # --------------------------------------------------------------------------- #
-all: clean setup compile
 
-clean:
-	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
+# Absolute path to the parent of this Makefile (/[path_before_TFG]/TFG/test/C)
+MAKEFILE_PATH := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+# Absolute path to my_papi library (/[path_before_TFG]/TFG/my_papi)
+MP_PATH = $(realpath ${MAKEFILE_PATH}/../../../my_papi)
+
+MP_LIB_DIR = ${MP_PATH}/${LIB_DIR}
+MP_SRC_DIR = ${MP_PATH}/${SRC_DIR}
+# --------------------------------------------------------------------------- #
+
+all: setup compile
 
 setup:
-	mkdir -p ${BIN_DIR} ${CFG_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
+	mkdir -p ${OUT_DIR}
 
-# --------------------------------------------------------------------------- #
-# Getting the my_papi lib
 compile:
-	make -C ../C/ my_papi
-	cp ../C/${LIB_DIR}/* ${LIB_DIR}/
-
+# Compile my_papi library
+	make -C ${MP_PATH} compile
 # --------------------------------------------------------------------------- #
-# PYTHON FILES
-main_papi: compile
-# PC
-	${CC} ${SRC_DIR}/main_papi.py seq
-#	perf stat -e cycles,instructions,fp_assist.any,fp_assist.simd_input,fp_assist.simd_output,fp_assist.x87_input,\
-#	fp_assist.x87_output,fp_comp_ops_exe.sse_packed_double,fp_comp_ops_exe.sse_packed_single,fp_comp_ops_exe.sse_scalar_double,\
-#	fp_comp_ops_exe.sse_scalar_single,fp_comp_ops_exe.x87,simd_fp_256.packed_double,simd_fp_256.packed_single,arith.fpu_div,arith.fpu_div_active \
-#	${CC} ${SRC_DIR}/main.py seq
 
-main_papi_node: compile
-# NODE
+run:
+# Executing the program with my_papi library for Python
 	${CC} ${SRC_DIR}/main_papi.py seq
-#	perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,fp_arith_inst_retired.256b_packed_double,\
-#	fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,\
-#	fp_arith_inst_retired.scalar_single,fp_assist.any ${CC} ${SRC_DIR}/main.py seq
-
-main_papi_node_taskset: compile
-# NODE
 	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py seq
-#	taskset -c 0 perf stat -e cycles,instructions,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.128b_packed_single,\
-#	fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.256b_packed_single,fp_arith_inst_retired.512b_packed_double,\
-#	fp_arith_inst_retired.512b_packed_single,fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.scalar_single,fp_assist.any \
-#	${CC} ${SRC_DIR}/main.py seq
 
+run_with_perf:
+# Executing the program and measures with perf
+	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main_papi.py seq
+	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main_papi.py seq
 # --------------------------------------------------------------------------- #
-# ! Permissions
+
+# ! Permissions are needed to execute the perf/PAPI commands w/o sudo
 permissions_disabled:
-# Back to normal and enable NMI
+# Not allow perf measure and enable NMI
 	sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
 	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 
@@ -66,5 +61,4 @@ permissions_enabled:
 # Disable NMI and allow perf measure
 	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
 	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
-
 # --------------------------------------------------------------------------- #

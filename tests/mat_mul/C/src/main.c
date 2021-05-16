@@ -110,7 +110,7 @@ int main(int argc, char const *argv[])
         return EXIT_FAILURE;
     }
 
-    // We will use square matrixes
+    // We will use square matrices
     const unsigned dim_x_and_y = atol(argv[2]);
     if (dim_x_and_y < 0 || dim_x_and_y > MAX_MATRIX_SIZE)
     {
@@ -153,7 +153,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    // Populate the matrixes
+    // Populate the matrices
     switch (Mat_type)
     {
     case RAND:

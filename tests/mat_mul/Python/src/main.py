@@ -33,35 +33,38 @@ if __name__ == "__main__":
     # Define the locale format
     locale.setlocale(locale.LC_ALL, '')
 
-    # Se lee el argumento pasado
-    option = None
-    if len(sys.argv) > 1:
-        option = sys.argv[1]
-
-    # Se usan matrices cuadradas para facilitar el calculo de operaciones.
-    dim_x = 1000
-    dim_y = dim_x
-
-    # Se crea el objeto
+    # Creates an object of matrix class
     mat = matrix()
-    # mat = matrix()
 
-    # Se generan las dos matrices
-    if option == "empty":
+    # Reads the parameters
+    if len(sys.argv) != 3:
+        print("[ERROR] Wrong parameters.\n\tUsage: python3 main.py "
+              "[MATRIX_TYPE] [MATRIX_SIZE]")
+        raise mat.Error
+
+    mat_type = sys.argv[1]
+    dim_x_and_y = int(sys.argv[2])
+
+    # We will use square matrices
+    dim_x = dim_x_and_y
+    dim_y = dim_x_and_y
+
+    # Populates the matrices
+    if mat_type == "EMPTY":
         M = mat.init_empty(rows=dim_x, cols=dim_y)
         N = mat.init_empty(rows=dim_x, cols=dim_y)
-    elif option == "zeros":
-        M = mat.init_zeros(rows=dim_x, cols=dim_y)
-        N = mat.init_zeros(rows=dim_x, cols=dim_y)
-    elif option == "seq":
-        M = mat.init_seq(rows=dim_x, cols=dim_y)
-        N = mat.init_seq(rows=dim_x, cols=dim_y)
-    elif option == "rand":
+    elif mat_type == "RAND":
         M = mat.init_rand(rows=dim_x, cols=dim_y)
         N = mat.init_rand(rows=dim_x, cols=dim_y)
+    elif mat_type == "SEQ":
+        M = mat.init_seq(rows=dim_x, cols=dim_y)
+        N = mat.init_seq(rows=dim_x, cols=dim_y)
+    elif mat_type == "ZEROS":
+        M = mat.init_zeros(rows=dim_x, cols=dim_y)
+        N = mat.init_zeros(rows=dim_x, cols=dim_y)
     else:
-        print("ERROR: Wrong generation of matrices. Run the program with "
-              "argument 'empty', 'zeros', 'seq' or 'rand'.")
+        print("[ERROR] Unknown parameter '{}'. Run the program with "
+              "argument 'EMPTY', 'RAND', 'ZEROS' or 'SEQ'.".format(mat_type))
         raise mat.Error
 
     # ROI -> Se multiplican
