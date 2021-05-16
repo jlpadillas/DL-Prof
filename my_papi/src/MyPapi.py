@@ -1,23 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# standard library
-import locale
-import os
-
-# Forces the program to execute on CPU
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-
-# Just disables the warning, doesn't take advantage of AVX/FMA to run faster
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-from tensorflow import keras
-
-# 3rd party packages
-from ctypes import *
-
-# local source
-
 # --------------------------------------------------------------------------- #
 __author__ = "Juan Luis Padilla Salomé"
 __copyright__ = "Copyright 2021"
@@ -29,6 +12,18 @@ __email__ = "juan-luis.padilla@alumnos.unican.es"
 __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
+# Imports
+from ctypes import *
+import locale
+import os
+
+# Forces the program to execute on CPU
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# Just disables the warning, doesn't take advantage of AVX/FMA to run faster
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# Last import or warnning will appear on screen (libcudart not found)
+from tensorflow import keras
 # --------------------------------------------------------------------------- #
 
 
@@ -280,15 +275,17 @@ class MyPapi(object):
 
 
 class MyResults(object):
-    """Permite realizar medidas de los eventos mediante el uso de la
-    libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI."""
+    """
+    Permite realizar medidas de los eventos mediante el uso de la
+    libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI.
 
-    # Attributes
-    # ----------
-    # self.cores          # Array de cores logicos pertenecientes al mismo fisico
-    # self.p_lib          # Con el se puede acceder a la liberia y sus func.
-    # self.num_event_sets # numero de event_sets
-    # self.event_sets     # lista con los event_setss
+    Attributes
+    ----------
+    self.cores          # Array de cores logicos pertenecientes al mismo fisico
+    self.p_lib          # Con el se puede acceder a la liberia y sus func.
+    self.num_event_sets # numero de event_sets
+    self.event_sets     # lista con los event_setss
+    """
 
     def __init__(self):
         """Constructor de la clase my_papi que recibe por parametro la
@@ -473,7 +470,7 @@ class MyResults(object):
 # --------------------------------------------------------------------------- #
 
 
-class Callbacks(keras.callbacks.Callback):
+class MyCallbacks(keras.callbacks.Callback):
     """
     Abstact class which have custom callbacks to use with my_papi library.
 
@@ -501,7 +498,7 @@ class Callbacks(keras.callbacks.Callback):
             `None` is passed, then the results will be printed on screen
         """
 
-        super(Callbacks, self).__init__()
+        super(MyCallbacks, self).__init__()
 
         # Creates an object of the class my_papi
         self.mp = MyPapi(lib_path=lib_path)
@@ -598,7 +595,7 @@ class Callbacks(keras.callbacks.Callback):
 # --------------------------------------------------------------------------- #
 
 
-class MeasureOnEachEpoch(Callbacks):
+class MeasureOnEachEpoch(MyCallbacks):
     """
     Custom callback to run with my_papi library and measures the system in each
     epoch.
@@ -650,7 +647,7 @@ class MeasureOnEachEpoch(Callbacks):
 # --------------------------------------------------------------------------- #
 
 
-class MeasureOnEachBatch(Callbacks):
+class MeasureOnEachBatch(MyCallbacks):
     """
     Custom callback to run with my_papi library and measures the system in each
     batch.
