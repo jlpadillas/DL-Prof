@@ -63,9 +63,9 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    # events_file = CFG_DIR / "events_node.cfg"
+    events_file = CFG_DIR / "events_node.cfg"
 
     # Measures on all cpus
     cpus = None
