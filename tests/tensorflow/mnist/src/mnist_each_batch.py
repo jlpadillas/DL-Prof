@@ -13,6 +13,9 @@ __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
 # --------------------------------------------------------------------------- #
+from my_callbacks import my_callbacks_on_batches
+
+
 if __name__ == "__main__":
     """
     TODO
@@ -47,7 +50,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # ----------------------------------------------------------------------- #
-    # Loads the my_papi library
+    # Loads the my_callbacks library
     # ----------------------------------------------------------------------- #
     import sys
     import pathlib
@@ -65,9 +68,9 @@ if __name__ == "__main__":
     # Folder where the source codes are located
     SRC_DIR = MY_PAPI_DIR / "src"
 
-    # Add the source path and import the library
+    # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    from my_papi import my_papi
+    from my_callbacks import my_callbacks_on_epochs
 
     # ----------------------------------------------------------------------- #
     # Params for the measure
@@ -78,11 +81,8 @@ if __name__ == "__main__":
     # Load a file with the events
     events_file = CFG_DIR / "events_node_mnist.cfg"
 
-    # Measures on all cpus
-    cpus = None
-
     # Output file with the measures
-    output_file = "out/main_papi_results.csv"
+    output_file = "out/mnist_each_epoch.csv"
     # output_file = None
     # ----------------------------------------------------------------------- #
 
@@ -137,10 +137,10 @@ if __name__ == "__main__":
                   metrics=["accuracy"])
     # ----------------------------------------------------------------------- #
 
-    # Now, we can create a object of my_papi and setup the config.
-    mp = my_papi(libname)
-    mp.prepare_measure(str(events_file), cpus)
-    mp.start_measure()
+    # Creates a callback from my_papi library
+    callbacks = my_callbacks_on_batches(lib_path=str(libname),
+                                        events_file=str(events_file),
+                                        output_file=str(output_file))
 
     # ----------------------------------------------------------------------- #
     # ! ROI
@@ -150,7 +150,7 @@ if __name__ == "__main__":
               batch_size=None,
               epochs=1,
               verbose=1,
-              callbacks=None,
+              callbacks=callbacks,
               validation_split=0.,
               validation_data=None,
               shuffle=True,
@@ -167,6 +167,5 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
     # ! END ROI
     # ----------------------------------------------------------------------- #
-    mp.stop_measure()
-    mp.print_measure(output_file)
-    mp.finalize_measure()
+
+    callbacks.finalize_measure()
