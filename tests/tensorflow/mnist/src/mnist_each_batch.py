@@ -13,9 +13,6 @@ __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
 # --------------------------------------------------------------------------- #
-from my_callbacks import my_callbacks_on_batches
-
-
 if __name__ == "__main__":
     """
     TODO
@@ -70,7 +67,7 @@ if __name__ == "__main__":
 
     # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    from my_callbacks import my_callbacks_on_epochs
+    from MyCallbacks import MeasureOnEachBatch
 
     # ----------------------------------------------------------------------- #
     # Params for the measure
@@ -138,9 +135,9 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # Creates a callback from my_papi library
-    callbacks = my_callbacks_on_batches(lib_path=str(libname),
-                                        events_file=str(events_file),
-                                        output_file=str(output_file))
+    callbacks = MeasureOnEachBatch(lib_path=str(libname),
+                                   events_file=str(events_file),
+                                   output_file=str(output_file))
 
     # ----------------------------------------------------------------------- #
     # ! ROI

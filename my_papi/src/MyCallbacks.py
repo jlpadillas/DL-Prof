@@ -3,7 +3,6 @@
 
 # standard library
 import os
-from abc import abstractmethod, ABC
 from datetime import datetime
 from tensorflow import keras
 
@@ -24,7 +23,7 @@ __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
 
-class my_callbacks(keras.callbacks.Callback, ABC):
+class Callbacks(keras.callbacks.Callback):
     """
     Abstact class which have custom callbacks to use with my_papi library.
 
@@ -56,7 +55,7 @@ class my_callbacks(keras.callbacks.Callback, ABC):
             `None` is passed, then the results will be printed on screen
         """
 
-        super(my_callbacks, self).__init__()
+        super(Callbacks, self).__init__()
 
         # Creates an object of the class my_papi
         self.mp = MyPapi(lib_path=lib_path)
@@ -72,37 +71,31 @@ class my_callbacks(keras.callbacks.Callback, ABC):
         self.output_file = output_file
 
     # --------------------------- Global methods ---------------------------- #
-    @abstractmethod
     def on_train_begin(self, logs=None):
         """Called at the beginning of fit."""
 
         pass
 
-    @abstractmethod
     def on_train_end(self, logs=None):
         """Called at the end of fit."""
 
         pass
 
-    @abstractmethod
     def on_test_begin(self, logs=None):
         """Called at the beginning of evaluate."""
 
         pass
 
-    @abstractmethod
     def on_test_end(self, logs=None):
         """Called at the end of evaluate."""
 
         pass
 
-    @abstractmethod
     def on_predict_begin(self, logs=None):
         """Called at the beginning of predict."""
 
         pass
 
-    @abstractmethod
     def on_predict_end(self, logs=None):
         """Called at the end of predict."""
 
@@ -110,39 +103,33 @@ class my_callbacks(keras.callbacks.Callback, ABC):
     # ------------------------- END Global methods -------------------------- #
 
     # ------------------------- Batch-level methods ------------------------- #
-    @abstractmethod
     def on_train_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during training."""
 
         pass
 
-    @abstractmethod
     def on_train_batch_end(self, batch, logs=None):
         """Called at the end of training a batch. Within this method, logs is a
         dict containing the metrics results."""
 
         pass
 
-    @abstractmethod
     def on_test_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during testing."""
 
         pass
 
-    @abstractmethod
     def on_test_batch_end(self, batch, logs=None):
         """Called at the end of testing a batch. Within this method, logs is a
         dict containing the metrics results."""
 
         pass
 
-    @abstractmethod
     def on_predict_batch_begin(self, batch, logs=None):
         """Called right before processing a batch during predicting."""
 
         pass
 
-    @abstractmethod
     def on_predict_batch_end(self, batch, logs=None):
         """Called at the end of predicting a batch. Within this method, logs is
         a dict containing the metrics results."""
@@ -151,13 +138,11 @@ class my_callbacks(keras.callbacks.Callback, ABC):
     # ----------------------- END Batch-level methods ----------------------- #
 
     # ------------------------- Epoch-level methods ------------------------- #
-    @abstractmethod
     def on_epoch_begin(self, epoch, logs=None):
         """Called at the beginning of an epoch during training."""
 
         pass
 
-    @abstractmethod
     def on_epoch_end(self, epoch, logs=None):
         """Called at the end of an epoch during training."""
 
@@ -171,7 +156,7 @@ class my_callbacks(keras.callbacks.Callback, ABC):
 # --------------------------------------------------------------------------- #
 
 
-class my_callbacks_on_epochs(my_callbacks):
+class MeasureOnEachEpoch(Callbacks):
     """
     Custom callback to run with my_papi library and measures the system in each
     epoch.
@@ -204,64 +189,9 @@ class my_callbacks_on_epochs(my_callbacks):
             `None` is passed, then the results will be printed on screen
         """
 
-        super(my_callbacks_on_epochs, self).__init__(events_file=events_file,
+        super(MeasureOnEachEpoch, self).__init__(events_file=events_file,
                                                      lib_path=lib_path,
                                                      output_file=output_file)
-
-    # --------------------------- Global methods ---------------------------- #
-    def on_train_begin(self, logs=None):
-        """Called at the beginning of fit."""
-        pass
-
-    def on_train_end(self, logs=None):
-        """Called at the end of fit."""
-        pass
-
-    def on_test_begin(self, logs=None):
-        """Called at the beginning of evaluate."""
-        pass
-
-    def on_test_end(self, logs=None):
-        """Called at the end of evaluate."""
-        pass
-
-    def on_predict_begin(self, logs=None):
-        """Called at the beginning of predict."""
-        pass
-
-    def on_predict_end(self, logs=None):
-        """Called at the end of predict."""
-        pass
-    # ------------------------- END Global methods -------------------------- #
-
-    # ------------------------- Batch-level methods ------------------------- #
-    def on_train_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during training."""
-        pass
-
-    def on_train_batch_end(self, batch, logs=None):
-        """Called at the end of training a batch. Within this method, logs is a
-        dict containing the metrics results."""
-        pass
-
-    def on_test_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during testing."""
-        pass
-
-    def on_test_batch_end(self, batch, logs=None):
-        """Called at the end of testing a batch. Within this method, logs is a
-        dict containing the metrics results."""
-        pass
-
-    def on_predict_batch_begin(self, batch, logs=None):
-        """Called right before processing a batch during predicting."""
-        pass
-
-    def on_predict_batch_end(self, batch, logs=None):
-        """Called at the end of predicting a batch. Within this method, logs is
-        a dict containing the metrics results."""
-        pass
-    # ----------------------- END Batch-level methods ----------------------- #
 
     # ------------------------- Epoch-level methods ------------------------- #
     def on_epoch_begin(self, epoch, logs=None):
@@ -297,7 +227,7 @@ class my_callbacks_on_epochs(my_callbacks):
 # --------------------------------------------------------------------------- #
 
 
-class my_callbacks_on_batches(my_callbacks):
+class MeasureOnEachBatch(Callbacks):
     """
     Custom callback to run with my_papi library and measures the system in each
     batch.
@@ -330,9 +260,9 @@ class my_callbacks_on_batches(my_callbacks):
             `None` is passed, then the results will be printed on screen
         """
 
-        super(my_callbacks_on_batches, self).__init__(events_file=events_file,
-                                                     lib_path=lib_path,
-                                                     output_file=output_file)
+        super(MeasureOnEachBatch, self).__init__(events_file=events_file,
+                                                      lib_path=lib_path,
+                                                      output_file=output_file)
 
     # --------------------------- Global methods ---------------------------- #
     def on_train_begin(self, logs=None):

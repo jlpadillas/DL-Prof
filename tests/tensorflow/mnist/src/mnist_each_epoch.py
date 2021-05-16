@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    from my_callbacks import my_callbacks_on_epochs
+    from MyCallbacks import MeasureOnEachEpoch
 
     # ----------------------------------------------------------------------- #
     # Params for the measure
@@ -135,9 +135,9 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # Creates a callback from my_papi library
-    callbacks = my_callbacks_on_epochs(lib_path=str(libname),
-                                       events_file=str(events_file),
-                                       output_file=str(output_file))
+    callbacks = MeasureOnEachEpoch(lib_path=str(libname),
+                                   events_file=str(events_file),
+                                   output_file=str(output_file))
 
     # ----------------------------------------------------------------------- #
     # ! ROI
