@@ -39,13 +39,13 @@ compile:
 
 run:
 # Executing the program with my_papi library for Python
-	${CC} ${SRC_DIR}/main_papi.py SEQ 4096
-	taskset -c 0 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
+	taskset -c 2-31 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
+# taskset -c 2 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
 
 run_with_perf:
 # Executing the program and measures with perf
-	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
-	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
+	taskset -c 2-31 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
+# taskset -c 2 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/main.py SEQ 4096
 # --------------------------------------------------------------------------- #
 
 # ! Permissions are needed to execute the perf/PAPI commands w/o sudo
@@ -67,4 +67,4 @@ send_results:
 
 get_results:
 # ? Get the results from the node
-	scp juan@calderon.atc.unican.es:~/TFG/tests/mat_mul/Python/out/* ~/Descargas
+	scp juan@calderon.atc.unican.es:~/TFG/tests/mat_mul/Python/out/*csv ${MAKEFILE_PATH}/out/
