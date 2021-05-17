@@ -211,12 +211,11 @@ class MyPapi(object):
 # --------------------------------------------------------------------------- #
 
     @staticmethod
-    def sum_events(events_file, output_file):
+    def sum_events(output_file):
         """Read the file 'output_file' and sum the same events.
 
         Parameters
         ----------
-        events_file : str
         output_file : str
         """
 
@@ -234,18 +233,17 @@ class MyPapi(object):
             "fp_assist.any": 1
         }
 
-        # Read events from file
-        with open(events_file) as f:
-            events = f.read().splitlines()
-
         # Set the header and read the csv
         header = ["CPU", "Value", "Unit", "Event Name"]
-        data = pd.read_csv(output_file, header=None, sep=":", names=header)
+        df = pd.read_csv(output_file, header=None, sep=":", names=header)
+
+        # Get the events measured
+        events = df["Event Name"].unique()
 
         # Sum of the same events
         events_sum = {}
         for e in events:
-            sum = data.loc[data["Event Name"] == e, "Value"].sum()
+            sum = df.loc[df["Event Name"] == e, "Value"].sum()
             events_sum[e] = sum
 
         # Print the sum of the events
@@ -334,16 +332,30 @@ class MyPapi(object):
         import plotly.graph_objects as go
         import pandas as pd
 
-        # Read csv
+        # Read csv with the following header
         header = ["CPU", "Value", "Unit", "Event Name"]
         df = pd.read_csv(csv_file, header=None, sep=":", names=header)
 
-        # Pivot it
-        df = df.pivot_table(index=["CPU"], columns=[
-                            "Event Name"], values=["Value"]).fillna(0)
+        # Get the list of CPUs measured
+        available_cpus = df["CPU"].unique()
+        # And the events
+        events_measured = df["Event Name"].unique()
 
+        # Add to the first column the # of measure
+        num_measure = 0
+        df.insert(0, "# Measure", num_measure)
+        # We have to modify them depending on the number of measures and cpus
+        len_per_df = len(events_measured) * len(available_cpus)
+        for i in range(int(len(df.index) / len_per_df), 0, -1):
+            df.loc[df.index[-i * len_per_df:], "# Measure"] = num_measure
+            num_measure += 1
+
+        df = df.pivot_table(index=["# Measure", "CPU"], columns=[
+            "Event Name"], values=["Value"]).fillna(0)
         # Drop the first multiindex
         df.columns = df.columns.droplevel()
+
+        df = MyPapi.get_rates_from_df(df)
 
         # Group params to pass them to plotly
         df_T = df.transpose()
@@ -358,9 +370,9 @@ class MyPapi(object):
         ])
 
         # Display it at the end of execution
-        # fig.show()
+        fig.show()
         # Save it in a file and don't open it now
-        fig.write_html(html_file)
+        # fig.write_html(html_file)
     # ----------------------------------------------------------------------- #
 
     @staticmethod
@@ -564,6 +576,14 @@ class MyPapi(object):
 
         app.run_server(debug=False)
     # ----------------------------------------------------------------------- #
+
+    @staticmethod
+    def plotly_print_evolution(csv_file):
+        
+
+        pass
+
+
 
 # --------------------------------------------------------------------------- #
 
