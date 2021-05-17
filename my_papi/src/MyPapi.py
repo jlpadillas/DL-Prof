@@ -803,7 +803,9 @@ class MyCallbacks(keras.callbacks.Callback):
         self.mp = MyPapi(lib_path=lib_path)
 
         # Prepares the measure on ALL cpus
-        self.mp.prepare_measure(events_file=events_file, cpus=None)
+        # ! modify this to get the num of cpus automatic
+        cpus = list(range(2, 32))
+        self.mp.prepare_measure(events_file=events_file, cpus=cpus)
 
         # Save the output file variable for later
         self.output_file = output_file

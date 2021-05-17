@@ -80,6 +80,8 @@ if __name__ == "__main__":
 
     # Measures on all cpus
     cpus = None
+    # ! modify this to get the num of cpus automatic
+    cpus = list(range(2, 32))
 
     # Output file with the measures
     output_file = "out/mnist_papi.csv"

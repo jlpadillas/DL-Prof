@@ -76,4 +76,6 @@ send_results:
 
 get_results:
 # ? Get the results from the node
-	scp juan@calderon.atc.unican.es:~/TFG/tests/mat_mul/Python/out/*csv ${MAKEFILE_PATH}/out/
+	@@echo ${MAKEFILE_PATH}
+	scp juan@calderon.atc.unican.es:~/TFG/tests/tensorflow/mnist/out/*csv ${MAKEFILE_PATH}/out/
+	${CC} ${SRC_DIR}/print_results.py
