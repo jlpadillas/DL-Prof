@@ -25,9 +25,6 @@ EVENTS = $(shell perf list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g')cy
 MAKEFILE_PATH := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 # Absolute path to my_papi library (/[path_before_TFG]/TFG/my_papi)
 MP_PATH = $(realpath ${MAKEFILE_PATH}/../../../my_papi)
-
-MP_LIB_DIR = ${MP_PATH}/${LIB_DIR}
-MP_SRC_DIR = ${MP_PATH}/${SRC_DIR}
 # --------------------------------------------------------------------------- #
 
 all: setup compile

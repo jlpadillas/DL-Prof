@@ -1,9 +1,10 @@
 # --------------------------------------------------------------------------- #
-# @author:
-.PHONY = all clean setup
-.DEFAULT_GOAL = compile
 
+# @author: 
+.PHONY = all setup
+.DEFAULT_GOAL = compile
 # --------------------------------------------------------------------------- #
+
 # Directory where binaries are saved
 BIN_DIR = bin
 # Directory where configuration files are saved
@@ -14,34 +15,52 @@ LIB_DIR = lib
 OUT_DIR = out
 # Directory where scripts are saved
 SRC_DIR = src
+# Compiler to use
 CC = python3
+# Events to measure with perf
+EVENTS = $(shell perf list | grep fp_ | mawk '{print}' ORS=',' | sed 's/ //g')cycles,instructions
 # --------------------------------------------------------------------------- #
-all: clean setup compile
 
-clean:
-	rm -rf ${BIN_DIR}/* ${LIB_DIR}/*
+# Absolute path to the parent of this Makefile (/[path_before_TFG]/TFG/test/C)
+MAKEFILE_PATH := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+# Absolute path to my_papi library (/[path_before_TFG]/TFG/my_papi)
+MP_PATH = $(realpath ${MAKEFILE_PATH}/../../../my_papi)
+# --------------------------------------------------------------------------- #
+
+all: setup compile
 
 setup:
-	mkdir -p ${BIN_DIR} ${CFG_DIR} ${LIB_DIR} ${OUT_DIR} ${SRC_DIR}
+	mkdir -p ${OUT_DIR}
 
-# --------------------------------------------------------------------------- #
-# Getting the my_papi lib
-PYTHON_PATH = ../../mat_mul/Python
 compile:
-	make -C ${PYTHON_PATH} compile
-	cp ${PYTHON_PATH}/${LIB_DIR}/* ${LIB_DIR}/
-	# cp ${PYTHON_PATH}/${SRC_DIR}/my_papi.py ${SRC_DIR}/
+# Compile my_papi library
+	make -C ${MP_PATH} compile
+# --------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------------------- #
-PERF_PATH=../1.mat_mul/${SRC_DIR}/perf.sh
-# --------------------------------------------------------------------------- #
-papi:
-	python3 ${SRC_DIR}/main.py
+run:
+# Executing the program with my_papi library for Python
+	${CC} ${SRC_DIR}/mnist.py
+	taskset -c 0 ${CC} ${SRC_DIR}/mnist.py
 
+run_with_papi:
+# Executing the program with my_papi library for Python
+	${CC} ${SRC_DIR}/mnist_papi.py
+	taskset -c 0 ${CC} ${SRC_DIR}/mnist_papi.py
+
+run_callbacks_epoch:
+# Executing the program with callbacks from my_papi library for Python
+	${CC} ${SRC_DIR}/mnist_each_epoch.py
+	taskset -c 0 ${CC} ${SRC_DIR}/mnist_each_epoch.py
+
+run_with_perf:
+# Executing the program and measures with perf
+	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
+	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
 # --------------------------------------------------------------------------- #
-# ! Permissions
+
+# ! Permissions are needed to execute the perf/PAPI commands w/o sudo
 permissions_disabled:
-# Back to normal and enable NMI
+# Not allow perf measure and enable NMI
 	sudo sysctl -w kernel.perf_event_paranoid=4 > /dev/null
 	sudo sysctl -w kernel.nmi_watchdog=1 > /dev/null
 
@@ -49,7 +68,6 @@ permissions_enabled:
 # Disable NMI and allow perf measure
 	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
 	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
-
 # --------------------------------------------------------------------------- #
 
 send_results:

@@ -67,7 +67,8 @@ if __name__ == "__main__":
 
     # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    from MyCallbacks import MeasureOnEachEpoch
+    # from MyCallbacks import MeasureOnEachEpoch
+    from MyPapi import *
 
     # ----------------------------------------------------------------------- #
     # Params for the measure
@@ -166,3 +167,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     callbacks.finalize_measure()
+
+    MyPapi.dash_table_by_cpus_static(str(output_file))
+
+    # callbacks.tab

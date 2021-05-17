@@ -63,9 +63,9 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    # events_file = CFG_DIR / "events_pc.cfg"
+    events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    # events_file = CFG_DIR / "events_node.cfg"
 
     # Measures on all cpus
     cpus = None
@@ -119,6 +119,12 @@ if __name__ == "__main__":
     mat.mat_mul(M, N)
 
     mp.stop_measure()
+
+    if dim_x == dim_y:
+        num = (dim_x * dim_x) * (2 * dim_x - 1)
+        print("\n FP operations expected (aprox.): " +
+              locale.format_string('%.0f', num, grouping=True))
+
     mp.print_measure(output_file)
     mp.finalize_measure()
 
@@ -127,8 +133,4 @@ if __name__ == "__main__":
     # mp.check_results(events_file, output_file)
     # ! Caution! file "output_file" may be overwritted if executed this script
     # ! more than one time
-
-    if dim_x == dim_y:
-        num = (dim_x * dim_x) * (2 * dim_x - 1)
-        print("\n FP operations expected (aprox.): " +
-              locale.format_string('%.0f', num, grouping=True))
+    # mp.dash_table_by_cpus(output_file)
