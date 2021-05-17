@@ -50,27 +50,28 @@ if __name__ == "__main__":
     # 3rd party packages
 
     # local source
-    from MyPapiResults import MyResults
+    from MyPapi import *
 
     # -------------------------------------------------------------------- #
+    csv_file = "out/mnist_papi.csv"
+    html_file = "out/mnist_papi.html"
 
-    # Creates a object
-    fm = MyResults()
+    MyPapi.dash_table_by_cpus_static(csv_file)
 
-    # ! main_papi.py
-    csv_file = "out/main_papi.csv"
-    html_file = "out/main_papi.html"
-    # fm.create_plotly_table(csv_file, html_file)
-    fm.create_dash_table(csv_file)
-
-    # ! main_callback_batch.py
-    csv_file = "out/main_callback_batch.csv"
-    html_file = "out/main_callback_batch.html"
-    # fm.create_plotly_table(csv_file, html_file)
+    # # ! main_papi.py
+    # csv_file = "out/main_papi.csv"
+    # html_file = "out/main_papi.html"
+    # # fm.create_plotly_table(csv_file, html_file)
     # fm.create_dash_table(csv_file)
 
-    # ! main_callback_epoch.py
-    csv_file = "out/main_callback_epoch.csv"
-    html_file = "out/main_callback_epoch.html"
-    # fm.create_plotly_table(csv_file, html_file)
-    # fm.create_dash_table(csv_file)
+    # # ! main_callback_batch.py
+    # csv_file = "out/main_callback_batch.csv"
+    # html_file = "out/main_callback_batch.html"
+    # # fm.create_plotly_table(csv_file, html_file)
+    # # fm.create_dash_table(csv_file)
+
+    # # ! main_callback_epoch.py
+    # csv_file = "out/main_callback_epoch.csv"
+    # html_file = "out/main_callback_epoch.html"
+    # # fm.create_plotly_table(csv_file, html_file)
+    # # fm.create_dash_table(csv_file)

@@ -379,7 +379,6 @@ class MyPapi(object):
         app.run_server(debug=False)
     # ----------------------------------------------------------------------- #
 
-
     def get_rates_from_df(self, df):
 
         # Setting the dict of rate and the events needed to perform the operation
@@ -447,7 +446,8 @@ class MyPapi(object):
                                                    total_fp_events, True))
     # ----------------------------------------------------------------------- #
 
-    def create_dash_table(self, csv_file):
+    @staticmethod
+    def create_dash_table(csv_file):
         """Test the values in the file and check the total amount of each event
         """
 
@@ -462,6 +462,8 @@ class MyPapi(object):
         # Drop the first multiindex
         df.columns = df.columns.droplevel()
 
+        df = MyPapi.get_rates_from_df_static(df)
+
         # Group params to pass them to plotly
         columns = []
         columns.insert(0, {"name": "CPU", "id": "CPU", "type": "numeric"})
@@ -474,21 +476,6 @@ class MyPapi(object):
         for i in range(0, len(data)):
             dictionary = data[i]
             dictionary["CPU"] = index[i]
-
-        # Adding IPC
-        columns.append({"name": "IPC", "id": "IPC", "type": "numeric",
-                       "format": Format(precision=4, scheme=Scheme.fixed)})
-        ipc = self.calculate_rate(df["instructions"], df["cycles"])
-        for i in range(0, len(data)):
-            data[i]["IPC"] = ipc[i]
-        # Adding branch %
-        if "branch-misses" in df.columns and "branch-instructions" in df.columns:
-            columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric",
-                        "format": Format(precision=2, scheme=Scheme.percentage)})
-            brnch = self.calculate_rate(
-                df["branch-misses"], df["branch-instructions"])
-            for i in range(0, len(data)):
-                data[i]["Branch acc."] = brnch[i]
 
         # Create the app
         app = dash.Dash(__name__)

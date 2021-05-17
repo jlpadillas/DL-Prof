@@ -39,23 +39,23 @@ compile:
 
 run:
 # Executing the program with my_papi library for Python
-	${CC} ${SRC_DIR}/mnist.py
-	taskset -c 0 ${CC} ${SRC_DIR}/mnist.py
+	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist.py
+# taskset -c 2 ${CC} ${SRC_DIR}/mnist.py
 
 run_with_papi:
 # Executing the program with my_papi library for Python
-	${CC} ${SRC_DIR}/mnist_papi.py
-	taskset -c 0 ${CC} ${SRC_DIR}/mnist_papi.py
+	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist_papi.py
+# taskset -c 2 ${CC} ${SRC_DIR}/mnist_papi.py
 
 run_callbacks_epoch:
 # Executing the program with callbacks from my_papi library for Python
-	${CC} ${SRC_DIR}/mnist_each_epoch.py
-	taskset -c 0 ${CC} ${SRC_DIR}/mnist_each_epoch.py
+	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist_each_epoch.py
+# taskset -c 2 ${CC} ${SRC_DIR}/mnist_each_epoch.py
 
 run_with_perf:
 # Executing the program and measures with perf
-	perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
-	taskset -c 0 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
+	taskset -c 2-31 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
+# taskset -c 2 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py
 # --------------------------------------------------------------------------- #
 
 # ! Permissions are needed to execute the perf/PAPI commands w/o sudo
@@ -73,3 +73,7 @@ permissions_enabled:
 send_results:
 # ? Send the results from the node to the host machine
 	scp out/* jlpadillas01@193.144.198.240:/home/jlpadillas01/Descargas/
+
+get_results:
+# ? Get the results from the node
+	scp juan@calderon.atc.unican.es:~/TFG/tests/mat_mul/Python/out/*csv ${MAKEFILE_PATH}/out/

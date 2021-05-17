@@ -76,5 +76,5 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
 
     # MyPapi.dash_table_by_cpus_static(output_file)
-    mp = MyPapi(libname)
-    mp.create_dash_table(output_file)
+    # mp = MyPapi(libname)
+    MyPapi.create_dash_table(output_file)
