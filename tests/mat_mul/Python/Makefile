@@ -63,3 +63,8 @@ permissions_enabled:
 send_results:
 # ? Send the results from the node to the host machine
 	scp out/* jlpadillas01@193.144.198.240:/home/jlpadillas01/Descargas/
+
+
+get_results:
+# ? Get the results from the node
+	scp juan@calderon.atc.unican.es:~/TFG/tests/mat_mul/Python/out/* ~/Descargas

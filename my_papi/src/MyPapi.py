@@ -482,12 +482,13 @@ class MyPapi(object):
         for i in range(0, len(data)):
             data[i]["IPC"] = ipc[i]
         # Adding branch %
-        columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric",
-                       "format": Format(precision=2, scheme=Scheme.percentage)})
-        brnch = self.calculate_rate(
-            df["branch-misses"], df["branch-instructions"])
-        for i in range(0, len(data)):
-            data[i]["Branch acc."] = brnch[i]
+        if "branch-misses" in df.columns and "branch-instructions" in df.columns:
+            columns.append({"name": "Branch acc.", "id": "Branch acc.", "type": "numeric",
+                        "format": Format(precision=2, scheme=Scheme.percentage)})
+            brnch = self.calculate_rate(
+                df["branch-misses"], df["branch-instructions"])
+            for i in range(0, len(data)):
+                data[i]["Branch acc."] = brnch[i]
 
         # Create the app
         app = dash.Dash(__name__)

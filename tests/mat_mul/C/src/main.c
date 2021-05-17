@@ -170,13 +170,20 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     // Set the common variables for my_PAPI execution
-    int *cpus = NULL;
-    int num_cpus = 1;
-    // If the measure is multihread, we have to modify the values
-    if (Mul_type == MULTITHREAD)
+    // int *cpus = NULL;
+    // int num_cpus = 1;
+    int num_cpus = 30;
+    int cpus_list[num_cpus];
+    for(int i = 2; i < 32; i++)
     {
-        num_cpus = my_get_total_cpus();
+        cpus_list[i-2] = i;
     }
+    int *cpus = cpus_list;
+    // // If the measure is multihread, we have to modify the values
+    // if (Mul_type == MULTITHREAD)
+    // {
+    //     num_cpus = my_get_total_cpus();
+    // }
 
     // ! Start measure
     my_prepare_measure(file, num_cpus, cpus);
