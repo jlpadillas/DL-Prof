@@ -12,15 +12,27 @@ __email__ = "juan-luis.padilla@alumnos.unican.es"
 __status__ = "Production"
 # --------------------------------------------------------------------------- #
 
-# Imports
-from ctypes import *
-import locale
-import os
+# Imports for the module
+from ctypes import CDLL, c_int, c_char_p, POINTER
+from locale import setlocale, format_string, LC_ALL
+
+
+# Sets the locale for future prints
+# setlocale(LC_ALL, '')
+from os import environ
+import pandas as pd
+import dash
+import dash_table
+import dash_core_components as dcc
+import dash_html_components as html
+from dash_table.DataTable import DataTable
+from dash.dependencies import Input, Output
+from dash_table.Format import Format, Scheme
 
 # Forces the program to execute on CPU
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+environ['CUDA_VISIBLE_DEVICES'] = '0'
 # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Last import or warnning will appear on screen (libcudart not found)
 from tensorflow import keras
@@ -40,6 +52,8 @@ class MyPapi(object):
         List of int where the system will measure the events
     self.events_file : str
         Path where the file with the events is located
+    self.output_file : str
+        Path where the file with the results is located
     """
 
     def __init__(self, lib_path):
@@ -147,84 +161,6 @@ class MyPapi(object):
         self.p_lib.my_finalize_measure()
     # ----------------------------------------------------------------------- #
 
-    def check_results(self, file_name):
-        """Test the values in the file and check the total amount of each event
-        """
-
-        import pandas as pd
-
-        # Setting the dict of event name and how many computations represent
-        # each count
-        computations_dict = {
-            "fp_arith_inst_retired.128b_packed_double": 2,
-            "fp_arith_inst_retired.128b_packed_single": 4,
-            "fp_arith_inst_retired.256b_packed_double": 4,
-            "fp_arith_inst_retired.256b_packed_single": 8,
-            "fp_arith_inst_retired.512b_packed_double": 8,
-            "fp_arith_inst_retired.512b_packed_single": 16,
-            "fp_arith_inst_retired.scalar_double": 1,
-            "fp_arith_inst_retired.scalar_single": 1,
-            "fp_assist.any": 1
-        }
-
-        # Read events from file
-        with open(self.events_file) as f:
-            events = f.read().splitlines()
-
-        # Read csv
-        data = pd.read_csv(file_name, header=None, sep=":", names=range(4))
-
-        # Assign new header
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        data.columns = header
-
-        # Sum of the same events
-        events_sum = {}
-        for e in events:
-            sum = data.loc[data["Event Name"] == e, "Value"].sum()
-            events_sum[e] = sum
-
-        # Print the sum of the events
-        locale.setlocale(locale.LC_ALL, '')
-        total_fp_events = 0
-        for k, v in events_sum.items():
-            print("Sum [", k, "] =", locale.format_string('%.0f', v, True))
-            if computations_dict.get(k) is not None:
-                total_fp_events += computations_dict[k] * v
-        print("Total fp measured =", locale.format_string('%.0f',
-                                                          total_fp_events, True))
-    # ----------------------------------------------------------------------- #
-
-    def create_table(self, file_name):
-        """Test the values in the file and check the total amount of each event
-        """
-
-        import plotly.graph_objects as go
-        import pandas as pd
-
-        # Read events from file
-        with open(self.events_file) as f:
-            events = f.read().splitlines()
-
-        # Read csv
-        df = pd.read_csv(file_name, header=None, sep=":", names=range(4))
-
-        # Assign new header
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df.columns = header
-
-        fig = go.Figure(data=[go.Table(
-            header=dict(values=list(df.columns),
-                        fill_color='paleturquoise',
-                        align='left'),
-            cells=dict(values=df["CPU"],
-                       fill_color='lavender',
-                       align='left'))
-        ])
-
-        fig.write_html("out/file.html")
-    # ----------------------------------------------------------------------- #
-
     def __set_my_lib(self, lib_path):
         """
         Loads the library libmy_papi.so from the PATH passed by parameter and
@@ -271,37 +207,209 @@ class MyPapi(object):
         self.p_lib.my_finalize_measure.argtypes = None
         self.p_lib.my_finalize_measure.restype = c_int
     # ----------------------------------------------------------------------- #
+
 # --------------------------------------------------------------------------- #
 
-
-class MyResults(object):
-    """
-    Permite realizar medidas de los eventos mediante el uso de la
-    libreria libmy_papi.so, que a su vez se basa en el codigo de PAPI.
-
-    Attributes
-    ----------
-    self.cores          # Array de cores logicos pertenecientes al mismo fisico
-    self.p_lib          # Con el se puede acceder a la liberia y sus func.
-    self.num_event_sets # numero de event_sets
-    self.event_sets     # lista con los event_setss
-    """
-
-    def __init__(self):
-        """Constructor de la clase my_papi que recibe por parametro la
-        localizacion de la liberia libmy_papi.so."""
-
-        super(MyResults, self).__init__()
-    # ----------------------------------------------------------------------- #
-
-    def check_results(self, events_file, output_file):
-        """Test the values in the file and check the total amount of each event
+    def dash_table_by_cpus(self, csv_file):
+        """Create a dash app and prints several tables grouped by the CPU.
         """
 
-        import pandas as pd
+        # Read csv with the following header
+        header = ["CPU", "Value", "Unit", "Event Name"]
+        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+
+        # Get the list of CPUs measured
+        available_cpus = df["CPU"].unique()
+        # And the events
+        events_measured = df["Event Name"].unique()
+
+        # Add to the first column the # of measure
+        num_measure = 0
+        df.insert(0, "# Measure", num_measure)
+        # We have to modify them depending on the number of measures and cpus
+        len_per_df = len(events_measured) * len(available_cpus)
+        for i in range(int(len(df.index) / len_per_df), 0, -1):
+            df.loc[df.index[-i * len_per_df:], "# Measure"] = num_measure
+            num_measure += 1
+
+        df = df.pivot_table(index=["# Measure", "CPU"], columns=[
+            "Event Name"], values=["Value"]).fillna(0)
+        # Drop the first multiindex
+        df.columns = df.columns.droplevel()
+
+        df = self.get_rates_from_df(df)
+
+        # cpu_value = 2
+        # dfff = dff.query('CPU == @cpu_value')
+
+        # Create the app
+        external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+        app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+
+        # Create the html page
+        app.layout = html.Div([
+            # Header
+            html.Div([
+                html.H1("MyPapi measure")
+            ]),
+            # Options
+            html.Div([
+                html.Table(
+                    [
+                        html.Thead([
+                            html.Tr([
+                                html.Th("CPU", style={'width': 200}),
+                                html.Th("Type of representation")
+                            ])
+                        ]),
+                        html.Tbody([
+                            html.Tr([
+                                html.Td([
+                                    dcc.Dropdown(
+                                        id='cpu-dropdown',
+                                        options=[{'label': i, 'value': i}
+                                                 for i in available_cpus],
+                                        value='0',
+                                        style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}
+                                    )
+                                ], style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}),
+                                html.Td([
+                                    dcc.RadioItems(
+                                        id='table-graph-radio-items',
+                                        options=[{'label': i, 'value': i}
+                                                 for i in ['Table', 'Graph']],
+                                        value='Table'
+                                    )
+                                ])
+                            ], style={'align-items': 'center', 'justify-content': 'center'})
+                        ], style={'align-items': 'center', 'justify-content': 'center'})
+                    ]
+                )
+            ]),
+            # Separator
+            html.Hr(),
+            # Figures: table or graph
+            html.Div([
+                # dash_table.DataTable(id='datatable-upload-container')
+                dash_table.DataTable(
+                    sort_action='native',
+                    id='datatable-upload-container',
+                    style_table={'overflowX': 'auto'},
+                    style_cell={
+                        'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
+                        'overflow': 'hidden',
+                        'textOverflow': 'ellipsis',
+                        'height': 'auto',
+                        'whiteSpace': 'normal',
+                    },
+                    style_header={
+                        'backgroundColor': 'paleturquoise',
+                        'fontWeight': 'bold'
+                    },
+                    style_data=dict(backgroundColor="lavender"),
+                    export_format='xlsx',
+                    export_headers='display',
+                    css=[
+                    {"selector": ".column-header--delete svg", "rule": 'display: "none"'},
+                    {"selector": ".column-header--delete::before", "rule": 'content: "X"'}]
+                )
+                # ,
+                # dcc.Graph(id='datatable-upload-graph')
+            ])
+        ])
+
+        @app.callback(
+            # Output(component_id='table-graph', component_property='figure'),
+            Output(component_id='datatable-upload-container',
+                   component_property='data'),
+            Output(component_id='datatable-upload-container',
+                   component_property='columns'),
+            Input(component_id='cpu-dropdown', component_property='value')
+            # ,
+            # Input(component_id='table-graph-radio-items', component_property='value')
+        )
+        def update_output(cpu_dropdown_name):  # , table_graph_name):
+
+            # Get the data with the CPU selected
+            dff = df.query('CPU == @cpu_dropdown_name')
+
+            # Group params to pass them to plotly
+            columns = []
+            columns.insert(
+                0, {"name": "# Measure", "id": "# Measure", "type": "numeric"})
+            for i in dff.columns:
+                if i == "IPC":
+                    columns.append({"name": "IPC", "id": "IPC", "type": "numeric",
+                                    "format": Format(precision=4, scheme=Scheme.fixed)})
+                else:
+                    columns.append({"name": i, "id": i, "type": "numeric",
+                                    "format": Format().group(True),"hideable": True})
+
+            data = dff.to_dict('records')
+            indexes = dff.index.values.tolist()
+            for i in range(0, len(data)):
+                data[i]["# Measure"] = indexes[i][0] + 1
+
+            return data, columns
+
+        # @app.callback(
+        #     Output(component_id='datatable-upload-graph',
+        #            component_property='figure'),
+        #     Input(component_id='datatable-upload-container', component_property='data'))
+        # def display_graph(rows):
+        #     df = pd.DataFrame(rows)
+
+        #     if (df.empty or len(df.columns) < 1):
+        #         return {
+        #             'data': [{
+        #                 'x': [],
+        #                 'y': [],
+        #                 'type': 'bar'
+        #             }]
+        #         }
+        #     return {
+        #         'data': [{
+        #             'x': df[df.columns[0]],
+        #             'y': df[df.columns[1]],
+        #             'type': 'bar'
+        #         }]
+        #     }
+
+        app.run_server(debug=False)
+    # ----------------------------------------------------------------------- #
+
+
+    def get_rates_from_df(self, df):
+
+        # Setting the dict of rate and the events needed to perform the operation
+        events_dict = {
+            "IPC": ["instructions", "cycles"],
+            "Branch acc.": ["branch-misses", "branch-instructions"],
+            "L1 rate": ["L1-dcache-load-misses", "L1-dcache-loads"]
+        }
+
+        indexes = df.index.values.tolist()
+        for k,v in events_dict.items():
+            if v[0] in df.columns and v[1] in df.columns:
+                aux = self.calculate_rate(df[v[0]].tolist(), df[v[1]].tolist())
+                for i in range(0, len(indexes)):
+                    df[k] = aux[i]
+
+        return df
+
+    @staticmethod
+    def sum_events(events_file, output_file):
+        """Read the file 'output_file' and sum the same events.
+
+        Parameters
+        ----------
+        events_file : str
+        output_file : str
+        """
 
         # Setting the dict of event name and how many computations represent
-        # each count
+        # each count. Valid on node
         computations_dict = {
             "fp_arith_inst_retired.128b_packed_double": 2,
             "fp_arith_inst_retired.128b_packed_single": 4,
@@ -316,30 +424,27 @@ class MyResults(object):
 
         # Read events from file
         with open(events_file) as f:
-            self.events = f.read().splitlines()
+            events = f.read().splitlines()
 
-        # Read csv
-        data = pd.read_csv(output_file, header=None, sep=":", names=range(4))
-
-        # Assign new header
+        # Set the header and read the csv
         header = ["CPU", "Value", "Unit", "Event Name"]
-        data.columns = header
+        data = pd.read_csv(output_file, header=None, sep=":", names=header)
 
         # Sum of the same events
         events_sum = {}
-        for e in self.events:
+        for e in events:
             sum = data.loc[data["Event Name"] == e, "Value"].sum()
             events_sum[e] = sum
 
         # Print the sum of the events
-        locale.setlocale(locale.LC_ALL, '')
         total_fp_events = 0
         for k, v in events_sum.items():
-            print("Sum [", k, "] =", locale.format_string('%.0f', v, True))
-            if computations_dict.get(k) is not None:
+            print("Sum[{}] = {}".format(k, format_string('%.0f', v, True)))
+            if k in computations_dict:
                 total_fp_events += computations_dict[k] * v
-        print("Total fp measured =", locale.format_string('%.0f',
-                                                          total_fp_events, True))
+
+        print("Total fp measured =", format_string('%.0f',
+                                                   total_fp_events, True))
     # ----------------------------------------------------------------------- #
 
     def create_dash_table(self, csv_file):
@@ -421,7 +526,8 @@ class MyResults(object):
         app.run_server(debug=False)
     # ----------------------------------------------------------------------- #
 
-    def create_plotly_table(self, csv_file, html_file):
+    @staticmethod
+    def create_plotly_table(csv_file, html_file):
         """Test the values in the file and check the total amount of each event
         """
 

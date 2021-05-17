@@ -75,60 +75,7 @@ if __name__ == "__main__":
     # output_file = None
     # -------------------------------------------------------------------- #
 
-    # Now, we can create a object of my_papi and setup the config.
-    mp = MyPapi(libname)
-    mp.prepare_measure(str(events_file), cpus)
 
-    # Creates an object of matrix class
-    mat = matrix()
-
-    # Reads the parameters
-    if len(sys.argv) != 3:
-        print("[ERROR] Wrong parameters.\n\tUsage: python3 main.py "
-              "[MATRIX_TYPE] [MATRIX_SIZE]")
-        raise mat.Error
-
-    mat_type = sys.argv[1]
-    dim_x_and_y = int(sys.argv[2])
-
-    # We will use square matrices
-    dim_x = dim_x_and_y
-    dim_y = dim_x_and_y
-
-    # Populates the matrices
-    if mat_type == "EMPTY":
-        M = mat.init_empty(rows=dim_x, cols=dim_y)
-        N = mat.init_empty(rows=dim_x, cols=dim_y)
-    elif mat_type == "RAND":
-        M = mat.init_rand(rows=dim_x, cols=dim_y)
-        N = mat.init_rand(rows=dim_x, cols=dim_y)
-    elif mat_type == "SEQ":
-        M = mat.init_seq(rows=dim_x, cols=dim_y)
-        N = mat.init_seq(rows=dim_x, cols=dim_y)
-    elif mat_type == "ZEROS":
-        M = mat.init_zeros(rows=dim_x, cols=dim_y)
-        N = mat.init_zeros(rows=dim_x, cols=dim_y)
-    else:
-        print("[ERROR] Unknown parameter '{}'. Run the program with "
-              "argument 'EMPTY', 'RAND', 'ZEROS' or 'SEQ'.".format(mat_type))
-        raise mat.Error
-
-    # ROI -> Se multiplican
-    mp.start_measure()
-
-    mat.mat_mul(M, N)
-
-    mp.stop_measure()
-    mp.print_measure(output_file)
-    mp.finalize_measure()
-
-    # Prints the results
-    # MyPapi.sum_events(events_file, output_file)
-    mp.check_results(events_file, output_file)
-    # ! Caution! file "output_file" may be overwritted if executed this script
-    # ! more than one time
-
-    if dim_x == dim_y:
-        num = (dim_x * dim_x) * (2 * dim_x - 1)
-        print("\n FP operations expected (aprox.): " +
-              locale.format_string('%.0f', num, grouping=True))
+    # MyPapi.dash_table_by_cpus(output_file)
+    mp = MyPapi(lib_path=libname)
+    mp.dash_table_by_cpus(output_file)
