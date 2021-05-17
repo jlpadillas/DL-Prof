@@ -52,7 +52,7 @@ virtualenv -p /usr/bin/python3 py3_tensorflow_env
 source py3_tensorflow_env/bin/activate
 
 # Install dependencies
-pip install matplotlib numpy pandas scipy scikit-learn
+pip install matplotlib numpy pandas scipy scikit-learn dash
 pip install tensorflow
 
 # Deactivate it

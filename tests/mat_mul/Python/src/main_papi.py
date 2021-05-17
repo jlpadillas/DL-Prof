@@ -63,9 +63,9 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_pc.cfg"
+    # events_file = CFG_DIR / "events_pc.cfg"
     # events_file = CFG_DIR / "events_laptop.cfg"
-    # events_file = CFG_DIR / "events_node.cfg"
+    events_file = CFG_DIR / "events_node.cfg"
 
     # Measures on all cpus
     cpus = None
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
     # Prints the results
     # MyPapi.sum_events(events_file, output_file)
-    mp.check_results(events_file, output_file)
+    # mp.check_results(events_file, output_file)
     # ! Caution! file "output_file" may be overwritted if executed this script
     # ! more than one time
 

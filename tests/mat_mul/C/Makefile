@@ -52,18 +52,18 @@ compile:
 
 run:
 # Executing the program with my_papi library
-	./${BIN_DIR}/main_papi SEQ 512 NORMAL
-	./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
-	./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
-	taskset -c 0 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 NORMAL
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
+	taskset -c 2 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
 # --------------------------------------------------------------------------- #
 
 run_with_perf:
 # Executing the program and measures with perf
-	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 NORMAL
-	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
-	perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
-	taskset -c 0 perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
+	taskset -c 2-31 perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 NORMAL
+	taskset -c 2-31 perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 TRANSPOSE
+	taskset -c 2-31 perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
+	taskset -c 2 perf stat -e ${EVENTS} ./${BIN_DIR}/main_perf SEQ 512 MULTITHREAD
 # --------------------------------------------------------------------------- #
 
 test:
@@ -87,3 +87,7 @@ permissions_enabled:
 	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
 	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
 # --------------------------------------------------------------------------- #
+
+send_results:
+# ? Send the results from the node to the host machine
+	scp out/* jlpadillas01@193.144.198.240:/home/jlpadillas01/Descargas/
