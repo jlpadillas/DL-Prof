@@ -168,6 +168,6 @@ if __name__ == "__main__":
 
     callbacks.finalize_measure()
 
-    MyPapi.dash_table_by_cpus_static(str(output_file))
+    # MyPapi.dash_table_by_cpus_static(str(output_file))
 
     # callbacks.tab

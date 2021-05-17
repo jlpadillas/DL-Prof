@@ -21,18 +21,6 @@ if __name__ == "__main__":
         de rellenar las matrices con la funcion empty() o zeros().
     """
 
-    # standard library
-    # import sys
-    import locale
-
-    # 3rd party packages
-
-    # local source
-    from matrix import matrix
-
-    # Define the locale format
-    locale.setlocale(locale.LC_ALL, '')
-
     # -------------------------------------------------------------------- #
     # Loads the my_papi library
     # -------------------------------------------------------------------- #
@@ -45,8 +33,6 @@ if __name__ == "__main__":
     MY_PAPI_DIR = MY_PAPI_DIR.parent.parent.parent.parent.parent.absolute()
     # From the root (TFG/) access to my_papi dir. and its content
     MY_PAPI_DIR = MY_PAPI_DIR / "my_papi"
-    # Folder where the configuration files are located
-    CFG_DIR = MY_PAPI_DIR / "conf"
     # Folder where the library is located
     LIB_DIR = MY_PAPI_DIR / "lib"
     # Folder where the source codes are located
@@ -55,26 +41,18 @@ if __name__ == "__main__":
     # Add the source path and import the library
     sys.path.insert(0, str(SRC_DIR))
     from MyPapi import *
-
     # -------------------------------------------------------------------- #
-    # Params for the measure
-    # -------------------------------------------------------------------- #
-    # Path to the library, needed to create an object of class my_papi
-    libname = LIB_DIR / "libmy_papi.so"
 
-    # Load a file with the events
-    # events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    # standard library
+    import locale
 
-    # Measures on all cpus
-    cpus = None
+    # Define the locale format
+    locale.setlocale(locale.LC_ALL, '')
 
     # Output file with the measures
-    output_file = "out/main_papi_results.csv"
-    # output_file = None
-    # -------------------------------------------------------------------- #
+    csv_file = "out/main_papi_results.csv"
+    html_file = "out/main_papi_results.html"
 
-    # MyPapi.dash_table_by_cpus_static(output_file)
-    # mp = MyPapi(libname)
-    MyPapi.create_dash_table(output_file)
+    # ? Print the file with dash table
+    # MyPapi.create_plotly_table(csv_file, html_file)
+    MyPapi.create_dash_table(csv_file)

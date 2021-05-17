@@ -210,193 +210,6 @@ class MyPapi(object):
 
 # --------------------------------------------------------------------------- #
 
-    def dash_table_by_cpus(self, csv_file):
-        """Create a dash app and prints several tables grouped by the CPU.
-        """
-
-        # Read csv with the following header
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
-
-        # Get the list of CPUs measured
-        available_cpus = df["CPU"].unique()
-        # And the events
-        events_measured = df["Event Name"].unique()
-
-        # Add to the first column the # of measure
-        num_measure = 0
-        df.insert(0, "# Measure", num_measure)
-        # We have to modify them depending on the number of measures and cpus
-        len_per_df = len(events_measured) * len(available_cpus)
-        for i in range(int(len(df.index) / len_per_df), 0, -1):
-            df.loc[df.index[-i * len_per_df:], "# Measure"] = num_measure
-            num_measure += 1
-
-        df = df.pivot_table(index=["# Measure", "CPU"], columns=[
-            "Event Name"], values=["Value"]).fillna(0)
-        # Drop the first multiindex
-        df.columns = df.columns.droplevel()
-
-        df = self.get_rates_from_df(df)
-
-        # cpu_value = 2
-        # dfff = dff.query('CPU == @cpu_value')
-
-        # Create the app
-        external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-        app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
-
-        # Create the html page
-        app.layout = html.Div([
-            # Header
-            html.Div([
-                html.H1("MyPapi measure")
-            ]),
-            # Options
-            html.Div([
-                html.Table(
-                    [
-                        html.Thead([
-                            html.Tr([
-                                html.Th("CPU", style={'width': 200}),
-                                html.Th("Type of representation")
-                            ])
-                        ]),
-                        html.Tbody([
-                            html.Tr([
-                                html.Td([
-                                    dcc.Dropdown(
-                                        id='cpu-dropdown',
-                                        options=[{'label': i, 'value': i}
-                                                 for i in available_cpus],
-                                        value='0',
-                                        style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}
-                                    )
-                                ], style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}),
-                                html.Td([
-                                    dcc.RadioItems(
-                                        id='table-graph-radio-items',
-                                        options=[{'label': i, 'value': i}
-                                                 for i in ['Table', 'Graph']],
-                                        value='Table'
-                                    )
-                                ])
-                            ], style={'align-items': 'center', 'justify-content': 'center'})
-                        ], style={'align-items': 'center', 'justify-content': 'center'})
-                    ]
-                )
-            ]),
-            # Separator
-            html.Hr(),
-            # Figures: table or graph
-            html.Div([
-                # dash_table.DataTable(id='datatable-upload-container')
-                dash_table.DataTable(
-                    sort_action='native',
-                    id='datatable-upload-container',
-                    style_table={'overflowX': 'auto'},
-                    style_cell={
-                        'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
-                        'overflow': 'hidden',
-                        'textOverflow': 'ellipsis',
-                        'height': 'auto',
-                        'whiteSpace': 'normal',
-                    },
-                    style_header={
-                        'backgroundColor': 'paleturquoise',
-                        'fontWeight': 'bold'
-                    },
-                    style_data=dict(backgroundColor="lavender"),
-                    export_format='xlsx',
-                    export_headers='display',
-                    css=[
-                    {"selector": ".column-header--delete svg", "rule": 'display: "none"'},
-                    {"selector": ".column-header--delete::before", "rule": 'content: "X"'}]
-                )
-                # ,
-                # dcc.Graph(id='datatable-upload-graph')
-            ])
-        ])
-
-        @app.callback(
-            # Output(component_id='table-graph', component_property='figure'),
-            Output(component_id='datatable-upload-container',
-                   component_property='data'),
-            Output(component_id='datatable-upload-container',
-                   component_property='columns'),
-            Input(component_id='cpu-dropdown', component_property='value')
-            # ,
-            # Input(component_id='table-graph-radio-items', component_property='value')
-        )
-        def update_output(cpu_dropdown_name):  # , table_graph_name):
-
-            # Get the data with the CPU selected
-            dff = df.query('CPU == @cpu_dropdown_name')
-
-            # Group params to pass them to plotly
-            columns = []
-            columns.insert(
-                0, {"name": "# Measure", "id": "# Measure", "type": "numeric"})
-            for i in dff.columns:
-                if i == "IPC":
-                    columns.append({"name": "IPC", "id": "IPC", "type": "numeric",
-                                    "format": Format(precision=4, scheme=Scheme.fixed)})
-                else:
-                    columns.append({"name": i, "id": i, "type": "numeric",
-                                    "format": Format().group(True),"hideable": True})
-
-            data = dff.to_dict('records')
-            indexes = dff.index.values.tolist()
-            for i in range(0, len(data)):
-                data[i]["# Measure"] = indexes[i][0] + 1
-
-            return data, columns
-
-        # @app.callback(
-        #     Output(component_id='datatable-upload-graph',
-        #            component_property='figure'),
-        #     Input(component_id='datatable-upload-container', component_property='data'))
-        # def display_graph(rows):
-        #     df = pd.DataFrame(rows)
-
-        #     if (df.empty or len(df.columns) < 1):
-        #         return {
-        #             'data': [{
-        #                 'x': [],
-        #                 'y': [],
-        #                 'type': 'bar'
-        #             }]
-        #         }
-        #     return {
-        #         'data': [{
-        #             'x': df[df.columns[0]],
-        #             'y': df[df.columns[1]],
-        #             'type': 'bar'
-        #         }]
-        #     }
-
-        app.run_server(debug=False)
-    # ----------------------------------------------------------------------- #
-
-    def get_rates_from_df(self, df):
-
-        # Setting the dict of rate and the events needed to perform the operation
-        events_dict = {
-            "IPC": ["instructions", "cycles"],
-            "Branch acc.": ["branch-misses", "branch-instructions"],
-            "L1 rate": ["L1-dcache-load-misses", "L1-dcache-loads"]
-        }
-
-        indexes = df.index.values.tolist()
-        for k,v in events_dict.items():
-            if v[0] in df.columns and v[1] in df.columns:
-                aux = self.calculate_rate(df[v[0]].tolist(), df[v[1]].tolist())
-                for i in range(0, len(indexes)):
-                    df[k] = aux[i]
-
-        return df
-
     @staticmethod
     def sum_events(events_file, output_file):
         """Read the file 'output_file' and sum the same events.
@@ -461,8 +274,7 @@ class MyPapi(object):
 
         # Drop the first multiindex
         df.columns = df.columns.droplevel()
-
-        df = MyPapi.get_rates_from_df_static(df)
+        df = MyPapi.get_rates_from_df(df)
 
         # Group params to pass them to plotly
         columns = []
@@ -551,10 +363,11 @@ class MyPapi(object):
         fig.write_html(html_file)
     # ----------------------------------------------------------------------- #
 
-    def calculate_rate(self, dividend, divisor):
+    @staticmethod
+    def calculate_rate(dividend, divisor):
         aux = []
         if len(dividend) != len(divisor):
-            return
+            return aux
 
         for i in range(0, len(dividend)):
             aux.append(dividend[i] / divisor[i])
@@ -563,19 +376,7 @@ class MyPapi(object):
     # ----------------------------------------------------------------------- #
 
     @staticmethod
-    def calculate_rate_static(dividend, divisor):
-        aux = []
-        if len(dividend) != len(divisor):
-            return
-
-        for i in range(0, len(dividend)):
-            aux.append(dividend[i] / divisor[i])
-
-        return aux
-    # ----------------------------------------------------------------------- #
-
-    @staticmethod
-    def get_rates_from_df_static(df):
+    def get_rates_from_df(df):
 
         # Setting the dict of rate and the events needed to perform the operation
         events_dict = {
@@ -584,17 +385,15 @@ class MyPapi(object):
             "L1 rate": ["L1-dcache-load-misses", "L1-dcache-loads"]
         }
 
-        indexes = df.index.values.tolist()
         for k,v in events_dict.items():
             if v[0] in df.columns and v[1] in df.columns:
-                aux = MyPapi.calculate_rate_static(df[v[0]].tolist(), df[v[1]].tolist())
-                for i in range(0, len(indexes)):
-                    df[k] = aux[i]
+                aux = MyPapi.calculate_rate(df[v[0]].tolist(), df[v[1]].tolist())
+                df[k] = aux
 
         return df
 
     @staticmethod
-    def dash_table_by_cpus_static(csv_file):
+    def dash_table_by_cpus(csv_file):
         """Create a dash app and prints several tables grouped by the CPU.
         """
 
@@ -621,7 +420,7 @@ class MyPapi(object):
         # Drop the first multiindex
         df.columns = df.columns.droplevel()
 
-        df = MyPapi.get_rates_from_df_static(df)
+        df = MyPapi.get_rates_from_df(df)
 
         # cpu_value = 2
         # dfff = dff.query('CPU == @cpu_value')

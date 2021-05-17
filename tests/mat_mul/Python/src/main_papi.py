@@ -121,18 +121,5 @@ if __name__ == "__main__":
     mat.mat_mul(M, N)
 
     mp.stop_measure()
-
-    if dim_x == dim_y:
-        num = (dim_x * dim_x) * (2 * dim_x - 1)
-        print("\n FP operations expected (aprox.): " +
-              locale.format_string('%.0f', num, grouping=True))
-
     mp.print_measure(output_file)
     mp.finalize_measure()
-
-    # Prints the results
-    # MyPapi.sum_events(events_file, output_file)
-    # mp.check_results(events_file, output_file)
-    # ! Caution! file "output_file" may be overwritted if executed this script
-    # ! more than one time
-    # mp.dash_table_by_cpus(output_file)

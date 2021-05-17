@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    from MyCallbacks import MeasureOnEachBatch
+    from MyPapi import *
 
     # ----------------------------------------------------------------------- #
     # Params for the measure

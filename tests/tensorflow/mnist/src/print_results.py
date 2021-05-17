@@ -72,21 +72,20 @@ if __name__ == "__main__":
 
     # ! main_papi.py
     csv_file = "out/mnist_papi.csv"
-    html_file = "out/mnist_papi.html"
-    # fm.create_plotly_table(csv_file, html_file)
-    MyPapi.create_dash_table(csv_file)
+    # html_file = "out/mnist_papi.html"
+    # # fm.create_plotly_table(csv_file, html_file)
+    # MyPapi.create_dash_table(csv_file)
 
-    # ! main_callback_batch.py
-    # csv_file = "out/mnist_callback_batch.csv"
+    # ! mnist_each_epoch.py
+    csv_file = "out/mnist_each_epoch.csv"
     # html_file = "out/main_callback_batch.html"
     # fm.create_plotly_table(csv_file, html_file)
     # fm.create_dash_table(csv_file)
-    # MyPapi.dash_table_by_cpus_static(csv_file)
+    MyPapi.dash_table_by_cpus(csv_file)
 
-
-    # ! main_callback_epoch.py
-    # csv_file = "out/main_callback_epoch.csv"
+    # ! mnist_each_batch.py
+    csv_file = "out/mnist_each_batch.csv"
     # html_file = "out/main_callback_epoch.html"
     # # fm.create_plotly_table(csv_file, html_file)
     # # fm.create_dash_table(csv_file)
-    # MyPapi.dash_table_by_cpus_static(csv_file)
+    # MyPapi.dash_table_by_cpus(csv_file)
