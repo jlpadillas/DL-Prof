@@ -211,11 +211,47 @@ class MyPapi(object):
 # --------------------------------------------------------------------------- #
 
     @staticmethod
+    def get_rates_from_df(df):
+        """Read the dataframe and check if, with the events in it, is possible
+        to calculate rates and new data from them.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Dataframe with the columns as events
+        """
+
+        # Dictionary with the key as the new event to generate. The values are 2
+        # sets with the same events
+        events_dict = {
+            "IPC": [{"instructions", "PAPI_TOT_INS"},
+                    {"cycles", "PAPI_TOT_CYC"}],
+            "Branch miss rate": [{"branch-misses", "PAPI_BR_MSP"},
+                                 {"branch-instructions", "PAPI_BR_CN"}],
+            "L1 Data cache miss rate": [{"PAPI_L1_DCM"}, {}],
+            "L1 Inst cache miss rate": [{"PAPI_L1_ICM"}, {}],
+        }
+
+        cols = set(df.columns.tolist())
+        for k, v in events_dict.items():
+            if k in cols:
+                continue
+            # Check if we have the right events
+            dividend = set.intersection(cols, v[0])
+            divisor = set.intersection(cols, v[1])
+            if len(dividend) != 0 and len(divisor) != 0:
+                # Divide the two lists and add it to the dataframe
+                df[k] = [i / j for i,
+                         j in zip(df[dividend].values, df[divisor].values)]
+        return df
+    # ----------------------------------------------------------------------- #
+
+    @staticmethod
     def read_csv_and_get_rates(csv_file):
 
-        # Read csv with the following header
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+        # Read csv with the following name of columns
+        df = pd.read_csv(csv_file, header=None, sep=":",
+                         names=["CPU", "Value", "Unit", "Event Name"])
 
         # Get the events and cpus measured
         events = df["Event Name"].unique()
@@ -236,11 +272,13 @@ class MyPapi(object):
         # "Rotate" the table
         df = df.pivot_table(index=["# Measure", "CPU"], columns=[
             "Event Name"], values=["Value"]).fillna(0)
+
         # Drop the first multiindex
         df.columns = df.columns.droplevel()
 
         # Add columns with rates (IPC, acc., etc.)
         df = MyPapi.get_rates_from_df(df)
+
         # Remove name of columns
         df.columns.name = None
         # Reset the index to an auto-increment
@@ -577,35 +615,6 @@ class MyPapi(object):
         # Save it in a file and don't open it now
         # fig.write_html(html_file)
     # ----------------------------------------------------------------------- #
-
-    @staticmethod
-    def calculate_rate(dividend, divisor):
-        aux = []
-        if len(dividend) != len(divisor):
-            return aux
-
-        for i in range(0, len(dividend)):
-            aux.append(dividend[i] / divisor[i])
-
-        return aux
-    # ----------------------------------------------------------------------- #
-
-    @staticmethod
-    def get_rates_from_df(df):
-
-        # Setting the dict of rate and the events needed to perform the operation
-        events_dict = {
-            "IPC": ["instructions", "cycles"],
-            "Branch acc.": ["branch-misses", "branch-instructions"],
-            "L1 rate": ["L1-dcache-load-misses", "L1-dcache-loads"]
-        }
-
-        for k,v in events_dict.items():
-            if v[0] in df.columns and v[1] in df.columns:
-                aux = MyPapi.calculate_rate(df[v[0]].tolist(), df[v[1]].tolist())
-                df[k] = aux
-
-        return df
 
     @staticmethod
     def dash_table_by_cpus(csv_file):
