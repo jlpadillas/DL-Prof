@@ -68,7 +68,12 @@ if __name__ == "__main__":
     # output_file = "out/main_papi_results.csv"
     # output_file = None
     # -------------------------------------------------------------------- #
+    
+    csv_file = "out/mnist_each_epoch.csv"
+    df = MyPapi.read_csv_and_get_rates(csv_file)
+    MyPapi.dash_create_table(df)
 
+    exit(0)
 
     # ! main_papi.py
     csv_file = "out/mnist_papi.csv"

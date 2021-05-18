@@ -1,0 +1,5401 @@
+CPU,# Measure,variable,value
+2,1,branch-instructions,54362094.0
+3,1,branch-instructions,49124267.0
+4,1,branch-instructions,44755391.0
+5,1,branch-instructions,39870779.0
+6,1,branch-instructions,43344564.0
+7,1,branch-instructions,38904027.0
+8,1,branch-instructions,43424370.0
+9,1,branch-instructions,35239276.0
+10,1,branch-instructions,54531878.0
+11,1,branch-instructions,67785984.0
+12,1,branch-instructions,44271504.0
+13,1,branch-instructions,83610619.0
+14,1,branch-instructions,186655114.0
+15,1,branch-instructions,59820298.0
+16,1,branch-instructions,46849709.0
+17,1,branch-instructions,42190676.0
+18,1,branch-instructions,43961139.0
+19,1,branch-instructions,40521956.0
+20,1,branch-instructions,39240808.0
+21,1,branch-instructions,48225920.0
+22,1,branch-instructions,45208487.0
+23,1,branch-instructions,40002438.0
+24,1,branch-instructions,56784654.0
+25,1,branch-instructions,37711115.0
+26,1,branch-instructions,38254547.0
+27,1,branch-instructions,42665624.0
+28,1,branch-instructions,54956207.0
+29,1,branch-instructions,65658335.0
+30,1,branch-instructions,41048043.0
+31,1,branch-instructions,54278281.0
+2,2,branch-instructions,42271708.0
+3,2,branch-instructions,44207166.0
+4,2,branch-instructions,67179720.0
+5,2,branch-instructions,37558684.0
+6,2,branch-instructions,45731451.0
+7,2,branch-instructions,51012603.0
+8,2,branch-instructions,44171068.0
+9,2,branch-instructions,58831235.0
+10,2,branch-instructions,53544963.0
+11,2,branch-instructions,45599334.0
+12,2,branch-instructions,57991366.0
+13,2,branch-instructions,45195383.0
+14,2,branch-instructions,39658766.0
+15,2,branch-instructions,44266379.0
+16,2,branch-instructions,33384646.0
+17,2,branch-instructions,44680860.0
+18,2,branch-instructions,48079745.0
+19,2,branch-instructions,46510338.0
+20,2,branch-instructions,34891631.0
+21,2,branch-instructions,35213782.0
+22,2,branch-instructions,30429362.0
+23,2,branch-instructions,35308688.0
+24,2,branch-instructions,40526726.0
+25,2,branch-instructions,41137781.0
+26,2,branch-instructions,47363975.0
+27,2,branch-instructions,42503764.0
+28,2,branch-instructions,39412503.0
+29,2,branch-instructions,47073259.0
+30,2,branch-instructions,66673369.0
+31,2,branch-instructions,66901595.0
+2,3,branch-instructions,49975142.0
+3,3,branch-instructions,41628019.0
+4,3,branch-instructions,39835267.0
+5,3,branch-instructions,41590008.0
+6,3,branch-instructions,47167233.0
+7,3,branch-instructions,37964566.0
+8,3,branch-instructions,47927498.0
+9,3,branch-instructions,43851988.0
+10,3,branch-instructions,48462118.0
+11,3,branch-instructions,39313204.0
+12,3,branch-instructions,47750104.0
+13,3,branch-instructions,49894830.0
+14,3,branch-instructions,72681138.0
+15,3,branch-instructions,43002160.0
+16,3,branch-instructions,41437317.0
+17,3,branch-instructions,45529310.0
+18,3,branch-instructions,56734072.0
+19,3,branch-instructions,47036139.0
+20,3,branch-instructions,58996447.0
+21,3,branch-instructions,43099516.0
+22,3,branch-instructions,44349734.0
+23,3,branch-instructions,40493057.0
+24,3,branch-instructions,50530195.0
+25,3,branch-instructions,72057828.0
+26,3,branch-instructions,35229106.0
+27,3,branch-instructions,36631779.0
+28,3,branch-instructions,38281305.0
+29,3,branch-instructions,38936512.0
+30,3,branch-instructions,36233287.0
+31,3,branch-instructions,37767693.0
+2,4,branch-instructions,47441432.0
+3,4,branch-instructions,58012694.0
+4,4,branch-instructions,43340757.0
+5,4,branch-instructions,48098506.0
+6,4,branch-instructions,34283393.0
+7,4,branch-instructions,38334307.0
+8,4,branch-instructions,32784421.0
+9,4,branch-instructions,35751708.0
+10,4,branch-instructions,38312729.0
+11,4,branch-instructions,42880616.0
+12,4,branch-instructions,48383621.0
+13,4,branch-instructions,47984378.0
+14,4,branch-instructions,46391980.0
+15,4,branch-instructions,42795847.0
+16,4,branch-instructions,48852476.0
+17,4,branch-instructions,43147664.0
+18,4,branch-instructions,40346807.0
+19,4,branch-instructions,55955459.0
+20,4,branch-instructions,48907530.0
+21,4,branch-instructions,52714533.0
+22,4,branch-instructions,40569023.0
+23,4,branch-instructions,42755906.0
+24,4,branch-instructions,33430052.0
+25,4,branch-instructions,38368459.0
+26,4,branch-instructions,41825604.0
+27,4,branch-instructions,70812141.0
+28,4,branch-instructions,61221411.0
+29,4,branch-instructions,47994643.0
+30,4,branch-instructions,40504222.0
+31,4,branch-instructions,59380162.0
+2,5,branch-instructions,60884958.0
+3,5,branch-instructions,51916033.0
+4,5,branch-instructions,49158885.0
+5,5,branch-instructions,46147609.0
+6,5,branch-instructions,37021398.0
+7,5,branch-instructions,42137155.0
+8,5,branch-instructions,42816623.0
+9,5,branch-instructions,58963629.0
+10,5,branch-instructions,38585352.0
+11,5,branch-instructions,34277754.0
+12,5,branch-instructions,36020659.0
+13,5,branch-instructions,32802389.0
+14,5,branch-instructions,40180485.0
+15,5,branch-instructions,39855752.0
+16,5,branch-instructions,70884976.0
+17,5,branch-instructions,39203163.0
+18,5,branch-instructions,46755589.0
+19,5,branch-instructions,40795501.0
+20,5,branch-instructions,68293567.0
+21,5,branch-instructions,48926890.0
+22,5,branch-instructions,40948853.0
+23,5,branch-instructions,37535692.0
+24,5,branch-instructions,59234091.0
+25,5,branch-instructions,45913069.0
+26,5,branch-instructions,45644653.0
+27,5,branch-instructions,52596064.0
+28,5,branch-instructions,41172226.0
+29,5,branch-instructions,43004744.0
+30,5,branch-instructions,33458091.0
+31,5,branch-instructions,47053733.0
+2,6,branch-instructions,81836126.0
+3,6,branch-instructions,48113938.0
+4,6,branch-instructions,52762973.0
+5,6,branch-instructions,43463347.0
+6,6,branch-instructions,53759210.0
+7,6,branch-instructions,49682772.0
+8,6,branch-instructions,38822507.0
+9,6,branch-instructions,45570334.0
+10,6,branch-instructions,33271583.0
+11,6,branch-instructions,58460139.0
+12,6,branch-instructions,37165592.0
+13,6,branch-instructions,36871165.0
+14,6,branch-instructions,54763013.0
+15,6,branch-instructions,44408107.0
+16,6,branch-instructions,37039682.0
+17,6,branch-instructions,36956995.0
+18,6,branch-instructions,38345495.0
+19,6,branch-instructions,38718480.0
+20,6,branch-instructions,50177783.0
+21,6,branch-instructions,40056031.0
+22,6,branch-instructions,40429193.0
+23,6,branch-instructions,77509148.0
+24,6,branch-instructions,60605964.0
+25,6,branch-instructions,40776301.0
+26,6,branch-instructions,49173556.0
+27,6,branch-instructions,50749361.0
+28,6,branch-instructions,33602659.0
+29,6,branch-instructions,34701525.0
+30,6,branch-instructions,32389306.0
+31,6,branch-instructions,30330369.0
+2,7,branch-instructions,41002374.0
+3,7,branch-instructions,33995774.0
+4,7,branch-instructions,36516249.0
+5,7,branch-instructions,37572840.0
+6,7,branch-instructions,35575639.0
+7,7,branch-instructions,60867418.0
+8,7,branch-instructions,56812304.0
+9,7,branch-instructions,50256941.0
+10,7,branch-instructions,54651437.0
+11,7,branch-instructions,46132013.0
+12,7,branch-instructions,48989710.0
+13,7,branch-instructions,41391230.0
+14,7,branch-instructions,55874823.0
+15,7,branch-instructions,43943140.0
+16,7,branch-instructions,49534084.0
+17,7,branch-instructions,39675933.0
+18,7,branch-instructions,38093117.0
+19,7,branch-instructions,37630332.0
+20,7,branch-instructions,44200329.0
+21,7,branch-instructions,44964650.0
+22,7,branch-instructions,38091592.0
+23,7,branch-instructions,38071307.0
+24,7,branch-instructions,43654937.0
+25,7,branch-instructions,51871426.0
+26,7,branch-instructions,53353419.0
+27,7,branch-instructions,44566981.0
+28,7,branch-instructions,65932296.0
+29,7,branch-instructions,40210979.0
+30,7,branch-instructions,52491280.0
+31,7,branch-instructions,46002146.0
+2,8,branch-instructions,57630509.0
+3,8,branch-instructions,49500960.0
+4,8,branch-instructions,41042206.0
+5,8,branch-instructions,65353121.0
+6,8,branch-instructions,38879684.0
+7,8,branch-instructions,41840502.0
+8,8,branch-instructions,54412742.0
+9,8,branch-instructions,73583614.0
+10,8,branch-instructions,76511168.0
+11,8,branch-instructions,46121317.0
+12,8,branch-instructions,60118519.0
+13,8,branch-instructions,86262691.0
+14,8,branch-instructions,62701499.0
+15,8,branch-instructions,49629102.0
+16,8,branch-instructions,28516559.0
+17,8,branch-instructions,30447037.0
+18,8,branch-instructions,30174832.0
+19,8,branch-instructions,29378060.0
+20,8,branch-instructions,48951272.0
+21,8,branch-instructions,29336936.0
+22,8,branch-instructions,31771779.0
+23,8,branch-instructions,38740236.0
+24,8,branch-instructions,33543065.0
+25,8,branch-instructions,30901640.0
+26,8,branch-instructions,34945560.0
+27,8,branch-instructions,34940760.0
+28,8,branch-instructions,38729515.0
+29,8,branch-instructions,55185304.0
+30,8,branch-instructions,30266723.0
+31,8,branch-instructions,40807886.0
+2,9,branch-instructions,43123038.0
+3,9,branch-instructions,42660874.0
+4,9,branch-instructions,47533840.0
+5,9,branch-instructions,51007769.0
+6,9,branch-instructions,74238644.0
+7,9,branch-instructions,50176550.0
+8,9,branch-instructions,57919540.0
+9,9,branch-instructions,47730124.0
+10,9,branch-instructions,56453840.0
+11,9,branch-instructions,53067238.0
+12,9,branch-instructions,46209352.0
+13,9,branch-instructions,40268209.0
+14,9,branch-instructions,44307930.0
+15,9,branch-instructions,50149724.0
+16,9,branch-instructions,36153149.0
+17,9,branch-instructions,39155867.0
+18,9,branch-instructions,33817644.0
+19,9,branch-instructions,33341184.0
+20,9,branch-instructions,27702457.0
+21,9,branch-instructions,38337246.0
+22,9,branch-instructions,57132554.0
+23,9,branch-instructions,35908169.0
+24,9,branch-instructions,65877361.0
+25,9,branch-instructions,35404387.0
+26,9,branch-instructions,30850520.0
+27,9,branch-instructions,34126802.0
+28,9,branch-instructions,49165824.0
+29,9,branch-instructions,64957359.0
+30,9,branch-instructions,37282932.0
+31,9,branch-instructions,48171092.0
+2,10,branch-instructions,49081347.0
+3,10,branch-instructions,46089758.0
+4,10,branch-instructions,61697471.0
+5,10,branch-instructions,40691668.0
+6,10,branch-instructions,76935994.0
+7,10,branch-instructions,36139909.0
+8,10,branch-instructions,37429284.0
+9,10,branch-instructions,48169693.0
+10,10,branch-instructions,34662066.0
+11,10,branch-instructions,54215609.0
+12,10,branch-instructions,35659102.0
+13,10,branch-instructions,40212245.0
+14,10,branch-instructions,49641533.0
+15,10,branch-instructions,52645029.0
+16,10,branch-instructions,41224297.0
+17,10,branch-instructions,41507074.0
+18,10,branch-instructions,55897423.0
+19,10,branch-instructions,70420458.0
+20,10,branch-instructions,39118980.0
+21,10,branch-instructions,36287843.0
+22,10,branch-instructions,63316486.0
+23,10,branch-instructions,62458895.0
+24,10,branch-instructions,30567816.0
+25,10,branch-instructions,34033666.0
+26,10,branch-instructions,39648947.0
+27,10,branch-instructions,36734857.0
+28,10,branch-instructions,35336410.0
+29,10,branch-instructions,39399548.0
+30,10,branch-instructions,37271878.0
+31,10,branch-instructions,44870451.0
+2,11,branch-instructions,47750004.0
+3,11,branch-instructions,38867717.0
+4,11,branch-instructions,41012236.0
+5,11,branch-instructions,53276619.0
+6,11,branch-instructions,71790430.0
+7,11,branch-instructions,42249626.0
+8,11,branch-instructions,67671079.0
+9,11,branch-instructions,40538709.0
+10,11,branch-instructions,41273366.0
+11,11,branch-instructions,37157109.0
+12,11,branch-instructions,45124640.0
+13,11,branch-instructions,56614403.0
+14,11,branch-instructions,42678366.0
+15,11,branch-instructions,35893624.0
+16,11,branch-instructions,34605761.0
+17,11,branch-instructions,36504669.0
+18,11,branch-instructions,39170340.0
+19,11,branch-instructions,43852124.0
+20,11,branch-instructions,42166963.0
+21,11,branch-instructions,59255279.0
+22,11,branch-instructions,55515987.0
+23,11,branch-instructions,49724126.0
+24,11,branch-instructions,37444837.0
+25,11,branch-instructions,46766524.0
+26,11,branch-instructions,36573709.0
+27,11,branch-instructions,44465216.0
+28,11,branch-instructions,47206076.0
+29,11,branch-instructions,40757840.0
+30,11,branch-instructions,43349260.0
+31,11,branch-instructions,54866018.0
+2,12,branch-instructions,44664186.0
+3,12,branch-instructions,37965733.0
+4,12,branch-instructions,68129485.0
+5,12,branch-instructions,43223484.0
+6,12,branch-instructions,64993758.0
+7,12,branch-instructions,47781667.0
+8,12,branch-instructions,65728517.0
+9,12,branch-instructions,67243683.0
+10,12,branch-instructions,53570576.0
+11,12,branch-instructions,50661211.0
+12,12,branch-instructions,55707078.0
+13,12,branch-instructions,64995230.0
+14,12,branch-instructions,48587876.0
+15,12,branch-instructions,64742478.0
+16,12,branch-instructions,35252313.0
+17,12,branch-instructions,45574134.0
+18,12,branch-instructions,43400402.0
+19,12,branch-instructions,36310886.0
+20,12,branch-instructions,37344542.0
+21,12,branch-instructions,43128372.0
+22,12,branch-instructions,35991133.0
+23,12,branch-instructions,30358474.0
+24,12,branch-instructions,34041575.0
+25,12,branch-instructions,30361927.0
+26,12,branch-instructions,33118197.0
+27,12,branch-instructions,32952776.0
+28,12,branch-instructions,38044784.0
+29,12,branch-instructions,33885241.0
+30,12,branch-instructions,48641495.0
+31,12,branch-instructions,32582611.0
+2,13,branch-instructions,36575800.0
+3,13,branch-instructions,35921648.0
+4,13,branch-instructions,41223450.0
+5,13,branch-instructions,55302875.0
+6,13,branch-instructions,44135834.0
+7,13,branch-instructions,53476741.0
+8,13,branch-instructions,46569170.0
+9,13,branch-instructions,66677347.0
+10,13,branch-instructions,37899144.0
+11,13,branch-instructions,34988605.0
+12,13,branch-instructions,38260790.0
+13,13,branch-instructions,40169169.0
+14,13,branch-instructions,51474445.0
+15,13,branch-instructions,58979791.0
+16,13,branch-instructions,46835941.0
+17,13,branch-instructions,39054782.0
+18,13,branch-instructions,39374738.0
+19,13,branch-instructions,47718401.0
+20,13,branch-instructions,75039917.0
+21,13,branch-instructions,34248387.0
+22,13,branch-instructions,34758910.0
+23,13,branch-instructions,51850245.0
+24,13,branch-instructions,48345030.0
+25,13,branch-instructions,42748705.0
+26,13,branch-instructions,46691523.0
+27,13,branch-instructions,39382442.0
+28,13,branch-instructions,48473730.0
+29,13,branch-instructions,52426537.0
+30,13,branch-instructions,38715447.0
+31,13,branch-instructions,45758125.0
+2,14,branch-instructions,44196764.0
+3,14,branch-instructions,43402089.0
+4,14,branch-instructions,56377586.0
+5,14,branch-instructions,48832974.0
+6,14,branch-instructions,58530972.0
+7,14,branch-instructions,57492445.0
+8,14,branch-instructions,57525756.0
+9,14,branch-instructions,65417535.0
+10,14,branch-instructions,41586699.0
+11,14,branch-instructions,70487271.0
+12,14,branch-instructions,45402212.0
+13,14,branch-instructions,68297677.0
+14,14,branch-instructions,44332079.0
+15,14,branch-instructions,45430318.0
+16,14,branch-instructions,39523563.0
+17,14,branch-instructions,39961641.0
+18,14,branch-instructions,31760591.0
+19,14,branch-instructions,43417612.0
+20,14,branch-instructions,50136789.0
+21,14,branch-instructions,34239500.0
+22,14,branch-instructions,30354885.0
+23,14,branch-instructions,33611353.0
+24,14,branch-instructions,44390235.0
+25,14,branch-instructions,37685204.0
+26,14,branch-instructions,36360004.0
+27,14,branch-instructions,71495493.0
+28,14,branch-instructions,32949711.0
+29,14,branch-instructions,34854899.0
+30,14,branch-instructions,30733810.0
+31,14,branch-instructions,33134668.0
+2,15,branch-instructions,38183482.0
+3,15,branch-instructions,36217808.0
+4,15,branch-instructions,39961923.0
+5,15,branch-instructions,79132261.0
+6,15,branch-instructions,55888616.0
+7,15,branch-instructions,64520263.0
+8,15,branch-instructions,57379756.0
+9,15,branch-instructions,78240423.0
+10,15,branch-instructions,45716852.0
+11,15,branch-instructions,45873391.0
+12,15,branch-instructions,47803771.0
+13,15,branch-instructions,52307749.0
+14,15,branch-instructions,80119759.0
+15,15,branch-instructions,49253894.0
+16,15,branch-instructions,39241147.0
+17,15,branch-instructions,35809293.0
+18,15,branch-instructions,34076056.0
+19,15,branch-instructions,36970487.0
+20,15,branch-instructions,31199262.0
+21,15,branch-instructions,32107691.0
+22,15,branch-instructions,32458792.0
+23,15,branch-instructions,29123370.0
+24,15,branch-instructions,34424561.0
+25,15,branch-instructions,63048339.0
+26,15,branch-instructions,37947708.0
+27,15,branch-instructions,37806473.0
+28,15,branch-instructions,46007352.0
+29,15,branch-instructions,40006062.0
+30,15,branch-instructions,36482887.0
+31,15,branch-instructions,35456931.0
+2,16,branch-instructions,47108153.0
+3,16,branch-instructions,40711168.0
+4,16,branch-instructions,57071424.0
+5,16,branch-instructions,46973838.0
+6,16,branch-instructions,43452715.0
+7,16,branch-instructions,37926533.0
+8,16,branch-instructions,43629962.0
+9,16,branch-instructions,61620105.0
+10,16,branch-instructions,39126918.0
+11,16,branch-instructions,44935434.0
+12,16,branch-instructions,39912136.0
+13,16,branch-instructions,69085465.0
+14,16,branch-instructions,43707076.0
+15,16,branch-instructions,39056889.0
+16,16,branch-instructions,35606706.0
+17,16,branch-instructions,41608288.0
+18,16,branch-instructions,49211426.0
+19,16,branch-instructions,49319951.0
+20,16,branch-instructions,38027492.0
+21,16,branch-instructions,66628116.0
+22,16,branch-instructions,34051577.0
+23,16,branch-instructions,32630205.0
+24,16,branch-instructions,35677767.0
+25,16,branch-instructions,37087983.0
+26,16,branch-instructions,41619526.0
+27,16,branch-instructions,38265642.0
+28,16,branch-instructions,45125270.0
+29,16,branch-instructions,47914246.0
+30,16,branch-instructions,66359660.0
+31,16,branch-instructions,58477257.0
+2,17,branch-instructions,40594672.0
+3,17,branch-instructions,34414396.0
+4,17,branch-instructions,35068605.0
+5,17,branch-instructions,43579844.0
+6,17,branch-instructions,41923318.0
+7,17,branch-instructions,40889356.0
+8,17,branch-instructions,48508653.0
+9,17,branch-instructions,59982435.0
+10,17,branch-instructions,58213766.0
+11,17,branch-instructions,83525983.0
+12,17,branch-instructions,47249318.0
+13,17,branch-instructions,36559622.0
+14,17,branch-instructions,38264877.0
+15,17,branch-instructions,45351575.0
+16,17,branch-instructions,41538772.0
+17,17,branch-instructions,37475404.0
+18,17,branch-instructions,44695386.0
+19,17,branch-instructions,47274106.0
+20,17,branch-instructions,51319693.0
+21,17,branch-instructions,37944510.0
+22,17,branch-instructions,44334546.0
+23,17,branch-instructions,47232368.0
+24,17,branch-instructions,42535303.0
+25,17,branch-instructions,67982941.0
+26,17,branch-instructions,47989515.0
+27,17,branch-instructions,34504704.0
+28,17,branch-instructions,43294929.0
+29,17,branch-instructions,48001271.0
+30,17,branch-instructions,40726789.0
+31,17,branch-instructions,42757032.0
+2,18,branch-instructions,40519663.0
+3,18,branch-instructions,48364853.0
+4,18,branch-instructions,46201993.0
+5,18,branch-instructions,58428563.0
+6,18,branch-instructions,49849249.0
+7,18,branch-instructions,53839964.0
+8,18,branch-instructions,65477850.0
+9,18,branch-instructions,53853849.0
+10,18,branch-instructions,66693337.0
+11,18,branch-instructions,77039594.0
+12,18,branch-instructions,44369778.0
+13,18,branch-instructions,34162433.0
+14,18,branch-instructions,65286133.0
+15,18,branch-instructions,44705840.0
+16,18,branch-instructions,34776921.0
+17,18,branch-instructions,36840238.0
+18,18,branch-instructions,34027529.0
+19,18,branch-instructions,33686203.0
+20,18,branch-instructions,36493468.0
+21,18,branch-instructions,37341576.0
+22,18,branch-instructions,27827846.0
+23,18,branch-instructions,34760321.0
+24,18,branch-instructions,51116316.0
+25,18,branch-instructions,35505404.0
+26,18,branch-instructions,60633622.0
+27,18,branch-instructions,31688371.0
+28,18,branch-instructions,51962483.0
+29,18,branch-instructions,32161335.0
+30,18,branch-instructions,32458321.0
+31,18,branch-instructions,51397132.0
+2,19,branch-instructions,52577361.0
+3,19,branch-instructions,71873695.0
+4,19,branch-instructions,43633618.0
+5,19,branch-instructions,45542580.0
+6,19,branch-instructions,41528965.0
+7,19,branch-instructions,34989454.0
+8,19,branch-instructions,33206450.0
+9,19,branch-instructions,41376067.0
+10,19,branch-instructions,46529702.0
+11,19,branch-instructions,56649877.0
+12,19,branch-instructions,68389877.0
+13,19,branch-instructions,52601393.0
+14,19,branch-instructions,31108779.0
+15,19,branch-instructions,44742138.0
+16,19,branch-instructions,42435715.0
+17,19,branch-instructions,53615360.0
+18,19,branch-instructions,35597053.0
+19,19,branch-instructions,38746868.0
+20,19,branch-instructions,38439940.0
+21,19,branch-instructions,99376951.0
+22,19,branch-instructions,48056715.0
+23,19,branch-instructions,38236739.0
+24,19,branch-instructions,39993540.0
+25,19,branch-instructions,43834248.0
+26,19,branch-instructions,39263410.0
+27,19,branch-instructions,40498427.0
+28,19,branch-instructions,36440396.0
+29,19,branch-instructions,38052822.0
+30,19,branch-instructions,34131240.0
+31,19,branch-instructions,39650898.0
+2,20,branch-instructions,45608044.0
+3,20,branch-instructions,60667429.0
+4,20,branch-instructions,39196118.0
+5,20,branch-instructions,43606712.0
+6,20,branch-instructions,44466959.0
+7,20,branch-instructions,45650135.0
+8,20,branch-instructions,65416304.0
+9,20,branch-instructions,37134881.0
+10,20,branch-instructions,61701249.0
+11,20,branch-instructions,55011103.0
+12,20,branch-instructions,39994135.0
+13,20,branch-instructions,53239638.0
+14,20,branch-instructions,38895940.0
+15,20,branch-instructions,42905150.0
+16,20,branch-instructions,50115717.0
+17,20,branch-instructions,36554663.0
+18,20,branch-instructions,48748372.0
+19,20,branch-instructions,42771939.0
+20,20,branch-instructions,43045704.0
+21,20,branch-instructions,46158598.0
+22,20,branch-instructions,38137164.0
+23,20,branch-instructions,40090219.0
+24,20,branch-instructions,49484312.0
+25,20,branch-instructions,44001818.0
+26,20,branch-instructions,39035061.0
+27,20,branch-instructions,53440310.0
+28,20,branch-instructions,31338418.0
+29,20,branch-instructions,55222852.0
+30,20,branch-instructions,41349796.0
+31,20,branch-instructions,37669325.0
+2,21,branch-instructions,37206765.0
+3,21,branch-instructions,37268190.0
+4,21,branch-instructions,49513964.0
+5,21,branch-instructions,60191115.0
+6,21,branch-instructions,37404081.0
+7,21,branch-instructions,41542673.0
+8,21,branch-instructions,61553598.0
+9,21,branch-instructions,47780369.0
+10,21,branch-instructions,37429038.0
+11,21,branch-instructions,43085543.0
+12,21,branch-instructions,53619917.0
+13,21,branch-instructions,52978705.0
+14,21,branch-instructions,49374032.0
+15,21,branch-instructions,46373009.0
+16,21,branch-instructions,62792456.0
+17,21,branch-instructions,53257985.0
+18,21,branch-instructions,43106986.0
+19,21,branch-instructions,33225881.0
+20,21,branch-instructions,46486108.0
+21,21,branch-instructions,39004148.0
+22,21,branch-instructions,61476008.0
+23,21,branch-instructions,38842584.0
+24,21,branch-instructions,43296881.0
+25,21,branch-instructions,46543115.0
+26,21,branch-instructions,37812832.0
+27,21,branch-instructions,40967709.0
+28,21,branch-instructions,44654006.0
+29,21,branch-instructions,38220088.0
+30,21,branch-instructions,44200089.0
+31,21,branch-instructions,42850536.0
+2,22,branch-instructions,53331121.0
+3,22,branch-instructions,35440526.0
+4,22,branch-instructions,36217157.0
+5,22,branch-instructions,54746239.0
+6,22,branch-instructions,39940093.0
+7,22,branch-instructions,50185822.0
+8,22,branch-instructions,44039722.0
+9,22,branch-instructions,50636891.0
+10,22,branch-instructions,48549661.0
+11,22,branch-instructions,34976237.0
+12,22,branch-instructions,31819677.0
+13,22,branch-instructions,38255615.0
+14,22,branch-instructions,44276672.0
+15,22,branch-instructions,38941081.0
+16,22,branch-instructions,71949167.0
+17,22,branch-instructions,42309593.0
+18,22,branch-instructions,36081758.0
+19,22,branch-instructions,41439411.0
+20,22,branch-instructions,53119792.0
+21,22,branch-instructions,56903532.0
+22,22,branch-instructions,43386033.0
+23,22,branch-instructions,40820032.0
+24,22,branch-instructions,41622197.0
+25,22,branch-instructions,59713736.0
+26,22,branch-instructions,39798473.0
+27,22,branch-instructions,49779615.0
+28,22,branch-instructions,40946597.0
+29,22,branch-instructions,54362278.0
+30,22,branch-instructions,59095404.0
+31,22,branch-instructions,40315597.0
+2,23,branch-instructions,24665064.0
+3,23,branch-instructions,20089639.0
+4,23,branch-instructions,22099017.0
+5,23,branch-instructions,29926777.0
+6,23,branch-instructions,25942484.0
+7,23,branch-instructions,28992243.0
+8,23,branch-instructions,33392235.0
+9,23,branch-instructions,29107866.0
+10,23,branch-instructions,35607274.0
+11,23,branch-instructions,23051848.0
+12,23,branch-instructions,19877977.0
+13,23,branch-instructions,22982110.0
+14,23,branch-instructions,26129429.0
+15,23,branch-instructions,31370567.0
+16,23,branch-instructions,45509767.0
+17,23,branch-instructions,76483793.0
+18,23,branch-instructions,51115246.0
+19,23,branch-instructions,69046891.0
+20,23,branch-instructions,65695260.0
+21,23,branch-instructions,73781194.0
+22,23,branch-instructions,58546696.0
+23,23,branch-instructions,88334296.0
+24,23,branch-instructions,71863872.0
+25,23,branch-instructions,47655344.0
+26,23,branch-instructions,57508736.0
+27,23,branch-instructions,73564536.0
+28,23,branch-instructions,52122743.0
+29,23,branch-instructions,52743321.0
+30,23,branch-instructions,62107190.0
+31,23,branch-instructions,52445234.0
+2,24,branch-instructions,41969748.0
+3,24,branch-instructions,41516249.0
+4,24,branch-instructions,38124144.0
+5,24,branch-instructions,35434551.0
+6,24,branch-instructions,36658284.0
+7,24,branch-instructions,47216784.0
+8,24,branch-instructions,39252194.0
+9,24,branch-instructions,53988194.0
+10,24,branch-instructions,39928800.0
+11,24,branch-instructions,35622271.0
+12,24,branch-instructions,42384481.0
+13,24,branch-instructions,55250365.0
+14,24,branch-instructions,40405301.0
+15,24,branch-instructions,64221444.0
+16,24,branch-instructions,41896722.0
+17,24,branch-instructions,92791046.0
+18,24,branch-instructions,48698981.0
+19,24,branch-instructions,55985656.0
+20,24,branch-instructions,44280322.0
+21,24,branch-instructions,45100352.0
+22,24,branch-instructions,35609474.0
+23,24,branch-instructions,44407535.0
+24,24,branch-instructions,43999140.0
+25,24,branch-instructions,48517988.0
+26,24,branch-instructions,41914681.0
+27,24,branch-instructions,45582384.0
+28,24,branch-instructions,44595042.0
+29,24,branch-instructions,44564461.0
+30,24,branch-instructions,46667561.0
+31,24,branch-instructions,37160439.0
+2,25,branch-instructions,49383390.0
+3,25,branch-instructions,55914028.0
+4,25,branch-instructions,46459894.0
+5,25,branch-instructions,47410788.0
+6,25,branch-instructions,56679152.0
+7,25,branch-instructions,74596490.0
+8,25,branch-instructions,44048639.0
+9,25,branch-instructions,41057189.0
+10,25,branch-instructions,54933808.0
+11,25,branch-instructions,57749387.0
+12,25,branch-instructions,53841432.0
+13,25,branch-instructions,63403139.0
+14,25,branch-instructions,41079694.0
+15,25,branch-instructions,33857914.0
+16,25,branch-instructions,37870190.0
+17,25,branch-instructions,38834493.0
+18,25,branch-instructions,36037673.0
+19,25,branch-instructions,44333614.0
+20,25,branch-instructions,43930742.0
+21,25,branch-instructions,34972011.0
+22,25,branch-instructions,33051296.0
+23,25,branch-instructions,48428956.0
+24,25,branch-instructions,45470221.0
+25,25,branch-instructions,36770961.0
+26,25,branch-instructions,55822949.0
+27,25,branch-instructions,36904435.0
+28,25,branch-instructions,36961031.0
+29,25,branch-instructions,50766715.0
+30,25,branch-instructions,33945532.0
+31,25,branch-instructions,36784501.0
+2,26,branch-instructions,54871034.0
+3,26,branch-instructions,36058198.0
+4,26,branch-instructions,36770201.0
+5,26,branch-instructions,44716889.0
+6,26,branch-instructions,65835368.0
+7,26,branch-instructions,55528701.0
+8,26,branch-instructions,75646611.0
+9,26,branch-instructions,38401008.0
+10,26,branch-instructions,34486684.0
+11,26,branch-instructions,52013077.0
+12,26,branch-instructions,39666180.0
+13,26,branch-instructions,45149606.0
+14,26,branch-instructions,35156846.0
+15,26,branch-instructions,48103653.0
+16,26,branch-instructions,35210740.0
+17,26,branch-instructions,56010938.0
+18,26,branch-instructions,40733587.0
+19,26,branch-instructions,55845623.0
+20,26,branch-instructions,51330512.0
+21,26,branch-instructions,36401920.0
+22,26,branch-instructions,45675226.0
+23,26,branch-instructions,59084780.0
+24,26,branch-instructions,48930376.0
+25,26,branch-instructions,48902995.0
+26,26,branch-instructions,39792361.0
+27,26,branch-instructions,38039394.0
+28,26,branch-instructions,35519944.0
+29,26,branch-instructions,49343297.0
+30,26,branch-instructions,31044295.0
+31,26,branch-instructions,39296518.0
+2,27,branch-instructions,35476277.0
+3,27,branch-instructions,55507899.0
+4,27,branch-instructions,46215137.0
+5,27,branch-instructions,49091764.0
+6,27,branch-instructions,40627204.0
+7,27,branch-instructions,44515142.0
+8,27,branch-instructions,47776589.0
+9,27,branch-instructions,40344349.0
+10,27,branch-instructions,32589146.0
+11,27,branch-instructions,39099245.0
+12,27,branch-instructions,35280288.0
+13,27,branch-instructions,36487778.0
+14,27,branch-instructions,44041871.0
+15,27,branch-instructions,55132741.0
+16,27,branch-instructions,38395637.0
+17,27,branch-instructions,38361617.0
+18,27,branch-instructions,45099345.0
+19,27,branch-instructions,39395309.0
+20,27,branch-instructions,67685718.0
+21,27,branch-instructions,47451381.0
+22,27,branch-instructions,69973651.0
+23,27,branch-instructions,49790808.0
+24,27,branch-instructions,36552991.0
+25,27,branch-instructions,46991683.0
+26,27,branch-instructions,60736005.0
+27,27,branch-instructions,44459971.0
+28,27,branch-instructions,43280645.0
+29,27,branch-instructions,51612846.0
+30,27,branch-instructions,40972853.0
+31,27,branch-instructions,47604971.0
+2,28,branch-instructions,49749095.0
+3,28,branch-instructions,44689475.0
+4,28,branch-instructions,56990953.0
+5,28,branch-instructions,49241057.0
+6,28,branch-instructions,50437072.0
+7,28,branch-instructions,53190619.0
+8,28,branch-instructions,46256440.0
+9,28,branch-instructions,60821365.0
+10,28,branch-instructions,54623395.0
+11,28,branch-instructions,49112145.0
+12,28,branch-instructions,51666756.0
+13,28,branch-instructions,51241376.0
+14,28,branch-instructions,37460725.0
+15,28,branch-instructions,37974530.0
+16,28,branch-instructions,35427404.0
+17,28,branch-instructions,45046867.0
+18,28,branch-instructions,36356688.0
+19,28,branch-instructions,36073360.0
+20,28,branch-instructions,44014819.0
+21,28,branch-instructions,32891684.0
+22,28,branch-instructions,42875554.0
+23,28,branch-instructions,41504474.0
+24,28,branch-instructions,41486279.0
+25,28,branch-instructions,35181528.0
+26,28,branch-instructions,39337835.0
+27,28,branch-instructions,74645920.0
+28,28,branch-instructions,40557476.0
+29,28,branch-instructions,49580052.0
+30,28,branch-instructions,49221841.0
+31,28,branch-instructions,35516310.0
+2,29,branch-instructions,54120733.0
+3,29,branch-instructions,42222688.0
+4,29,branch-instructions,70828445.0
+5,29,branch-instructions,55564547.0
+6,29,branch-instructions,46747811.0
+7,29,branch-instructions,37852237.0
+8,29,branch-instructions,41900644.0
+9,29,branch-instructions,47350876.0
+10,29,branch-instructions,53598979.0
+11,29,branch-instructions,47407484.0
+12,29,branch-instructions,51152634.0
+13,29,branch-instructions,47856726.0
+14,29,branch-instructions,41663462.0
+15,29,branch-instructions,55841534.0
+16,29,branch-instructions,53753858.0
+17,29,branch-instructions,44021673.0
+18,29,branch-instructions,34404137.0
+19,29,branch-instructions,30672099.0
+20,29,branch-instructions,48066845.0
+21,29,branch-instructions,36484212.0
+22,29,branch-instructions,32800426.0
+23,29,branch-instructions,35783402.0
+24,29,branch-instructions,59391747.0
+25,29,branch-instructions,29906043.0
+26,29,branch-instructions,37505292.0
+27,29,branch-instructions,45455515.0
+28,29,branch-instructions,55410655.0
+29,29,branch-instructions,53222767.0
+30,29,branch-instructions,40330203.0
+31,29,branch-instructions,41556658.0
+2,30,branch-instructions,71495677.0
+3,30,branch-instructions,58464369.0
+4,30,branch-instructions,61175186.0
+5,30,branch-instructions,42445237.0
+6,30,branch-instructions,42269448.0
+7,30,branch-instructions,45917669.0
+8,30,branch-instructions,53282113.0
+9,30,branch-instructions,43954044.0
+10,30,branch-instructions,46828961.0
+11,30,branch-instructions,50634887.0
+12,30,branch-instructions,44727042.0
+13,30,branch-instructions,44834694.0
+14,30,branch-instructions,63942578.0
+15,30,branch-instructions,51235184.0
+16,30,branch-instructions,62445442.0
+17,30,branch-instructions,30459404.0
+18,30,branch-instructions,36106748.0
+19,30,branch-instructions,40253936.0
+20,30,branch-instructions,30552210.0
+21,30,branch-instructions,33512321.0
+22,30,branch-instructions,32630857.0
+23,30,branch-instructions,31271374.0
+24,30,branch-instructions,37400610.0
+25,30,branch-instructions,35268990.0
+26,30,branch-instructions,36398079.0
+27,30,branch-instructions,47006013.0
+28,30,branch-instructions,36628853.0
+29,30,branch-instructions,31228388.0
+30,30,branch-instructions,78453738.0
+31,30,branch-instructions,46910786.0
+2,1,branch-misses,1991860.0
+3,1,branch-misses,1741133.0
+4,1,branch-misses,1383701.0
+5,1,branch-misses,1163558.0
+6,1,branch-misses,1426835.0
+7,1,branch-misses,1103494.0
+8,1,branch-misses,1325998.0
+9,1,branch-misses,937150.0
+10,1,branch-misses,2022036.0
+11,1,branch-misses,2819222.0
+12,1,branch-misses,1254931.0
+13,1,branch-misses,1199468.0
+14,1,branch-misses,6386131.0
+15,1,branch-misses,2483275.0
+16,1,branch-misses,1711589.0
+17,1,branch-misses,1620362.0
+18,1,branch-misses,1645956.0
+19,1,branch-misses,1273319.0
+20,1,branch-misses,1077930.0
+21,1,branch-misses,1697881.0
+22,1,branch-misses,1360468.0
+23,1,branch-misses,1026317.0
+24,1,branch-misses,1738731.0
+25,1,branch-misses,1088993.0
+26,1,branch-misses,1057150.0
+27,1,branch-misses,1127154.0
+28,1,branch-misses,1930959.0
+29,1,branch-misses,2674690.0
+30,1,branch-misses,1159774.0
+31,1,branch-misses,1970422.0
+2,2,branch-misses,1122611.0
+3,2,branch-misses,1203891.0
+4,2,branch-misses,2772107.0
+5,2,branch-misses,1174374.0
+6,2,branch-misses,1406225.0
+7,2,branch-misses,1662115.0
+8,2,branch-misses,1511603.0
+9,2,branch-misses,2003190.0
+10,2,branch-misses,2153572.0
+11,2,branch-misses,1295831.0
+12,2,branch-misses,2167157.0
+13,2,branch-misses,1190795.0
+14,2,branch-misses,1248416.0
+15,2,branch-misses,1539937.0
+16,2,branch-misses,1084503.0
+17,2,branch-misses,1608983.0
+18,2,branch-misses,1594985.0
+19,2,branch-misses,1530437.0
+20,2,branch-misses,971445.0
+21,2,branch-misses,939922.0
+22,2,branch-misses,904358.0
+23,2,branch-misses,1035423.0
+24,2,branch-misses,1034853.0
+25,2,branch-misses,1330417.0
+26,2,branch-misses,1466061.0
+27,2,branch-misses,1230897.0
+28,2,branch-misses,1169343.0
+29,2,branch-misses,1539242.0
+30,2,branch-misses,2677551.0
+31,2,branch-misses,2844746.0
+2,3,branch-misses,1715020.0
+3,3,branch-misses,1109061.0
+4,3,branch-misses,1208609.0
+5,3,branch-misses,1460700.0
+6,3,branch-misses,1717130.0
+7,3,branch-misses,1174397.0
+8,3,branch-misses,1752829.0
+9,3,branch-misses,1376985.0
+10,3,branch-misses,1540810.0
+11,3,branch-misses,1113177.0
+12,3,branch-misses,1582305.0
+13,3,branch-misses,1506902.0
+14,3,branch-misses,3165012.0
+15,3,branch-misses,1148083.0
+16,3,branch-misses,1130142.0
+17,3,branch-misses,1111465.0
+18,3,branch-misses,2240827.0
+19,3,branch-misses,1366908.0
+20,3,branch-misses,2095982.0
+21,3,branch-misses,1380349.0
+22,3,branch-misses,1551788.0
+23,3,branch-misses,1081439.0
+24,3,branch-misses,1911491.0
+25,3,branch-misses,3221709.0
+26,3,branch-misses,911465.0
+27,3,branch-misses,975019.0
+28,3,branch-misses,1266709.0
+29,3,branch-misses,1210092.0
+30,3,branch-misses,1111016.0
+31,3,branch-misses,1158939.0
+2,4,branch-misses,1690494.0
+3,4,branch-misses,2373648.0
+4,4,branch-misses,1478733.0
+5,4,branch-misses,1647014.0
+6,4,branch-misses,932921.0
+7,4,branch-misses,1142204.0
+8,4,branch-misses,937431.0
+9,4,branch-misses,909566.0
+10,4,branch-misses,1048303.0
+11,4,branch-misses,1120606.0
+12,4,branch-misses,1474323.0
+13,4,branch-misses,1599677.0
+14,4,branch-misses,1354942.0
+15,4,branch-misses,1504121.0
+16,4,branch-misses,1637340.0
+17,4,branch-misses,1431775.0
+18,4,branch-misses,1186038.0
+19,4,branch-misses,2113762.0
+20,4,branch-misses,1322284.0
+21,4,branch-misses,2092951.0
+22,4,branch-misses,1100362.0
+23,4,branch-misses,1156724.0
+24,4,branch-misses,867538.0
+25,4,branch-misses,1045764.0
+26,4,branch-misses,1156869.0
+27,4,branch-misses,3227180.0
+28,4,branch-misses,2478887.0
+29,4,branch-misses,1930082.0
+30,4,branch-misses,1298545.0
+31,4,branch-misses,2294941.0
+2,5,branch-misses,2397993.0
+3,5,branch-misses,1978956.0
+4,5,branch-misses,1718700.0
+5,5,branch-misses,1556049.0
+6,5,branch-misses,971187.0
+7,5,branch-misses,1368280.0
+8,5,branch-misses,1344214.0
+9,5,branch-misses,2394793.0
+10,5,branch-misses,1079907.0
+11,5,branch-misses,1107882.0
+12,5,branch-misses,959461.0
+13,5,branch-misses,858125.0
+14,5,branch-misses,1286799.0
+15,5,branch-misses,1231978.0
+16,5,branch-misses,2678693.0
+17,5,branch-misses,1041371.0
+18,5,branch-misses,1580715.0
+19,5,branch-misses,1043684.0
+20,5,branch-misses,2793455.0
+21,5,branch-misses,1652418.0
+22,5,branch-misses,1095835.0
+23,5,branch-misses,1119933.0
+24,5,branch-misses,2329021.0
+25,5,branch-misses,1540640.0
+26,5,branch-misses,1474245.0
+27,5,branch-misses,1865355.0
+28,5,branch-misses,1096914.0
+29,5,branch-misses,1539960.0
+30,5,branch-misses,960776.0
+31,5,branch-misses,1287515.0
+2,6,branch-misses,3824069.0
+3,6,branch-misses,1474063.0
+4,6,branch-misses,1724703.0
+5,6,branch-misses,1226918.0
+6,6,branch-misses,1693156.0
+7,6,branch-misses,1820015.0
+8,6,branch-misses,991222.0
+9,6,branch-misses,1874340.0
+10,6,branch-misses,991573.0
+11,6,branch-misses,2096623.0
+12,6,branch-misses,889085.0
+13,6,branch-misses,960511.0
+14,6,branch-misses,2115275.0
+15,6,branch-misses,1517391.0
+16,6,branch-misses,898180.0
+17,6,branch-misses,934610.0
+18,6,branch-misses,968744.0
+19,6,branch-misses,1146506.0
+20,6,branch-misses,1739545.0
+21,6,branch-misses,1159558.0
+22,6,branch-misses,1133986.0
+23,6,branch-misses,3334702.0
+24,6,branch-misses,2516706.0
+25,6,branch-misses,1100442.0
+26,6,branch-misses,1723282.0
+27,6,branch-misses,1718690.0
+28,6,branch-misses,832341.0
+29,6,branch-misses,893090.0
+30,6,branch-misses,926039.0
+31,6,branch-misses,794940.0
+2,7,branch-misses,1331845.0
+3,7,branch-misses,954772.0
+4,7,branch-misses,936291.0
+5,7,branch-misses,1151124.0
+6,7,branch-misses,904405.0
+7,7,branch-misses,2306532.0
+8,7,branch-misses,2089089.0
+9,7,branch-misses,1816120.0
+10,7,branch-misses,2022949.0
+11,7,branch-misses,1475939.0
+12,7,branch-misses,1779626.0
+13,7,branch-misses,1274033.0
+14,7,branch-misses,2220427.0
+15,7,branch-misses,1374076.0
+16,7,branch-misses,1798155.0
+17,7,branch-misses,1203780.0
+18,7,branch-misses,1093164.0
+19,7,branch-misses,1187973.0
+20,7,branch-misses,1383101.0
+21,7,branch-misses,1456661.0
+22,7,branch-misses,957945.0
+23,7,branch-misses,999792.0
+24,7,branch-misses,1393041.0
+25,7,branch-misses,2101940.0
+26,7,branch-misses,1695974.0
+27,7,branch-misses,1310462.0
+28,7,branch-misses,2607254.0
+29,7,branch-misses,1287461.0
+30,7,branch-misses,1840883.0
+31,7,branch-misses,1593787.0
+2,8,branch-misses,2127643.0
+3,8,branch-misses,1705674.0
+4,8,branch-misses,1122621.0
+5,8,branch-misses,2479650.0
+6,8,branch-misses,1186043.0
+7,8,branch-misses,1260853.0
+8,8,branch-misses,1670576.0
+9,8,branch-misses,2764335.0
+10,8,branch-misses,3086722.0
+11,8,branch-misses,1359266.0
+12,8,branch-misses,2112532.0
+13,8,branch-misses,3686625.0
+14,8,branch-misses,2095101.0
+15,8,branch-misses,1560024.0
+16,8,branch-misses,735363.0
+17,8,branch-misses,848672.0
+18,8,branch-misses,784869.0
+19,8,branch-misses,814199.0
+20,8,branch-misses,1738111.0
+21,8,branch-misses,724485.0
+22,8,branch-misses,915770.0
+23,8,branch-misses,1097479.0
+24,8,branch-misses,797279.0
+25,8,branch-misses,814691.0
+26,8,branch-misses,1038497.0
+27,8,branch-misses,946451.0
+28,8,branch-misses,1140400.0
+29,8,branch-misses,2390548.0
+30,8,branch-misses,783876.0
+31,8,branch-misses,1604815.0
+2,9,branch-misses,1174804.0
+3,9,branch-misses,1095887.0
+4,9,branch-misses,1354817.0
+5,9,branch-misses,1826924.0
+6,9,branch-misses,3279683.0
+7,9,branch-misses,1849700.0
+8,9,branch-misses,2197674.0
+9,9,branch-misses,1881262.0
+10,9,branch-misses,2067585.0
+11,9,branch-misses,1771095.0
+12,9,branch-misses,1345329.0
+13,9,branch-misses,1054195.0
+14,9,branch-misses,1185880.0
+15,9,branch-misses,1662220.0
+16,9,branch-misses,891032.0
+17,9,branch-misses,1161212.0
+18,9,branch-misses,1010344.0
+19,9,branch-misses,834108.0
+20,9,branch-misses,732413.0
+21,9,branch-misses,1226776.0
+22,9,branch-misses,2271535.0
+23,9,branch-misses,1196450.0
+24,9,branch-misses,2954806.0
+25,9,branch-misses,899699.0
+26,9,branch-misses,752073.0
+27,9,branch-misses,849717.0
+28,9,branch-misses,1631587.0
+29,9,branch-misses,2626877.0
+30,9,branch-misses,1001973.0
+31,9,branch-misses,1738084.0
+2,10,branch-misses,1586398.0
+3,10,branch-misses,1427262.0
+4,10,branch-misses,2427622.0
+5,10,branch-misses,1123169.0
+6,10,branch-misses,3441644.0
+7,10,branch-misses,1134572.0
+8,10,branch-misses,960274.0
+9,10,branch-misses,1557798.0
+10,10,branch-misses,939087.0
+11,10,branch-misses,2270832.0
+12,10,branch-misses,1072884.0
+13,10,branch-misses,1048652.0
+14,10,branch-misses,1551764.0
+15,10,branch-misses,1608649.0
+16,10,branch-misses,1036363.0
+17,10,branch-misses,1501498.0
+18,10,branch-misses,1926154.0
+19,10,branch-misses,3082374.0
+20,10,branch-misses,1393343.0
+21,10,branch-misses,1036350.0
+22,10,branch-misses,2579502.0
+23,10,branch-misses,2594192.0
+24,10,branch-misses,801410.0
+25,10,branch-misses,892323.0
+26,10,branch-misses,1177421.0
+27,10,branch-misses,907926.0
+28,10,branch-misses,885979.0
+29,10,branch-misses,1227693.0
+30,10,branch-misses,1002113.0
+31,10,branch-misses,1372845.0
+2,11,branch-misses,1540784.0
+3,11,branch-misses,1086673.0
+4,11,branch-misses,1151041.0
+5,11,branch-misses,1900409.0
+6,11,branch-misses,3153421.0
+7,11,branch-misses,1189693.0
+8,11,branch-misses,2852228.0
+9,11,branch-misses,1122626.0
+10,11,branch-misses,1392398.0
+11,11,branch-misses,1027821.0
+12,11,branch-misses,1442098.0
+13,11,branch-misses,2093437.0
+14,11,branch-misses,1165730.0
+15,11,branch-misses,964899.0
+16,11,branch-misses,1047280.0
+17,11,branch-misses,1018227.0
+18,11,branch-misses,1091499.0
+19,11,branch-misses,1397567.0
+20,11,branch-misses,1558645.0
+21,11,branch-misses,2381768.0
+22,11,branch-misses,2280144.0
+23,11,branch-misses,2078795.0
+24,11,branch-misses,879201.0
+25,11,branch-misses,1300555.0
+26,11,branch-misses,963325.0
+27,11,branch-misses,1147259.0
+28,11,branch-misses,1506532.0
+29,11,branch-misses,1179367.0
+30,11,branch-misses,1382244.0
+31,11,branch-misses,2064519.0
+2,12,branch-misses,1433577.0
+3,12,branch-misses,1051251.0
+4,12,branch-misses,2715477.0
+5,12,branch-misses,1199139.0
+6,12,branch-misses,2381855.0
+7,12,branch-misses,1527287.0
+8,12,branch-misses,2258204.0
+9,12,branch-misses,2709549.0
+10,12,branch-misses,2073955.0
+11,12,branch-misses,1543092.0
+12,12,branch-misses,1424216.0
+13,12,branch-misses,2471822.0
+14,12,branch-misses,1340076.0
+15,12,branch-misses,2563922.0
+16,12,branch-misses,1200740.0
+17,12,branch-misses,1780637.0
+18,12,branch-misses,1454456.0
+19,12,branch-misses,1178673.0
+20,12,branch-misses,1153418.0
+21,12,branch-misses,1750266.0
+22,12,branch-misses,1074860.0
+23,12,branch-misses,798615.0
+24,12,branch-misses,819062.0
+25,12,branch-misses,782527.0
+26,12,branch-misses,994350.0
+27,12,branch-misses,818754.0
+28,12,branch-misses,1115528.0
+29,12,branch-misses,845299.0
+30,12,branch-misses,1735861.0
+31,12,branch-misses,899634.0
+2,13,branch-misses,957778.0
+3,13,branch-misses,1007106.0
+4,13,branch-misses,1275160.0
+5,13,branch-misses,2038537.0
+6,13,branch-misses,1284468.0
+7,13,branch-misses,1866501.0
+8,13,branch-misses,1569671.0
+9,13,branch-misses,2885725.0
+10,13,branch-misses,1273118.0
+11,13,branch-misses,942156.0
+12,13,branch-misses,1038569.0
+13,13,branch-misses,1198390.0
+14,13,branch-misses,1889172.0
+15,13,branch-misses,2400141.0
+16,13,branch-misses,1444053.0
+17,13,branch-misses,999621.0
+18,13,branch-misses,1163448.0
+19,13,branch-misses,1549164.0
+20,13,branch-misses,3402598.0
+21,13,branch-misses,926365.0
+22,13,branch-misses,922938.0
+23,13,branch-misses,1950139.0
+24,13,branch-misses,1794699.0
+25,13,branch-misses,1234255.0
+26,13,branch-misses,1521300.0
+27,13,branch-misses,1031719.0
+28,13,branch-misses,1598465.0
+29,13,branch-misses,1938078.0
+30,13,branch-misses,1108023.0
+31,13,branch-misses,1185844.0
+2,14,branch-misses,1081197.0
+3,14,branch-misses,1138840.0
+4,14,branch-misses,1970215.0
+5,14,branch-misses,1495000.0
+6,14,branch-misses,2189922.0
+7,14,branch-misses,1946979.0
+8,14,branch-misses,2058583.0
+9,14,branch-misses,2703990.0
+10,14,branch-misses,1129172.0
+11,14,branch-misses,2923037.0
+12,14,branch-misses,1520942.0
+13,14,branch-misses,2966720.0
+14,14,branch-misses,1059362.0
+15,14,branch-misses,1141325.0
+16,14,branch-misses,980308.0
+17,14,branch-misses,1299475.0
+18,14,branch-misses,792620.0
+19,14,branch-misses,1534044.0
+20,14,branch-misses,1794325.0
+21,14,branch-misses,834277.0
+22,14,branch-misses,791478.0
+23,14,branch-misses,822418.0
+24,14,branch-misses,1740897.0
+25,14,branch-misses,1241712.0
+26,14,branch-misses,1054019.0
+27,14,branch-misses,3188736.0
+28,14,branch-misses,1014593.0
+29,14,branch-misses,868564.0
+30,14,branch-misses,950831.0
+31,14,branch-misses,962553.0
+2,15,branch-misses,1041116.0
+3,15,branch-misses,1004931.0
+4,15,branch-misses,1108444.0
+5,15,branch-misses,3413948.0
+6,15,branch-misses,2017993.0
+7,15,branch-misses,2471166.0
+8,15,branch-misses,1716833.0
+9,15,branch-misses,3479687.0
+10,15,branch-misses,1358249.0
+11,15,branch-misses,1241805.0
+12,15,branch-misses,1206270.0
+13,15,branch-misses,1644445.0
+14,15,branch-misses,3704740.0
+15,15,branch-misses,1435559.0
+16,15,branch-misses,1340335.0
+17,15,branch-misses,1111511.0
+18,15,branch-misses,1047552.0
+19,15,branch-misses,1263558.0
+20,15,branch-misses,819455.0
+21,15,branch-misses,776268.0
+22,15,branch-misses,802195.0
+23,15,branch-misses,737453.0
+24,15,branch-misses,946853.0
+25,15,branch-misses,2731878.0
+26,15,branch-misses,1165091.0
+27,15,branch-misses,912640.0
+28,15,branch-misses,1744197.0
+29,15,branch-misses,1263351.0
+30,15,branch-misses,1074779.0
+31,15,branch-misses,1101041.0
+2,16,branch-misses,1459611.0
+3,16,branch-misses,1101600.0
+4,16,branch-misses,2197012.0
+5,16,branch-misses,1423757.0
+6,16,branch-misses,1097605.0
+7,16,branch-misses,1148067.0
+8,16,branch-misses,1124250.0
+9,16,branch-misses,2493120.0
+10,16,branch-misses,1146135.0
+11,16,branch-misses,1234473.0
+12,16,branch-misses,1212368.0
+13,16,branch-misses,2960320.0
+14,16,branch-misses,1361478.0
+15,16,branch-misses,1214938.0
+16,16,branch-misses,958857.0
+17,16,branch-misses,1308895.0
+18,16,branch-misses,1842414.0
+19,16,branch-misses,1936838.0
+20,16,branch-misses,1051695.0
+21,16,branch-misses,2792577.0
+22,16,branch-misses,849608.0
+23,16,branch-misses,939785.0
+24,16,branch-misses,1060577.0
+25,16,branch-misses,936738.0
+26,16,branch-misses,1089270.0
+27,16,branch-misses,920592.0
+28,16,branch-misses,1605265.0
+29,16,branch-misses,1639250.0
+30,16,branch-misses,2878835.0
+31,16,branch-misses,2347923.0
+2,17,branch-misses,1075369.0
+3,17,branch-misses,887861.0
+4,17,branch-misses,948630.0
+5,17,branch-misses,1228580.0
+6,17,branch-misses,1100647.0
+7,17,branch-misses,1298923.0
+8,17,branch-misses,1360865.0
+9,17,branch-misses,2451774.0
+10,17,branch-misses,1975230.0
+11,17,branch-misses,3966731.0
+12,17,branch-misses,1691066.0
+13,17,branch-misses,1074866.0
+14,17,branch-misses,1120299.0
+15,17,branch-misses,1565776.0
+16,17,branch-misses,1201042.0
+17,17,branch-misses,1208987.0
+18,17,branch-misses,1342756.0
+19,17,branch-misses,1656592.0
+20,17,branch-misses,1481161.0
+21,17,branch-misses,1126552.0
+22,17,branch-misses,1378955.0
+23,17,branch-misses,1559624.0
+24,17,branch-misses,1194628.0
+25,17,branch-misses,2858782.0
+26,17,branch-misses,1592840.0
+27,17,branch-misses,916452.0
+28,17,branch-misses,1259423.0
+29,17,branch-misses,1646252.0
+30,17,branch-misses,1147317.0
+31,17,branch-misses,1549792.0
+2,18,branch-misses,1123002.0
+3,18,branch-misses,1597382.0
+4,18,branch-misses,1349065.0
+5,18,branch-misses,2239156.0
+6,18,branch-misses,1527062.0
+7,18,branch-misses,1645763.0
+8,18,branch-misses,2442761.0
+9,18,branch-misses,1772214.0
+10,18,branch-misses,2266868.0
+11,18,branch-misses,3295609.0
+12,18,branch-misses,1390135.0
+13,18,branch-misses,979073.0
+14,18,branch-misses,2649977.0
+15,18,branch-misses,1475133.0
+16,18,branch-misses,960695.0
+17,18,branch-misses,1010285.0
+18,18,branch-misses,853646.0
+19,18,branch-misses,947465.0
+20,18,branch-misses,893248.0
+21,18,branch-misses,1052473.0
+22,18,branch-misses,685000.0
+23,18,branch-misses,965216.0
+24,18,branch-misses,1982750.0
+25,18,branch-misses,1133397.0
+26,18,branch-misses,2603657.0
+27,18,branch-misses,801793.0
+28,18,branch-misses,2090995.0
+29,18,branch-misses,901750.0
+30,18,branch-misses,835654.0
+31,18,branch-misses,1799759.0
+2,19,branch-misses,1869445.0
+3,19,branch-misses,3252359.0
+4,19,branch-misses,1415732.0
+5,19,branch-misses,1274595.0
+6,19,branch-misses,1125733.0
+7,19,branch-misses,886670.0
+8,19,branch-misses,883601.0
+9,19,branch-misses,1063711.0
+10,19,branch-misses,1565059.0
+11,19,branch-misses,2300693.0
+12,19,branch-misses,2998700.0
+13,19,branch-misses,1889597.0
+14,19,branch-misses,823915.0
+15,19,branch-misses,1282870.0
+16,19,branch-misses,1168654.0
+17,19,branch-misses,1959492.0
+18,19,branch-misses,891108.0
+19,19,branch-misses,958424.0
+20,19,branch-misses,1145572.0
+21,19,branch-misses,5001769.0
+22,19,branch-misses,1997067.0
+23,19,branch-misses,984686.0
+24,19,branch-misses,1208328.0
+25,19,branch-misses,1256767.0
+26,19,branch-misses,1222912.0
+27,19,branch-misses,1133143.0
+28,19,branch-misses,904503.0
+29,19,branch-misses,959571.0
+30,19,branch-misses,897548.0
+31,19,branch-misses,1151557.0
+2,20,branch-misses,1423742.0
+3,20,branch-misses,2203864.0
+4,20,branch-misses,1156745.0
+5,20,branch-misses,1227348.0
+6,20,branch-misses,1339924.0
+7,20,branch-misses,1356879.0
+8,20,branch-misses,2528429.0
+9,20,branch-misses,1032590.0
+10,20,branch-misses,2411926.0
+11,20,branch-misses,2138482.0
+12,20,branch-misses,1122912.0
+13,20,branch-misses,2080548.0
+14,20,branch-misses,1298460.0
+15,20,branch-misses,1167637.0
+16,20,branch-misses,2214730.0
+17,20,branch-misses,1115383.0
+18,20,branch-misses,1695647.0
+19,20,branch-misses,1189275.0
+20,20,branch-misses,1356693.0
+21,20,branch-misses,1381864.0
+22,20,branch-misses,1102032.0
+23,20,branch-misses,1146134.0
+24,20,branch-misses,1835917.0
+25,20,branch-misses,1429244.0
+26,20,branch-misses,1265678.0
+27,20,branch-misses,2041539.0
+28,20,branch-misses,796475.0
+29,20,branch-misses,2091504.0
+30,20,branch-misses,1309984.0
+31,20,branch-misses,1195425.0
+2,21,branch-misses,945663.0
+3,21,branch-misses,1012095.0
+4,21,branch-misses,1643526.0
+5,21,branch-misses,2478319.0
+6,21,branch-misses,1170182.0
+7,21,branch-misses,1354001.0
+8,21,branch-misses,2397747.0
+9,21,branch-misses,1430023.0
+10,21,branch-misses,1067293.0
+11,21,branch-misses,1309428.0
+12,21,branch-misses,1850378.0
+13,21,branch-misses,1892129.0
+14,21,branch-misses,1464733.0
+15,21,branch-misses,1513787.0
+16,21,branch-misses,2576530.0
+17,21,branch-misses,2130092.0
+18,21,branch-misses,1477826.0
+19,21,branch-misses,849856.0
+20,21,branch-misses,1639853.0
+21,21,branch-misses,1064301.0
+22,21,branch-misses,2497378.0
+23,21,branch-misses,1131151.0
+24,21,branch-misses,1428619.0
+25,21,branch-misses,1479873.0
+26,21,branch-misses,1062494.0
+27,21,branch-misses,1102668.0
+28,21,branch-misses,1443132.0
+29,21,branch-misses,994657.0
+30,21,branch-misses,1331583.0
+31,21,branch-misses,1440577.0
+2,22,branch-misses,1852066.0
+3,22,branch-misses,926238.0
+4,22,branch-misses,944198.0
+5,22,branch-misses,2077430.0
+6,22,branch-misses,1292020.0
+7,22,branch-misses,1975442.0
+8,22,branch-misses,1355183.0
+9,22,branch-misses,1908769.0
+10,22,branch-misses,1780349.0
+11,22,branch-misses,973146.0
+12,22,branch-misses,847864.0
+13,22,branch-misses,1062918.0
+14,22,branch-misses,1674425.0
+15,22,branch-misses,940425.0
+16,22,branch-misses,3054365.0
+17,22,branch-misses,1428950.0
+18,22,branch-misses,904285.0
+19,22,branch-misses,1151096.0
+20,22,branch-misses,2056682.0
+21,22,branch-misses,2044854.0
+22,22,branch-misses,1155433.0
+23,22,branch-misses,1228743.0
+24,22,branch-misses,1202983.0
+25,22,branch-misses,2321098.0
+26,22,branch-misses,1219591.0
+27,22,branch-misses,1412358.0
+28,22,branch-misses,1126844.0
+29,22,branch-misses,1700943.0
+30,22,branch-misses,2476236.0
+31,22,branch-misses,1221021.0
+2,23,branch-misses,665748.0
+3,23,branch-misses,517585.0
+4,23,branch-misses,586760.0
+5,23,branch-misses,1110280.0
+6,23,branch-misses,912760.0
+7,23,branch-misses,1145173.0
+8,23,branch-misses,1360669.0
+9,23,branch-misses,1013952.0
+10,23,branch-misses,1589668.0
+11,23,branch-misses,645042.0
+12,23,branch-misses,669014.0
+13,23,branch-misses,652164.0
+14,23,branch-misses,859651.0
+15,23,branch-misses,1120437.0
+16,23,branch-misses,973540.0
+17,23,branch-misses,2284260.0
+18,23,branch-misses,1081865.0
+19,23,branch-misses,1949052.0
+20,23,branch-misses,1675025.0
+21,23,branch-misses,2197460.0
+22,23,branch-misses,1488532.0
+23,23,branch-misses,2976500.0
+24,23,branch-misses,2372216.0
+25,23,branch-misses,1011886.0
+26,23,branch-misses,1363530.0
+27,23,branch-misses,1867205.0
+28,23,branch-misses,1185762.0
+29,23,branch-misses,1171041.0
+30,23,branch-misses,1566505.0
+31,23,branch-misses,1094547.0
+2,24,branch-misses,1248299.0
+3,24,branch-misses,1334151.0
+4,24,branch-misses,1242577.0
+5,24,branch-misses,1092868.0
+6,24,branch-misses,849240.0
+7,24,branch-misses,1398581.0
+8,24,branch-misses,1049712.0
+9,24,branch-misses,2070463.0
+10,24,branch-misses,1347483.0
+11,24,branch-misses,914086.0
+12,24,branch-misses,1023313.0
+13,24,branch-misses,2047227.0
+14,24,branch-misses,1186275.0
+15,24,branch-misses,2870763.0
+16,24,branch-misses,1230612.0
+17,24,branch-misses,4337087.0
+18,24,branch-misses,1705901.0
+19,24,branch-misses,2191811.0
+20,24,branch-misses,1413868.0
+21,24,branch-misses,1086599.0
+22,24,branch-misses,943105.0
+23,24,branch-misses,1462382.0
+24,24,branch-misses,1302575.0
+25,24,branch-misses,1577594.0
+26,24,branch-misses,1328306.0
+27,24,branch-misses,1542918.0
+28,24,branch-misses,1452029.0
+29,24,branch-misses,1445250.0
+30,24,branch-misses,1380502.0
+31,24,branch-misses,973604.0
+2,25,branch-misses,1241053.0
+3,25,branch-misses,1851538.0
+4,25,branch-misses,1298610.0
+5,25,branch-misses,1439797.0
+6,25,branch-misses,1967248.0
+7,25,branch-misses,3318861.0
+8,25,branch-misses,1208879.0
+9,25,branch-misses,1249373.0
+10,25,branch-misses,2098274.0
+11,25,branch-misses,2112365.0
+12,25,branch-misses,1991515.0
+13,25,branch-misses,2365689.0
+14,25,branch-misses,1286478.0
+15,25,branch-misses,985864.0
+16,25,branch-misses,1110846.0
+17,25,branch-misses,1177788.0
+18,25,branch-misses,851557.0
+19,25,branch-misses,1141112.0
+20,25,branch-misses,1215211.0
+21,25,branch-misses,937546.0
+22,25,branch-misses,813580.0
+23,25,branch-misses,1648775.0
+24,25,branch-misses,1653642.0
+25,25,branch-misses,975760.0
+26,25,branch-misses,2231913.0
+27,25,branch-misses,900471.0
+28,25,branch-misses,846953.0
+29,25,branch-misses,1888171.0
+30,25,branch-misses,783663.0
+31,25,branch-misses,931952.0
+2,26,branch-misses,1876822.0
+3,26,branch-misses,901516.0
+4,26,branch-misses,958549.0
+5,26,branch-misses,1303574.0
+6,26,branch-misses,2716237.0
+7,26,branch-misses,2171096.0
+8,26,branch-misses,3289837.0
+9,26,branch-misses,1120262.0
+10,26,branch-misses,964144.0
+11,26,branch-misses,1952348.0
+12,26,branch-misses,954426.0
+13,26,branch-misses,1363776.0
+14,26,branch-misses,868905.0
+15,26,branch-misses,1608047.0
+16,26,branch-misses,944233.0
+17,26,branch-misses,2053396.0
+18,26,branch-misses,1048969.0
+19,26,branch-misses,1995278.0
+20,26,branch-misses,1930802.0
+21,26,branch-misses,1095105.0
+22,26,branch-misses,1509559.0
+23,26,branch-misses,2160554.0
+24,26,branch-misses,1825280.0
+25,26,branch-misses,1847973.0
+26,26,branch-misses,1061836.0
+27,26,branch-misses,1032291.0
+28,26,branch-misses,951555.0
+29,26,branch-misses,1915345.0
+30,26,branch-misses,819880.0
+31,26,branch-misses,1084563.0
+2,27,branch-misses,902261.0
+3,27,branch-misses,2271186.0
+4,27,branch-misses,1612276.0
+5,27,branch-misses,1818266.0
+6,27,branch-misses,1265971.0
+7,27,branch-misses,1516039.0
+8,27,branch-misses,1530389.0
+9,27,branch-misses,1121663.0
+10,27,branch-misses,834957.0
+11,27,branch-misses,1250588.0
+12,27,branch-misses,1056951.0
+13,27,branch-misses,1061500.0
+14,27,branch-misses,1329554.0
+15,27,branch-misses,2143901.0
+16,27,branch-misses,1201340.0
+17,27,branch-misses,1043152.0
+18,27,branch-misses,1288005.0
+19,27,branch-misses,1166169.0
+20,27,branch-misses,2926375.0
+21,27,branch-misses,1741744.0
+22,27,branch-misses,3220638.0
+23,27,branch-misses,2018966.0
+24,27,branch-misses,1035144.0
+25,27,branch-misses,1236193.0
+26,27,branch-misses,2550504.0
+27,27,branch-misses,1397693.0
+28,27,branch-misses,1154894.0
+29,27,branch-misses,1301261.0
+30,27,branch-misses,1043576.0
+31,27,branch-misses,1499252.0
+2,28,branch-misses,1573842.0
+3,28,branch-misses,1554750.0
+4,28,branch-misses,2139161.0
+5,28,branch-misses,1442202.0
+6,28,branch-misses,1496941.0
+7,28,branch-misses,1761944.0
+8,28,branch-misses,1517534.0
+9,28,branch-misses,2616639.0
+10,28,branch-misses,1882637.0
+11,28,branch-misses,1703706.0
+12,28,branch-misses,1527046.0
+13,28,branch-misses,1719176.0
+14,28,branch-misses,1025684.0
+15,28,branch-misses,1220712.0
+16,28,branch-misses,930482.0
+17,28,branch-misses,1553918.0
+18,28,branch-misses,1137601.0
+19,28,branch-misses,891219.0
+20,28,branch-misses,1293457.0
+21,28,branch-misses,779651.0
+22,28,branch-misses,1339696.0
+23,28,branch-misses,1267820.0
+24,28,branch-misses,1146302.0
+25,28,branch-misses,881025.0
+26,28,branch-misses,1274249.0
+27,28,branch-misses,3363304.0
+28,28,branch-misses,1441190.0
+29,28,branch-misses,1571876.0
+30,28,branch-misses,2013935.0
+31,28,branch-misses,1066605.0
+2,29,branch-misses,2089971.0
+3,29,branch-misses,1279229.0
+4,29,branch-misses,3141779.0
+5,29,branch-misses,2125807.0
+6,29,branch-misses,1404051.0
+7,29,branch-misses,996123.0
+8,29,branch-misses,1103091.0
+9,29,branch-misses,1516637.0
+10,29,branch-misses,1851418.0
+11,29,branch-misses,1528053.0
+12,29,branch-misses,1561065.0
+13,29,branch-misses,1762741.0
+14,29,branch-misses,1076482.0
+15,29,branch-misses,1873063.0
+16,29,branch-misses,2281740.0
+17,29,branch-misses,1443591.0
+18,29,branch-misses,912214.0
+19,29,branch-misses,831341.0
+20,29,branch-misses,1761031.0
+21,29,branch-misses,935666.0
+22,29,branch-misses,862966.0
+23,29,branch-misses,886997.0
+24,29,branch-misses,2542458.0
+25,29,branch-misses,950540.0
+26,29,branch-misses,1088856.0
+27,29,branch-misses,1496249.0
+28,29,branch-misses,1984382.0
+29,29,branch-misses,1839950.0
+30,29,branch-misses,1203615.0
+31,29,branch-misses,1218641.0
+2,30,branch-misses,2969355.0
+3,30,branch-misses,1969549.0
+4,30,branch-misses,2491776.0
+5,30,branch-misses,1457940.0
+6,30,branch-misses,1414909.0
+7,30,branch-misses,1460815.0
+8,30,branch-misses,1785224.0
+9,30,branch-misses,1270428.0
+10,30,branch-misses,1254762.0
+11,30,branch-misses,1793770.0
+12,30,branch-misses,1212306.0
+13,30,branch-misses,1183373.0
+14,30,branch-misses,2633186.0
+15,30,branch-misses,1589717.0
+16,30,branch-misses,2582708.0
+17,30,branch-misses,779115.0
+18,30,branch-misses,1002713.0
+19,30,branch-misses,1094464.0
+20,30,branch-misses,832011.0
+21,30,branch-misses,973462.0
+22,30,branch-misses,979775.0
+23,30,branch-misses,757832.0
+24,30,branch-misses,953794.0
+25,30,branch-misses,977414.0
+26,30,branch-misses,1029602.0
+27,30,branch-misses,1742357.0
+28,30,branch-misses,1129947.0
+29,30,branch-misses,807682.0
+30,30,branch-misses,3730069.0
+31,30,branch-misses,1296457.0
+2,1,cycles,440746190.0
+3,1,cycles,414063313.0
+4,1,cycles,390031937.0
+5,1,cycles,358179170.0
+6,1,cycles,384259259.0
+7,1,cycles,355978165.0
+8,1,cycles,369155888.0
+9,1,cycles,324710282.0
+10,1,cycles,434254753.0
+11,1,cycles,509221593.0
+12,1,cycles,391329196.0
+13,1,cycles,457727590.0
+14,1,cycles,958553648.0
+15,1,cycles,474946341.0
+16,1,cycles,420009142.0
+17,1,cycles,369567524.0
+18,1,cycles,374782174.0
+19,1,cycles,350654591.0
+20,1,cycles,345502385.0
+21,1,cycles,388371195.0
+22,1,cycles,374503581.0
+23,1,cycles,358577777.0
+24,1,cycles,415984645.0
+25,1,cycles,337951878.0
+26,1,cycles,343307738.0
+27,1,cycles,376694225.0
+28,1,cycles,440835117.0
+29,1,cycles,487084828.0
+30,1,cycles,355196109.0
+31,1,cycles,428095505.0
+2,2,cycles,373391842.0
+3,2,cycles,379853081.0
+4,2,cycles,501799860.0
+5,2,cycles,362653349.0
+6,2,cycles,393476587.0
+7,2,cycles,418404014.0
+8,2,cycles,387082475.0
+9,2,cycles,462723664.0
+10,2,cycles,420752847.0
+11,2,cycles,399094095.0
+12,2,cycles,450211314.0
+13,2,cycles,382586275.0
+14,2,cycles,359643277.0
+15,2,cycles,390254681.0
+16,2,cycles,329918275.0
+17,2,cycles,375279848.0
+18,2,cycles,394600373.0
+19,2,cycles,388870456.0
+20,2,cycles,310379162.0
+21,2,cycles,318043936.0
+22,2,cycles,310373042.0
+23,2,cycles,337123137.0
+24,2,cycles,352858768.0
+25,2,cycles,357953265.0
+26,2,cycles,385360987.0
+27,2,cycles,363786140.0
+28,2,cycles,345906521.0
+29,2,cycles,389790624.0
+30,2,cycles,503562983.0
+31,2,cycles,493260727.0
+2,3,cycles,415925401.0
+3,3,cycles,370363814.0
+4,3,cycles,366291281.0
+5,3,cycles,364196407.0
+6,3,cycles,401090574.0
+7,3,cycles,344382484.0
+8,3,cycles,401364129.0
+9,3,cycles,378274116.0
+10,3,cycles,404768012.0
+11,3,cycles,359116817.0
+12,3,cycles,395059372.0
+13,3,cycles,420272057.0
+14,3,cycles,547508400.0
+15,3,cycles,372061251.0
+16,3,cycles,383834069.0
+17,3,cycles,378214718.0
+18,3,cycles,436133559.0
+19,3,cycles,385827314.0
+20,3,cycles,447797520.0
+21,3,cycles,364202835.0
+22,3,cycles,373063564.0
+23,3,cycles,352094694.0
+24,3,cycles,413618962.0
+25,3,cycles,518199065.0
+26,3,cycles,321526322.0
+27,3,cycles,333777203.0
+28,3,cycles,338548085.0
+29,3,cycles,349726682.0
+30,3,cycles,348211114.0
+31,3,cycles,337152987.0
+2,4,cycles,400907492.0
+3,4,cycles,453605079.0
+4,4,cycles,377846235.0
+5,4,cycles,407570260.0
+6,4,cycles,331163803.0
+7,4,cycles,351343641.0
+8,4,cycles,325263705.0
+9,4,cycles,337890338.0
+10,4,cycles,357841933.0
+11,4,cycles,372271815.0
+12,4,cycles,416591961.0
+13,4,cycles,407916108.0
+14,4,cycles,404671784.0
+15,4,cycles,375002844.0
+16,4,cycles,431907900.0
+17,4,cycles,370900569.0
+18,4,cycles,354154733.0
+19,4,cycles,430069110.0
+20,4,cycles,403723045.0
+21,4,cycles,422114911.0
+22,4,cycles,372042284.0
+23,4,cycles,373110657.0
+24,4,cycles,311759346.0
+25,4,cycles,342844266.0
+26,4,cycles,355456505.0
+27,4,cycles,517700623.0
+28,4,cycles,458254271.0
+29,4,cycles,394889498.0
+30,4,cycles,353865696.0
+31,4,cycles,457136947.0
+2,5,cycles,472153025.0
+3,5,cycles,415768178.0
+4,5,cycles,403507999.0
+5,5,cycles,394085493.0
+6,5,cycles,332516595.0
+7,5,cycles,380664612.0
+8,5,cycles,375041900.0
+9,5,cycles,461699076.0
+10,5,cycles,353479226.0
+11,5,cycles,342373165.0
+12,5,cycles,349236083.0
+13,5,cycles,317784472.0
+14,5,cycles,376057895.0
+15,5,cycles,368670334.0
+16,5,cycles,542919351.0
+17,5,cycles,346034379.0
+18,5,cycles,379328094.0
+19,5,cycles,361362813.0
+20,5,cycles,512349347.0
+21,5,cycles,405268610.0
+22,5,cycles,356630195.0
+23,5,cycles,335680991.0
+24,5,cycles,443998877.0
+25,5,cycles,380018619.0
+26,5,cycles,388870777.0
+27,5,cycles,425703480.0
+28,5,cycles,351403886.0
+29,5,cycles,367085865.0
+30,5,cycles,317045232.0
+31,5,cycles,388559203.0
+2,6,cycles,583011773.0
+3,6,cycles,399952783.0
+4,6,cycles,412694572.0
+5,6,cycles,369082988.0
+6,6,cycles,430694618.0
+7,6,cycles,411001821.0
+8,6,cycles,358018507.0
+9,6,cycles,394288092.0
+10,6,cycles,316081266.0
+11,6,cycles,452911383.0
+12,6,cycles,341252668.0
+13,6,cycles,342734010.0
+14,6,cycles,444391756.0
+15,6,cycles,373309117.0
+16,6,cycles,355381605.0
+17,6,cycles,346024272.0
+18,6,cycles,352732357.0
+19,6,cycles,343512531.0
+20,6,cycles,409935725.0
+21,6,cycles,349084442.0
+22,6,cycles,353045219.0
+23,6,cycles,548548070.0
+24,6,cycles,451810499.0
+25,6,cycles,353012974.0
+26,6,cycles,402472661.0
+27,6,cycles,411731265.0
+28,6,cycles,304237371.0
+29,6,cycles,320833188.0
+30,6,cycles,313749143.0
+31,6,cycles,304739017.0
+2,7,cycles,366242631.0
+3,7,cycles,325521037.0
+4,7,cycles,340795599.0
+5,7,cycles,339869101.0
+6,7,cycles,328946801.0
+7,7,cycles,467364545.0
+8,7,cycles,454389839.0
+9,7,cycles,421097351.0
+10,7,cycles,433783199.0
+11,7,cycles,394002130.0
+12,7,cycles,422527372.0
+13,7,cycles,372897024.0
+14,7,cycles,441339300.0
+15,7,cycles,391155924.0
+16,7,cycles,424076745.0
+17,7,cycles,349249851.0
+18,7,cycles,338978983.0
+19,7,cycles,341647461.0
+20,7,cycles,385763853.0
+21,7,cycles,377411958.0
+22,7,cycles,353734899.0
+23,7,cycles,335280087.0
+24,7,cycles,370470569.0
+25,7,cycles,418309755.0
+26,7,cycles,412869331.0
+27,7,cycles,375490914.0
+28,7,cycles,490371056.0
+29,7,cycles,339871637.0
+30,7,cycles,426985589.0
+31,7,cycles,379853932.0
+2,8,cycles,441054910.0
+3,8,cycles,400276247.0
+4,8,cycles,361480848.0
+5,8,cycles,492341401.0
+6,8,cycles,351347701.0
+7,8,cycles,367401831.0
+8,8,cycles,430524728.0
+9,8,cycles,545575437.0
+10,8,cycles,542123030.0
+11,8,cycles,382455221.0
+12,8,cycles,468171797.0
+13,8,cycles,610620930.0
+14,8,cycles,473418135.0
+15,8,cycles,411836186.0
+16,8,cycles,303769771.0
+17,8,cycles,295043283.0
+18,8,cycles,296163466.0
+19,8,cycles,286360169.0
+20,8,cycles,400091218.0
+21,8,cycles,286633606.0
+22,8,cycles,315485304.0
+23,8,cycles,340318920.0
+24,8,cycles,315324668.0
+25,8,cycles,305615550.0
+26,8,cycles,325328358.0
+27,8,cycles,322868811.0
+28,8,cycles,342383692.0
+29,8,cycles,434902451.0
+30,8,cycles,300060731.0
+31,8,cycles,354614125.0
+2,9,cycles,375272890.0
+3,9,cycles,371596310.0
+4,9,cycles,414381180.0
+5,9,cycles,415988507.0
+6,9,cycles,550078407.0
+7,9,cycles,412080572.0
+8,9,cycles,440054888.0
+9,9,cycles,397793913.0
+10,9,cycles,443695940.0
+11,9,cycles,423058312.0
+12,9,cycles,386918628.0
+13,9,cycles,356591271.0
+14,9,cycles,384217497.0
+15,9,cycles,420282477.0
+16,9,cycles,348657676.0
+17,9,cycles,353072510.0
+18,9,cycles,317298543.0
+19,9,cycles,309194379.0
+20,9,cycles,285341491.0
+21,9,cycles,337061961.0
+22,9,cycles,448900753.0
+23,9,cycles,339748002.0
+24,9,cycles,501827916.0
+25,9,cycles,331763906.0
+26,9,cycles,305431654.0
+27,9,cycles,327638709.0
+28,9,cycles,405794446.0
+29,9,cycles,481855797.0
+30,9,cycles,336433152.0
+31,9,cycles,407759033.0
+2,10,cycles,398863387.0
+3,10,cycles,391488708.0
+4,10,cycles,470761358.0
+5,10,cycles,369699795.0
+6,10,cycles,557628063.0
+7,10,cycles,338684180.0
+8,10,cycles,347964972.0
+9,10,cycles,398362228.0
+10,10,cycles,332544165.0
+11,10,cycles,444253426.0
+12,10,cycles,339532608.0
+13,10,cycles,353436431.0
+14,10,cycles,416431686.0
+15,10,cycles,429512710.0
+16,10,cycles,391853575.0
+17,10,cycles,361271955.0
+18,10,cycles,444588928.0
+19,10,cycles,513153900.0
+20,10,cycles,339389094.0
+21,10,cycles,330318657.0
+22,10,cycles,476518219.0
+23,10,cycles,485343722.0
+24,10,cycles,299656440.0
+25,10,cycles,330460934.0
+26,10,cycles,349434063.0
+27,10,cycles,333789243.0
+28,10,cycles,329396140.0
+29,10,cycles,353113888.0
+30,10,cycles,344365430.0
+31,10,cycles,384350003.0
+2,11,cycles,396782032.0
+3,11,cycles,348959780.0
+4,11,cycles,361928014.0
+5,11,cycles,431794788.0
+6,11,cycles,526432997.0
+7,11,cycles,367967973.0
+8,11,cycles,511200623.0
+9,11,cycles,371528142.0
+10,11,cycles,363703921.0
+11,11,cycles,346520412.0
+12,11,cycles,381824772.0
+13,11,cycles,441300219.0
+14,11,cycles,378770228.0
+15,11,cycles,355317481.0
+16,11,cycles,340883356.0
+17,11,cycles,329300756.0
+18,11,cycles,350151508.0
+19,11,cycles,375776043.0
+20,11,cycles,359724380.0
+21,11,cycles,450561006.0
+22,11,cycles,432707831.0
+23,11,cycles,408734194.0
+24,11,cycles,336036790.0
+25,11,cycles,385877798.0
+26,11,cycles,328606760.0
+27,11,cycles,381291380.0
+28,11,cycles,391969527.0
+29,11,cycles,352588468.0
+30,11,cycles,377139094.0
+31,11,cycles,437902428.0
+2,12,cycles,384652677.0
+3,12,cycles,356539259.0
+4,12,cycles,507958614.0
+5,12,cycles,378505498.0
+6,12,cycles,486529237.0
+7,12,cycles,397669777.0
+8,12,cycles,483527374.0
+9,12,cycles,504759614.0
+10,12,cycles,438167706.0
+11,12,cycles,422921857.0
+12,12,cycles,430244735.0
+13,12,cycles,483701512.0
+14,12,cycles,394637190.0
+15,12,cycles,497285181.0
+16,12,cycles,340542865.0
+17,12,cycles,384959675.0
+18,12,cycles,362955290.0
+19,12,cycles,332039032.0
+20,12,cycles,340666459.0
+21,12,cycles,364143447.0
+22,12,cycles,328060739.0
+23,12,cycles,304413606.0
+24,12,cycles,319795409.0
+25,12,cycles,299538770.0
+26,12,cycles,315504346.0
+27,12,cycles,313111741.0
+28,12,cycles,348645782.0
+29,12,cycles,318644667.0
+30,12,cycles,401341263.0
+31,12,cycles,314821913.0
+2,13,cycles,343671382.0
+3,13,cycles,333266856.0
+4,13,cycles,373775346.0
+5,13,cycles,443499902.0
+6,13,cycles,393755827.0
+7,13,cycles,437382383.0
+8,13,cycles,393482628.0
+9,13,cycles,505292168.0
+10,13,cycles,338059219.0
+11,13,cycles,342870800.0
+12,13,cycles,354489563.0
+13,13,cycles,361373411.0
+14,13,cycles,422370010.0
+15,13,cycles,466565587.0
+16,13,cycles,407092147.0
+17,13,cycles,339063594.0
+18,13,cycles,348868330.0
+19,13,cycles,383362130.0
+20,13,cycles,553088410.0
+21,13,cycles,317732373.0
+22,13,cycles,331565563.0
+23,13,cycles,418133147.0
+24,13,cycles,397357075.0
+25,13,cycles,368050669.0
+26,13,cycles,398551668.0
+27,13,cycles,347980489.0
+28,13,cycles,391341870.0
+29,13,cycles,426062884.0
+30,13,cycles,348591779.0
+31,13,cycles,378485279.0
+2,14,cycles,375078888.0
+3,14,cycles,380136455.0
+4,14,cycles,440007100.0
+5,14,cycles,396306944.0
+6,14,cycles,466370384.0
+7,14,cycles,445115185.0
+8,14,cycles,446827583.0
+9,14,cycles,495749778.0
+10,14,cycles,366794097.0
+11,14,cycles,515660643.0
+12,14,cycles,389694273.0
+13,14,cycles,502796968.0
+14,14,cycles,366718757.0
+15,14,cycles,391138771.0
+16,14,cycles,369895865.0
+17,14,cycles,351875931.0
+18,14,cycles,300439557.0
+19,14,cycles,368919788.0
+20,14,cycles,404946974.0
+21,14,cycles,320224034.0
+22,14,cycles,300181114.0
+23,14,cycles,315022598.0
+24,14,cycles,376645328.0
+25,14,cycles,333394335.0
+26,14,cycles,326785709.0
+27,14,cycles,526898289.0
+28,14,cycles,322971439.0
+29,14,cycles,321489758.0
+30,14,cycles,302066791.0
+31,14,cycles,315922893.0
+2,15,cycles,356765463.0
+3,15,cycles,356383090.0
+4,15,cycles,366843947.0
+5,15,cycles,561680448.0
+6,15,cycles,432932099.0
+7,15,cycles,477045212.0
+8,15,cycles,444106710.0
+9,15,cycles,559565680.0
+10,15,cycles,377169767.0
+11,15,cycles,396057303.0
+12,15,cycles,393707997.0
+13,15,cycles,407206747.0
+14,15,cycles,583642552.0
+15,15,cycles,414727190.0
+16,15,cycles,361127489.0
+17,15,cycles,329619311.0
+18,15,cycles,334153213.0
+19,15,cycles,337298992.0
+20,15,cycles,296641397.0
+21,15,cycles,308086233.0
+22,15,cycles,304722695.0
+23,15,cycles,291343371.0
+24,15,cycles,316266137.0
+25,15,cycles,480602485.0
+26,15,cycles,343278107.0
+27,15,cycles,349240178.0
+28,15,cycles,382233250.0
+29,15,cycles,341594177.0
+30,15,cycles,328811109.0
+31,15,cycles,332361404.0
+2,16,cycles,389668005.0
+3,16,cycles,357256526.0
+4,16,cycles,443804622.0
+5,16,cycles,391551152.0
+6,16,cycles,371216191.0
+7,16,cycles,340896543.0
+8,16,cycles,378614652.0
+9,16,cycles,478482307.0
+10,16,cycles,344157117.0
+11,16,cycles,384952244.0
+12,16,cycles,354900485.0
+13,16,cycles,510699865.0
+14,16,cycles,380689675.0
+15,16,cycles,358673191.0
+16,16,cycles,344380620.0
+17,16,cycles,355886560.0
+18,16,cycles,402631231.0
+19,16,cycles,415054470.0
+20,16,cycles,347054544.0
+21,16,cycles,490165792.0
+22,16,cycles,319030461.0
+23,16,cycles,318750959.0
+24,16,cycles,332239110.0
+25,16,cycles,332104414.0
+26,16,cycles,352918090.0
+27,16,cycles,339173568.0
+28,16,cycles,364891268.0
+29,16,cycles,387326704.0
+30,16,cycles,503177994.0
+31,16,cycles,457198383.0
+2,17,cycles,351680193.0
+3,17,cycles,326256579.0
+4,17,cycles,329574372.0
+5,17,cycles,377586323.0
+6,17,cycles,367374602.0
+7,17,cycles,362236359.0
+8,17,cycles,413602649.0
+9,17,cycles,468384296.0
+10,17,cycles,454321031.0
+11,17,cycles,601709975.0
+12,17,cycles,395366200.0
+13,17,cycles,342056712.0
+14,17,cycles,356438321.0
+15,17,cycles,384940410.0
+16,17,cycles,385380274.0
+17,17,cycles,338728402.0
+18,17,cycles,370426008.0
+19,17,cycles,385608486.0
+20,17,cycles,415545897.0
+21,17,cycles,327819414.0
+22,17,cycles,376642486.0
+23,17,cycles,383199277.0
+24,17,cycles,361341663.0
+25,17,cycles,503329268.0
+26,17,cycles,382548491.0
+27,17,cycles,314191287.0
+28,17,cycles,369952873.0
+29,17,cycles,389630671.0
+30,17,cycles,363673456.0
+31,17,cycles,378116861.0
+2,18,cycles,362780358.0
+3,18,cycles,412738397.0
+4,18,cycles,389688757.0
+5,18,cycles,455523929.0
+6,18,cycles,404554936.0
+7,18,cycles,410336676.0
+8,18,cycles,481825392.0
+9,18,cycles,426945437.0
+10,18,cycles,488623387.0
+11,18,cycles,543725476.0
+12,18,cycles,394739514.0
+13,18,cycles,320598316.0
+14,18,cycles,495175770.0
+15,18,cycles,407610011.0
+16,18,cycles,340791843.0
+17,18,cycles,334079486.0
+18,18,cycles,321357834.0
+19,18,cycles,326698956.0
+20,18,cycles,332483917.0
+21,18,cycles,337661977.0
+22,18,cycles,280420681.0
+23,18,cycles,328441696.0
+24,18,cycles,411869954.0
+25,18,cycles,324994496.0
+26,18,cycles,469330388.0
+27,18,cycles,300049282.0
+28,18,cycles,411927807.0
+29,18,cycles,309124305.0
+30,18,cycles,306161433.0
+31,18,cycles,419389575.0
+2,19,cycles,421317229.0
+3,19,cycles,534673293.0
+4,19,cycles,382554352.0
+5,19,cycles,384664698.0
+6,19,cycles,371537679.0
+7,19,cycles,331626047.0
+8,19,cycles,318351802.0
+9,19,cycles,371281413.0
+10,19,cycles,398630069.0
+11,19,cycles,445918797.0
+12,19,cycles,517264597.0
+13,19,cycles,426388792.0
+14,19,cycles,312323986.0
+15,19,cycles,388307906.0
+16,19,cycles,381527539.0
+17,19,cycles,420946730.0
+18,19,cycles,326235028.0
+19,19,cycles,339940591.0
+20,19,cycles,341758331.0
+21,19,cycles,671038413.0
+22,19,cycles,400127719.0
+23,19,cycles,342234561.0
+24,19,cycles,348707444.0
+25,19,cycles,388342168.0
+26,19,cycles,349982418.0
+27,19,cycles,350887939.0
+28,19,cycles,336767476.0
+29,19,cycles,335467328.0
+30,19,cycles,319938646.0
+31,19,cycles,346977379.0
+2,20,cycles,389373847.0
+3,20,cycles,465052177.0
+4,20,cycles,354829473.0
+5,20,cycles,369407230.0
+6,20,cycles,382045523.0
+7,20,cycles,391000813.0
+8,20,cycles,499854967.0
+9,20,cycles,347752435.0
+10,20,cycles,476528048.0
+11,20,cycles,442125181.0
+12,20,cycles,375067393.0
+13,20,cycles,438069484.0
+14,20,cycles,357267775.0
+15,20,cycles,377084242.0
+16,20,cycles,445064533.0
+17,20,cycles,332518008.0
+18,20,cycles,400203152.0
+19,20,cycles,367611670.0
+20,20,cycles,368969981.0
+21,20,cycles,377921478.0
+22,20,cycles,341431021.0
+23,20,cycles,354583823.0
+24,20,cycles,407924252.0
+25,20,cycles,376627228.0
+26,20,cycles,343824317.0
+27,20,cycles,425601483.0
+28,20,cycles,300502800.0
+29,20,cycles,435540971.0
+30,20,cycles,361655968.0
+31,20,cycles,340714687.0
+2,21,cycles,360741493.0
+3,21,cycles,343793151.0
+4,21,cycles,405036544.0
+5,21,cycles,477343969.0
+6,21,cycles,353527990.0
+7,21,cycles,374047921.0
+8,21,cycles,478608924.0
+9,21,cycles,398750799.0
+10,21,cycles,345114684.0
+11,21,cycles,373356693.0
+12,21,cycles,430947051.0
+13,21,cycles,424241863.0
+14,21,cycles,402408792.0
+15,21,cycles,403295783.0
+16,21,cycles,504119229.0
+17,21,cycles,424658109.0
+18,21,cycles,368840037.0
+19,21,cycles,313434132.0
+20,21,cycles,383710446.0
+21,21,cycles,338021886.0
+22,21,cycles,476459240.0
+23,21,cycles,343921266.0
+24,21,cycles,373541510.0
+25,21,cycles,395667759.0
+26,21,cycles,338124858.0
+27,21,cycles,350025353.0
+28,21,cycles,370872445.0
+29,21,cycles,342207829.0
+30,21,cycles,375381345.0
+31,21,cycles,372966665.0
+2,22,cycles,430776241.0
+3,22,cycles,334556158.0
+4,22,cycles,349573468.0
+5,22,cycles,433195538.0
+6,22,cycles,368051988.0
+7,22,cycles,414870919.0
+8,22,cycles,378068802.0
+9,22,cycles,415870914.0
+10,22,cycles,409216212.0
+11,22,cycles,335929689.0
+12,22,cycles,312420151.0
+13,22,cycles,355503613.0
+14,22,cycles,384633964.0
+15,22,cycles,352808937.0
+16,22,cycles,558477214.0
+17,22,cycles,358584382.0
+18,22,cycles,321635611.0
+19,22,cycles,352073106.0
+20,22,cycles,428465898.0
+21,22,cycles,434729652.0
+22,22,cycles,377041838.0
+23,22,cycles,356316785.0
+24,22,cycles,365109588.0
+25,22,cycles,463062664.0
+26,22,cycles,357891981.0
+27,22,cycles,401560362.0
+28,22,cycles,355115777.0
+29,22,cycles,430423929.0
+30,22,cycles,469458776.0
+31,22,cycles,349526909.0
+2,23,cycles,207821153.0
+3,23,cycles,172975053.0
+4,23,cycles,194737271.0
+5,23,cycles,237212275.0
+6,23,cycles,215595939.0
+7,23,cycles,235049324.0
+8,23,cycles,248394065.0
+9,23,cycles,226223211.0
+10,23,cycles,260221263.0
+11,23,cycles,199818033.0
+12,23,cycles,186840581.0
+13,23,cycles,197188264.0
+14,23,cycles,214458965.0
+15,23,cycles,250191969.0
+16,23,cycles,447572313.0
+17,23,cycles,609783963.0
+18,23,cycles,447632573.0
+19,23,cycles,553117220.0
+20,23,cycles,532326185.0
+21,23,cycles,581217138.0
+22,23,cycles,497859546.0
+23,23,cycles,661281060.0
+24,23,cycles,571879869.0
+25,23,cycles,429757044.0
+26,23,cycles,493022321.0
+27,23,cycles,584217955.0
+28,23,cycles,454479939.0
+29,23,cycles,460520599.0
+30,23,cycles,516469290.0
+31,23,cycles,466176781.0
+2,24,cycles,366830074.0
+3,24,cycles,367529937.0
+4,24,cycles,344610716.0
+5,24,cycles,332405045.0
+6,24,cycles,339393510.0
+7,24,cycles,392105032.0
+8,24,cycles,356024389.0
+9,24,cycles,439679365.0
+10,24,cycles,356605175.0
+11,24,cycles,341979501.0
+12,24,cycles,378281894.0
+13,24,cycles,457789089.0
+14,24,cycles,365932704.0
+15,24,cycles,493141778.0
+16,24,cycles,390554655.0
+17,24,cycles,633116479.0
+18,24,cycles,387900244.0
+19,24,cycles,424810616.0
+20,24,cycles,365721538.0
+21,24,cycles,376135995.0
+22,24,cycles,338187523.0
+23,24,cycles,376463749.0
+24,24,cycles,370974968.0
+25,24,cycles,405468130.0
+26,24,cycles,348832794.0
+27,24,cycles,379787254.0
+28,24,cycles,369097599.0
+29,24,cycles,369710174.0
+30,24,cycles,384253978.0
+31,24,cycles,332551987.0
+2,25,cycles,397784942.0
+3,25,cycles,432245694.0
+4,25,cycles,370199020.0
+5,25,cycles,390897753.0
+6,25,cycles,436301851.0
+7,25,cycles,536932225.0
+8,25,cycles,364133311.0
+9,25,cycles,331854666.0
+10,25,cycles,420000090.0
+11,25,cycles,445716402.0
+12,25,cycles,413340891.0
+13,25,cycles,462471334.0
+14,25,cycles,346264594.0
+15,25,cycles,311805605.0
+16,25,cycles,363864952.0
+17,25,cycles,352346032.0
+18,25,cycles,330595634.0
+19,25,cycles,376398538.0
+20,25,cycles,371087897.0
+21,25,cycles,330936239.0
+22,25,cycles,312199507.0
+23,25,cycles,407689069.0
+24,25,cycles,390660232.0
+25,25,cycles,334238877.0
+26,25,cycles,443293224.0
+27,25,cycles,337793300.0
+28,25,cycles,329711001.0
+29,25,cycles,418562199.0
+30,25,cycles,327734702.0
+31,25,cycles,342426456.0
+2,26,cycles,434540197.0
+3,26,cycles,326007744.0
+4,26,cycles,342149462.0
+5,26,cycles,398037986.0
+6,26,cycles,509915936.0
+7,26,cycles,448360669.0
+8,26,cycles,546197863.0
+9,26,cycles,353853146.0
+10,26,cycles,350660371.0
+11,26,cycles,426596660.0
+12,26,cycles,362197012.0
+13,26,cycles,386416079.0
+14,26,cycles,344653205.0
+15,26,cycles,412565463.0
+16,26,cycles,338967270.0
+17,26,cycles,443851790.0
+18,26,cycles,342829297.0
+19,26,cycles,437042216.0
+20,26,cycles,418317409.0
+21,26,cycles,326755266.0
+22,26,cycles,371807889.0
+23,26,cycles,449274932.0
+24,26,cycles,399405398.0
+25,26,cycles,404197308.0
+26,26,cycles,352225558.0
+27,26,cycles,342508320.0
+28,26,cycles,332211560.0
+29,26,cycles,405608175.0
+30,26,cycles,306937566.0
+31,26,cycles,351483748.0
+2,27,cycles,346123495.0
+3,27,cycles,442535905.0
+4,27,cycles,396331834.0
+5,27,cycles,409103096.0
+6,27,cycles,373922424.0
+7,27,cycles,387483213.0
+8,27,cycles,402871488.0
+9,27,cycles,365487778.0
+10,27,cycles,327326973.0
+11,27,cycles,356754834.0
+12,27,cycles,345100963.0
+13,27,cycles,342167124.0
+14,27,cycles,392639080.0
+15,27,cycles,458659169.0
+16,27,cycles,365808349.0
+17,27,cycles,346504228.0
+18,27,cycles,377750575.0
+19,27,cycles,339770676.0
+20,27,cycles,499179386.0
+21,27,cycles,394087312.0
+22,27,cycles,507162929.0
+23,27,cycles,417775683.0
+24,27,cycles,326632386.0
+25,27,cycles,383906297.0
+26,27,cycles,466770117.0
+27,27,cycles,375392291.0
+28,27,cycles,358797361.0
+29,27,cycles,408166897.0
+30,27,cycles,355753053.0
+31,27,cycles,398642787.0
+2,28,cycles,412407810.0
+3,28,cycles,373418161.0
+4,28,cycles,441717032.0
+5,28,cycles,399878474.0
+6,28,cycles,408325591.0
+7,28,cycles,431675575.0
+8,28,cycles,397549204.0
+9,28,cycles,461154751.0
+10,28,cycles,445578144.0
+11,28,cycles,407258898.0
+12,28,cycles,419717817.0
+13,28,cycles,411536005.0
+14,28,cycles,341838446.0
+15,28,cycles,357790278.0
+16,28,cycles,344301930.0
+17,28,cycles,384962532.0
+18,28,cycles,331725775.0
+19,28,cycles,331143115.0
+20,28,cycles,360028524.0
+21,28,cycles,303356934.0
+22,28,cycles,361911652.0
+23,28,cycles,368083560.0
+24,28,cycles,355800676.0
+25,28,cycles,323734488.0
+26,28,cycles,353966333.0
+27,28,cycles,553884984.0
+28,28,cycles,352895133.0
+29,28,cycles,406602139.0
+30,28,cycles,411906338.0
+31,28,cycles,329349815.0
+2,29,cycles,434859674.0
+3,29,cycles,378116429.0
+4,29,cycles,516508848.0
+5,29,cycles,426385901.0
+6,29,cycles,385775336.0
+7,29,cycles,340904598.0
+8,29,cycles,364699810.0
+9,29,cycles,406570416.0
+10,29,cycles,435096914.0
+11,29,cycles,401696130.0
+12,29,cycles,415628450.0
+13,29,cycles,395742408.0
+14,29,cycles,370712896.0
+15,29,cycles,448274384.0
+16,29,cycles,448062178.0
+17,29,cycles,377788607.0
+18,29,cycles,316453834.0
+19,29,cycles,296375009.0
+20,29,cycles,392711842.0
+21,29,cycles,335516880.0
+22,29,cycles,318459327.0
+23,29,cycles,322746053.0
+24,29,cycles,462494906.0
+25,29,cycles,303560551.0
+26,29,cycles,331332053.0
+27,29,cycles,386707961.0
+28,29,cycles,437575668.0
+29,29,cycles,416793444.0
+30,29,cycles,358846241.0
+31,29,cycles,359395680.0
+2,30,cycles,532223998.0
+3,30,cycles,446176693.0
+4,30,cycles,473971251.0
+5,30,cycles,371314636.0
+6,30,cycles,384352028.0
+7,30,cycles,402570002.0
+8,30,cycles,425979451.0
+9,30,cycles,382232476.0
+10,30,cycles,393158374.0
+11,30,cycles,424583398.0
+12,30,cycles,391565343.0
+13,30,cycles,390188880.0
+14,30,cycles,491407192.0
+15,30,cycles,418167278.0
+16,30,cycles,496924677.0
+17,30,cycles,304387259.0
+18,30,cycles,330410257.0
+19,30,cycles,347437575.0
+20,30,cycles,300413299.0
+21,30,cycles,315872073.0
+22,30,cycles,312315908.0
+23,30,cycles,297519726.0
+24,30,cycles,335423974.0
+25,30,cycles,322138181.0
+26,30,cycles,334601889.0
+27,30,cycles,388532700.0
+28,30,cycles,337705020.0
+29,30,cycles,309748846.0
+30,30,cycles,566069540.0
+31,30,cycles,386605895.0
+2,1,instructions,476997376.0
+3,1,instructions,452780382.0
+4,1,instructions,441459376.0
+5,1,instructions,409673460.0
+6,1,instructions,424822239.0
+7,1,instructions,406820544.0
+8,1,instructions,424384439.0
+9,1,instructions,374245157.0
+10,1,instructions,476715845.0
+11,1,instructions,530302210.0
+12,1,instructions,457226222.0
+13,1,instructions,716635082.0
+14,1,instructions,1083236357.0
+15,1,instructions,482942076.0
+16,1,instructions,424175013.0
+17,1,instructions,386746205.0
+18,1,instructions,401808262.0
+19,1,instructions,402873589.0
+20,1,instructions,405679132.0
+21,1,instructions,436571687.0
+22,1,instructions,440242302.0
+23,1,instructions,429260791.0
+24,1,instructions,483981697.0
+25,1,instructions,388295188.0
+26,1,instructions,407009791.0
+27,1,instructions,448605316.0
+28,1,instructions,493854262.0
+29,1,instructions,522699491.0
+30,1,instructions,416790644.0
+31,1,instructions,470556026.0
+2,2,instructions,441271723.0
+3,2,instructions,448331131.0
+4,2,instructions,528349265.0
+5,2,instructions,398125628.0
+6,2,instructions,450616711.0
+7,2,instructions,470123689.0
+8,2,instructions,417737613.0
+9,2,instructions,521241635.0
+10,2,instructions,442745698.0
+11,2,instructions,462958135.0
+12,2,instructions,496307998.0
+13,2,instructions,460202111.0
+14,2,instructions,394239441.0
+15,2,instructions,417778229.0
+16,2,instructions,343414946.0
+17,2,instructions,409778820.0
+18,2,instructions,450513843.0
+19,2,instructions,443000957.0
+20,2,instructions,365065144.0
+21,2,instructions,375660273.0
+22,2,instructions,341183370.0
+23,2,instructions,374973563.0
+24,2,instructions,422173963.0
+25,2,instructions,399981196.0
+26,2,instructions,448461794.0
+27,2,instructions,424606367.0
+28,2,instructions,403405889.0
+29,2,instructions,444411716.0
+30,2,instructions,538670605.0
+31,2,instructions,512683220.0
+2,3,instructions,462171777.0
+3,3,instructions,437715569.0
+4,3,instructions,408770637.0
+5,3,instructions,390500910.0
+6,3,instructions,427938925.0
+7,3,instructions,383794681.0
+8,3,instructions,430162021.0
+9,3,instructions,424082483.0
+10,3,instructions,464066869.0
+11,3,instructions,411545320.0
+12,3,instructions,445397703.0
+13,3,instructions,483488607.0
+14,3,instructions,553920263.0
+15,3,instructions,436528006.0
+16,3,instructions,430318766.0
+17,3,instructions,473045965.0
+18,3,instructions,471140821.0
+19,3,instructions,460405788.0
+20,3,instructions,498071197.0
+21,3,instructions,419203460.0
+22,3,instructions,415009064.0
+23,3,instructions,420032562.0
+24,3,instructions,449406707.0
+25,3,instructions,527802628.0
+26,3,instructions,381487818.0
+27,3,instructions,392717743.0
+28,3,instructions,376492911.0
+29,3,instructions,395018783.0
+30,3,instructions,382573814.0
+31,3,instructions,377588425.0
+2,4,instructions,433779762.0
+3,4,instructions,476454602.0
+4,4,instructions,414711954.0
+5,4,instructions,451573738.0
+6,4,instructions,376695817.0
+7,4,instructions,395415713.0
+8,4,instructions,357130416.0
+9,4,instructions,392064574.0
+10,4,instructions,407921071.0
+11,4,instructions,437944516.0
+12,4,instructions,473840788.0
+13,4,instructions,451920971.0
+14,4,instructions,461552614.0
+15,4,instructions,403757348.0
+16,4,instructions,455665008.0
+17,4,instructions,415853146.0
+18,4,instructions,407875427.0
+19,4,instructions,472457232.0
+20,4,instructions,489654914.0
+21,4,instructions,447040340.0
+22,4,instructions,435757203.0
+23,4,instructions,440333124.0
+24,4,instructions,366230799.0
+25,4,instructions,402711070.0
+26,4,instructions,423502983.0
+27,4,instructions,520133421.0
+28,4,instructions,490652269.0
+29,4,instructions,415753034.0
+30,4,instructions,396949113.0
+31,4,instructions,495206576.0
+2,5,instructions,506819495.0
+3,5,instructions,447920380.0
+4,5,instructions,448281006.0
+5,5,instructions,440242863.0
+6,5,instructions,390998544.0
+7,5,instructions,419128104.0
+8,5,instructions,419531218.0
+9,5,instructions,480276669.0
+10,5,instructions,406545600.0
+11,5,instructions,365432718.0
+12,5,instructions,397131165.0
+13,5,instructions,364788677.0
+14,5,instructions,407680362.0
+15,5,instructions,407201083.0
+16,5,instructions,551841949.0
+17,5,instructions,411080935.0
+18,5,instructions,431653912.0
+19,5,instructions,431111398.0
+20,5,instructions,543471997.0
+21,5,instructions,457145764.0
+22,5,instructions,425827009.0
+23,5,instructions,381834483.0
+24,5,instructions,482389906.0
+25,5,instructions,426688080.0
+26,5,instructions,443207535.0
+27,5,instructions,475555413.0
+28,5,instructions,423286138.0
+29,5,instructions,400383894.0
+30,5,instructions,356695782.0
+31,5,instructions,468228486.0
+2,6,instructions,575437605.0
+3,6,instructions,462881894.0
+4,6,instructions,473062889.0
+5,6,instructions,434136277.0
+6,6,instructions,501283978.0
+7,6,instructions,445745252.0
+8,6,instructions,419798141.0
+9,6,instructions,400002187.0
+10,6,instructions,352337218.0
+11,6,instructions,506300788.0
+12,6,instructions,407300525.0
+13,6,instructions,401963019.0
+14,6,instructions,469183811.0
+15,6,instructions,408619381.0
+16,6,instructions,404313055.0
+17,6,instructions,410183386.0
+18,6,instructions,419885676.0
+19,6,instructions,394125836.0
+20,6,instructions,462655300.0
+21,6,instructions,410712349.0
+22,6,instructions,416752451.0
+23,6,instructions,566065687.0
+24,6,instructions,476752473.0
+25,6,instructions,418698109.0
+26,6,instructions,452239882.0
+27,6,instructions,467980363.0
+28,6,instructions,364552502.0
+29,6,instructions,380463888.0
+30,6,instructions,351570506.0
+31,6,instructions,346848542.0
+2,7,instructions,405978709.0
+3,7,instructions,368064356.0
+4,7,instructions,398166441.0
+5,7,instructions,385545979.0
+6,7,instructions,387212832.0
+7,7,instructions,511513588.0
+8,7,instructions,494811129.0
+9,7,instructions,457740599.0
+10,7,instructions,470864204.0
+11,7,instructions,444150044.0
+12,7,instructions,455573847.0
+13,7,instructions,421595211.0
+14,7,instructions,463484944.0
+15,7,instructions,438160474.0
+16,7,instructions,441091970.0
+17,7,instructions,400452657.0
+18,7,instructions,396174724.0
+19,7,instructions,384209516.0
+20,7,instructions,442532614.0
+21,7,instructions,426949540.0
+22,7,instructions,419646728.0
+23,7,instructions,401728143.0
+24,7,instructions,422378858.0
+25,7,instructions,438540495.0
+26,7,instructions,482377121.0
+27,7,instructions,441368812.0
+28,7,instructions,531338268.0
+29,7,instructions,384677479.0
+30,7,instructions,474611217.0
+31,7,instructions,421733541.0
+2,8,instructions,491498583.0
+3,8,instructions,450742845.0
+4,8,instructions,422327523.0
+5,8,instructions,548345387.0
+6,8,instructions,396895460.0
+7,8,instructions,417511359.0
+8,8,instructions,507475371.0
+9,8,instructions,602606792.0
+10,8,instructions,590915746.0
+11,8,instructions,448904758.0
+12,8,instructions,528677174.0
+13,8,instructions,647974193.0
+14,8,instructions,546785816.0
+15,8,instructions,474547249.0
+16,8,instructions,332991812.0
+17,8,instructions,336521439.0
+18,8,instructions,345987425.0
+19,8,instructions,328840328.0
+20,8,instructions,444133326.0
+21,8,instructions,336707575.0
+22,8,instructions,356765398.0
+23,8,instructions,400200977.0
+24,8,instructions,377605062.0
+25,8,instructions,354368732.0
+26,8,instructions,369685761.0
+27,8,instructions,377390474.0
+28,8,instructions,398171936.0
+29,8,instructions,445821907.0
+30,8,instructions,347891654.0
+31,8,instructions,371376353.0
+2,9,instructions,440324275.0
+3,9,instructions,443728298.0
+4,9,instructions,482966247.0
+5,9,instructions,451854372.0
+6,9,instructions,555272132.0
+7,9,instructions,441597232.0
+8,9,instructions,478750647.0
+9,9,instructions,411307052.0
+10,9,instructions,488603802.0
+11,9,instructions,481004594.0
+12,9,instructions,454027963.0
+13,9,instructions,422682503.0
+14,9,instructions,454532454.0
+15,9,instructions,469502527.0
+16,9,instructions,397246163.0
+17,9,instructions,403382799.0
+18,9,instructions,361604132.0
+19,9,instructions,368041747.0
+20,9,instructions,321804496.0
+21,9,instructions,380274877.0
+22,9,instructions,477230674.0
+23,9,instructions,369821303.0
+24,9,instructions,503422325.0
+25,9,instructions,390988649.0
+26,9,instructions,356586018.0
+27,9,instructions,385789361.0
+28,9,instructions,461412622.0
+29,9,instructions,520237884.0
+30,9,instructions,394352686.0
+31,9,instructions,444058265.0
+2,10,instructions,453255569.0
+3,10,instructions,447853621.0
+4,10,instructions,504004426.0
+5,10,instructions,430161705.0
+6,10,instructions,568612589.0
+7,10,instructions,373085592.0
+8,10,instructions,406401314.0
+9,10,instructions,452863896.0
+10,10,instructions,379923949.0
+11,10,instructions,453933777.0
+12,10,instructions,374566055.0
+13,10,instructions,421900532.0
+14,10,instructions,470175153.0
+15,10,instructions,495085418.0
+16,10,instructions,441123918.0
+17,10,instructions,389540424.0
+18,10,instructions,504903192.0
+19,10,instructions,530139199.0
+20,10,instructions,369313955.0
+21,10,instructions,382184837.0
+22,10,instructions,497789555.0
+23,10,instructions,505497558.0
+24,10,instructions,341676834.0
+25,10,instructions,381144140.0
+26,10,instructions,401776330.0
+27,10,instructions,399655361.0
+28,10,instructions,390202971.0
+29,10,instructions,399594946.0
+30,10,instructions,399057103.0
+31,10,instructions,443376357.0
+2,11,instructions,448942998.0
+3,11,instructions,400825708.0
+4,11,instructions,419527352.0
+5,11,instructions,477884547.0
+6,11,instructions,533195070.0
+7,11,instructions,428226777.0
+8,11,instructions,525375179.0
+9,11,instructions,426691641.0
+10,11,instructions,398620991.0
+11,11,instructions,393638053.0
+12,11,instructions,432163915.0
+13,11,instructions,480173697.0
+14,11,instructions,440576475.0
+15,11,instructions,399550088.0
+16,11,instructions,363489907.0
+17,11,instructions,382310923.0
+18,11,instructions,407943757.0
+19,11,instructions,427899026.0
+20,11,instructions,389219515.0
+21,11,instructions,485578419.0
+22,11,instructions,457357184.0
+23,11,instructions,416424312.0
+24,11,instructions,409725812.0
+25,11,instructions,468230110.0
+26,11,instructions,395897240.0
+27,11,instructions,461222171.0
+28,11,instructions,446832332.0
+29,11,instructions,413087886.0
+30,11,instructions,423006518.0
+31,11,instructions,476653689.0
+2,12,instructions,433455958.0
+3,12,instructions,408834680.0
+4,12,instructions,545400933.0
+5,12,instructions,448855178.0
+6,12,instructions,542869767.0
+7,12,instructions,450746439.0
+8,12,instructions,554401144.0
+9,12,instructions,540847503.0
+10,12,instructions,468623716.0
+11,12,instructions,486236456.0
+12,12,instructions,541302718.0
+13,12,instructions,531493499.0
+14,12,instructions,471997425.0
+15,12,instructions,523885870.0
+16,12,instructions,351205377.0
+17,12,instructions,403613272.0
+18,12,instructions,408342613.0
+19,12,instructions,370263941.0
+20,12,instructions,385053739.0
+21,12,instructions,380838159.0
+22,12,instructions,371062552.0
+23,12,instructions,346336745.0
+24,12,instructions,382027850.0
+25,12,instructions,347209792.0
+26,12,instructions,354432167.0
+27,12,instructions,370138768.0
+28,12,instructions,398974733.0
+29,12,instructions,373516742.0
+30,12,instructions,437713682.0
+31,12,instructions,360748116.0
+2,13,instructions,396375814.0
+3,13,instructions,381350725.0
+4,13,instructions,416577984.0
+5,13,instructions,483647837.0
+6,13,instructions,448241756.0
+7,13,instructions,482767336.0
+8,13,instructions,434198112.0
+9,13,instructions,512099265.0
+10,13,instructions,368909520.0
+11,13,instructions,387830888.0
+12,13,instructions,407458268.0
+13,13,instructions,410628325.0
+14,13,instructions,450841615.0
+15,13,instructions,484178034.0
+16,13,instructions,443797552.0
+17,13,instructions,409423433.0
+18,13,instructions,404243984.0
+19,13,instructions,442277790.0
+20,13,instructions,553665577.0
+21,13,instructions,371367592.0
+22,13,instructions,379526628.0
+23,13,instructions,454339068.0
+24,13,instructions,429765645.0
+25,13,instructions,429328292.0
+26,13,instructions,455198633.0
+27,13,instructions,413800674.0
+28,13,instructions,446297816.0
+29,13,instructions,464451987.0
+30,13,instructions,398167810.0
+31,13,instructions,460665865.0
+2,14,instructions,458170306.0
+3,14,instructions,453333545.0
+4,14,instructions,495594556.0
+5,14,instructions,464188985.0
+6,14,instructions,510046107.0
+7,14,instructions,503224536.0
+8,14,instructions,501688181.0
+9,14,instructions,522291639.0
+10,14,instructions,432203542.0
+11,14,instructions,542791412.0
+12,14,instructions,430797555.0
+13,14,instructions,520688466.0
+14,14,instructions,454011654.0
+15,14,instructions,469617686.0
+16,14,instructions,424090850.0
+17,14,instructions,395444132.0
+18,14,instructions,357027651.0
+19,14,instructions,409082879.0
+20,14,instructions,447713471.0
+21,14,instructions,381349014.0
+22,14,instructions,347562383.0
+23,14,instructions,374690738.0
+24,14,instructions,400183496.0
+25,14,instructions,373138356.0
+26,14,instructions,378593983.0
+27,14,instructions,536567693.0
+28,14,instructions,359892427.0
+29,14,instructions,385749130.0
+30,14,instructions,327947596.0
+31,14,instructions,355657670.0
+2,15,instructions,412674579.0
+3,15,instructions,403419974.0
+4,15,instructions,421436622.0
+5,15,instructions,591708399.0
+6,15,instructions,481516874.0
+7,15,instructions,522557353.0
+8,15,instructions,532678281.0
+9,15,instructions,573009273.0
+10,15,instructions,444935376.0
+11,15,instructions,474484772.0
+12,15,instructions,486812157.0
+13,15,instructions,478518695.0
+14,15,instructions,578087889.0
+15,15,instructions,487695460.0
+16,15,instructions,376124994.0
+17,15,instructions,373373102.0
+18,15,instructions,371621241.0
+19,15,instructions,370060385.0
+20,15,instructions,344902090.0
+21,15,instructions,368650316.0
+22,15,instructions,360718108.0
+23,15,instructions,337040458.0
+24,15,instructions,369275613.0
+25,15,instructions,494651082.0
+26,15,instructions,393415210.0
+27,15,instructions,420010981.0
+28,15,instructions,413187008.0
+29,15,instructions,391155138.0
+30,15,instructions,375617673.0
+31,15,instructions,370134010.0
+2,16,instructions,452158537.0
+3,16,instructions,424916116.0
+4,16,instructions,480510249.0
+5,16,instructions,455398438.0
+6,16,instructions,452514860.0
+7,16,instructions,385410511.0
+8,16,instructions,458230032.0
+9,16,instructions,505334043.0
+10,16,instructions,397343351.0
+11,16,instructions,458505593.0
+12,16,instructions,404292186.0
+13,16,instructions,528911217.0
+14,16,instructions,426688905.0
+15,16,instructions,396159614.0
+16,16,instructions,385061310.0
+17,16,instructions,408279901.0
+18,16,instructions,438762408.0
+19,16,instructions,437086500.0
+20,16,instructions,406605972.0
+21,16,instructions,515542600.0
+22,16,instructions,378222629.0
+23,16,instructions,359777090.0
+24,16,instructions,379575261.0
+25,16,instructions,398193973.0
+26,16,instructions,429439483.0
+27,16,instructions,411476877.0
+28,16,instructions,407814545.0
+29,16,instructions,425963716.0
+30,16,instructions,516273088.0
+31,16,instructions,488400801.0
+2,17,instructions,419047097.0
+3,17,instructions,379192004.0
+4,17,instructions,375554208.0
+5,17,instructions,444872119.0
+6,17,instructions,434286232.0
+7,17,instructions,400866813.0
+8,17,instructions,485160292.0
+9,17,instructions,488938915.0
+10,17,instructions,505776656.0
+11,17,instructions,581446296.0
+12,17,instructions,432177676.0
+13,17,instructions,381938381.0
+14,17,instructions,397697681.0
+15,17,instructions,420332157.0
+16,17,instructions,422109241.0
+17,17,instructions,376429794.0
+18,17,instructions,426684388.0
+19,17,instructions,432948124.0
+20,17,instructions,499657924.0
+21,17,instructions,382279850.0
+22,17,instructions,429970104.0
+23,17,instructions,433884661.0
+24,17,instructions,428988412.0
+25,17,instructions,531176806.0
+26,17,instructions,439970840.0
+27,17,instructions,369867775.0
+28,17,instructions,436586278.0
+29,17,instructions,440153478.0
+30,17,instructions,421450713.0
+31,17,instructions,404933213.0
+2,18,instructions,422586631.0
+3,18,instructions,463349243.0
+4,18,instructions,450020968.0
+5,18,instructions,496327153.0
+6,18,instructions,469436994.0
+7,18,instructions,490426921.0
+8,18,instructions,538737728.0
+9,18,instructions,493052754.0
+10,18,instructions,565513560.0
+11,18,instructions,566677259.0
+12,18,instructions,447156515.0
+13,18,instructions,363887574.0
+14,18,instructions,520377117.0
+15,18,instructions,444973908.0
+16,18,instructions,374148725.0
+17,18,instructions,395204343.0
+18,18,instructions,379430621.0
+19,18,instructions,374229325.0
+20,18,instructions,397101406.0
+21,18,instructions,393908222.0
+22,18,instructions,325282727.0
+23,18,instructions,379634797.0
+24,18,instructions,443021601.0
+25,18,instructions,363332255.0
+26,18,instructions,485878551.0
+27,18,instructions,351956389.0
+28,18,instructions,435854755.0
+29,18,instructions,353948934.0
+30,18,instructions,357090949.0
+31,18,instructions,467272406.0
+2,19,instructions,465885920.0
+3,19,instructions,539182299.0
+4,19,instructions,425163554.0
+5,19,instructions,455637642.0
+6,19,instructions,434192399.0
+7,19,instructions,386035588.0
+8,19,instructions,362682647.0
+9,19,instructions,441109193.0
+10,19,instructions,439114564.0
+11,19,instructions,465100079.0
+12,19,instructions,524793659.0
+13,19,instructions,462282648.0
+14,19,instructions,346691374.0
+15,19,instructions,449134338.0
+16,19,instructions,429665259.0
+17,19,instructions,465338437.0
+18,19,instructions,390275115.0
+19,19,instructions,414493403.0
+20,19,instructions,392599545.0
+21,19,instructions,647188550.0
+22,19,instructions,407895990.0
+23,19,instructions,408276993.0
+24,19,instructions,402326220.0
+25,19,instructions,450950726.0
+26,19,instructions,398059759.0
+27,19,instructions,412640167.0
+28,19,instructions,403046230.0
+29,19,instructions,404892311.0
+30,19,instructions,377533786.0
+31,19,instructions,404642286.0
+2,20,instructions,443706956.0
+3,20,instructions,517856069.0
+4,20,instructions,400100283.0
+5,20,instructions,436796749.0
+6,20,instructions,437102668.0
+7,20,instructions,449481948.0
+8,20,instructions,541249666.0
+9,20,instructions,395550445.0
+10,20,instructions,514403534.0
+11,20,instructions,472301700.0
+12,20,instructions,428652428.0
+13,20,instructions,461171207.0
+14,20,instructions,384103466.0
+15,20,instructions,440011940.0
+16,20,instructions,414749393.0
+17,20,instructions,374603993.0
+18,20,instructions,448745793.0
+19,20,instructions,435603738.0
+20,20,instructions,421707676.0
+21,20,instructions,450641778.0
+22,20,instructions,394332223.0
+23,20,instructions,412040449.0
+24,20,instructions,440119061.0
+25,20,instructions,427879738.0
+26,20,instructions,384870444.0
+27,20,instructions,460726529.0
+28,20,instructions,350473507.0
+29,20,instructions,478649291.0
+30,20,instructions,405895413.0
+31,20,instructions,380291168.0
+2,21,instructions,417275108.0
+3,21,instructions,399236074.0
+4,21,instructions,456476458.0
+5,21,instructions,493981506.0
+6,21,instructions,385138938.0
+7,21,instructions,410080479.0
+8,21,instructions,513628542.0
+9,21,instructions,463057169.0
+10,21,instructions,394403299.0
+11,21,instructions,423563509.0
+12,21,instructions,481763688.0
+13,21,instructions,466728828.0
+14,21,instructions,469139316.0
+15,21,instructions,448458705.0
+16,21,instructions,496563604.0
+17,21,instructions,449076955.0
+18,21,instructions,405512773.0
+19,21,instructions,366407339.0
+20,21,instructions,425387380.0
+21,21,instructions,401053115.0
+22,21,instructions,503046078.0
+23,21,instructions,394478054.0
+24,21,instructions,416098067.0
+25,21,instructions,450970169.0
+26,21,instructions,393134734.0
+27,21,instructions,418732762.0
+28,21,instructions,421130768.0
+29,21,instructions,406869482.0
+30,21,instructions,432637382.0
+31,21,instructions,410257723.0
+2,22,instructions,479410936.0
+3,22,instructions,386898956.0
+4,22,instructions,398931486.0
+5,22,instructions,467133120.0
+6,22,instructions,400250428.0
+7,22,instructions,431290196.0
+8,22,instructions,433280950.0
+9,22,instructions,447069178.0
+10,22,instructions,442670133.0
+11,22,instructions,379055895.0
+12,22,instructions,354269616.0
+13,22,instructions,408811506.0
+14,22,instructions,403609569.0
+15,22,instructions,420699193.0
+16,22,instructions,544199955.0
+17,22,instructions,396702365.0
+18,22,instructions,382692733.0
+19,22,instructions,419039950.0
+20,22,instructions,458830399.0
+21,22,instructions,487882408.0
+22,22,instructions,447702093.0
+23,22,instructions,405990098.0
+24,22,instructions,427549531.0
+25,22,instructions,500248686.0
+26,22,instructions,405255303.0
+27,22,instructions,482803237.0
+28,22,instructions,423893458.0
+29,22,instructions,505724496.0
+30,22,instructions,481237180.0
+31,22,instructions,398229463.0
+2,23,instructions,249835885.0
+3,23,instructions,208223550.0
+4,23,instructions,229227086.0
+5,23,instructions,257363819.0
+6,23,instructions,235423772.0
+7,23,instructions,246867346.0
+8,23,instructions,262464336.0
+9,23,instructions,253365427.0
+10,23,instructions,264064742.0
+11,23,instructions,233132442.0
+12,23,instructions,200636712.0
+13,23,instructions,229998035.0
+14,23,instructions,242616556.0
+15,23,instructions,276039480.0
+16,23,instructions,496763515.0
+17,23,instructions,664860882.0
+18,23,instructions,540342448.0
+19,23,instructions,623013514.0
+20,23,instructions,632827419.0
+21,23,instructions,663653973.0
+22,23,instructions,586650863.0
+23,23,instructions,741349423.0
+24,23,instructions,634401223.0
+25,23,instructions,519065563.0
+26,23,instructions,593813398.0
+27,23,instructions,687932300.0
+28,23,instructions,544115465.0
+29,23,instructions,547283101.0
+30,23,instructions,590381331.0
+31,23,instructions,556860266.0
+2,24,instructions,422272668.0
+3,24,instructions,409572541.0
+4,24,instructions,376620024.0
+5,24,instructions,368680041.0
+6,24,instructions,406625195.0
+7,24,instructions,457077895.0
+8,24,instructions,414913516.0
+9,24,instructions,465886983.0
+10,24,instructions,386781413.0
+11,24,instructions,396425979.0
+12,24,instructions,454246382.0
+13,24,instructions,493556779.0
+14,24,instructions,409532044.0
+15,24,instructions,490618962.0
+16,24,instructions,427021150.0
+17,24,instructions,633717545.0
+18,24,instructions,436258384.0
+19,24,instructions,459088884.0
+20,24,instructions,422048919.0
+21,24,instructions,471428766.0
+22,24,instructions,392611866.0
+23,24,instructions,423600960.0
+24,24,instructions,428803170.0
+25,24,instructions,462547651.0
+26,24,instructions,405909873.0
+27,24,instructions,424752113.0
+28,24,instructions,420249482.0
+29,24,instructions,422749134.0
+30,24,instructions,452053468.0
+31,24,instructions,391719199.0
+2,25,instructions,496445063.0
+3,25,instructions,496245067.0
+4,25,instructions,444970268.0
+5,25,instructions,458218544.0
+6,25,instructions,496300221.0
+7,25,instructions,544249130.0
+8,25,instructions,439741068.0
+9,25,instructions,390431314.0
+10,25,instructions,460507347.0
+11,25,instructions,489385225.0
+12,25,instructions,451324032.0
+13,25,instructions,517597545.0
+14,25,instructions,390171355.0
+15,25,instructions,352367189.0
+16,25,instructions,395814878.0
+17,25,instructions,396133019.0
+18,25,instructions,394265131.0
+19,25,instructions,449990022.0
+20,25,instructions,430528316.0
+21,25,instructions,376199805.0
+22,25,instructions,366535804.0
+23,25,instructions,445410373.0
+24,25,instructions,421982709.0
+25,25,instructions,391445869.0
+26,25,instructions,470617695.0
+27,25,instructions,402954242.0
+28,25,instructions,401956280.0
+29,25,instructions,451229467.0
+30,25,instructions,383865200.0
+31,25,instructions,401898564.0
+2,26,instructions,491147199.0
+3,26,instructions,386564327.0
+4,26,instructions,392909688.0
+5,26,instructions,456681127.0
+6,26,instructions,536804586.0
+7,26,instructions,470271175.0
+8,26,instructions,560117809.0
+9,26,instructions,397015704.0
+10,26,instructions,387999201.0
+11,26,instructions,452924722.0
+12,26,instructions,432737410.0
+13,26,instructions,441372942.0
+14,26,instructions,396210995.0
+15,26,instructions,451366445.0
+16,26,instructions,374031750.0
+17,26,instructions,487676737.0
+18,26,instructions,415980247.0
+19,26,instructions,490321580.0
+20,26,instructions,451149288.0
+21,26,instructions,372182176.0
+22,26,instructions,425747977.0
+23,26,instructions,499690213.0
+24,26,instructions,431808849.0
+25,26,instructions,433965392.0
+26,26,instructions,413599360.0
+27,26,instructions,403262028.0
+28,26,instructions,387374314.0
+29,26,instructions,432574159.0
+30,26,instructions,344479325.0
+31,26,instructions,407984821.0
+2,27,instructions,395750221.0
+3,27,instructions,458341929.0
+4,27,instructions,431422563.0
+5,27,instructions,444471443.0
+6,27,instructions,413295390.0
+7,27,instructions,424885966.0
+8,27,instructions,457758052.0
+9,27,instructions,420896225.0
+10,27,instructions,374935176.0
+11,27,instructions,394129159.0
+12,27,instructions,380461987.0
+13,27,instructions,386918621.0
+14,27,instructions,440382690.0
+15,27,instructions,476307770.0
+16,27,instructions,385621410.0
+17,27,instructions,403258166.0
+18,27,instructions,446832060.0
+19,27,instructions,391166367.0
+20,27,instructions,515035299.0
+21,27,instructions,430304916.0
+22,27,instructions,505981992.0
+23,27,instructions,430983392.0
+24,27,instructions,377395715.0
+25,27,instructions,469422455.0
+26,27,instructions,487253864.0
+27,27,instructions,428043359.0
+28,27,instructions,438424864.0
+29,27,instructions,511213617.0
+30,27,instructions,427937171.0
+31,27,instructions,454007734.0
+2,28,instructions,469991950.0
+3,28,instructions,410934965.0
+4,28,instructions,485338029.0
+5,28,instructions,475865784.0
+6,28,instructions,480143460.0
+7,28,instructions,486663044.0
+8,28,instructions,442089542.0
+9,28,instructions,473614458.0
+10,28,instructions,501475020.0
+11,28,instructions,452103412.0
+12,28,instructions,493443058.0
+13,28,instructions,453363193.0
+14,28,instructions,392454908.0
+15,28,instructions,390099468.0
+16,28,instructions,383384511.0
+17,28,instructions,427882274.0
+18,28,instructions,373985631.0
+19,28,instructions,397010461.0
+20,28,instructions,427211858.0
+21,28,instructions,366068035.0
+22,28,instructions,415104842.0
+23,28,instructions,419658787.0
+24,28,instructions,421793079.0
+25,28,instructions,384528491.0
+26,28,instructions,398164239.0
+27,28,instructions,555477453.0
+28,28,instructions,382181676.0
+29,28,instructions,469591041.0
+30,28,instructions,421961363.0
+31,28,instructions,368689048.0
+2,29,instructions,465445235.0
+3,29,instructions,428552725.0
+4,29,instructions,527549158.0
+5,29,instructions,461687230.0
+6,29,instructions,451129496.0
+7,29,instructions,399794774.0
+8,29,instructions,435535092.0
+9,29,instructions,460230893.0
+10,29,instructions,485273708.0
+11,29,instructions,450568943.0
+12,29,instructions,490542694.0
+13,29,instructions,429685302.0
+14,29,instructions,438158261.0
+15,29,instructions,508572257.0
+16,29,instructions,434764632.0
+17,29,instructions,428050663.0
+18,29,instructions,373725653.0
+19,29,instructions,338452652.0
+20,29,instructions,430026592.0
+21,29,instructions,398262600.0
+22,29,instructions,368902133.0
+23,29,instructions,386530574.0
+24,29,instructions,478201798.0
+25,29,instructions,327090506.0
+26,29,instructions,384970610.0
+27,29,instructions,440640652.0
+28,29,instructions,491398937.0
+29,29,instructions,474186511.0
+30,29,instructions,410105434.0
+31,29,instructions,420593354.0
+2,30,instructions,560102137.0
+3,30,instructions,508209386.0
+4,30,instructions,498101406.0
+5,30,instructions,405145190.0
+6,30,instructions,416640730.0
+7,30,instructions,448309840.0
+8,30,instructions,482395143.0
+9,30,instructions,438998629.0
+10,30,instructions,472303260.0
+11,30,instructions,464832162.0
+12,30,instructions,459012547.0
+13,30,instructions,464548349.0
+14,30,instructions,509141569.0
+15,30,instructions,481081008.0
+16,30,instructions,484066736.0
+17,30,instructions,351059807.0
+18,30,instructions,383856181.0
+19,30,instructions,415410008.0
+20,30,instructions,343868708.0
+21,30,instructions,360273415.0
+22,30,instructions,352230667.0
+23,30,instructions,352011630.0
+24,30,instructions,404874039.0
+25,30,instructions,374734199.0
+26,30,instructions,386388990.0
+27,30,instructions,422862409.0
+28,30,instructions,378700653.0
+29,30,instructions,355904421.0
+30,30,instructions,545597361.0
+31,30,instructions,460052929.0
+2,1,IPC,1.0822495731613697
+3,1,IPC,1.093505190593884
+4,1,IPC,1.1318544306796088
+5,1,IPC,1.1437668471899134
+6,1,IPC,1.1055614901917041
+7,1,IPC,1.1428244313805034
+8,1,IPC,1.1496076665584702
+9,1,IPC,1.1525509900545743
+10,1,IPC,1.0977792222345577
+11,1,IPC,1.0413977280024729
+12,1,IPC,1.1683928177952765
+13,1,IPC,1.5656366311674592
+14,1,IPC,1.1300737932197615
+15,1,IPC,1.016835028106891
+16,1,IPC,1.009918524582972
+17,1,IPC,1.0464831996439168
+18,1,IPC,1.072111455332985
+19,1,IPC,1.1489186206034874
+20,1,IPC,1.1741717267740424
+21,1,IPC,1.1241093382324607
+22,1,IPC,1.1755356272547899
+23,1,IPC,1.1971204534518602
+24,1,IPC,1.1634604854224848
+25,1,IPC,1.1489659128333058
+26,1,IPC,1.1855537931393787
+27,1,IPC,1.1909004338996703
+28,1,IPC,1.1202697855851624
+29,1,IPC,1.0731179888033795
+30,1,IPC,1.1734099373256366
+31,1,IPC,1.099184692443804
+2,2,IPC,1.1817926193470505
+3,2,IPC,1.1802750943067908
+4,2,IPC,1.052908354737285
+5,2,IPC,1.0978131846784627
+6,2,IPC,1.1452186124609238
+7,2,IPC,1.1236118040683998
+8,2,IPC,1.0791953652771287
+9,2,IPC,1.1264641848963228
+10,2,IPC,1.05227023692605
+11,2,IPC,1.1600225129865678
+12,2,IPC,1.1023889950486674
+13,2,IPC,1.202871459515896
+14,2,IPC,1.0961957756824687
+15,2,IPC,1.0705271437858808
+16,2,IPC,1.040909134239381
+17,2,IPC,1.0919286558653691
+18,2,IPC,1.1416964448738622
+19,2,IPC,1.1391993147455768
+20,2,IPC,1.176190893897703
+21,2,IPC,1.1811584202001575
+22,2,IPC,1.099268698729318
+23,2,IPC,1.1122747798825805
+24,2,IPC,1.1964389191541926
+25,2,IPC,1.1174117827923709
+26,2,IPC,1.1637446683205634
+27,2,IPC,1.1671867625303152
+28,2,IPC,1.1662280544286125
+29,2,IPC,1.1401293120893539
+30,2,IPC,1.0697184328181644
+31,2,IPC,1.0393757133638575
+2,3,IPC,1.1111891120109783
+3,3,IPC,1.1818529576974277
+4,3,IPC,1.1159715183064922
+5,3,IPC,1.0722261463716198
+6,3,IPC,1.0669383743732657
+7,3,IPC,1.1144430940337837
+8,3,IPC,1.0717500392268489
+9,3,IPC,1.1210983386449842
+10,3,IPC,1.1465008479968521
+11,3,IPC,1.1459928928920085
+12,3,IPC,1.1274196603542417
+13,3,IPC,1.1504181611579283
+14,3,IPC,1.0117109856214077
+15,3,IPC,1.1732691991620487
+16,3,IPC,1.1211062298901873
+17,3,IPC,1.2507338886796044
+18,3,IPC,1.0802672972019565
+19,3,IPC,1.1932949568210196
+20,3,IPC,1.1122687704925207
+21,3,IPC,1.151016465865786
+22,3,IPC,1.1124352631767598
+23,3,IPC,1.1929533990648549
+24,3,IPC,1.086523463109508
+25,3,IPC,1.018532574928517
+26,3,IPC,1.186490162382413
+27,3,IPC,1.1765864758594673
+28,3,IPC,1.1120810534196346
+29,3,IPC,1.1295071360897766
+30,3,IPC,1.0986835245011737
+31,3,IPC,1.1199320176866772
+2,4,IPC,1.0819946512748133
+3,4,IPC,1.0503731639212972
+4,4,IPC,1.0975680464303157
+5,4,IPC,1.1079653800058915
+6,4,IPC,1.137490914126264
+7,4,IPC,1.1254386499626443
+8,4,IPC,1.0979719240423704
+9,4,IPC,1.1603308230731357
+10,4,IPC,1.1399476511323228
+11,4,IPC,1.1764106181393292
+12,4,IPC,1.1374218236534814
+13,4,IPC,1.1078772378363642
+14,4,IPC,1.1405604053679215
+15,4,IPC,1.0766780958066546
+16,4,IPC,1.0550050323228632
+17,4,IPC,1.1211984579080008
+18,4,IPC,1.1516870706341795
+19,4,IPC,1.0985611870613075
+20,4,IPC,1.2128485605769668
+21,4,IPC,1.059048918553839
+22,4,IPC,1.1712571977436845
+23,4,IPC,1.180167641258234
+24,4,IPC,1.1747227587525155
+25,4,IPC,1.1746180698848263
+26,4,IPC,1.1914340490125508
+27,4,IPC,1.0046992371496528
+28,4,IPC,1.0706987365972636
+29,4,IPC,1.0528338588533444
+30,4,IPC,1.1217507587963542
+31,4,IPC,1.0832783900969614
+2,5,IPC,1.0734221071653622
+3,5,IPC,1.0773320415108825
+4,5,IPC,1.1109594038060198
+5,5,IPC,1.1171252705818329
+6,5,IPC,1.175876782931691
+7,5,IPC,1.1010429937206772
+8,5,IPC,1.118624926974826
+9,5,IPC,1.0402374489482409
+10,5,IPC,1.1501258634078824
+11,5,IPC,1.0673521039535911
+12,5,IPC,1.1371424212199746
+13,5,IPC,1.1479122145401743
+14,5,IPC,1.0840893581026931
+15,5,IPC,1.1045127460676019
+16,5,IPC,1.0164344814447404
+17,5,IPC,1.1879771489410305
+18,5,IPC,1.137943428993688
+19,5,IPC,1.1930153919850075
+20,5,IPC,1.0607449783672702
+21,5,IPC,1.1280068397105811
+22,5,IPC,1.1940295997651011
+23,5,IPC,1.1374921226921664
+24,5,IPC,1.086466500229459
+25,5,IPC,1.1228083537664768
+26,5,IPC,1.1397295996865304
+27,5,IPC,1.1171048284594713
+28,5,IPC,1.2045573622370243
+29,5,IPC,1.090709101534051
+30,5,IPC,1.1250627544526517
+31,5,IPC,1.2050376940885377
+2,6,IPC,0.9870085505117235
+3,6,IPC,1.1573413504663623
+4,6,IPC,1.146278437119837
+5,6,IPC,1.1762565361045576
+6,6,IPC,1.1638965453708083
+7,6,IPC,1.0845335208380986
+8,6,IPC,1.1725598894807971
+9,6,IPC,1.0144921825333746
+10,6,IPC,1.1147045266516997
+11,6,IPC,1.117880466254477
+12,6,IPC,1.1935453205013478
+13,6,IPC,1.1728133400008947
+14,6,IPC,1.0557887374490358
+15,6,IPC,1.0945871997013135
+16,6,IPC,1.137687064585124
+17,6,IPC,1.1854179581945627
+18,6,IPC,1.1903803767001733
+19,6,IPC,1.1473404910518388
+20,6,IPC,1.1286044903746801
+21,6,IPC,1.176541545784501
+22,6,IPC,1.1804506294702153
+23,6,IPC,1.031934515784551
+24,6,IPC,1.0552045028949184
+25,6,IPC,1.1860700309558594
+26,6,IPC,1.123653668491038
+27,6,IPC,1.136616047362835
+28,6,IPC,1.1982502373122335
+29,6,IPC,1.185862006270997
+30,6,IPC,1.12054650616209
+31,6,IPC,1.138182256458483
+2,7,IPC,1.1084965938877827
+3,7,IPC,1.1306929941980985
+4,7,IPC,1.168343846482595
+5,7,IPC,1.1343955006960165
+6,7,IPC,1.1771290397805085
+7,7,IPC,1.0944638258770785
+8,7,IPC,1.088957292902846
+9,7,IPC,1.0870184718877511
+10,7,IPC,1.0854828058935495
+11,7,IPC,1.127278281465128
+12,7,IPC,1.0782114418850006
+13,7,IPC,1.1305941958925367
+14,7,IPC,1.0501782732695684
+15,7,IPC,1.120168319373325
+16,7,IPC,1.0401229852865428
+17,7,IPC,1.1466079537425486
+18,7,IPC,1.168729460728838
+19,7,IPC,1.1245788710837221
+20,7,IPC,1.1471593581371657
+21,7,IPC,1.1312559948087284
+22,7,IPC,1.1863311456865895
+23,7,IPC,1.198186705910751
+24,7,IPC,1.1401144742485603
+25,7,IPC,1.048363060526762
+26,7,IPC,1.1683529988329406
+27,7,IPC,1.1754447192828745
+28,7,IPC,1.0835432913479297
+29,7,IPC,1.1318316597274636
+30,7,IPC,1.1115391929538867
+31,7,IPC,1.110251877029405
+2,8,IPC,1.1143705054774247
+3,8,IPC,1.126079422344539
+4,8,IPC,1.1683261377100675
+5,8,IPC,1.1137503079900446
+6,8,IPC,1.1296372763230347
+7,8,IPC,1.1363888902339194
+8,8,IPC,1.1787368715322666
+9,8,IPC,1.1045343157558614
+10,8,IPC,1.0900030312307523
+11,8,IPC,1.1737446198962989
+12,8,IPC,1.1292375520860347
+13,8,IPC,1.0611725886959034
+14,8,IPC,1.1549743779882873
+15,8,IPC,1.1522718622884682
+16,8,IPC,1.0961979887063877
+17,8,IPC,1.1405832919775367
+18,8,IPC,1.168231280086383
+19,8,IPC,1.1483452085824128
+20,8,IPC,1.1100801667683693
+21,8,IPC,1.1746967834609037
+22,8,IPC,1.1308463293745055
+23,8,IPC,1.1759586478471429
+24,8,IPC,1.1975119624957473
+25,8,IPC,1.1595245464440536
+26,8,IPC,1.1363465615868629
+27,8,IPC,1.1688663046490422
+28,8,IPC,1.162940716230141
+29,8,IPC,1.025107828146041
+30,8,IPC,1.1594041407570923
+31,8,IPC,1.0472689236504609
+2,9,IPC,1.1733442162582008
+3,9,IPC,1.1941138435954868
+4,9,IPC,1.1655120220469473
+5,9,IPC,1.0862184036252713
+6,9,IPC,1.0094417903591697
+7,9,IPC,1.0716283707740535
+8,9,IPC,1.0879339374591834
+9,9,IPC,1.0339702005445217
+10,9,IPC,1.1012131461018102
+11,9,IPC,1.1369699645565645
+12,9,IPC,1.1734456036580383
+13,9,IPC,1.1853416989559455
+14,9,IPC,1.1830082116223875
+15,9,IPC,1.1171118300038
+16,9,IPC,1.1393587187221428
+17,9,IPC,1.142492795601674
+18,9,IPC,1.139633761255563
+19,9,IPC,1.1903248312285781
+20,9,IPC,1.12778725194227
+21,9,IPC,1.1282046656104276
+22,9,IPC,1.0631095421664396
+23,9,IPC,1.0885164911139051
+24,9,IPC,1.0031772026807693
+25,9,IPC,1.1785147266743357
+26,9,IPC,1.1674821955421817
+27,9,IPC,1.1774840713341963
+28,9,IPC,1.1370599734625249
+29,9,IPC,1.0796547166994028
+30,9,IPC,1.1721576296975633
+31,9,IPC,1.0890212823317147
+2,10,IPC,1.1363679489589251
+3,10,IPC,1.1439758333974732
+4,10,IPC,1.0706155410487197
+5,10,IPC,1.163543260823285
+6,10,IPC,1.0196986606823624
+7,10,IPC,1.1015737197999622
+8,10,IPC,1.167937426759151
+9,10,IPC,1.1368143467658285
+10,10,IPC,1.1424766662196584
+11,10,IPC,1.0217901549733912
+12,10,IPC,1.103181391638237
+13,10,IPC,1.1937098018059151
+14,10,IPC,1.1290571030178524
+15,10,IPC,1.1526676777504443
+16,10,IPC,1.1257366173066048
+17,10,IPC,1.0782470618290867
+18,10,IPC,1.13566299158939
+19,10,IPC,1.0330998146949677
+20,10,IPC,1.0881727242537735
+21,10,IPC,1.1570186209615159
+22,10,IPC,1.0446390823096734
+23,10,IPC,1.0415248721399966
+24,10,IPC,1.140228569758087
+25,10,IPC,1.1533712484151002
+26,10,IPC,1.1497915416448683
+27,10,IPC,1.197328462139806
+28,10,IPC,1.184600921552997
+29,10,IPC,1.1316319170091662
+30,10,IPC,1.158818708951128
+31,10,IPC,1.153574485597181
+2,11,IPC,1.1314600001846857
+3,11,IPC,1.1486301028731736
+4,11,IPC,1.159145840531703
+5,11,IPC,1.1067399613911042
+6,11,IPC,1.0128450781743075
+7,11,IPC,1.163761002102213
+8,11,IPC,1.0277279709027272
+9,11,IPC,1.148477309694618
+10,11,IPC,1.096004106593066
+11,11,IPC,1.135973637824256
+12,11,IPC,1.1318383370893494
+13,11,IPC,1.0880885082905432
+14,11,IPC,1.1631760957727648
+15,11,IPC,1.1244875621529018
+16,11,IPC,1.0663175558503948
+17,11,IPC,1.160977969330869
+18,11,IPC,1.1650492649027804
+19,11,IPC,1.1387075732233414
+20,11,IPC,1.0819937058477938
+21,11,IPC,1.077719581884989
+22,11,IPC,1.0569653499060432
+23,11,IPC,1.0188144718814496
+24,11,IPC,1.2192885546847416
+25,11,IPC,1.2134155228075598
+26,11,IPC,1.2047750934886428
+27,11,IPC,1.2096317808181238
+28,11,IPC,1.1399670158542707
+29,11,IPC,1.1715864910249987
+30,11,IPC,1.1216193832188608
+31,11,IPC,1.0884929119415616
+2,12,IPC,1.1268762286554943
+3,12,IPC,1.146675070640678
+4,12,IPC,1.0737113575162247
+5,12,IPC,1.185861712370688
+6,12,IPC,1.1158009133169524
+7,12,IPC,1.1334691874258274
+8,12,IPC,1.146576541083277
+9,12,IPC,1.0714951989007584
+10,12,IPC,1.0695076555915783
+11,12,IPC,1.1497075593328816
+12,12,IPC,1.2581274655226171
+13,12,IPC,1.0988047087187935
+14,12,IPC,1.196028749849957
+15,12,IPC,1.053491819214295
+16,12,IPC,1.0313103373932089
+17,12,IPC,1.0484559765902752
+18,12,IPC,1.1250493497422231
+19,12,IPC,1.1151217336400379
+20,12,IPC,1.1302954218924146
+21,12,IPC,1.0458465259708492
+22,12,IPC,1.1310788152556104
+23,12,IPC,1.1377176912388076
+24,12,IPC,1.194600795535498
+25,12,IPC,1.1591480862393873
+26,12,IPC,1.123382836064008
+27,12,IPC,1.1821299540472996
+28,12,IPC,1.1443555424972844
+29,12,IPC,1.1722045923963322
+30,12,IPC,1.0906271603575435
+31,12,IPC,1.1458799438779854
+2,13,IPC,1.153357057818681
+3,13,IPC,1.1442803811249684
+4,13,IPC,1.1145143425270216
+5,13,IPC,1.090525239845487
+6,13,IPC,1.1383749147666582
+7,13,IPC,1.1037649314741604
+8,13,IPC,1.1034746672475717
+9,13,IPC,1.013471605995682
+10,13,IPC,1.0912570912612798
+11,13,IPC,1.131128366720059
+12,13,IPC,1.1494224669175943
+13,13,IPC,1.1362992198670643
+14,13,IPC,1.0674091538838186
+15,13,IPC,1.037749134292667
+16,13,IPC,1.0901648564593902
+17,13,IPC,1.2075122196693284
+18,13,IPC,1.1587293807953276
+19,13,IPC,1.1536814812668117
+20,13,IPC,1.0010435347940123
+21,13,IPC,1.1688062770991232
+22,13,IPC,1.1446503206365854
+23,13,IPC,1.0865894542438654
+24,13,IPC,1.0815603195186596
+25,13,IPC,1.166492355975041
+26,13,IPC,1.1421320484851163
+27,13,IPC,1.1891490674926892
+28,13,IPC,1.1404295073256536
+29,13,IPC,1.090101964854559
+30,13,IPC,1.1422180154168238
+31,13,IPC,1.2171302044220325
+2,14,IPC,1.2215305117359738
+3,14,IPC,1.1925547761526845
+4,14,IPC,1.1263330887160685
+5,14,IPC,1.171286529362453
+6,14,IPC,1.0936502927681617
+7,14,IPC,1.1305490195756858
+8,14,IPC,1.1227780022702851
+9,14,IPC,1.0535388257904574
+10,14,IPC,1.1783274200293359
+11,14,IPC,1.0526136120107192
+12,14,IPC,1.1054757148047696
+13,14,IPC,1.0355839417074608
+14,14,IPC,1.238037720552156
+15,14,IPC,1.2006421270879333
+16,14,IPC,1.1465141682511104
+17,14,IPC,1.123816939897489
+18,14,IPC,1.188351009983682
+19,14,IPC,1.1088667301305073
+20,14,IPC,1.105610116251912
+21,14,IPC,1.1908819248713856
+22,14,IPC,1.1578422718492543
+23,14,IPC,1.1894090785195035
+24,14,IPC,1.062494251886751
+25,14,IPC,1.1192102469287608
+26,14,IPC,1.1585389831107944
+27,14,IPC,1.0183515570307726
+28,14,IPC,1.114316572741901
+29,14,IPC,1.1998799974212553
+30,14,IPC,1.08567908082289
+31,14,IPC,1.125773655155785
+2,15,IPC,1.1567111220067845
+3,15,IPC,1.1319840512073678
+4,15,IPC,1.1488171617562495
+5,15,IPC,1.053460915556028
+6,15,IPC,1.1122226213122626
+7,15,IPC,1.0954042506981498
+8,15,IPC,1.1994375878716177
+9,15,IPC,1.0240250492131684
+10,15,IPC,1.179668719311747
+11,15,IPC,1.1980205096735712
+12,15,IPC,1.236480235884058
+13,15,IPC,1.1751246719887969
+14,15,IPC,0.9904827655540783
+15,15,IPC,1.1759428167707064
+16,15,IPC,1.041529668764706
+17,15,IPC,1.132740375153566
+18,15,IPC,1.1121282888876487
+19,15,IPC,1.097128641878657
+20,15,IPC,1.1626903510031676
+21,15,IPC,1.19658159473812
+22,15,IPC,1.1837585907410013
+23,15,IPC,1.1568495855702858
+24,15,IPC,1.167610343942703
+25,15,IPC,1.0292312200591305
+26,15,IPC,1.1460538903519413
+27,15,IPC,1.2026422143216293
+28,15,IPC,1.0809813327333506
+29,15,IPC,1.145087253638987
+30,15,IPC,1.1423509203881552
+31,15,IPC,1.1136491949588707
+2,16,IPC,1.1603686502308548
+3,16,IPC,1.1893865754043635
+4,16,IPC,1.0827067253932294
+5,16,IPC,1.1630624394127693
+6,16,IPC,1.2190062582695915
+7,16,IPC,1.1305791123848388
+8,16,IPC,1.2102807685319057
+9,16,IPC,1.056118555706596
+10,16,IPC,1.1545405611937412
+11,16,IPC,1.1910713605295933
+12,16,IPC,1.1391705649542858
+13,16,IPC,1.035659598226054
+14,16,IPC,1.1208313043951086
+15,16,IPC,1.1045141480897578
+16,16,IPC,1.1181271176060952
+17,16,IPC,1.1472192178316596
+18,16,IPC,1.0897376413405944
+19,16,IPC,1.053082261708927
+20,16,IPC,1.1715909762011356
+21,16,IPC,1.0517718870108341
+22,16,IPC,1.1855376687682497
+23,16,IPC,1.1287090433506743
+24,16,IPC,1.1424761552003917
+25,16,IPC,1.1990023505077532
+26,16,IPC,1.2168247963713053
+27,16,IPC,1.2131749517698265
+28,16,IPC,1.1176330615837045
+29,16,IPC,1.0997530291637212
+30,16,IPC,1.0260247748433926
+31,16,IPC,1.068246999902447
+2,17,IPC,1.1915572879590635
+3,17,IPC,1.1622509043718012
+4,17,IPC,1.1395127774073404
+5,17,IPC,1.178199770228436
+6,17,IPC,1.1821346103833275
+7,17,IPC,1.1066443305322644
+8,17,IPC,1.1730106012933201
+9,17,IPC,1.0438840908534646
+10,17,IPC,1.1132582942214708
+11,17,IPC,0.966323179202738
+12,17,IPC,1.0931072914174251
+13,17,IPC,1.1165937331468005
+14,17,IPC,1.1157545571538028
+15,17,IPC,1.0919408461169353
+16,17,IPC,1.095305778416671
+17,17,IPC,1.1113027185715594
+18,17,IPC,1.1518748111228734
+19,17,IPC,1.122766069001915
+20,17,IPC,1.2024133257174237
+21,17,IPC,1.166129380000661
+22,17,IPC,1.1415868362763515
+23,17,IPC,1.1322689969480293
+24,17,IPC,1.1872099343274456
+25,17,IPC,1.0553266813007982
+26,17,IPC,1.1501047588761761
+27,17,IPC,1.177205703352302
+28,17,IPC,1.1801132248539126
+29,17,IPC,1.1296684546684468
+30,17,IPC,1.1588712512468877
+31,17,IPC,1.0709208045604717
+2,18,IPC,1.1648553227349756
+3,18,IPC,1.1226220927538273
+4,18,IPC,1.1548215336374203
+5,18,IPC,1.089574271300246
+6,18,IPC,1.1603788564329864
+7,18,IPC,1.195181785310363
+8,18,IPC,1.118118175058736
+9,18,IPC,1.1548378581219032
+10,18,IPC,1.1573608121217498
+11,18,IPC,1.0422120794648952
+12,18,IPC,1.1327888370455865
+13,18,IPC,1.1350264672007822
+14,18,IPC,1.0508937402167315
+15,18,IPC,1.0916657981690248
+16,18,IPC,1.0978805176390327
+17,18,IPC,1.1829650115062738
+18,18,IPC,1.1807106622457506
+19,18,IPC,1.1454867489689804
+20,18,IPC,1.194347713366238
+21,18,IPC,1.166575595806572
+22,18,IPC,1.1599812319120644
+23,18,IPC,1.15586663210995
+24,18,IPC,1.0756346674416557
+25,18,IPC,1.1179643331559683
+26,18,IPC,1.0352590912992405
+27,18,IPC,1.1729952714901015
+28,18,IPC,1.0580852945428858
+29,18,IPC,1.1450051913582142
+30,18,IPC,1.1663485681424806
+31,18,IPC,1.1141726782312127
+2,19,IPC,1.1057841643594404
+3,19,IPC,1.0084331984765882
+4,19,IPC,1.111380779691143
+5,19,IPC,1.1845059980003676
+6,19,IPC,1.1686362475230945
+7,19,IPC,1.1640689610849537
+8,19,IPC,1.1392511200549134
+9,19,IPC,1.1880723827131092
+10,19,IPC,1.1015590597607428
+11,19,IPC,1.0430151904989104
+12,19,IPC,1.014555533171353
+13,19,IPC,1.084181049486873
+14,19,IPC,1.11003761971711
+15,19,IPC,1.1566448456498848
+16,19,IPC,1.1261710232665538
+17,19,IPC,1.1054568282309736
+18,19,IPC,1.1963004628675251
+19,19,IPC,1.2193112972495832
+20,19,IPC,1.148763641990047
+21,19,IPC,0.9644582746114715
+22,19,IPC,1.0194144785055494
+23,19,IPC,1.1929741748087213
+24,19,IPC,1.153764357264481
+25,19,IPC,1.1612200867148683
+26,19,IPC,1.137370732149179
+27,19,IPC,1.1759884599510273
+28,19,IPC,1.1968086550020645
+29,19,IPC,1.2069500580396313
+30,19,IPC,1.1800193278307491
+31,19,IPC,1.1661921222824154
+2,20,IPC,1.1395396979499757
+3,20,IPC,1.1135440163738874
+4,20,IPC,1.1275846947471582
+5,20,IPC,1.1824260965330862
+6,20,IPC,1.1441114780449868
+7,20,IPC,1.1495678092106678
+8,20,IPC,1.0828134193572994
+9,20,IPC,1.137448383359271
+10,20,IPC,1.0794821756221158
+11,20,IPC,1.0682533370565925
+12,20,IPC,1.1428677512363759
+13,20,IPC,1.0527352939288508
+14,20,IPC,1.0751136622943394
+15,20,IPC,1.1668796809599908
+16,20,IPC,0.9318859676468536
+17,20,IPC,1.1265675361558163
+18,20,IPC,1.1212949991958083
+19,20,IPC,1.1849562284026511
+20,20,IPC,1.1429322105204
+21,20,IPC,1.192421717825733
+22,20,IPC,1.1549396473848812
+23,20,IPC,1.1620396145370682
+24,20,IPC,1.0789234982773224
+25,20,IPC,1.136082859096953
+26,20,IPC,1.1193811053218787
+27,20,IPC,1.0825303656190504
+28,20,IPC,1.1662903207557467
+29,20,IPC,1.0989764978964516
+30,20,IPC,1.1223246646381901
+31,20,IPC,1.1161572497753818
+2,21,IPC,1.1567150330555405
+3,21,IPC,1.1612682592388235
+4,21,IPC,1.1270006737959921
+5,21,IPC,1.0348543986736742
+6,21,IPC,1.0894156867183276
+7,21,IPC,1.0963313949284055
+8,21,IPC,1.0731695884550618
+9,21,IPC,1.1612695702711306
+10,21,IPC,1.1428180755125448
+11,21,IPC,1.134474128738868
+12,21,IPC,1.1179185166300163
+13,21,IPC,1.1001479785600508
+14,21,IPC,1.1658276989136958
+15,21,IPC,1.1119846125442874
+16,21,IPC,0.9850122261454145
+17,21,IPC,1.0575023659797815
+18,21,IPC,1.0994272105010119
+19,21,IPC,1.1690090567417846
+20,21,IPC,1.108615583533006
+21,21,IPC,1.1864708517720062
+22,21,IPC,1.0558008655682698
+23,21,IPC,1.147001052269911
+24,21,IPC,1.1139272500129904
+25,21,IPC,1.1397698163220824
+26,21,IPC,1.1626910139804036
+27,21,IPC,1.1962926639774005
+28,21,IPC,1.1355137694308888
+29,21,IPC,1.1889543356999002
+30,21,IPC,1.15252765690847
+31,21,IPC,1.0999849624630662
+2,22,IPC,1.112900133227171
+3,22,IPC,1.1564544449365657
+4,22,IPC,1.1411949776463013
+5,22,IPC,1.0783424089654405
+6,22,IPC,1.0874834019372286
+7,22,IPC,1.0395768328124246
+8,22,IPC,1.146037302490778
+9,22,IPC,1.075019105567936
+10,22,IPC,1.081751211264328
+11,22,IPC,1.128378667953936
+12,22,IPC,1.133952515118015
+13,22,IPC,1.1499503550755756
+14,22,IPC,1.0493341898428918
+15,22,IPC,1.1924278239017512
+16,22,IPC,0.9744353777699514
+17,22,IPC,1.1063012917277586
+18,22,IPC,1.1898332147058182
+19,22,IPC,1.190207212248697
+20,22,IPC,1.0708679527162743
+21,22,IPC,1.122266230875827
+22,22,IPC,1.187406934399678
+23,22,IPC,1.13940772675079
+24,22,IPC,1.1710169906576104
+25,22,IPC,1.0803045136025045
+26,22,IPC,1.1323397128587802
+27,22,IPC,1.202317964341311
+28,22,IPC,1.1936767822061591
+29,22,IPC,1.1749451225329064
+30,22,IPC,1.025089325415018
+31,22,IPC,1.139338496539046
+2,23,IPC,1.202167736024446
+3,23,IPC,1.2037779228198877
+4,23,IPC,1.1771094707391683
+5,23,IPC,1.084951522850156
+6,23,IPC,1.09196756252445
+7,23,IPC,1.0502789023124355
+8,23,IPC,1.0566449564726919
+9,23,IPC,1.1199798017189315
+10,23,IPC,1.014770042062243
+11,23,IPC,1.166723736090426
+12,23,IPC,1.0738390499866837
+13,23,IPC,1.1663880513700349
+14,23,IPC,1.1312959381297023
+15,23,IPC,1.1033107141820369
+16,23,IPC,1.109906713554911
+17,23,IPC,1.0903220195051275
+18,23,IPC,1.207111547711252
+19,23,IPC,1.1263679586761013
+20,23,IPC,1.1887963373434278
+21,23,IPC,1.1418348317870832
+22,23,IPC,1.178346117320406
+23,23,IPC,1.1210806839076868
+24,23,IPC,1.1093260270016603
+25,23,IPC,1.2078116467126483
+26,23,IPC,1.2044351192772873
+27,23,IPC,1.1775268016197824
+28,23,IPC,1.1972265842959462
+29,23,IPC,1.188400914505021
+30,23,IPC,1.14311023410511
+31,23,IPC,1.1945259581686458
+2,24,IPC,1.1511397181682546
+3,24,IPC,1.1143923249985483
+4,24,IPC,1.0928854110270907
+5,24,IPC,1.1091288972464302
+6,24,IPC,1.198093608213074
+7,24,IPC,1.165702701310908
+8,24,IPC,1.1654075642553803
+9,24,IPC,1.059606204171078
+10,24,IPC,1.0846208639568957
+11,24,IPC,1.1592097708803897
+12,24,IPC,1.2008144962920166
+13,24,IPC,1.0781313728514836
+14,24,IPC,1.1191457869805481
+15,24,IPC,0.9948841973798456
+16,24,IPC,1.0933710417559868
+17,24,IPC,1.0009493766470103
+18,24,IPC,1.1246664335689358
+19,24,IPC,1.0806907047727827
+20,24,IPC,1.1540171281900276
+21,24,IPC,1.2533465881136954
+22,24,IPC,1.1609294823097303
+23,24,IPC,1.1252104913825316
+24,24,IPC,1.155881682022276
+25,24,IPC,1.1407743710954545
+26,24,IPC,1.1636230308094255
+27,24,IPC,1.1183948606132001
+28,24,IPC,1.1385863336380033
+29,24,IPC,1.1434609154142454
+30,24,IPC,1.176444471317874
+31,24,IPC,1.1779186843349096
+2,25,IPC,1.2480237700903218
+3,25,IPC,1.148062488275476
+4,25,IPC,1.2019758129019358
+5,25,IPC,1.1722209720658077
+6,25,IPC,1.137515735636886
+7,25,IPC,1.013627241315233
+8,25,IPC,1.2076375731524327
+9,25,IPC,1.176512955825066
+10,25,IPC,1.0964458293330366
+11,25,IPC,1.0979744582071718
+12,25,IPC,1.0918930157335922
+13,25,IPC,1.1191991955981428
+14,25,IPC,1.1268011854541502
+15,25,IPC,1.130086128503046
+16,25,IPC,1.0878070993768039
+17,25,IPC,1.1242726837349484
+18,25,IPC,1.1925902536268824
+19,25,IPC,1.19551479766906
+20,25,IPC,1.1601788133769289
+21,25,IPC,1.1367742805586185
+22,25,IPC,1.1740435067375041
+23,25,IPC,1.092524688220179
+24,25,IPC,1.080178309523965
+25,25,IPC,1.1711560082820647
+26,25,IPC,1.0616397217928148
+27,25,IPC,1.1929018189525962
+28,25,IPC,1.2191169805705089
+29,25,IPC,1.078046388512977
+30,25,IPC,1.1712680947652592
+31,25,IPC,1.1736784847021282
+2,26,IPC,1.1302687355296615
+3,26,IPC,1.185751977106409
+4,26,IPC,1.1483568780242595
+5,26,IPC,1.1473305138268888
+6,26,IPC,1.052731534948537
+7,26,IPC,1.0488680375307406
+8,26,IPC,1.0254851711127988
+9,26,IPC,1.121978731821138
+10,26,IPC,1.10648146493862
+11,26,IPC,1.0617165216436528
+12,26,IPC,1.1947569849085338
+13,26,IPC,1.1422219881279836
+14,26,IPC,1.1495932411247995
+15,26,IPC,1.0940480614103174
+16,26,IPC,1.1034450317282845
+17,26,IPC,1.0987377948841888
+18,26,IPC,1.2133742671356351
+19,26,IPC,1.1219089645106504
+20,26,IPC,1.0784855669250906
+21,26,IPC,1.1390242628867073
+22,26,IPC,1.1450751573482616
+23,26,IPC,1.1122147651897034
+24,26,IPC,1.0811292265008396
+25,26,IPC,1.073647407864478
+26,26,IPC,1.1742457371591417
+27,26,IPC,1.1773787801709459
+28,26,IPC,1.1660470635037505
+29,26,IPC,1.0664828414762597
+30,26,IPC,1.1223107340337741
+31,26,IPC,1.1607501721530522
+2,27,IPC,1.143378668934335
+3,27,IPC,1.0357169301324827
+4,27,IPC,1.0885387596697569
+5,27,IPC,1.086453383867816
+6,27,IPC,1.10529715115454
+7,27,IPC,1.0965274152405668
+8,27,IPC,1.1362383927253745
+9,27,IPC,1.1516013676386192
+10,27,IPC,1.1454454014701685
+11,27,IPC,1.1047619301494875
+12,27,IPC,1.1024657355128853
+13,27,IPC,1.130788418468865
+14,27,IPC,1.1215966836515612
+15,27,IPC,1.0384786835036541
+16,27,IPC,1.0541624078678422
+17,27,IPC,1.1637900302907704
+18,27,IPC,1.1828759228228838
+19,27,IPC,1.1512658231871664
+20,27,IPC,1.0317639578970916
+21,27,IPC,1.091902486827589
+22,27,IPC,0.9976714839897141
+23,27,IPC,1.031614355591874
+24,27,IPC,1.1554142552171787
+25,27,IPC,1.2227526838404528
+26,27,IPC,1.0438840153942417
+27,27,IPC,1.1402561247588325
+28,27,IPC,1.2219288981894156
+29,27,IPC,1.2524622176795488
+30,27,IPC,1.2029051258767411
+31,27,IPC,1.1388836040823687
+2,28,IPC,1.139629120990701
+3,28,IPC,1.1004686111128912
+4,28,IPC,1.098753260209355
+5,28,IPC,1.190026007751545
+6,28,IPC,1.1758838304112074
+7,28,IPC,1.1273814692897555
+8,28,IPC,1.112037296394637
+9,28,IPC,1.0270184942754714
+10,28,IPC,1.125447975293869
+11,28,IPC,1.1101130367445036
+12,28,IPC,1.1756543039486933
+13,28,IPC,1.1016367644430043
+14,28,IPC,1.1480712968137001
+15,28,IPC,1.0903020344225227
+16,28,IPC,1.1135125237317143
+17,28,IPC,1.111490699567614
+18,28,IPC,1.127393947606272
+19,28,IPC,1.1989090004181424
+20,28,IPC,1.1866055868395582
+21,28,IPC,1.206723809385547
+22,28,IPC,1.146978384658364
+23,28,IPC,1.1401182573869912
+24,28,IPC,1.1854757662124285
+25,28,IPC,1.1877897019115244
+26,28,IPC,1.1248647170068573
+27,28,IPC,1.0028750896774627
+28,28,IPC,1.0829893650020954
+29,28,IPC,1.1549153237484566
+30,28,IPC,1.0244109499475582
+31,28,IPC,1.1194451346511307
+2,29,IPC,1.070334323527088
+3,29,IPC,1.1333882691460624
+4,29,IPC,1.02137487100705
+5,29,IPC,1.0827919706472657
+6,29,IPC,1.1694098971635656
+7,29,IPC,1.1727467929312
+8,29,IPC,1.1942290071387753
+9,29,IPC,1.1319832306736257
+10,29,IPC,1.1153232587625295
+11,29,IPC,1.1216661285733571
+12,29,IPC,1.1802433014390616
+13,29,IPC,1.0857701709845562
+14,29,IPC,1.1819342292316692
+15,29,IPC,1.1345110832833134
+16,29,IPC,0.9703220966800729
+17,29,IPC,1.1330428050732615
+18,29,IPC,1.1809800130277455
+19,29,IPC,1.1419743288814206
+20,29,IPC,1.0950181430994383
+21,29,IPC,1.1870121109852954
+22,29,IPC,1.158396384477695
+23,29,IPC,1.1976306771441756
+24,29,IPC,1.0339612216182983
+25,29,IPC,1.0775132174536077
+26,29,IPC,1.1618876185214715
+27,29,IPC,1.1394662030244576
+28,29,IPC,1.1230033407616258
+29,29,IPC,1.137701462981745
+30,29,IPC,1.1428444474077688
+31,29,IPC,1.170279381210147
+2,30,IPC,1.0523804621827668
+3,30,IPC,1.1390316750588314
+4,30,IPC,1.0509105878238172
+5,30,IPC,1.0911102087556819
+6,30,IPC,1.084008147863864
+7,30,IPC,1.1136195885753057
+8,30,IPC,1.1324375902817905
+9,30,IPC,1.148512113868629
+10,30,IPC,1.2013053548746235
+11,30,IPC,1.0947958968475728
+12,30,IPC,1.17225018813782
+13,30,IPC,1.1905730091539257
+14,30,IPC,1.0360889650959768
+15,30,IPC,1.1504511072719563
+16,30,IPC,0.9741249698493037
+17,30,IPC,1.1533327911073965
+18,30,IPC,1.1617562495948786
+19,30,IPC,1.195639268435488
+20,30,IPC,1.1446520814646093
+21,30,IPC,1.140567482203468
+22,30,IPC,1.1278025165468035
+23,30,IPC,1.1831539196832952
+24,30,IPC,1.2070515836175741
+25,30,IPC,1.1632716054853491
+26,30,IPC,1.15477229119887
+27,30,IPC,1.0883573223051752
+28,30,IPC,1.1213947989283666
+29,30,IPC,1.1490096754065067
+30,30,IPC,0.9638345158087821
+31,30,IPC,1.1899790845144769
+2,1,Branch acc.,0.03664060475668947
+3,1,Branch acc.,0.035443439797279826
+4,1,Branch acc.,0.030916968192725654
+5,1,Branch acc.,0.02918322714487219
+6,1,Branch acc.,0.03291843009425588
+7,1,Branch acc.,0.02836451866538135
+8,1,Branch acc.,0.030535802822240138
+9,1,Branch acc.,0.026593906185813806
+10,1,Branch acc.,0.037079889308048404
+11,1,Branch acc.,0.04159004315700426
+12,1,Branch acc.,0.028346247283579974
+13,1,Branch acc.,0.014345881113498275
+14,1,Branch acc.,0.034213533522580046
+15,1,Branch acc.,0.041512247230864684
+16,1,Branch acc.,0.03653361005934957
+17,1,Branch acc.,0.03840568944664456
+18,1,Branch acc.,0.03744115911100483
+19,1,Branch acc.,0.031422940195680586
+20,1,Branch acc.,0.027469617852924944
+21,1,Branch acc.,0.0352068140949929
+22,1,Branch acc.,0.03009319909334723
+23,1,Branch acc.,0.02565636124478213
+24,1,Branch acc.,0.030619733986580248
+25,1,Branch acc.,0.028877242160567248
+26,1,Branch acc.,0.027634623408297056
+27,1,Branch acc.,0.02641831747263324
+28,1,Branch acc.,0.03513632227202289
+29,1,Branch acc.,0.04073648836815615
+30,1,Branch acc.,0.02825406317178142
+31,1,Branch acc.,0.03630221819294535
+2,2,Branch acc.,0.02655702958584025
+3,2,Branch acc.,0.027232937754933215
+4,2,Branch acc.,0.04126404516124807
+5,2,Branch acc.,0.031267708953806796
+6,2,Branch acc.,0.030749625678835338
+7,2,Branch acc.,0.03258243850054074
+8,2,Branch acc.,0.03422156330926841
+9,2,Branch acc.,0.034049769650424645
+10,2,Branch acc.,0.04021988025278867
+11,2,Branch acc.,0.02841776154011372
+12,2,Branch acc.,0.03737033888803378
+13,2,Branch acc.,0.026347713437896964
+14,2,Branch acc.,0.03147894213349956
+15,2,Branch acc.,0.0347879595030802
+16,2,Branch acc.,0.032485083112757884
+17,2,Branch acc.,0.03601056470264896
+18,2,Branch acc.,0.033173740834108
+19,2,Branch acc.,0.032905308062908506
+20,2,Branch acc.,0.027841776728637305
+21,2,Branch acc.,0.026691878764967647
+22,2,Branch acc.,0.029719913286384382
+23,2,Branch acc.,0.02932487890799001
+24,2,Branch acc.,0.025535075298211852
+25,2,Branch acc.,0.032340514428816663
+26,2,Branch acc.,0.030953081957331496
+27,2,Branch acc.,0.028959717544074448
+28,2,Branch acc.,0.02966934122402731
+29,2,Branch acc.,0.03269886200146032
+30,2,Branch acc.,0.04015922759205403
+31,2,Branch acc.,0.04252134795889395
+2,3,Branch acc.,0.034317461269044516
+3,3,Branch acc.,0.026642175790301238
+4,3,Branch acc.,0.030340175704106614
+5,3,Branch acc.,0.03512141666334856
+6,3,Branch acc.,0.03640514591983804
+7,3,Branch acc.,0.030934029378868706
+8,3,Branch acc.,0.03657251208898908
+9,3,Branch acc.,0.03140074288080166
+10,3,Branch acc.,0.03179411184628786
+11,3,Branch acc.,0.02831560103826694
+12,3,Branch acc.,0.033137205313730836
+13,3,Branch acc.,0.030201565973869436
+14,3,Branch acc.,0.04354653885578952
+15,3,Branch acc.,0.026698263529087843
+16,3,Branch acc.,0.02727353221252235
+17,3,Branch acc.,0.024412076528284747
+18,3,Branch acc.,0.03949702394004083
+19,3,Branch acc.,0.029060803651422155
+20,3,Branch acc.,0.035527258107594176
+21,3,Branch acc.,0.03202701858647322
+22,3,Branch acc.,0.03498979272344677
+23,3,Branch acc.,0.026706775929513052
+24,3,Branch acc.,0.03782868837137874
+25,3,Branch acc.,0.044710048712542375
+26,3,Branch acc.,0.025872498723072904
+27,3,Branch acc.,0.026616752628912728
+28,3,Branch acc.,0.03308949368366622
+29,3,Branch acc.,0.031078592761467693
+30,3,Branch acc.,0.030662854297486178
+31,3,Branch acc.,0.03068598868350259
+2,4,Branch acc.,0.03563328358216506
+3,4,Branch acc.,0.0409160105545176
+4,4,Branch acc.,0.03411876262336627
+5,4,Branch acc.,0.03424251888405848
+6,4,Branch acc.,0.027212038201703082
+7,4,Branch acc.,0.029795869271877017
+8,4,Branch acc.,0.028593794595304887
+9,4,Branch acc.,0.025441190110413747
+10,4,Branch acc.,0.027361741837810614
+11,4,Branch acc.,0.02613316002736528
+12,4,Branch acc.,0.030471530851318467
+13,4,Branch acc.,0.033337454118921785
+14,4,Branch acc.,0.02920638437936902
+15,4,Branch acc.,0.03514642437150502
+16,4,Branch acc.,0.0335160084823541
+17,4,Branch acc.,0.033183140575118966
+18,4,Branch acc.,0.029396080834847724
+19,4,Branch acc.,0.0377757959236828
+20,4,Branch acc.,0.027036409321836534
+21,4,Branch acc.,0.03970349125543804
+22,4,Branch acc.,0.027123206787602452
+23,4,Branch acc.,0.02705413376107619
+24,4,Branch acc.,0.02595084207466982
+25,4,Branch acc.,0.02725582489513066
+26,4,Branch acc.,0.027659349521886162
+27,4,Branch acc.,0.04557382327982429
+28,4,Branch acc.,0.040490523813637685
+29,4,Branch acc.,0.04021452977575018
+30,4,Branch acc.,0.03205949740251769
+31,4,Branch acc.,0.0386482778541426
+2,5,Branch acc.,0.039385639388960406
+3,5,Branch acc.,0.038118397836753054
+4,5,Branch acc.,0.0349621436694506
+5,5,Branch acc.,0.03371895172293758
+6,5,Branch acc.,0.02623312604240391
+7,5,Branch acc.,0.032472054651055585
+8,5,Branch acc.,0.0313946758482097
+9,5,Branch acc.,0.04061474913628535
+10,5,Branch acc.,0.02798748602837678
+11,5,Branch acc.,0.03232072906527073
+12,5,Branch acc.,0.026636408845268487
+13,5,Branch acc.,0.026160442155600313
+14,5,Branch acc.,0.032025472066850365
+15,5,Branch acc.,0.03091092096317741
+16,5,Branch acc.,0.03778929120325864
+17,5,Branch acc.,0.026563443362975583
+18,5,Branch acc.,0.033808043782744344
+19,5,Branch acc.,0.025583311257778154
+20,5,Branch acc.,0.04090363298786253
+21,5,Branch acc.,0.033773207330365776
+22,5,Branch acc.,0.02676106703159671
+23,5,Branch acc.,0.02983648203421959
+24,5,Branch acc.,0.03931892868922391
+25,5,Branch acc.,0.03355558740802102
+26,5,Branch acc.,0.03229830666036611
+27,5,Branch acc.,0.035465676671166874
+28,5,Branch acc.,0.026642086342380418
+29,5,Branch acc.,0.035809072599060236
+30,5,Branch acc.,0.028715804497034814
+31,5,Branch acc.,0.027362653670857526
+2,6,Branch acc.,0.04672837274824079
+3,6,Branch acc.,0.03063692271457805
+4,6,Branch acc.,0.032687752450946995
+5,6,Branch acc.,0.02822879701372285
+6,6,Branch acc.,0.03149518008170135
+7,6,Branch acc.,0.036632718480361766
+8,6,Branch acc.,0.02553214814282859
+9,6,Branch acc.,0.04113070577889554
+10,6,Branch acc.,0.029802399242620948
+11,6,Branch acc.,0.03586414667950071
+12,6,Branch acc.,0.0239222612140821
+13,6,Branch acc.,0.02605046518058217
+14,6,Branch acc.,0.03862597918051003
+15,6,Branch acc.,0.03416923400945688
+16,6,Branch acc.,0.02424912827275353
+17,6,Branch acc.,0.025289123209286904
+18,6,Branch acc.,0.025263567467312655
+19,6,Branch acc.,0.029611338048394463
+20,6,Branch acc.,0.0346676336816236
+21,6,Branch acc.,0.028948399805262783
+22,6,Branch acc.,0.028048692438654415
+23,6,Branch acc.,0.043023334484337254
+24,6,Branch acc.,0.04152571519199002
+25,6,Branch acc.,0.02698729342811159
+26,6,Branch acc.,0.03504489282816968
+27,6,Branch acc.,0.0338662392222042
+28,6,Branch acc.,0.02477009334291075
+29,6,Branch acc.,0.025736332913322973
+30,6,Branch acc.,0.028590887374987287
+31,6,Branch acc.,0.02620937450513708
+2,7,Branch acc.,0.03248214359490502
+3,7,Branch acc.,0.028085020214571377
+4,7,Branch acc.,0.025640393677893916
+5,7,Branch acc.,0.030637130437837546
+6,7,Branch acc.,0.02542203107019385
+7,7,Branch acc.,0.03789436246498907
+8,7,Branch acc.,0.03677177042494175
+9,7,Branch acc.,0.0361367000032891
+10,7,Branch acc.,0.0370154768300054
+11,7,Branch acc.,0.03199381305992435
+12,7,Branch acc.,0.036326526529754925
+13,7,Branch acc.,0.030780264321693267
+14,7,Branch acc.,0.03973931156793105
+15,7,Branch acc.,0.031269408603936816
+16,7,Branch acc.,0.03630136776123689
+17,7,Branch acc.,0.03034030730921942
+18,7,Branch acc.,0.028697152821597665
+19,7,Branch acc.,0.03156955936503563
+20,7,Branch acc.,0.03129164491060689
+21,7,Branch acc.,0.032395693061104666
+22,7,Branch acc.,0.025148463209413774
+23,7,Branch acc.,0.026261036953630197
+24,7,Branch acc.,0.03191027397428153
+25,7,Branch acc.,0.040522117128609494
+26,7,Branch acc.,0.03178754111334458
+27,7,Branch acc.,0.029404325143765068
+28,7,Branch acc.,0.03954441386357909
+29,7,Branch acc.,0.032017648712308146
+30,7,Branch acc.,0.03507026309893758
+31,7,Branch acc.,0.03464592717044113
+2,8,Branch acc.,0.03691869179916492
+3,8,Branch acc.,0.03445739234148186
+4,8,Branch acc.,0.027352842583558985
+5,8,Branch acc.,0.03794233484273842
+6,8,Branch acc.,0.030505469128812877
+7,8,Branch acc.,0.030134748383277045
+8,8,Branch acc.,0.030701926398048456
+9,8,Branch acc.,0.03756726327684857
+10,8,Branch acc.,0.04034341757794104
+11,8,Branch acc.,0.029471534821956625
+12,8,Branch acc.,0.03513945511531979
+13,8,Branch acc.,0.042737189824045715
+14,8,Branch acc.,0.033413890152769715
+15,8,Branch acc.,0.03143365358494699
+16,8,Branch acc.,0.025787227694617713
+17,8,Branch acc.,0.02787371395121305
+18,8,Branch acc.,0.02601071648054246
+19,8,Branch acc.,0.027714525737914622
+20,8,Branch acc.,0.03550696292427294
+21,8,Branch acc.,0.02469531923851898
+22,8,Branch acc.,0.028823378130635995
+23,8,Branch acc.,0.028329176931188544
+24,8,Branch acc.,0.023768817786925554
+25,8,Branch acc.,0.02636400527609538
+26,8,Branch acc.,0.029717566409008755
+27,8,Branch acc.,0.027087304340260486
+28,8,Branch acc.,0.029445243504856698
+29,8,Branch acc.,0.043318561767821374
+30,8,Branch acc.,0.02589893858016938
+31,8,Branch acc.,0.0393260998621688
+2,9,Branch acc.,0.02724307132535514
+3,9,Branch acc.,0.025688339155920715
+4,9,Branch acc.,0.028502157620760284
+5,9,Branch acc.,0.03581658315618548
+6,9,Branch acc.,0.04417757145456482
+7,9,Branch acc.,0.036863833802842166
+8,9,Branch acc.,0.03794356792198281
+9,9,Branch acc.,0.03941456343168101
+10,9,Branch acc.,0.0366243465457797
+11,9,Branch acc.,0.03337454645745837
+12,9,Branch acc.,0.029113781989412012
+13,9,Branch acc.,0.026179336657361642
+14,9,Branch acc.,0.02676450919733781
+15,9,Branch acc.,0.03314514751865833
+16,9,Branch acc.,0.024646041206535012
+17,9,Branch acc.,0.029656143228804
+18,9,Branch acc.,0.02987623856942843
+19,9,Branch acc.,0.025017347914219244
+20,9,Branch acc.,0.026438557417488275
+21,9,Branch acc.,0.0319995859900839
+22,9,Branch acc.,0.039759031252129914
+23,9,Branch acc.,0.03331971619048579
+24,9,Branch acc.,0.04485313247444748
+25,9,Branch acc.,0.025412076757606337
+26,9,Branch acc.,0.024377968345428214
+27,9,Branch acc.,0.024898817064663722
+28,9,Branch acc.,0.03318538910280442
+29,9,Branch acc.,0.040440021584005593
+30,9,Branch acc.,0.026874844499890728
+31,9,Branch acc.,0.03608147392631249
+2,10,Branch acc.,0.032321810564816
+3,10,Branch acc.,0.030967010067616325
+4,10,Branch acc.,0.03934718815297956
+5,10,Branch acc.,0.027601940525023454
+6,10,Branch acc.,0.04473386020072737
+7,10,Branch acc.,0.03139388093091214
+8,10,Branch acc.,0.025655687135238813
+9,10,Branch acc.,0.032339795065748085
+10,10,Branch acc.,0.027092643583334013
+11,10,Branch acc.,0.04188520689678133
+12,10,Branch acc.,0.030087241120093266
+13,10,Branch acc.,0.02607792725822694
+14,10,Branch acc.,0.031259389189290346
+15,10,Branch acc.,0.030556522250182443
+16,10,Branch acc.,0.025139616086115427
+17,10,Branch acc.,0.03617450847053204
+18,10,Branch acc.,0.03445872629942171
+19,10,Branch acc.,0.043771001886980056
+20,10,Branch acc.,0.0356180810440354
+21,10,Branch acc.,0.02855915133892086
+22,10,Branch acc.,0.040739816167309095
+23,10,Branch acc.,0.041534388336521164
+24,10,Branch acc.,0.026217443863179497
+25,10,Branch acc.,0.02621883284627639
+26,10,Branch acc.,0.029696148046504237
+27,10,Branch acc.,0.02471565358210051
+28,10,Branch acc.,0.025072694141821426
+29,10,Branch acc.,0.031160078283131575
+30,10,Branch acc.,0.02688657115694573
+31,10,Branch acc.,0.030595747744991464
+2,11,Branch acc.,0.0322677250456356
+3,11,Branch acc.,0.027958241025579145
+4,11,Branch acc.,0.028065794803287487
+5,11,Branch acc.,0.03567060064378334
+6,11,Branch acc.,0.04392536721120071
+7,11,Branch acc.,0.028158663463671844
+8,11,Branch acc.,0.04214840434271781
+9,11,Branch acc.,0.027692692433792108
+10,11,Branch acc.,0.03373599332799753
+11,11,Branch acc.,0.027661490026040507
+12,11,Branch acc.,0.03195810537214258
+13,11,Branch acc.,0.03697710987078677
+14,11,Branch acc.,0.027314307206606738
+15,11,Branch acc.,0.02688218386641594
+16,11,Branch acc.,0.030263169187350048
+17,11,Branch acc.,0.027893062117615695
+18,11,Branch acc.,0.02786544615134819
+19,11,Branch acc.,0.031869995624385264
+20,11,Branch acc.,0.03696365327519556
+21,11,Branch acc.,0.04019503477487635
+22,11,Branch acc.,0.04107184476428385
+23,11,Branch acc.,0.04180656689672132
+24,11,Branch acc.,0.023479899244854503
+25,11,Branch acc.,0.02780952888437892
+26,11,Branch acc.,0.02633927557087524
+27,11,Branch acc.,0.025801269018911322
+28,11,Branch acc.,0.03191394260349028
+29,11,Branch acc.,0.02893595440779001
+30,11,Branch acc.,0.03188621904964468
+31,11,Branch acc.,0.03762837317627096
+2,12,Branch acc.,0.03209679003217477
+3,12,Branch acc.,0.027689469343315457
+4,12,Branch acc.,0.03985758882516138
+5,12,Branch acc.,0.027742765946400804
+6,12,Branch acc.,0.03664744235900315
+7,12,Branch acc.,0.03196387015965768
+8,12,Branch acc.,0.034356533557572885
+9,12,Branch acc.,0.04029447643431428
+10,12,Branch acc.,0.03871444279411892
+11,12,Branch acc.,0.03045904291549604
+12,12,Branch acc.,0.025566158756343313
+13,12,Branch acc.,0.03803082164645005
+14,12,Branch acc.,0.027580460607086427
+15,12,Branch acc.,0.039601851507753534
+16,12,Branch acc.,0.034061311097515784
+17,12,Branch acc.,0.03907121965279691
+18,12,Branch acc.,0.03351250064457928
+19,12,Branch acc.,0.03246059597664458
+20,12,Branch acc.,0.03088585207444772
+21,12,Branch acc.,0.04058270504622804
+22,12,Branch acc.,0.029864578033706245
+23,12,Branch acc.,0.02630616413723562
+24,12,Branch acc.,0.024060637617384036
+25,12,Branch acc.,0.02577329824948199
+26,12,Branch acc.,0.030024279401442054
+27,12,Branch acc.,0.024846283056699076
+28,12,Branch acc.,0.029321443906738964
+29,12,Branch acc.,0.02494593442614146
+30,12,Branch acc.,0.035686834872160074
+31,12,Branch acc.,0.027610862739023585
+2,13,Branch acc.,0.026186112128784605
+3,13,Branch acc.,0.028036185867641707
+4,13,Branch acc.,0.030932879222869508
+5,13,Branch acc.,0.036861320500968534
+6,13,Branch acc.,0.02910261081732363
+7,13,Branch acc.,0.03490304317534982
+8,13,Branch acc.,0.03370622667314019
+9,13,Branch acc.,0.043278941497177446
+10,13,Branch acc.,0.03359226266429659
+11,13,Branch acc.,0.026927509684938854
+12,13,Branch acc.,0.027144473493621014
+13,13,Branch acc.,0.029833577089931833
+14,13,Branch acc.,0.0367011630722779
+15,13,Branch acc.,0.04069429476276035
+16,13,Branch acc.,0.0308321551604995
+17,13,Branch acc.,0.02559535475066792
+18,13,Branch acc.,0.02954808232628748
+19,13,Branch acc.,0.0324647089494889
+20,13,Branch acc.,0.04534384013244577
+21,13,Branch acc.,0.02704842712738559
+22,13,Branch acc.,0.026552558754000054
+23,13,Branch acc.,0.03761098910911607
+24,13,Branch acc.,0.03712271975009634
+25,13,Branch acc.,0.028872336600605796
+26,13,Branch acc.,0.032581931413974224
+27,13,Branch acc.,0.026197435903035166
+28,13,Branch acc.,0.03297590261776843
+29,13,Branch acc.,0.03696749987511096
+30,13,Branch acc.,0.02861966181095623
+31,13,Branch acc.,0.025915484954857744
+2,14,Branch acc.,0.024463261608926843
+3,14,Branch acc.,0.026239290002838343
+4,14,Branch acc.,0.03494677831718442
+5,14,Branch acc.,0.03061455974399593
+6,14,Branch acc.,0.03741475538796793
+7,14,Branch acc.,0.03386495390829178
+8,14,Branch acc.,0.03578541410216321
+9,14,Branch acc.,0.0413343303137301
+10,14,Branch acc.,0.02715223922918239
+11,14,Branch acc.,0.041469005091713654
+12,14,Branch acc.,0.033499292941938597
+13,14,Branch acc.,0.043438080624616265
+14,14,Branch acc.,0.023896059555429377
+15,14,Branch acc.,0.025122540414531106
+16,14,Branch acc.,0.02480312819975264
+17,14,Branch acc.,0.03251805900563493
+18,14,Branch acc.,0.024956084727768446
+19,14,Branch acc.,0.03533229787027439
+20,14,Branch acc.,0.035788590290455176
+21,14,Branch acc.,0.024365922399567752
+22,14,Branch acc.,0.026074155774268293
+23,14,Branch acc.,0.024468458618729212
+24,14,Branch acc.,0.03921801720581114
+25,14,Branch acc.,0.03294958944629834
+26,14,Branch acc.,0.02898841815308931
+27,14,Branch acc.,0.044600517685779155
+28,14,Branch acc.,0.030792166887290758
+29,14,Branch acc.,0.024919423808974456
+30,14,Branch acc.,0.030937622117140698
+31,14,Branch acc.,0.02904972520020421
+2,15,Branch acc.,0.027266135655202948
+3,15,Branch acc.,0.027746875238832788
+4,15,Branch acc.,0.027737504023517587
+5,15,Branch acc.,0.04314230323837202
+6,15,Branch acc.,0.03610740691807433
+7,15,Branch acc.,0.038300618830397516
+8,15,Branch acc.,0.029920535040267513
+9,15,Branch acc.,0.044474286648475816
+10,15,Branch acc.,0.029710029028245426
+11,15,Branch acc.,0.02707026825202436
+12,15,Branch acc.,0.025233783334791725
+13,15,Branch acc.,0.03143788504452753
+14,15,Branch acc.,0.04624002925420682
+15,15,Branch acc.,0.029146101625995298
+16,15,Branch acc.,0.03415636653026478
+17,15,Branch acc.,0.031039735970213096
+18,15,Branch acc.,0.030741585822021186
+19,15,Branch acc.,0.034177477835225706
+20,15,Branch acc.,0.026265204606442293
+21,15,Branch acc.,0.024177011046979367
+22,15,Branch acc.,0.024714259236757793
+23,15,Branch acc.,0.02532169182343939
+24,15,Branch acc.,0.02750515830833689
+25,15,Branch acc.,0.043329896446597904
+26,15,Branch acc.,0.030702539399744513
+27,15,Branch acc.,0.02413978156597681
+28,15,Branch acc.,0.037911266877519924
+29,15,Branch acc.,0.03157898920418611
+30,15,Branch acc.,0.02945981221277801
+31,15,Branch acc.,0.031052913180782623
+2,16,Branch acc.,0.030984254466525148
+3,16,Branch acc.,0.027058914153482407
+4,16,Branch acc.,0.03849583287075507
+5,16,Branch acc.,0.030309573597115908
+6,16,Branch acc.,0.02525975649622814
+7,16,Branch acc.,0.030270813311620126
+8,16,Branch acc.,0.02576784274989742
+9,16,Branch acc.,0.04045952209915903
+10,16,Branch acc.,0.029292749303689088
+11,16,Branch acc.,0.02747215037469094
+12,16,Branch acc.,0.030375923754118295
+13,16,Branch acc.,0.04285011326188511
+14,16,Branch acc.,0.031150059088830374
+15,16,Branch acc.,0.031106881042163907
+16,16,Branch acc.,0.026929112735112313
+17,16,Branch acc.,0.03145755480254318
+18,16,Branch acc.,0.037438744408666395
+19,16,Branch acc.,0.03927088248729201
+20,16,Branch acc.,0.027656175695204933
+21,16,Branch acc.,0.04191289154866693
+22,16,Branch acc.,0.024950621229671684
+23,16,Branch acc.,0.028801075567867256
+24,16,Branch acc.,0.029726552112972766
+25,16,Branch acc.,0.02525718370826475
+26,16,Branch acc.,0.026172090475033282
+27,16,Branch acc.,0.024057926429144977
+28,16,Branch acc.,0.03557352676227754
+29,16,Branch acc.,0.034212163121590186
+30,16,Branch acc.,0.04338230485207429
+31,16,Branch acc.,0.04015104538846615
+2,17,Branch acc.,0.02649039755759081
+3,17,Branch acc.,0.025799116160574197
+4,17,Branch acc.,0.027050691066838845
+5,17,Branch acc.,0.028191473103942273
+6,17,Branch acc.,0.02625381416614019
+7,17,Branch acc.,0.03176677568607341
+8,17,Branch acc.,0.028054066972339965
+9,17,Branch acc.,0.04087486611705577
+10,17,Branch acc.,0.033930634207723305
+11,17,Branch acc.,0.04749098253653597
+12,17,Branch acc.,0.03579027320563653
+13,17,Branch acc.,0.02940035867985725
+14,17,Branch acc.,0.029277475529321577
+15,17,Branch acc.,0.034525283851773614
+16,17,Branch acc.,0.028913757970505244
+17,17,Branch acc.,0.03226081298549843
+18,17,Branch acc.,0.030042385135682685
+19,17,Branch acc.,0.03504227028640161
+20,17,Branch acc.,0.028861454802545292
+21,17,Branch acc.,0.029689459687317087
+22,17,Branch acc.,0.031103397337146524
+23,17,Branch acc.,0.033020237308449156
+24,17,Branch acc.,0.028085564595601915
+25,17,Branch acc.,0.042051461115811394
+26,17,Branch acc.,0.03319141691679943
+27,17,Branch acc.,0.0265602046607906
+28,17,Branch acc.,0.029089388274548274
+29,17,Branch acc.,0.03429600853694061
+30,17,Branch acc.,0.028171064504987124
+31,17,Branch acc.,0.0362464822160715
+2,18,Branch acc.,0.027714988646376452
+3,18,Branch acc.,0.03302774434153661
+4,18,Branch acc.,0.029199281511514016
+5,18,Branch acc.,0.038322968853435606
+6,18,Branch acc.,0.030633600919444143
+7,18,Branch acc.,0.030567683886267086
+8,18,Branch acc.,0.03730667699076863
+9,18,Branch acc.,0.03290784285446338
+10,18,Branch acc.,0.033989422361637114
+11,18,Branch acc.,0.04277812004045608
+12,18,Branch acc.,0.03133067287377458
+13,18,Branch acc.,0.02865934636447
+14,18,Branch acc.,0.040590197002478304
+15,18,Branch acc.,0.03299642731240482
+16,18,Branch acc.,0.027624498442515945
+17,18,Branch acc.,0.027423411325410003
+18,18,Branch acc.,0.025086923002842786
+19,18,Branch acc.,0.028126203478617048
+20,18,Branch acc.,0.02447692830947171
+21,18,Branch acc.,0.02818501822204826
+22,18,Branch acc.,0.024615631407475805
+23,18,Branch acc.,0.02776775277765703
+24,18,Branch acc.,0.038788984714782655
+25,18,Branch acc.,0.03192181674654371
+26,18,Branch acc.,0.0429408126072363
+27,18,Branch acc.,0.02530243665728352
+28,18,Branch acc.,0.04024047503657591
+29,18,Branch acc.,0.028038326145354352
+30,18,Branch acc.,0.025745447523302267
+31,18,Branch acc.,0.03501672038821155
+2,19,Branch acc.,0.0355560827786697
+3,19,Branch acc.,0.0452510337752915
+4,19,Branch acc.,0.03244589985639055
+5,19,Branch acc.,0.02798688611844125
+6,19,Branch acc.,0.02710717688244819
+7,19,Branch acc.,0.025341064196086054
+8,19,Branch acc.,0.02660931837037684
+9,19,Branch acc.,0.025708364209677058
+10,19,Branch acc.,0.033635697903244687
+11,19,Branch acc.,0.04061249771116008
+12,19,Branch acc.,0.04384713252225911
+13,19,Branch acc.,0.03592294599498534
+14,19,Branch acc.,0.026484967474936897
+15,19,Branch acc.,0.02867252342746786
+16,19,Branch acc.,0.027539396944295625
+17,19,Branch acc.,0.03654721333587987
+18,19,Branch acc.,0.02503319586596115
+19,19,Branch acc.,0.02473552184914662
+20,19,Branch acc.,0.02980160739064629
+21,19,Branch acc.,0.05033127852755313
+22,19,Branch acc.,0.04155646094411572
+23,19,Branch acc.,0.02575235299223608
+24,19,Branch acc.,0.03021307941232509
+25,19,Branch acc.,0.028670892221077913
+26,19,Branch acc.,0.03114635229084789
+27,19,Branch acc.,0.02797992623269047
+28,19,Branch acc.,0.024821437176478542
+29,19,Branch acc.,0.025216815720001003
+30,19,Branch acc.,0.02629696430601408
+31,19,Branch acc.,0.029042393945277103
+2,20,Branch acc.,0.031216905509036958
+3,20,Branch acc.,0.03632697208909248
+4,20,Branch acc.,0.029511723584463134
+5,20,Branch acc.,0.028145850574562925
+6,20,Branch acc.,0.03013302528738248
+7,20,Branch acc.,0.029723438933970295
+8,20,Branch acc.,0.038651358230205116
+9,20,Branch acc.,0.02780647122579981
+10,20,Branch acc.,0.03909039183307294
+11,20,Branch acc.,0.038873643380682624
+12,20,Branch acc.,0.028076916777922564
+13,20,Branch acc.,0.039078928372878866
+14,20,Branch acc.,0.033382918628525236
+15,20,Branch acc.,0.027214378693466868
+16,20,Branch acc.,0.0441923239370196
+17,20,Branch acc.,0.030512741972207484
+18,20,Branch acc.,0.034783664160107745
+19,20,Branch acc.,0.027805028899905614
+20,20,Branch acc.,0.03151750056172853
+21,20,Branch acc.,0.029937304421594434
+22,20,Branch acc.,0.028896537770873577
+23,20,Branch acc.,0.02858886852177086
+24,20,Branch acc.,0.03710099071398628
+25,20,Branch acc.,0.0324814761062827
+26,20,Branch acc.,0.03242413275593447
+27,20,Branch acc.,0.03820222974005952
+28,20,Branch acc.,0.025415290586780735
+29,20,Branch acc.,0.03787388597749352
+30,20,Branch acc.,0.03168054323653737
+31,20,Branch acc.,0.031734707218671956
+2,21,Branch acc.,0.025416426286993775
+3,21,Branch acc.,0.02715707416968734
+4,21,Branch acc.,0.03319318162448072
+5,21,Branch acc.,0.04117416665233731
+6,21,Branch acc.,0.03128487503810079
+7,21,Branch acc.,0.03259301586106412
+8,21,Branch acc.,0.038953807379383414
+9,21,Branch acc.,0.029929090752731525
+10,21,Branch acc.,0.028515106372757965
+11,21,Branch acc.,0.030391354241491166
+12,21,Branch acc.,0.034509154499437214
+13,21,Branch acc.,0.03571489714593817
+14,21,Branch acc.,0.029666060085998244
+15,21,Branch acc.,0.032643708757393766
+16,21,Branch acc.,0.04103247689499516
+17,21,Branch acc.,0.03999573021773167
+18,21,Branch acc.,0.03428274943648345
+19,21,Branch acc.,0.02557813290187851
+20,21,Branch acc.,0.03527619477199511
+21,21,Branch acc.,0.027286867027578706
+22,21,Branch acc.,0.040623620193425705
+23,21,Branch acc.,0.02912141478538091
+24,21,Branch acc.,0.032995887163327076
+25,21,Branch acc.,0.031795744655251375
+26,21,Branch acc.,0.02809876816420415
+27,21,Branch acc.,0.026915539748634712
+28,21,Branch acc.,0.03231808586221805
+29,21,Branch acc.,0.02602445603997563
+30,21,Branch acc.,0.030126251555737817
+31,21,Branch acc.,0.0336186459837982
+2,22,Branch acc.,0.034727678047495006
+3,22,Branch acc.,0.02613499585192387
+4,22,Branch acc.,0.026070461577091763
+5,22,Branch acc.,0.03794653364224709
+6,22,Branch acc.,0.032348948211011926
+7,22,Branch acc.,0.03936255143932882
+8,22,Branch acc.,0.030771833664163455
+9,22,Branch acc.,0.037695225008976166
+10,22,Branch acc.,0.03667067829783611
+11,22,Branch acc.,0.02782306169757484
+12,22,Branch acc.,0.02664590215670637
+13,22,Branch acc.,0.02778462717172368
+14,22,Branch acc.,0.0378173183386502
+15,22,Branch acc.,0.02414994591444444
+16,22,Branch acc.,0.0424517076062882
+17,22,Branch acc.,0.03377366452095155
+18,22,Branch acc.,0.02506211033287236
+19,22,Branch acc.,0.02777780794229918
+20,22,Branch acc.,0.03871780973841163
+21,22,Branch acc.,0.03593544949020036
+22,22,Branch acc.,0.026631450725167705
+23,22,Branch acc.,0.03010147076807779
+24,22,Branch acc.,0.02890243876362413
+25,22,Branch acc.,0.038870420032000676
+26,22,Branch acc.,0.030644165669371285
+27,22,Branch acc.,0.028372216217421527
+28,22,Branch acc.,0.027519844933633922
+29,22,Branch acc.,0.031289030971071524
+30,22,Branch acc.,0.04190234489301402
+31,22,Branch acc.,0.030286566263672095
+2,23,Branch acc.,0.026991537504220543
+3,23,Branch acc.,0.02576377803503587
+4,23,Branch acc.,0.026551407241326618
+5,23,Branch acc.,0.03709988549719203
+6,23,Branch acc.,0.03518398623663023
+7,23,Branch acc.,0.03949928951685456
+8,23,Branch acc.,0.040748066129745436
+9,23,Branch acc.,0.03483429530697991
+10,23,Branch acc.,0.044644473485951214
+11,23,Branch acc.,0.02798222511271114
+12,23,Branch acc.,0.03365604055181269
+13,23,Branch acc.,0.028377028915099613
+14,23,Branch acc.,0.032899723909006966
+15,23,Branch acc.,0.03571618581200652
+16,23,Branch acc.,0.02139189154714855
+17,23,Branch acc.,0.02986593512693598
+18,23,Branch acc.,0.021165211647421203
+19,23,Branch acc.,0.028227947294542196
+20,23,Branch acc.,0.025496892774303656
+21,23,Branch acc.,0.02978347029732265
+22,23,Branch acc.,0.02542469689493665
+23,23,Branch acc.,0.03369585919380622
+24,23,Branch acc.,0.03300985507711023
+25,23,Branch acc.,0.021233421376624623
+26,23,Branch acc.,0.023709962952411266
+27,23,Branch acc.,0.02538186334785011
+28,23,Branch acc.,0.02274941669896383
+29,23,Branch acc.,0.022202640595953373
+30,23,Branch acc.,0.02522260305127313
+31,23,Branch acc.,0.02087028537235624
+2,24,Branch acc.,0.029742828096084827
+3,24,Branch acc.,0.03213563441148067
+4,24,Branch acc.,0.03259291539765457
+5,24,Branch acc.,0.03084187520818311
+6,24,Branch acc.,0.02316638716640419
+7,24,Branch acc.,0.02962042056909255
+8,24,Branch acc.,0.026742759907892027
+9,24,Branch acc.,0.03835029191752552
+10,24,Branch acc.,0.033747144917953956
+11,24,Branch acc.,0.02566052007183933
+12,24,Branch acc.,0.02414357745704141
+13,24,Branch acc.,0.03705363756420433
+14,24,Branch acc.,0.029359390244364222
+15,24,Branch acc.,0.04470100360870117
+16,24,Branch acc.,0.029372512723071748
+17,24,Branch acc.,0.046740361133551615
+18,24,Branch acc.,0.035029500925286304
+19,24,Branch acc.,0.0391495100102069
+20,24,Branch acc.,0.031929939443529794
+21,24,Branch acc.,0.024092916170587758
+22,24,Branch acc.,0.02648466528879365
+23,24,Branch acc.,0.03293094291317904
+24,24,Branch acc.,0.029604555907229095
+25,24,Branch acc.,0.03251565172075973
+26,24,Branch acc.,0.03169070999252028
+27,24,Branch acc.,0.033848997454806226
+28,24,Branch acc.,0.03256032363418337
+29,24,Branch acc.,0.03243055043344965
+30,24,Branch acc.,0.02958161880369107
+31,24,Branch acc.,0.026200013406730744
+2,25,Branch acc.,0.025130980274946698
+3,25,Branch acc.,0.033114015681359965
+4,25,Branch acc.,0.027951204537832137
+5,25,Branch acc.,0.030368552406258256
+6,25,Branch acc.,0.034708493874432
+7,25,Branch acc.,0.04449084668729052
+8,25,Branch acc.,0.027444185051892295
+9,25,Branch acc.,0.030430066705248622
+10,25,Branch acc.,0.038196405390283523
+11,25,Branch acc.,0.03657813718438258
+12,25,Branch acc.,0.036988522147776454
+13,25,Branch acc.,0.03731185927561095
+14,25,Branch acc.,0.03131664028461361
+15,25,Branch acc.,0.029117682796406183
+16,25,Branch acc.,0.029332992519974153
+17,25,Branch acc.,0.0303283990343327
+18,25,Branch acc.,0.02362963335618257
+19,25,Branch acc.,0.025739205470593936
+20,25,Branch acc.,0.02766197302107941
+21,25,Branch acc.,0.026808466919445953
+22,25,Branch acc.,0.024615676190125797
+23,25,Branch acc.,0.03404523112164549
+24,25,Branch acc.,0.03636758220286636
+25,25,Branch acc.,0.026536157159449816
+26,25,Branch acc.,0.03998199736814334
+27,25,Branch acc.,0.02440007549228162
+28,25,Branch acc.,0.022914755814035598
+29,25,Branch acc.,0.0371930900000128
+30,25,Branch acc.,0.02308589536908716
+31,25,Branch acc.,0.02533545310292506
+2,26,Branch acc.,0.03420423970869585
+3,26,Branch acc.,0.025001693096255113
+4,26,Branch acc.,0.026068636393910383
+5,26,Branch acc.,0.02915171491469364
+6,26,Branch acc.,0.04125802106855391
+7,26,Branch acc.,0.03909862757279339
+8,26,Branch acc.,0.04348954905593854
+9,26,Branch acc.,0.0291727237993336
+10,26,Branch acc.,0.027956993487689336
+11,26,Branch acc.,0.03753571433583904
+12,26,Branch acc.,0.024061454871631197
+13,26,Branch acc.,0.030205712094143192
+14,26,Branch acc.,0.02471510100763874
+15,26,Branch acc.,0.03342879178011699
+16,26,Branch acc.,0.0268166190202194
+17,26,Branch acc.,0.03666062510861718
+18,26,Branch acc.,0.02575194273953826
+19,26,Branch acc.,0.03572845807450299
+20,26,Branch acc.,0.03761509333863648
+21,26,Branch acc.,0.030083715364464293
+22,26,Branch acc.,0.03304984194276346
+23,26,Branch acc.,0.0365670143817071
+24,26,Branch acc.,0.03730361687799007
+25,26,Branch acc.,0.03778854444395481
+26,26,Branch acc.,0.026684418147493182
+27,26,Branch acc.,0.027137419697064576
+28,26,Branch acc.,0.026789315884056576
+29,26,Branch acc.,0.038816721144515336
+30,26,Branch acc.,0.02641000544544497
+31,26,Branch acc.,0.027599468227693862
+2,27,Branch acc.,0.02543279837396692
+3,27,Branch acc.,0.04091644686461651
+4,27,Branch acc.,0.03488631874011322
+5,27,Branch acc.,0.03703810684008014
+6,27,Branch acc.,0.031160672538528618
+7,27,Branch acc.,0.03405670367175286
+8,27,Branch acc.,0.03203219468011833
+9,27,Branch acc.,0.027802233219824665
+10,27,Branch acc.,0.025620708195299133
+11,27,Branch acc.,0.03198496543859095
+12,27,Branch acc.,0.02995868401074277
+13,27,Branch acc.,0.02909193319472619
+14,27,Branch acc.,0.030188408662293206
+15,27,Branch acc.,0.038886167477143935
+16,27,Branch acc.,0.03128845082059714
+17,27,Branch acc.,0.02719259722550277
+18,27,Branch acc.,0.028559283954123944
+19,27,Branch acc.,0.02960172237765669
+20,27,Branch acc.,0.043234748577240474
+21,27,Branch acc.,0.03670586531506849
+22,27,Branch acc.,0.04602643929498548
+23,27,Branch acc.,0.04054897040433648
+24,27,Branch acc.,0.028318995838124437
+25,27,Branch acc.,0.026306633878169464
+26,27,Branch acc.,0.041993278945495344
+27,27,Branch acc.,0.03143711002420582
+28,27,Branch acc.,0.02668384447597766
+29,27,Branch acc.,0.02521195982876046
+30,27,Branch acc.,0.025469937375364123
+31,27,Branch acc.,0.03149360179213217
+2,28,Branch acc.,0.03163559055697395
+3,28,Branch acc.,0.03479007081645063
+4,28,Branch acc.,0.03753509789527471
+5,28,Branch acc.,0.02928860767550136
+6,28,Branch acc.,0.02967937948499469
+7,28,Branch acc.,0.033125089219209876
+8,28,Branch acc.,0.03280697779595663
+9,28,Branch acc.,0.0430217079146448
+10,28,Branch acc.,0.034465763250343555
+11,28,Branch acc.,0.034690115856271395
+12,28,Branch acc.,0.029555677929537515
+13,28,Branch acc.,0.03355054321726255
+14,28,Branch acc.,0.027380249581394914
+15,28,Branch acc.,0.032145545975157556
+16,28,Branch acc.,0.026264470295367957
+17,28,Branch acc.,0.034495584343301834
+18,28,Branch acc.,0.031290006394421845
+19,28,Branch acc.,0.024705738528376618
+20,28,Branch acc.,0.029386852641606908
+21,28,Branch acc.,0.0237035902448777
+22,28,Branch acc.,0.031246150195517006
+23,28,Branch acc.,0.03054658637524234
+24,28,Branch acc.,0.027630870437910328
+25,28,Branch acc.,0.02504226081368609
+26,28,Branch acc.,0.03239245372807121
+27,28,Branch acc.,0.04505676934519663
+28,28,Branch acc.,0.0355345091001225
+29,28,Branch acc.,0.03170379893913786
+30,28,Branch acc.,0.04091547490066452
+31,28,Branch acc.,0.030031413736393224
+2,29,Branch acc.,0.038616827307198516
+3,29,Branch acc.,0.030297194721472968
+4,29,Branch acc.,0.044357588254267055
+5,29,Branch acc.,0.038258334041668694
+6,29,Branch acc.,0.030034582795759143
+7,29,Branch acc.,0.026316093286639836
+8,29,Branch acc.,0.02632634954250345
+9,29,Branch acc.,0.03202975590145365
+10,29,Branch acc.,0.034542038571294426
+11,29,Branch acc.,0.03223231589341463
+12,29,Branch acc.,0.03051778330711181
+13,29,Branch acc.,0.03683371486799995
+14,29,Branch acc.,0.02583755521804693
+15,29,Branch acc.,0.03354247037697782
+16,29,Branch acc.,0.042447929969975366
+17,29,Branch acc.,0.03279273370641775
+18,29,Branch acc.,0.026514660141017343
+19,29,Branch acc.,0.02710414438868367
+20,29,Branch acc.,0.036637124820653406
+21,29,Branch acc.,0.025645777960066674
+22,29,Branch acc.,0.026309597320473825
+23,29,Branch acc.,0.024787944980748336
+24,29,Branch acc.,0.042808270987549836
+25,29,Branch acc.,0.03178421163909916
+26,29,Branch acc.,0.029032062995270107
+27,29,Branch acc.,0.03291677588517037
+28,29,Branch acc.,0.03581228195190979
+29,29,Branch acc.,0.03457073173215515
+30,29,Branch acc.,0.029844010455389973
+31,29,Branch acc.,0.029324807591601807
+2,30,Branch acc.,0.041531951645132334
+3,30,Branch acc.,0.03368802287081898
+4,30,Branch acc.,0.0407318091358153
+5,30,Branch acc.,0.03434873034163998
+6,30,Branch acc.,0.0334735622759966
+7,30,Branch acc.,0.03181378828267611
+8,30,Branch acc.,0.033505127696418495
+9,30,Branch acc.,0.02890355208271621
+10,30,Branch acc.,0.02679457270042784
+11,30,Branch acc.,0.03542557525604827
+12,30,Branch acc.,0.02710454225879726
+13,30,Branch acc.,0.026394135755671712
+14,30,Branch acc.,0.04118047914802559
+15,30,Branch acc.,0.03102783821367754
+16,30,Branch acc.,0.04135943180608762
+17,30,Branch acc.,0.025578799900352615
+18,30,Branch acc.,0.027770792318377716
+19,30,Branch acc.,0.027188993394335403
+20,30,Branch acc.,0.02723243261289445
+21,30,Branch acc.,0.02904788361271665
+22,30,Branch acc.,0.030026027204863175
+23,30,Branch acc.,0.024234048686188205
+24,30,Branch acc.,0.025502097425683698
+25,30,Branch acc.,0.027713127027453863
+26,30,Branch acc.,0.02828726208325445
+27,30,Branch acc.,0.03706668336240302
+28,30,Branch acc.,0.03084854991227817
+29,30,Branch acc.,0.025863710928658884
+30,30,Branch acc.,0.04754482189236159
+31,30,Branch acc.,0.027636650556228156
