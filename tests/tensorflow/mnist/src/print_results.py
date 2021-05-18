@@ -14,11 +14,7 @@ __status__ = "Production"
 
 # ------------------------------------------------------------------------ #
 if __name__ == "__main__":
-    """Dependiendo del valor pasado por parametro, se ejecuta la multipli-
-    cacion de dos matrices rellenadas con la funcion empty() o zeros(),
-    ambas pertenecientes a la liberia Numpy.
-    @param option variable que se pasa por parametro y que indica si se ha
-        de rellenar las matrices con la funcion empty() o zeros().
+    """TODO:
     """
 
     # standard library
@@ -30,17 +26,16 @@ if __name__ == "__main__":
     # -------------------------------------------------------------------- #
     # Loads the my_papi library
     # -------------------------------------------------------------------- #
-    import sys
+    import os
     import pathlib
+    import sys
 
     # Absolute path to this script
-    MY_PAPI_DIR = pathlib.Path(__file__).absolute()
+    PATH_FILE = pathlib.Path(__file__).absolute()
     # Now, we have to move to the root of this workspace ([prev. path]/TFG)
-    MY_PAPI_DIR = MY_PAPI_DIR.parent.parent.parent.parent.parent.absolute()
+    MY_PAPI_DIR = PATH_FILE.parent.parent.parent.parent.parent.absolute()
     # From the root (TFG/) access to my_papi dir. and its content
     MY_PAPI_DIR = MY_PAPI_DIR / "my_papi"
-    # Folder where the configuration files are located
-    CFG_DIR = MY_PAPI_DIR / "conf"
     # Folder where the library is located
     LIB_DIR = MY_PAPI_DIR / "lib"
     # Folder where the source codes are located
@@ -56,17 +51,111 @@ if __name__ == "__main__":
     # Path to the library, needed to create an object of class my_papi
     libname = LIB_DIR / "libmy_papi.so"
 
-    # Load a file with the events
-    # events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
 
-    # Measures on all cpus
-    cpus = None
 
-    # Output file with the measures
-    # output_file = "out/main_papi_results.csv"
-    # output_file = None
+
+    csv_file = "out/mnist_each_epoch.csv"
+    MyPapi.dash_create_table(csv_file)
+
+    exit(0)
+
+
+
+
+    # Plot the next csv files
+    csv_files = ["out/mnist_each_epoch.csv",
+                 "out/mnist_papi.csv"]
+
+    import dash
+    import dash_core_components as dcc
+    import dash_html_components as html
+
+    # Since we're adding callbacks to elements that don't exist in the app.layout,
+    # Dash will raise an exception to warn us that we might be
+    # doing something wrong.
+    # In this case, we're adding the elements through a callback, so we can ignore
+    # the exception.
+    app = dash.Dash(__name__, suppress_callback_exceptions=True)
+
+    app.layout = html.Div([
+        dcc.Location(id='url', refresh=False),
+        html.Div(id='page-content')
+    ])
+
+    index_page = html.Div([
+        dcc.Link('Go to the measure of mnist with MyPapi', href='/page-1'),
+        html.Br(),
+        dcc.Link('Go to the measure of mnist in each epoch', href='/page-2'),
+    ])
+
+
+
+    page_1_layout = html.Div([
+        html.H1('Page 1'),
+        dcc.Dropdown(
+            id='page-1-dropdown',
+            options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
+            value='LA'
+        ),
+        html.Div(id='page-1-content'),
+        html.Br(),
+        dcc.Link('Go to Page 2', href='/page-2'),
+        html.Br(),
+        dcc.Link('Go back to home', href='/'),
+    ])
+
+    @app.callback(dash.dependencies.Output('page-1-content', 'children'),
+                [dash.dependencies.Input('page-1-dropdown', 'value')])
+    def page_1_dropdown(value):
+        return 'You have selected "{}"'.format(value)
+
+
+    page_2_layout = html.Div([
+        html.H1('Page 2'),
+        dcc.RadioItems(
+            id='page-2-radios',
+            options=[{'label': i, 'value': i} for i in ['Orange', 'Blue', 'Red']],
+            value='Orange'
+        ),
+        html.Div(id='page-2-content'),
+        html.Br(),
+        dcc.Link('Go to Page 1', href='/page-1'),
+        html.Br(),
+        dcc.Link('Go back to home', href='/')
+    ])
+
+    @app.callback(dash.dependencies.Output('page-2-content', 'children'),
+                [dash.dependencies.Input('page-2-radios', 'value')])
+    def page_2_radios(value):
+        return 'You have selected "{}"'.format(value)
+
+
+    # Update the index
+    @app.callback(dash.dependencies.Output('page-content', 'children'),
+                [dash.dependencies.Input('url', 'pathname')])
+    def display_page(pathname):
+        if pathname == '/page-1':
+            return page_1_layout
+        elif pathname == '/page-2':
+            return page_2_layout
+        else:
+            return index_page
+        # You could also return a 404 "URL not found" page here
+
+
+    app.run_server(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+    exit(0)
     # -------------------------------------------------------------------- #
     
     csv_file = "out/mnist_each_epoch.csv"

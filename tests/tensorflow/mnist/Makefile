@@ -52,6 +52,11 @@ run_callbacks_epoch:
 	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist_each_epoch.py
 # taskset -c 2 ${CC} ${SRC_DIR}/mnist_each_epoch.py
 
+run_callbacks_batch:
+# Executing the program with callbacks from my_papi library for Python
+	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist_each_batch.py
+# taskset -c 2 ${CC} ${SRC_DIR}/mnist_each_epoch.py
+
 run_with_perf:
 # Executing the program and measures with perf
 	taskset -c 2-31 perf stat -e ${EVENTS} ${CC} ${SRC_DIR}/mnist.py

@@ -211,6 +211,209 @@ class MyPapi(object):
 # --------------------------------------------------------------------------- #
 
     @staticmethod
+    def read_csv_and_get_rates(csv_file):
+
+        # Read csv with the following header
+        header = ["CPU", "Value", "Unit", "Event Name"]
+        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+
+        # Get the events and cpus measured
+        events = df["Event Name"].unique()
+        cpus = df["CPU"].unique()
+
+        # Also the number of iterations (batch_size, epoch, etc)
+        num_measures = int(len(df.index) / (len(events) * len(cpus)))
+
+        # Creates a column with the number of iteration
+        df.insert(0, "# Measure", 0)
+
+        # We have to modify them depending on the number of measures and cpus
+        aux = 0
+        for i in range(num_measures, 0, -1):
+            aux += 1
+            df.loc[df.index[-i * len(events) * len(cpus):], "# Measure"] = aux
+
+        # "Rotate" the table
+        df = df.pivot_table(index=["# Measure", "CPU"], columns=[
+            "Event Name"], values=["Value"]).fillna(0)
+        # Drop the first multiindex
+        df.columns = df.columns.droplevel()
+
+        # Add columns with rates (IPC, acc., etc.)
+        df = MyPapi.get_rates_from_df(df)
+        # Remove name of columns
+        df.columns.name = None
+        # Reset the index to an auto-increment
+        df = df.reset_index()
+
+        # !convertir al principio
+        # df = df.melt(id_vars=["CPU", "# Measure"])
+
+        return df
+
+    @staticmethod
+    def dash_create_table(csv_file):
+
+        df = MyPapi.read_csv_and_get_rates(csv_file)
+
+        # Get the cpus measured
+        cpus = df["CPU"].unique()
+
+        # Also the number of iterations (batch_size, epoch, etc)
+        num_measures = len(df["# Measure"].unique())
+
+        # Create the app
+        external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+        app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+        columns = []
+        for i in df.columns:
+            if i == "IPC":
+                columns.append({"name": i, "id": i, "type": "numeric",
+                                "format": Format(precision=4, scheme=Scheme.fixed)})
+            elif "acc" in i or "rate" in i:
+                columns.append({"name": i, "id": i, "type": "numeric",
+                                "format": Format(precision=2, scheme=Scheme.percentage)})
+            else:
+                columns.append({"name": i, "id": i, "type": "numeric",
+                                "format": Format().group(True), "hideable": True})
+
+        # Create the html page
+        app.layout = html.Div([
+            # Header
+            html.Div([
+                html.H1("MyPapi measure")
+            ]),
+            # Options
+            # html.Div([
+            #     html.Table(
+            #         [
+            #             html.Thead([
+            #                 html.Tr([
+            #                     html.Th("CPU", style={'width': 200}),
+            #                     html.Th("Type of representation")
+            #                 ])
+            #             ]),
+            #             html.Tbody([
+            #                 html.Tr([
+            #                     html.Td([
+            #                         dcc.Dropdown(
+            #                             id='cpu-dropdown',
+            #                             options=[{'label': i, 'value': i}
+            #                                      for i in cpus],
+            #                             value='0',
+            #                             style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}
+            #                         )
+            #                     ], style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}),
+            #                     html.Td([
+            #                         dcc.RadioItems(
+            #                             id='table-graph-radio-items',
+            #                             options=[{'label': i, 'value': i}
+            #                                      for i in ['Table', 'Graph']],
+            #                             value='Table'
+            #                         )
+            #                     ])
+            #                 ], style={'align-items': 'center', 'justify-content': 'center'})
+            #             ], style={'align-items': 'center', 'justify-content': 'center'})
+            #         ]
+            #     )
+            # ]),
+            # Separator
+            html.Hr(),
+            # Figures: table or graph
+            html.Div([
+                dash_table.DataTable(
+                    data = df.to_dict('records'),
+                    columns=columns,
+                    sort_action='native',
+                    page_size=num_measures,
+                    id='datatable-upload-container',
+                    style_table={'overflowX': 'auto'},
+                    style_cell={
+                        'minWidth': '100px', 'width': '100px', 'maxWidth': '100px',
+                        'overflow': 'hidden',
+                        'textOverflow': 'ellipsis',
+                        'height': 'auto',
+                        'whiteSpace': 'normal',
+                    },
+                    style_header={
+                        'backgroundColor': 'paleturquoise',
+                        'fontWeight': 'bold'
+                    },
+                    style_data=dict(backgroundColor="lavender"),
+                    export_format='xlsx',
+                    export_headers='display',
+                    css=[
+                    {"selector": ".column-header--delete svg", "rule": 'display: "none"'},
+                    {"selector": ".column-header--delete::before", "rule": 'content: "X"'}]
+                )
+                # ,
+                # dcc.Graph(id='datatable-upload-graph')
+            ])
+        ])
+        #  style={'width': '90%', 'display': 'inline-block','horizontal-align': 'middle', 'vertical-align': 'middle'}
+
+        # @app.callback(
+        #     Output(component_id='datatable-upload-container',
+        #            component_property='data'),
+        #     Output(component_id='datatable-upload-container',
+        #            component_property='columns'),
+        #     Input(component_id='cpu-dropdown', component_property='value')
+        #     # ,
+        #     # Input(component_id='table-graph-radio-items', component_property='value')
+        # )
+        # def update_output(cpu_dropdown_name):  # , table_graph_name):
+
+        #     # Get the data with the CPU selected
+        #     dff = df.query('CPU == @cpu_dropdown_name')
+
+        #     # Group params to pass them to plotly
+        #     columns = []
+        #     for i in dff.columns:
+        #         if i == "IPC":
+        #             columns.append({"name": i, "id": i, "type": "numeric",
+        #                             "format": Format(precision=4, scheme=Scheme.fixed)})
+        #         elif "acc" in i or "rate" in i:
+        #             columns.append({"name": i, "id": i, "type": "numeric",
+        #                             "format": Format(precision=2, scheme=Scheme.percentage)})
+        #         else:
+        #             columns.append({"name": i, "id": i, "type": "numeric",
+        #                             "format": Format().group(True), "hideable": True})
+
+        #     data = dff.to_dict('records')
+
+        #     return data, columns
+
+        # @app.callback(
+        #     Output(component_id='datatable-upload-graph',
+        #            component_property='figure'),
+        #     Input(component_id='datatable-upload-container', component_property='data'))
+        # def display_graph(rows):
+        #     df = pd.DataFrame(rows)
+
+        #     if (df.empty or len(df.columns) < 1):
+        #         return {
+        #             'data': [{
+        #                 'x': [],
+        #                 'y': [],
+        #                 'type': 'bar'
+        #             }]
+        #         }
+        #     return {
+        #         'data': [{
+        #             'x': df[df.columns[0]],
+        #             'y': df[df.columns[1]],
+        #             'type': 'bar'
+        #         }]
+        #     }
+
+        app.run_server(debug=False)
+
+
+        # return df
+
+
+    @staticmethod
     def sum_events(output_file):
         """Read the file 'output_file' and sum the same events.
 
@@ -579,10 +782,33 @@ class MyPapi(object):
 
     @staticmethod
     def plotly_print_evolution(csv_file):
-        
 
-        pass
+        import plotly.express as px
 
+        # Read csv with the following header
+        header = ["CPU", "Value", "Unit", "Event Name"]
+        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+
+        # Get the list of CPUs measured
+        available_cpus = df["CPU"].unique()
+        # And the events
+        events_measured = df["Event Name"].unique()
+
+        # Calculate the # of measures in function of the #cpus and #events
+        len_per_measure = len(events_measured) * len(available_cpus)
+        # Creates the array with the # of measure
+        num_measure = 1
+        df.insert(0, "# Measure", num_measure)
+        # We have to modify them depending on the number of measures and cpus
+        for i in range(int(len(df.index) / len_per_measure), 0, -1):
+            df.loc[df.index[-i * len_per_measure:], "# Measure"] = num_measure
+            num_measure += 1
+
+        fig = px.scatter(df, x="Event Name", y="Value", animation_frame="# Measure", animation_group="# Measure",
+                        size="Value", color="Event Name", hover_name="Event Name",facet_col="Event Name",
+                        log_x=False, size_max=55, range_x=[-1, 4], range_y=[0, 1_000_000_000])
+
+        fig.show()
 
 
 # --------------------------------------------------------------------------- #
@@ -623,6 +849,7 @@ class MyCallbacks(keras.callbacks.Callback):
 
         # Prepares the measure on ALL cpus
         # ! modify this to get the num of cpus automatic
+        # cpus = None
         cpus = list(range(2, 32))
         self.mp.prepare_measure(events_file=events_file, cpus=cpus)
 

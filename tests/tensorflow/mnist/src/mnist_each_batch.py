@@ -79,7 +79,7 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
 
     # Output file with the measures
-    output_file = "out/mnist_each_epoch.csv"
+    output_file = "out/mnist_each_batch.csv"
     # output_file = None
     # ----------------------------------------------------------------------- #
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
     model.fit(x=X_train,
               y=Y_train,
-              batch_size=None,
+              batch_size=1,
               epochs=1,
               verbose=1,
               callbacks=callbacks,

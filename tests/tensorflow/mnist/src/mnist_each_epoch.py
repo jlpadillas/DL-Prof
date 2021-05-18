@@ -146,7 +146,7 @@ if __name__ == "__main__":
     model.fit(x=X_train,
               y=Y_train,
               batch_size=None,
-              epochs=3,
+              epochs=30,
               verbose=1,
               callbacks=callbacks,
               validation_split=0.,
