@@ -39,14 +39,14 @@ from tensorflow import keras
 # --------------------------------------------------------------------------- #
 
 # Dictionary with the key as the new event to generate. The values are 2
-# sets with the same events
+# sets with the same event but different name
 events_dict = {
     "IPC": [{"instructions", "PAPI_TOT_INS"},
             {"cycles", "PAPI_TOT_CYC"}],
     "Branch miss rate": [{"branch-misses", "PAPI_BR_MSP"},
                             {"branch-instructions", "PAPI_BR_CN"}],
-    "L1 Data cache miss rate": [{"PAPI_L1_DCM"}, {}],
-    "L1 Inst cache miss rate": [{"PAPI_L1_ICM"}, {}],
+    "L1 Data cache miss rate": [{"PAPI_L1_DCM"}, {"PERF_COUNT_HW_CACHE_L1D.ACCESS"}],
+    "L1 Inst cache miss rate": [{"PAPI_L1_ICM"}, {"PERF_COUNT_HW_CACHE_L1D.ACCESS"}],
 }
 
 
