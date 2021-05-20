@@ -28,12 +28,12 @@ if __name__ == "__main__":
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
     # 3rd party packages
-    import tensorflow as tf
+    # import tensorflow as tf
     from tensorflow import keras
 
     # ---------------- Setting up the inter and intra threads --------------- #
-    inter = tf.config.threading.get_inter_op_parallelism_threads()
-    intra = tf.config.threading.get_intra_op_parallelism_threads()
+    # inter = tf.config.threading.get_inter_op_parallelism_threads()
+    # intra = tf.config.threading.get_intra_op_parallelism_threads()
 
     # inter = 1
     # intra = 1
@@ -41,9 +41,9 @@ if __name__ == "__main__":
     # tf.config.threading.set_inter_op_parallelism_threads(inter)
     # tf.config.threading.set_intra_op_parallelism_threads(intra)
 
-    print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
-          "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
-                      tf.config.threading.get_intra_op_parallelism_threads()))
+    # print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
+    #       "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
+    #                   tf.config.threading.get_intra_op_parallelism_threads()))
     # ----------------------------------------------------------------------- #
 
     # ------------------- Load the dataset and define it -------------------- #

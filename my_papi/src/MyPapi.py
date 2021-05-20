@@ -269,8 +269,6 @@ class MyPapi(object):
         # Also the number of iterations (batch_size, epoch, etc)
         num_measures = int(len(df.index) / (len(events) * len(cpus)))
 
-        print(num_measures)
-
         # Creates a column with the number of iteration
         df.insert(0, "# Measure", 0)
 
