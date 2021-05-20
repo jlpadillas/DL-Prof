@@ -375,11 +375,11 @@ int my_print_measure(char *output_file_name)
             for (j = 0; j < num_events; j++)
             {
                 val = values[i][j];
-                if (val != 0)
-                {
+                // if (val != 0)
+                // {
                     fprintf(fp, "%d%c%lld%c%c%s\n", g_cpus[i], sep, val, sep,
                             sep, events[j]);
-                }
+                // }
             }
         }
     }

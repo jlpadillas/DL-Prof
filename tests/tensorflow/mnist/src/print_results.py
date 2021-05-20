@@ -53,8 +53,11 @@ if __name__ == "__main__":
 
 
 
-
-    csv_file = "out/mnist_each_epoch.csv"
+    folder = "out/old_tensorflow/"
+    # csv_file = folder + "mnist_papi.csv"
+    # csv_file = folder + "mnist_each_epoch.csv"
+    csv_file = folder + "mnist_each_batch.csv"
+    # MyPapi.plotly_print_evolution(csv_file)
     MyPapi.dash_create_table(csv_file)
 
     exit(0)

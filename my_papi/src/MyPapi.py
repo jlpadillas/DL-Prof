@@ -38,6 +38,17 @@ environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from tensorflow import keras
 # --------------------------------------------------------------------------- #
 
+# Dictionary with the key as the new event to generate. The values are 2
+# sets with the same events
+events_dict = {
+    "IPC": [{"instructions", "PAPI_TOT_INS"},
+            {"cycles", "PAPI_TOT_CYC"}],
+    "Branch miss rate": [{"branch-misses", "PAPI_BR_MSP"},
+                            {"branch-instructions", "PAPI_BR_CN"}],
+    "L1 Data cache miss rate": [{"PAPI_L1_DCM"}, {}],
+    "L1 Inst cache miss rate": [{"PAPI_L1_ICM"}, {}],
+}
+
 
 class MyPapi(object):
     """
@@ -221,17 +232,6 @@ class MyPapi(object):
             Dataframe with the columns as events
         """
 
-        # Dictionary with the key as the new event to generate. The values are 2
-        # sets with the same events
-        events_dict = {
-            "IPC": [{"instructions", "PAPI_TOT_INS"},
-                    {"cycles", "PAPI_TOT_CYC"}],
-            "Branch miss rate": [{"branch-misses", "PAPI_BR_MSP"},
-                                 {"branch-instructions", "PAPI_BR_CN"}],
-            "L1 Data cache miss rate": [{"PAPI_L1_DCM"}, {}],
-            "L1 Inst cache miss rate": [{"PAPI_L1_ICM"}, {}],
-        }
-
         cols = set(df.columns.tolist())
         for k, v in events_dict.items():
             if k in cols:
@@ -241,13 +241,22 @@ class MyPapi(object):
             divisor = set.intersection(cols, v[1])
             if len(dividend) != 0 and len(divisor) != 0:
                 # Divide the two lists and add it to the dataframe
-                df[k] = [i / j for i,
-                         j in zip(df[dividend].values, df[divisor].values)]
+                df[k] = [i[0] / j[0] for i, j in
+                         zip(df[dividend].values, df[divisor].values)]
         return df
     # ----------------------------------------------------------------------- #
 
     @staticmethod
     def read_csv_and_get_rates(csv_file):
+        """Read the file with the results and create a pandas Dataframe from it.
+        It also pivote the table to make the events as columns; and adds new
+        columns calculating the rates (if its possible).
+
+        Parameters
+        ----------
+        csv_file : str
+            Path to the results file of the execution with MyPapi.
+        """
 
         # Read csv with the following name of columns
         df = pd.read_csv(csv_file, header=None, sep=":",
@@ -259,6 +268,8 @@ class MyPapi(object):
 
         # Also the number of iterations (batch_size, epoch, etc)
         num_measures = int(len(df.index) / (len(events) * len(cpus)))
+
+        print(num_measures)
 
         # Creates a column with the number of iteration
         df.insert(0, "# Measure", 0)
@@ -288,6 +299,54 @@ class MyPapi(object):
         # df = df.melt(id_vars=["CPU", "# Measure"])
 
         return df
+    # ----------------------------------------------------------------------- #
+
+    @staticmethod
+    def sum_events(csv_file):
+        """Read the file with the results and sum the same events.
+
+        Parameters
+        ----------
+        csv_file : str
+        """
+
+        # Setting the dict of event name and how many computations represent
+        # each count. Valid on node
+        computations_dict = {
+            "fp_arith_inst_retired.128b_packed_double": 2,
+            "fp_arith_inst_retired.128b_packed_single": 4,
+            "fp_arith_inst_retired.256b_packed_double": 4,
+            "fp_arith_inst_retired.256b_packed_single": 8,
+            "fp_arith_inst_retired.512b_packed_double": 8,
+            "fp_arith_inst_retired.512b_packed_single": 16,
+            "fp_arith_inst_retired.scalar_double": 1,
+            "fp_arith_inst_retired.scalar_single": 1,
+            "fp_assist.any": 1
+        }
+
+        # Set the header and read the csv
+        df = pd.read_csv(csv_file, header=None, sep=":",
+                         names=["CPU", "Value", "Unit", "Event Name"])
+
+        # Get the events measured
+        events = df["Event Name"].unique()
+
+        # Sum of the same events
+        events_sum = {}
+        for e in events:
+            sum = df.loc[df["Event Name"] == e, "Value"].sum()
+            events_sum[e] = sum
+
+        # Print the sum of the events
+        total_fp_events = 0
+        for k, v in events_sum.items():
+            print("Sum[{}] = {}".format(k, format_string('%.0f', v, True)))
+            if k in computations_dict:
+                total_fp_events += computations_dict[k] * v
+
+        print("Total fp measured =", format_string('%.0f',
+                                                   total_fp_events, True))
+    # ----------------------------------------------------------------------- #
 
     @staticmethod
     def dash_create_table(csv_file):
@@ -320,48 +379,14 @@ class MyPapi(object):
         app.layout = html.Div([
             # Header
             html.Div([
-                html.H1("MyPapi measure")
+                html.H1("MyPapi measure: " + csv_file)
             ]),
-            # Options
-            # html.Div([
-            #     html.Table(
-            #         [
-            #             html.Thead([
-            #                 html.Tr([
-            #                     html.Th("CPU", style={'width': 200}),
-            #                     html.Th("Type of representation")
-            #                 ])
-            #             ]),
-            #             html.Tbody([
-            #                 html.Tr([
-            #                     html.Td([
-            #                         dcc.Dropdown(
-            #                             id='cpu-dropdown',
-            #                             options=[{'label': i, 'value': i}
-            #                                      for i in cpus],
-            #                             value='0',
-            #                             style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}
-            #                         )
-            #                     ], style={'width': 200, 'align-items': 'center', 'justify-content': 'center'}),
-            #                     html.Td([
-            #                         dcc.RadioItems(
-            #                             id='table-graph-radio-items',
-            #                             options=[{'label': i, 'value': i}
-            #                                      for i in ['Table', 'Graph']],
-            #                             value='Table'
-            #                         )
-            #                     ])
-            #                 ], style={'align-items': 'center', 'justify-content': 'center'})
-            #             ], style={'align-items': 'center', 'justify-content': 'center'})
-            #         ]
-            #     )
-            # ]),
             # Separator
             html.Hr(),
             # Figures: table or graph
             html.Div([
                 dash_table.DataTable(
-                    data = df.to_dict('records'),
+                    data=df.to_dict('records'),
                     columns=columns,
                     sort_action='native',
                     page_size=num_measures,
@@ -382,120 +407,13 @@ class MyPapi(object):
                     export_format='xlsx',
                     export_headers='display',
                     css=[
-                    {"selector": ".column-header--delete svg", "rule": 'display: "none"'},
-                    {"selector": ".column-header--delete::before", "rule": 'content: "X"'}]
+                        {"selector": ".column-header--delete svg",
+                            "rule": 'display: "none"'},
+                        {"selector": ".column-header--delete::before", "rule": 'content: "X"'}]
                 )
-                # ,
-                # dcc.Graph(id='datatable-upload-graph')
             ])
         ])
-        #  style={'width': '90%', 'display': 'inline-block','horizontal-align': 'middle', 'vertical-align': 'middle'}
-
-        # @app.callback(
-        #     Output(component_id='datatable-upload-container',
-        #            component_property='data'),
-        #     Output(component_id='datatable-upload-container',
-        #            component_property='columns'),
-        #     Input(component_id='cpu-dropdown', component_property='value')
-        #     # ,
-        #     # Input(component_id='table-graph-radio-items', component_property='value')
-        # )
-        # def update_output(cpu_dropdown_name):  # , table_graph_name):
-
-        #     # Get the data with the CPU selected
-        #     dff = df.query('CPU == @cpu_dropdown_name')
-
-        #     # Group params to pass them to plotly
-        #     columns = []
-        #     for i in dff.columns:
-        #         if i == "IPC":
-        #             columns.append({"name": i, "id": i, "type": "numeric",
-        #                             "format": Format(precision=4, scheme=Scheme.fixed)})
-        #         elif "acc" in i or "rate" in i:
-        #             columns.append({"name": i, "id": i, "type": "numeric",
-        #                             "format": Format(precision=2, scheme=Scheme.percentage)})
-        #         else:
-        #             columns.append({"name": i, "id": i, "type": "numeric",
-        #                             "format": Format().group(True), "hideable": True})
-
-        #     data = dff.to_dict('records')
-
-        #     return data, columns
-
-        # @app.callback(
-        #     Output(component_id='datatable-upload-graph',
-        #            component_property='figure'),
-        #     Input(component_id='datatable-upload-container', component_property='data'))
-        # def display_graph(rows):
-        #     df = pd.DataFrame(rows)
-
-        #     if (df.empty or len(df.columns) < 1):
-        #         return {
-        #             'data': [{
-        #                 'x': [],
-        #                 'y': [],
-        #                 'type': 'bar'
-        #             }]
-        #         }
-        #     return {
-        #         'data': [{
-        #             'x': df[df.columns[0]],
-        #             'y': df[df.columns[1]],
-        #             'type': 'bar'
-        #         }]
-        #     }
-
         app.run_server(debug=False)
-
-
-        # return df
-
-
-    @staticmethod
-    def sum_events(output_file):
-        """Read the file 'output_file' and sum the same events.
-
-        Parameters
-        ----------
-        output_file : str
-        """
-
-        # Setting the dict of event name and how many computations represent
-        # each count. Valid on node
-        computations_dict = {
-            "fp_arith_inst_retired.128b_packed_double": 2,
-            "fp_arith_inst_retired.128b_packed_single": 4,
-            "fp_arith_inst_retired.256b_packed_double": 4,
-            "fp_arith_inst_retired.256b_packed_single": 8,
-            "fp_arith_inst_retired.512b_packed_double": 8,
-            "fp_arith_inst_retired.512b_packed_single": 16,
-            "fp_arith_inst_retired.scalar_double": 1,
-            "fp_arith_inst_retired.scalar_single": 1,
-            "fp_assist.any": 1
-        }
-
-        # Set the header and read the csv
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df = pd.read_csv(output_file, header=None, sep=":", names=header)
-
-        # Get the events measured
-        events = df["Event Name"].unique()
-
-        # Sum of the same events
-        events_sum = {}
-        for e in events:
-            sum = df.loc[df["Event Name"] == e, "Value"].sum()
-            events_sum[e] = sum
-
-        # Print the sum of the events
-        total_fp_events = 0
-        for k, v in events_sum.items():
-            print("Sum[{}] = {}".format(k, format_string('%.0f', v, True)))
-            if k in computations_dict:
-                total_fp_events += computations_dict[k] * v
-
-        print("Total fp measured =", format_string('%.0f',
-                                                   total_fp_events, True))
     # ----------------------------------------------------------------------- #
 
     @staticmethod
@@ -792,33 +710,197 @@ class MyPapi(object):
     @staticmethod
     def plotly_print_evolution(csv_file):
 
-        import plotly.express as px
+        import plotly.graph_objects as go
 
-        # Read csv with the following header
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
+        df = MyPapi.read_csv_and_get_rates(csv_file)
 
-        # Get the list of CPUs measured
-        available_cpus = df["CPU"].unique()
-        # And the events
-        events_measured = df["Event Name"].unique()
+        # Get the events and cpus measured
+        cpus = df["CPU"].unique()
+        num_measure = df["# Measure"].unique()
 
-        # Calculate the # of measures in function of the #cpus and #events
-        len_per_measure = len(events_measured) * len(available_cpus)
-        # Creates the array with the # of measure
-        num_measure = 1
-        df.insert(0, "# Measure", num_measure)
-        # We have to modify them depending on the number of measures and cpus
-        for i in range(int(len(df.index) / len_per_measure), 0, -1):
-            df.loc[df.index[-i * len_per_measure:], "# Measure"] = num_measure
-            num_measure += 1
 
-        fig = px.scatter(df, x="Event Name", y="Value", animation_frame="# Measure", animation_group="# Measure",
-                        size="Value", color="Event Name", hover_name="Event Name",facet_col="Event Name",
-                        log_x=False, size_max=55, range_x=[-1, 4], range_y=[0, 1_000_000_000])
+        url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv"
+        dataset = pd.read_csv(url)
+
+        # print(dataset)
+        # exit(0)
+
+        years = ["1952", "1962", "1967", "1972", "1977", "1982", "1987", "1992", "1997", "2002",
+                "2007"]
+
+        # make list of continents
+        continents = []
+        for continent in dataset["continent"]:
+            if continent not in continents:
+                continents.append(continent)
+        # make figure
+        fig_dict = {
+            "data": [],
+            "layout": {},
+            "frames": []
+        }
+
+        # fill in most of layout
+        fig_dict["layout"]["xaxis"] = {"range": [30, 85], "title": "Life Expectancy"}
+        fig_dict["layout"]["yaxis"] = {"title": "GDP per Capita", "type": "log"}
+        fig_dict["layout"]["hovermode"] = "closest"
+        fig_dict["layout"]["updatemenus"] = [
+            {
+                "buttons": [
+                    {
+                        "args": [None, {"frame": {"duration": 500, "redraw": False},
+                                        "fromcurrent": True, "transition": {"duration": 300,
+                                                                            "easing": "quadratic-in-out"}}],
+                        "label": "Play",
+                        "method": "animate"
+                    },
+                    {
+                        "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                                        "mode": "immediate",
+                                        "transition": {"duration": 0}}],
+                        "label": "Pause",
+                        "method": "animate"
+                    }
+                ],
+                "direction": "left",
+                "pad": {"r": 10, "t": 87},
+                "showactive": False,
+                "type": "buttons",
+                "x": 0.1,
+                "xanchor": "right",
+                "y": 0,
+                "yanchor": "top"
+            }
+        ]
+
+        sliders_dict = {
+            "active": 0,
+            "yanchor": "top",
+            "xanchor": "left",
+            "currentvalue": {
+                "font": {"size": 20},
+                "prefix": "Year:",
+                "visible": True,
+                "xanchor": "right"
+            },
+            "transition": {"duration": 300, "easing": "cubic-in-out"},
+            "pad": {"b": 10, "t": 50},
+            "len": 0.9,
+            "x": 0.1,
+            "y": 0,
+            "steps": []
+        }
+
+        # make data
+        year = 1952
+        for continent in continents:
+            dataset_by_year = dataset[dataset["year"] == year]
+            dataset_by_year_and_cont = dataset_by_year[
+                dataset_by_year["continent"] == continent]
+
+            data_dict = {
+                "x": list(dataset_by_year_and_cont["lifeExp"]),
+                "y": list(dataset_by_year_and_cont["gdpPercap"]),
+                "mode": "markers",
+                "text": list(dataset_by_year_and_cont["country"]),
+                "marker": {
+                    "sizemode": "area",
+                    "sizeref": 200000,
+                    "size": list(dataset_by_year_and_cont["pop"])
+                },
+                "name": continent
+            }
+            fig_dict["data"].append(data_dict)
+
+        # make frames
+        for year in years:
+            frame = {"data": [], "name": str(year)}
+            for continent in continents:
+                dataset_by_year = dataset[dataset["year"] == int(year)]
+                dataset_by_year_and_cont = dataset_by_year[
+                    dataset_by_year["continent"] == continent]
+
+                data_dict = {
+                    "x": list(dataset_by_year_and_cont["lifeExp"]),
+                    "y": list(dataset_by_year_and_cont["gdpPercap"]),
+                    "mode": "markers",
+                    "text": list(dataset_by_year_and_cont["country"]),
+                    "marker": {
+                        "sizemode": "area",
+                        "sizeref": 200000,
+                        "size": list(dataset_by_year_and_cont["pop"])
+                    },
+                    "name": continent
+                }
+                frame["data"].append(data_dict)
+
+            fig_dict["frames"].append(frame)
+            slider_step = {"args": [
+                [year],
+                {"frame": {"duration": 300, "redraw": False},
+                "mode": "immediate",
+                "transition": {"duration": 300}}
+            ],
+                "label": year,
+                "method": "animate"}
+            sliders_dict["steps"].append(slider_step)
+
+
+        fig_dict["layout"]["sliders"] = [sliders_dict]
+
+        fig = go.Figure(fig_dict)
 
         fig.show()
 
+        name_html = "strides.html"
+        fig.write_html(name_html)
+
+        # fig write
+
+
+    @staticmethod
+    def plotly_print_n_graphs(csv_file):
+
+        import plotly.express as px
+        import plotly.graph_objects as go
+        from plotly.subplots import make_subplots
+
+        df = MyPapi.read_csv_and_get_rates(csv_file)
+
+        # Get the events and cpus measured
+        cpus = df["CPU"].unique()
+        num_measure = df["# Measure"].unique()
+
+        # print(df.columns)
+
+        fig = go.Figure()
+        # rows = 2
+        # cols = 3
+        # fig = make_subplots(
+        #     rows=rows, cols=cols,
+        #     specs=[[{"secondary_y": False}, {"secondary_y": False},
+        #             {"secondary_y": False}],
+        #            [{"secondary_y": False}, {"secondary_y": False},
+        #             {"secondary_y": False}]],
+        #     subplot_titles=(df.columns))
+
+        # for k in events_dict.keys():
+        #     if
+
+        IPC_list = []
+        for n in num_measure:
+            dff = df[df["# Measure"] == n]
+            IPC_list.append(dff["IPC"])
+            fig.add_trace(go.Scatter(x=num_measure, y=IPC_list[-1]
+                                    #  name="Measure "+str(n),
+                                    #   range_x=[-1,32])
+                                      ))
+
+        fig.update_traces(mode='lines+markers')
+        # fig.update_xaxes(range=[0, 31])
+        # fig.update_yaxes(range=[0, 2])
+
+        fig.show()
 
 # --------------------------------------------------------------------------- #
 
