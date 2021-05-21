@@ -60,7 +60,8 @@ if __name__ == "__main__":
     # csv_file = folder + "mnist_each_batch.csv"
     # MyPapi.plotly_print_evolution(csv_file)
     # MyPapi.dash_create_table(csv_file)
-    MyPapi.dash_create_table(csv_file)
+    # MyPapi.plotly_print_evolution(csv_file)
+    MyPapi.read_csv_and_print_by_measures(csv_file)
 
 
     exit(0)
