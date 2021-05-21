@@ -435,29 +435,15 @@ class MyPapi(object):
         """
 
         # Read csv
-        header = ["CPU", "Value", "Unit", "Event Name"]
-        df = pd.read_csv(csv_file, header=None, sep=":", names=header)
-
-        # Pivot it
-        df = df.pivot_table(index=["CPU"], columns=[
-                            "Event Name"], values=["Value"]).fillna(0)
-
-        # Drop the first multiindex
-        df.columns = df.columns.droplevel()
-        df = MyPapi.get_rates_from_df(df)
+        df = MyPapi.read_csv_and_get_rates(csv_file)
 
         # Group params to pass them to plotly
         columns = []
-        columns.insert(0, {"name": "CPU", "id": "CPU", "type": "numeric"})
         for i in df.columns:
             columns.append({"name": i, "id": i, "type": "numeric",
                            "format": Format().group(True)})
 
         data = df.to_dict('records')
-        index = df.index.values.tolist()
-        for i in range(0, len(data)):
-            dictionary = data[i]
-            dictionary["CPU"] = index[i]
 
         # Create the app
         app = dash.Dash(__name__)
