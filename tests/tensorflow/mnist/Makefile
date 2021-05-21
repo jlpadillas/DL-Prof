@@ -37,8 +37,10 @@ compile:
 	make -C ${MP_PATH} compile
 # --------------------------------------------------------------------------- #
 
-run:
-# Executing the program with my_papi library for Python
+run: run_with_papi run_callbacks_batch run_callbacks_epoch
+# Executing the three measures
+
+run_original:
 	taskset -c 2-31 ${CC} ${SRC_DIR}/mnist.py
 # taskset -c 2 ${CC} ${SRC_DIR}/mnist.py
 
