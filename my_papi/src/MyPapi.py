@@ -19,7 +19,7 @@ from locale import setlocale, format_string, LC_ALL
 
 # Sets the locale for future prints
 # setlocale(LC_ALL, '')
-from os import environ
+import os
 import pandas as pd
 import dash
 import dash_table
@@ -30,9 +30,9 @@ from dash.dependencies import Input, Output
 from dash_table.Format import Format, Scheme
 
 # Forces the program to execute on CPU
-environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
-environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Last import or warnning will appear on screen (libcudart not found)
 from tensorflow import keras
@@ -342,122 +342,70 @@ class MyPapi(object):
         df = df.set_index("# Measure")
 
         import plotly.graph_objects as go
+        from plotly.subplots import make_subplots
 
-        fig_1 = go.Figure()
-        fig_2 = go.Figure()
+        # Array with the figures/html files to create
+        figs = [go.Figure(),
+                make_subplots(
+                    rows=1, cols=2,
+                    specs=[[{"secondary_y": False}, {"secondary_y": False}]],
+                    subplot_titles=("Rates", "Derived metrics"))
+                ]
 
-        aux = events_dict.keys()
+        # Add the value to the graphs
         for col in df.columns:
-            if col not in aux:
-                fig_1.add_trace(
+            if col not in events_dict.keys():
+                figs[0].add_trace(
                     go.Scatter(x=df.index.values.tolist(), y=df[col], name=col)
                 )
             else:
-                fig_2.add_trace(
-                    go.Scatter(x=df.index.values.tolist(), y=df[col], name=col)
-                )
-
+                if "rate" in col:
+                    figs[1].add_trace(
+                        go.Scatter(x=df.index.values.tolist(),
+                                   y=df[col] * 100, name=col),
+                        row=1, col=1, secondary_y=False
+                    )
+                else:
+                    figs[1].add_trace(
+                        go.Scatter(x=df.index.values.tolist(),
+                                   y=df[col], name=col),
+                        row=1, col=2, secondary_y=False
+                    )
+        # Change the name of the y axis
+        figs[0].update_yaxes(title_text="Value")
+        figs[1].update_yaxes(title_text="Miss rate (%)", row=1, col=1)
+        figs[1].update_yaxes(title_text="Value", row=1, col=2)
+                
         # Set options common to all traces with fig.update_traces
-        fig_1.update_traces(mode='lines+markers',
-                            marker_line_width=2, marker_size=8)
-
-        fig_1.update_layout(
-            title='MyPaPi measure by iterations: ' + csv_file,
-            # yaxis_zeroline=False, xaxis_zeroline=False,
-            hovermode="x unified",
-            legend=dict(
-                # x=-1,
-                # y=-1,
-                traceorder="normal",
-                font=dict(family="sans-serif",
-                          size=12,
-                          color="black"),
-                bgcolor="white",
-                bordercolor="Black",
-                borderwidth=2
+        for fig in figs:
+            fig.update_traces(mode='lines+markers',
+                              marker_line_width=2, marker_size=8)
+            fig.update_layout(
+                title='MyPaPi measure by iterations: ' + csv_file,
+                # yaxis_zeroline=False, xaxis_zeroline=False,
+                hovermode="x unified",
+                legend=dict(
+                    # x=-1,
+                    # y=-1,
+                    traceorder="normal",
+                    font=dict(family="sans-serif",
+                              size=12,
+                              color="black"),
+                    bgcolor="white",
+                    bordercolor="Black",
+                    borderwidth=2
+                )
             )
-        )
+            fig.update_xaxes(range=[0, len(measures) + 1],
+                             title_text="Number of measure")
+            # ! Open the files when end the execution
+            # fig.show()
 
-        fig_1.update_xaxes(range=[0, len(measures) + 1],
-                           title_text="Number of measure")
-        fig_1.update_yaxes(title_text="Value")
-
-        # Fig 2
-        fig_2.update_traces(mode='lines+markers',
-                            marker_line_width=2, marker_size=8)
-        fig_2.update_layout(title='MyPaPi measure by iterations: ' + csv_file,
-                            yaxis_zeroline=False, xaxis_zeroline=False)
-
-        fig_1.show()
-        # fig_2.show()
-
-
-        exit(0)
-
-
-        # from plotly.subplots import make_subplots
-        # rows = 2
-        # cols = 3
-        # fig = make_subplots(
-        #     rows=rows, cols=cols,
-        #     specs=[[{"secondary_y": False}, {"secondary_y": False},
-        #             {"secondary_y": False}],
-        #            [{"secondary_y": False}, {"secondary_y": False},
-        #             {"secondary_y": False}]],
-        #     subplot_titles=(events[0], events[1], events[2], events[3], events[4]))
-
-        # # print(for i in events: i)
-        # # d_shuffle_test = [[] for _ in range(len(events))]
-
-        # if prefecth:
-        #     name_html = "5_graficas_con_prefetch.html"
-        #     titulo = "Shuffle vs No Shufle - Con prefetchers"
-        # else:
-        #     name_html = "5_graficas_sin_prefetch.html"
-        #     titulo = "Shuffle vs No Shufle - Sin prefetchers"
-
-        # fig.update_layout(title_text=titulo, showlegend=False,
-        #                   font=dict(family="Courier New, monospace", size=18,
-        #                             color="#7f7f7f"), title_x=0.5)
-        # i = 0
-        # for r in range(1, rows + 1):
-        #     for c in range(1, cols + 1):
-        #         if i < 5:
-        #             fig.add_trace(
-        #                 go.Scatter(x=eje_x, y=array_y1[i], name="Shuffle"),
-        #                 row=r, col=c, secondary_y=False)
-        #             fig.add_trace(
-        #                 go.Scatter(x=eje_x, y=array_y2[i], name="No Shuffle"),
-        #                 row=r, col=c, secondary_y=False)
-        #             fig.update_xaxes(
-        #                 title_text="Tamaño del vector", row=r, col=c)
-        #             i = i + 1
-
-        # fig.update_yaxes(title_text="Loads", row=1, col=1)
-        # fig.update_yaxes(title_text="Load misses", row=1, col=2)
-        # fig.update_yaxes(title_text="Loads", row=1, col=3)
-        # fig.update_yaxes(title_text="Stores", row=2, col=1)
-        # fig.update_yaxes(title_text="IPC", row=2, col=2)
-
-        # fig.update_layout(
-        #     legend=dict(
-        #         x=0,
-        #         y=1,
-        #         traceorder="normal",
-        #         font=dict(family="sans-serif",
-        #                   size=12,
-        #                   color="black"),
-        #         bgcolor="LightSteelBlue",
-        #         bordercolor="Black",
-        #         borderwidth=2
-        #     )
-        # )
-
-        # Se guarda la grafica
-        fig.show()
-        # fig.write_html(name_html)
-        # run(["mv", name_html, self.RESDIR])
-
+        # Save the html files
+        name_html = csv_file + "_1_.html"
+        figs[0].write_html(name_html)
+        name_html = csv_file + "_2_.html"
+        figs[1].write_html(name_html)
     # ----------------------------------------------------------------------- #
 
     @staticmethod
