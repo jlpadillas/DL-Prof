@@ -1,26 +1,53 @@
 %% Juan Luis Padilla Salome <jps55@alumnos.unican.es>
 
-\documentclass[a4paper, 12pt]{report}
+\documentclass[a4paper]{report}
 
-
+% -------------------- Packages to use -------------------- %
 \usepackage[utf8]{inputenc}
+% For insert images
 \usepackage{graphicx}
+\usepackage{fancyhdr}
+% Allow the use of bold and caps
+\usepackage{bold-extra}
+
+\usepackage[spanish]{babel}
+% --------------------------------------------------------- %
+
 \graphicspath{ {images/} }
 
-% Packages to use
-% \input{preamble/packages.tex}
 
-% start
-% --------------------------
+% --------------------------------------------------------- %
+
+
+% --------------------- New commands ---------------------- %
+\renewcommand{\thefootnote}{\Roman{footnote}}
+
+
+% --------------------------------------------------------- %
+
+
+% ------------------------- Start ------------------------- %
 \begin{document}
 
-% Portada
+% Cover page
+% ----------
 \input{preamble/thesis-details.tex}
 
+% Blank page
+% ----------
+\input{preamble/blank-page.tex}
 
+% Acknowledgements
+% ----------------
+\input{preamble/acknowledgements.tex}
 
+% \pagestyle{empty}
 
+% \cleardoublepage
 
+% \input{preamble/dedication.tex}
+
+% \tableofcontents
 
 
 
@@ -32,12 +59,6 @@
 %\maketitle[logo-first]
 % \maketitle
 
-% And so begins the thesis! First include pages
-% before the acknowledgements
-\input{chapters/blank-pages.tex}
-
-% Acknowledgements
-\input{chapters/acknowledgements.tex}
 
 % The abstract of the thesis
 \input{chapters/abstract.tex}
@@ -86,3 +107,4 @@
 
 
 \end{document}
+% --------------------------------------------------------- %
