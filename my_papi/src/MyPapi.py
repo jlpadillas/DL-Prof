@@ -1034,11 +1034,17 @@ class MyCallbacks(keras.callbacks.Callback):
         # Prepares the measure on ALL cpus
         # ! modify this to get the num of cpus automatic
         # cpus = None
-        cpus = list(range(2, 32))
-        self.mp.prepare_measure(events_file=events_file, cpus=cpus)
+        self.cpus = list(range(2, 32))
+        self.mp.prepare_measure(events_file=events_file, cpus=self.cpus)
 
         # Save the output file variable for later
         self.output_file = output_file
+
+        # We have to decompose the path, name and extension of the output file
+        if self.output_file is not None:
+            # Gets an array with head + tail: path + file_name
+            self.head_tail = os.path.split(output_file)
+            self.name_extension = os.path.splitext(self.head_tail[1])
 
     # --------------------------- Global methods ---------------------------- #
     def on_train_begin(self, logs=None):
@@ -1246,4 +1252,107 @@ class MeasureOnEachBatch(MyCallbacks):
         a dict containing the metrics results."""
         pass
     # ----------------------- END Batch-level methods ----------------------- #
+# --------------------------------------------------------------------------- #
+
+class MeasureEpochAndBatch(keras.callbacks.Callback):
+    """
+    Custom callback to run with my_papi library and measures the system in each
+    epoch.
+
+    Attributes
+    ----------
+    self.mp : my_papi
+        Oject of the class my_papi
+    self.output_file : str
+        Path (and name) of the file where the results will be printed. If it's
+        `None`, then the results will be printed on screen
+    """
+
+    def __init__(self, lib_path, events_file, output_file=None):
+        """
+        Class Constructor to initialize the object.
+
+        Parameters
+        ----------
+        lib_path : str
+            Path to the shared library libmy_papi.so
+        events_file : str
+            Path where the file, with the events to be measured, is located
+        output_file : str, optional
+            Path (and name) of the file where the results will be printed. If
+            `None` is passed, then the results will be printed on screen
+        """
+
+        super(MeasureEpochAndBatch, self).__init__()
+
+        # Creates two objects of the class my_papi
+        self.mp_epoch = MyPapi(lib_path=lib_path)
+        self.mp_batch = MyPapi(lib_path=lib_path)
+
+        # Prepares the measure on ALL cpus
+        # ! modify this to get the num of cpus automatic
+        # cpus = None
+        self.cpus = list(range(2, 32))
+        self.mp_epoch.prepare_measure(events_file=events_file, cpus=self.cpus)
+        self.mp_batch.prepare_measure(events_file=events_file, cpus=self.cpus)
+
+        # Save the output file variable for later
+        self.output_file = output_file
+
+        # We have to decompose the path, name and extension of the output file
+        if self.output_file is not None:
+            # Gets an array with head + tail: path + file_name
+            self.head_tail = os.path.split(output_file)
+            self.name_extension = os.path.splitext(self.head_tail[1])
+
+            # From the file indicated, generate a new file
+            self.batch_output_file = self.head_tail[0] + "/" + str(self.name_extension[0]
+            + "_batch" + self.name_extension[1])
+        else:
+            self.batch_output_file = None
+        # Just measure the batches indicated
+        self.measure_batch = True
+
+    # ------------------------- Batch-level methods ------------------------- #
+    def on_train_batch_begin(self, batch, logs=None):
+        """Called right before processing a batch during training."""
+
+        if self.measure_batch:
+            self.mp_batch.start_measure()
+
+    def on_train_batch_end(self, batch, logs=None):
+        """Called at the end of training a batch. Within this method, logs is a
+        dict containing the metrics results."""
+
+        if self.measure_batch:
+            self.mp_batch.stop_measure()
+            self.mp_batch.print_measure(self.batch_output_file)
+    # ----------------------- END Batch-level methods ----------------------- #
+
+    # ------------------------- Epoch-level methods ------------------------- #
+    def on_epoch_begin(self, epoch, logs=None):
+        """Called at the beginning of an epoch during training."""
+
+        print("Begin del epoch", epoch)
+
+        if epoch == 1:
+            self.measure_batch = False
+
+        # Starts the measure with my_papi library
+        self.mp_epoch.start_measure()
+
+    def on_epoch_end(self, epoch, logs=None):
+        """Called at the end of an epoch during training."""
+
+        print("\nEnd del epoch", epoch)
+
+        # Stops the measure with my_papi library
+        self.mp_epoch.stop_measure()
+
+        # Saves the results on a file
+        self.mp_epoch.print_measure(self.output_file)
+
+        # if epoch == 1:
+        #     self.measure_batch = False
+    # ----------------------- END Epoch-level methods ----------------------- #
 # --------------------------------------------------------------------------- #

@@ -137,7 +137,9 @@ void my_PAPI_shutdown(void)
 
 int my_PAPI_start(int EventSet)
 {
-    // printf("[My_Papi] Starting event set = %d\n", EventSet);
+#ifdef DEBUGGING
+    printf("[My_Papi] DEBUG: my_PAPI_start(EventSet = %d)\n", EventSet);
+#endif
     if ((retval = PAPI_start(EventSet)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -145,7 +147,9 @@ int my_PAPI_start(int EventSet)
 
 int my_PAPI_stop(int EventSet, long long *values)
 {
-    // printf("[My_Papi] Stoping event set = %d\n", EventSet);
+#ifdef DEBUGGING
+    printf("[My_Papi] DEBUG: my_PAPI_stop(EventSet = %d)\n", EventSet);
+#endif
     if ((retval = PAPI_stop(EventSet, values)) != PAPI_OK)
         ERROR_RETURN(retval);
     return retval;
@@ -294,6 +298,17 @@ int my_prepare_measure(char *input_file_name, int num_cpus, int *cpus)
         }
     }
     printf("], num_events = '%zu'\n", num_events);
+
+    printf("[MyPapi] DEBUG: my_prepare_measure(): event_sets = [");
+    for (i = 0; i < MAX_CPUS; i++)
+    {
+        printf("'%d'", event_sets[i]);
+        if (i != MAX_CPUS - 1)
+        {
+            printf(", ");
+        }
+    }
+    printf("]\n");
     /* --------------------------- END DEBUGGING --------------------------- */
 #endif
     return EXIT_SUCCESS;
@@ -343,12 +358,12 @@ int my_print_measure(char *output_file_name)
     setlocale(LC_NUMERIC, "");
     bool print_as_csv = false;
 
-#ifdef DEBUGGING
-    /* ----------------------------- DEBUGGING ----------------------------- */
-    printf("[MyPapi] DEBUG: my_print_measure(output_file_name = '%s')\n",
-           output_file_name);
-    /* --------------------------- END DEBUGGING --------------------------- */
-#endif
+// #ifdef DEBUGGING
+//     /* ----------------------------- DEBUGGING ----------------------------- */
+//     printf("[MyPapi] DEBUG: my_print_measure(output_file_name = '%s')\n",
+//            output_file_name);
+//     /* --------------------------- END DEBUGGING --------------------------- */
+// #endif
 
     if (output_file_name == NULL)
     {
