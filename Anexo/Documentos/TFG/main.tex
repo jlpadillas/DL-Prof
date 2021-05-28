@@ -37,74 +37,45 @@
 % ----------
 \input{preamble/blank-page.tex}
 
+% Abstracts
+% ---------
+\input{preamble/abstract.tex}
+
+% Appendix
+% --------
+\input{chapters/appendix.tex}
+
 % Acknowledgements
 % ----------------
-\input{preamble/acknowledgements.tex}
+% \input{preamble/acknowledgements.tex}
 
-% \pagestyle{empty}
-
-% \cleardoublepage
-
-% \input{preamble/dedication.tex}
-
-% \tableofcontents
-
-
-
-
-
-
-% Make the title. You can pass an option to this
-% to render the title differently, like so:
-%\maketitle[logo-first]
-% \maketitle
-
-
-% The abstract of the thesis
-\input{chapters/abstract.tex}
-
-% Print out the table of tables and table of figures and
-% tell the template we're about to start the body of the
-% thesis.
-% \thesisTables
-% \thesisBodyStart
-
-
-% start of thesis body
-% ---------------------------
-
-% Include introduction
-% \chapter{Introduction}
+% Introduction
+% ------------
+\chapter{Introducci\'on}
 \input{chapters/introduction.tex}
 
-% Related work 
-% \chapter{Related Work}
-\input{chapters/related-work.tex}
+% State of the art
+% ----------------
+\chapter{Estado del arte}
+\input{chapters/state-of-art.tex}
 
-% Method
-% \chapter{Method}
-\input{chapters/method.tex}
+% Tool
+% ----
+\chapter{Herramienta}
+\input{chapters/tool.tex}
 
-% Conclusions
-% \chapter{Conclusions}
+% Evaluation
+% ----------
+\chapter{Evaluaci\'on}
+\input{chapters/evaluation.tex}
+
+% Conlusions
+% ----------
 \input{chapters/conclusions.tex}
 
-
-% end of thesis body
-% --------------------------
-
-% Print out the references
-% \printReferences
-
-% Print out the ludography (optional)
-% \printLudography
-
-% If you want to put some text before the list of games,
-% then you can use the following code:
-%\begin{ludography}[Ludography / Optional Title]
-    %Here are some games.
-%\end{ludography}
-
+% References
+% ----------
+\input{chapters/references.tex}
 
 \end{document}
 % --------------------------------------------------------- %
