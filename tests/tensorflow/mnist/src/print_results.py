@@ -53,17 +53,24 @@ if __name__ == "__main__":
 
 
 
-    folder = "out/new_3/"
+    folder = "out/"
     # folder = "out/opti_tensorflow/"
     # csv_file = folder + "mnist_papi.csv"
     # csv_file = folder + "mnist_each_epoch.csv"
-    csv_file = folder + "mnist_each_batch.csv"
     # MyPapi.plotly_print_evolution(csv_file)
     # MyPapi.dash_create_table(csv_file)
+    # MyPapi.create_plotly_table(csv_file, None)
     # MyPapi.plotly_print_evolution(csv_file)
-    MyPapi.read_csv_and_print_by_measures(csv_file)
+    # MyPapi.read_csv_and_print_by_measures(csv_file)
 
+    csv_file = folder + "mnist_train_papi.csv"
+    # MyPapi.create_plotly_table(csv_file, None)
 
+    # csv_file = folder + "mnist_test_papi.csv"
+    # MyPapi.create_plotly_table(csv_file, None)
+
+    # csv_file = folder + "mnist_predict_papi.csv"
+    MyPapi.create_dash_table(csv_file)
     exit(0)
 
 
