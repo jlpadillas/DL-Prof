@@ -19,6 +19,7 @@ if __name__ == "__main__":
     """
 
     # standard library
+    import numpy as np
     import os
 
     # Forces the program to execute on CPU
@@ -67,7 +68,6 @@ if __name__ == "__main__":
 
     # Add the source path and import the script
     sys.path.insert(0, str(SRC_DIR))
-    # from MyCallbacks import MeasureOnEachEpoch
     from MyPapi import *
 
     # ----------------------------------------------------------------------- #
@@ -80,8 +80,10 @@ if __name__ == "__main__":
     events_file = CFG_DIR / "events_node_mnist.cfg"
 
     # Output file with the measures
-    output_file = "out/mnist_each_epoch.csv"
-    # output_file = None
+    train_output_file = "out/mnist_train_each_epoch.csv"
+    test_output_file = "out/mnist_test_each_epoch.csv"
+    predict_output_file = "out/mnist_predict_each_epoch.csv"
+    # train_output_file = test_output_file = predict_output_file = None
     # ----------------------------------------------------------------------- #
 
     # ------------------- Load the dataset and define it -------------------- #
@@ -94,7 +96,7 @@ if __name__ == "__main__":
     # Pixel intensities are represented as integers (from 0 to 255)
 
     # The dataset is already split inot a training set and a test set
-    (X_train_full, Y_train_full), (X_test, y_test) = fashion_mnist.load_data()
+    (X_train_full, Y_train_full), (X_test, Y_test) = fashion_mnist.load_data()
 
     # We'll create a validation set which will contain 5,000 images, and
     # the test set will contain 10,000 images. So, the others 55.000 images
@@ -103,9 +105,9 @@ if __name__ == "__main__":
     Y_valid, Y_train = Y_train_full[:5000], Y_train_full[5000:]
     X_test = X_test / 255.
 
-    # # List of class names
-    # class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
-    #                "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
+    # List of class names
+    class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
+                   "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
     # ----------------------------------------------------------------------- #
 
     # ------------- Creating the model using the Sequential API ------------- #
@@ -136,38 +138,85 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # Creates a callback from my_papi library
-    callbacks = MeasureOnEachEpoch(lib_path=str(libname),
-                                   events_file=str(events_file),
-                                   output_file=str(output_file))
+    my_callbacks = MeasureOnEachEpoch(lib_path=str(libname),
+                                      events_file=str(events_file),
+                                      output_file=str(train_output_file))
 
     # ----------------------------------------------------------------------- #
-    # ! ROI
+    # ! TRAIN
     # ----------------------------------------------------------------------- #
-    model.fit(x=X_train,
-              y=Y_train,
-              batch_size=None,
-              epochs=30,
-              verbose=1,
-              callbacks=callbacks,
-              validation_split=0.,
-              validation_data=None,
-              shuffle=True,
-              class_weight=None,
-              sample_weight=None,
-              initial_epoch=0,
-              steps_per_epoch=None,
-              validation_steps=None,
-              validation_batch_size=None,
-              validation_freq=1,
-              max_queue_size=10,
-              workers=1,
-              use_multiprocessing=False)
+    history = model.fit(x=X_train,
+                        y=Y_train,
+                        batch_size=None,
+                        epochs=30,
+                        verbose=1,
+                        callbacks=my_callbacks,
+                        validation_split=0.,
+                        validation_data=None,
+                        shuffle=True,
+                        class_weight=None,
+                        sample_weight=None,
+                        initial_epoch=0,
+                        steps_per_epoch=None,
+                        validation_steps=None,
+                        validation_batch_size=None,
+                        validation_freq=1,
+                        max_queue_size=10,
+                        workers=1,
+                        use_multiprocessing=False)
     # ----------------------------------------------------------------------- #
-    # ! END ROI
+    # ! END TRAIN
     # ----------------------------------------------------------------------- #
 
-    callbacks.finalize_measure()
+    # ----------------------------------------------------------------------- #
+    # ! TEST
+    # ----------------------------------------------------------------------- #
+    model.evaluate(x=X_test,
+                   y=Y_test,
+                   batch_size=None,
+                   verbose=1,
+                   sample_weight=None,
+                   steps=None,
+                   callbacks=my_callbacks,
+                   max_queue_size=10,
+                   workers=1,
+                   use_multiprocessing=False,
+                   return_dict=False)
+    # ----------------------------------------------------------------------- #
+    # ! END TEST
+    # ----------------------------------------------------------------------- #
+
+    # Get the last n items of the test dataset
+    n_items = 15
+    X_new = X_test[:n_items]
+
+    # ----------------------------------------------------------------------- #
+    # ! PREDICT
+    # ----------------------------------------------------------------------- #
+    y_proba = model.predict(x=X_new,
+                            batch_size=None,
+                            verbose=0,
+                            steps=None,
+                            callbacks=my_callbacks,
+                            max_queue_size=10,
+                            workers=1,
+                            use_multiprocessing=False)
+    # ----------------------------------------------------------------------- #
+    # ! END PREDICT
+    # ----------------------------------------------------------------------- #
+
+    # Check if the prediction is correct:
+    # From the list, get the option which has most probab.
+    y_pred = np.argmax(y_proba, axis=-1)
+    # We can get the correspondences between class name and num
+    pred = np.array(class_names)[y_pred]
+
+    # And check if it its correct
+    y_new = Y_test[:n_items]
+    sol = np.array(class_names)[y_new]
+
+    # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
+
+    my_callbacks.finalize_measure()
 
     # MyPapi.dash_table_by_cpus_static(str(output_file))
-
-    # callbacks.tab

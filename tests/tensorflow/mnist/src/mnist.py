@@ -19,6 +19,7 @@ if __name__ == "__main__":
     """
 
     # standard library
+    import numpy as np
     import os
 
     # Forces the program to execute on CPU
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     # Pixel intensities are represented as integers (from 0 to 255)
 
     # The dataset is already split inot a training set and a test set
-    (X_train_full, Y_train_full), (X_test, y_test) = fashion_mnist.load_data()
+    (X_train_full, Y_train_full), (X_test, Y_test) = fashion_mnist.load_data()
 
     # We'll create a validation set which will contain 5,000 images, and
     # the test set will contain 10,000 images. So, the others 55.000 images
@@ -65,9 +66,9 @@ if __name__ == "__main__":
     Y_valid, Y_train = Y_train_full[:5000], Y_train_full[5000:]
     X_test = X_test / 255.
 
-    # # List of class names
-    # class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
-    #                "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
+    # List of class names
+    class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
+                   "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
     # ----------------------------------------------------------------------- #
 
     # ------------- Creating the model using the Sequential API ------------- #
@@ -98,27 +99,76 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     # ----------------------------------------------------------------------- #
-    # ! ROI
+    # ! TRAIN
     # ----------------------------------------------------------------------- #
-    model.fit(x=X_train,
-              y=Y_train,
-              batch_size=None,
-              epochs=1,
-              verbose=1,
-              callbacks=None,
-              validation_split=0.,
-              validation_data=None,
-              shuffle=True,
-              class_weight=None,
-              sample_weight=None,
-              initial_epoch=0,
-              steps_per_epoch=None,
-              validation_steps=None,
-              validation_batch_size=None,
-              validation_freq=1,
-              max_queue_size=10,
-              workers=1,
-              use_multiprocessing=False)
+    history = model.fit(x=X_train,
+                        y=Y_train,
+                        batch_size=None,
+                        epochs=1,
+                        verbose=1,
+                        callbacks=None,
+                        validation_split=0.,
+                        validation_data=None,
+                        shuffle=True,
+                        class_weight=None,
+                        sample_weight=None,
+                        initial_epoch=0,
+                        steps_per_epoch=None,
+                        validation_steps=None,
+                        validation_batch_size=None,
+                        validation_freq=1,
+                        max_queue_size=10,
+                        workers=1,
+                        use_multiprocessing=False)
     # ----------------------------------------------------------------------- #
-    # ! END ROI
+    # ! END TRAIN
     # ----------------------------------------------------------------------- #
+
+    # ----------------------------------------------------------------------- #
+    # ! TEST
+    # ----------------------------------------------------------------------- #
+    model.evaluate(x=X_test,
+                   y=Y_test,
+                   batch_size=None,
+                   verbose=1,
+                   sample_weight=None,
+                   steps=None,
+                   callbacks=None,
+                   max_queue_size=10,
+                   workers=1,
+                   use_multiprocessing=False,
+                   return_dict=False)
+    # ----------------------------------------------------------------------- #
+    # ! END TEST
+    # ----------------------------------------------------------------------- #
+
+    # Get the last n items of the test dataset
+    n_items = 15
+    X_new = X_test[:n_items]
+
+    # ----------------------------------------------------------------------- #
+    # ! PREDICT
+    # ----------------------------------------------------------------------- #
+    y_proba = model.predict(x=X_new,
+                            batch_size=None,
+                            verbose=0,
+                            steps=None,
+                            callbacks=None,
+                            max_queue_size=10,
+                            workers=1,
+                            use_multiprocessing=False)
+    # ----------------------------------------------------------------------- #
+    # ! END PREDICT
+    # ----------------------------------------------------------------------- #
+
+    # Check if the prediction is correct:
+    # From the list, get the option which has most probab.
+    y_pred = np.argmax(y_proba, axis=-1)
+    # We can get the correspondences between class name and num
+    pred = np.array(class_names)[y_pred]
+
+    # And check if it its correct
+    y_new = Y_test[:n_items]
+    sol = np.array(class_names)[y_new]
+
+    # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
