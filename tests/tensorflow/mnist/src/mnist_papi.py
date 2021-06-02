@@ -77,7 +77,7 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_node_mnist.cfg"
+    events_file = CFG_DIR / "events_node_mnist_test.cfg"
 
     # Measures on all cpus
     # cpus = None
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     history = model.fit(x=X_train,
                         y=Y_train,
                         batch_size=None,
-                        epochs=1,
+                        epochs=30,
                         verbose=1,
                         callbacks=None,
                         validation_split=0.,
