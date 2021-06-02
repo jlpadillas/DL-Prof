@@ -29,22 +29,22 @@ if __name__ == "__main__":
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
     # 3rd party packages
-    # import tensorflow as tf
+    import tensorflow as tf
     from tensorflow import keras
 
     # ---------------- Setting up the inter and intra threads --------------- #
     # inter = tf.config.threading.get_inter_op_parallelism_threads()
     # intra = tf.config.threading.get_intra_op_parallelism_threads()
 
-    # inter = 1
-    # intra = 1
+    inter = 1
+    intra = 1
 
-    # tf.config.threading.set_inter_op_parallelism_threads(inter)
-    # tf.config.threading.set_intra_op_parallelism_threads(intra)
+    tf.config.threading.set_inter_op_parallelism_threads(inter)
+    tf.config.threading.set_intra_op_parallelism_threads(intra)
 
-    # print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
-    #       "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
-    #                   tf.config.threading.get_intra_op_parallelism_threads()))
+    print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
+          "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
+                      tf.config.threading.get_intra_op_parallelism_threads()))
     # ----------------------------------------------------------------------- #
 
     # ----------------------------------------------------------------------- #
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_node_mnist.cfg"
+    events_file = CFG_DIR / "events_node_mnist_test.cfg"
 
     # Output file with the measures
     train_output_file = "out/mnist_train_each_epoch.csv"
@@ -168,55 +168,53 @@ if __name__ == "__main__":
     # ! END TRAIN
     # ----------------------------------------------------------------------- #
 
-    # ----------------------------------------------------------------------- #
-    # ! TEST
-    # ----------------------------------------------------------------------- #
-    model.evaluate(x=X_test,
-                   y=Y_test,
-                   batch_size=None,
-                   verbose=1,
-                   sample_weight=None,
-                   steps=None,
-                   callbacks=my_callbacks,
-                   max_queue_size=10,
-                   workers=1,
-                   use_multiprocessing=False,
-                   return_dict=False)
-    # ----------------------------------------------------------------------- #
-    # ! END TEST
-    # ----------------------------------------------------------------------- #
+    # # ----------------------------------------------------------------------- #
+    # # ! TEST
+    # # ----------------------------------------------------------------------- #
+    # model.evaluate(x=X_test,
+    #                y=Y_test,
+    #                batch_size=None,
+    #                verbose=1,
+    #                sample_weight=None,
+    #                steps=None,
+    #                callbacks=my_callbacks,
+    #                max_queue_size=10,
+    #                workers=1,
+    #                use_multiprocessing=False,
+    #                return_dict=False)
+    # # ----------------------------------------------------------------------- #
+    # # ! END TEST
+    # # ----------------------------------------------------------------------- #
 
-    # Get the last n items of the test dataset
-    n_items = 15
-    X_new = X_test[:n_items]
+    # # Get the last n items of the test dataset
+    # n_items = 15
+    # X_new = X_test[:n_items]
 
-    # ----------------------------------------------------------------------- #
-    # ! PREDICT
-    # ----------------------------------------------------------------------- #
-    y_proba = model.predict(x=X_new,
-                            batch_size=None,
-                            verbose=0,
-                            steps=None,
-                            callbacks=my_callbacks,
-                            max_queue_size=10,
-                            workers=1,
-                            use_multiprocessing=False)
-    # ----------------------------------------------------------------------- #
-    # ! END PREDICT
-    # ----------------------------------------------------------------------- #
+    # # ----------------------------------------------------------------------- #
+    # # ! PREDICT
+    # # ----------------------------------------------------------------------- #
+    # y_proba = model.predict(x=X_new,
+    #                         batch_size=None,
+    #                         verbose=0,
+    #                         steps=None,
+    #                         callbacks=my_callbacks,
+    #                         max_queue_size=10,
+    #                         workers=1,
+    #                         use_multiprocessing=False)
+    # # ----------------------------------------------------------------------- #
+    # # ! END PREDICT
+    # # ----------------------------------------------------------------------- #
 
-    # Check if the prediction is correct:
-    # From the list, get the option which has most probab.
-    y_pred = np.argmax(y_proba, axis=-1)
-    # We can get the correspondences between class name and num
-    pred = np.array(class_names)[y_pred]
+    # # Check if the prediction is correct:
+    # # From the list, get the option which has most probab.
+    # y_pred = np.argmax(y_proba, axis=-1)
+    # # We can get the correspondences between class name and num
+    # pred = np.array(class_names)[y_pred]
 
-    # And check if it its correct
-    y_new = Y_test[:n_items]
-    sol = np.array(class_names)[y_new]
+    # # And check if it its correct
+    # y_new = Y_test[:n_items]
+    # sol = np.array(class_names)[y_new]
 
-    # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
+    # # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
 
     my_callbacks.finalize_measure()
-
-    # MyPapi.dash_table_by_cpus_static(str(output_file))
