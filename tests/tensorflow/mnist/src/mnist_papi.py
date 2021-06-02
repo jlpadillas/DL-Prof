@@ -29,22 +29,22 @@ if __name__ == "__main__":
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
     # 3rd party packages
-    # import tensorflow as tf
+    import tensorflow as tf
     from tensorflow import keras
 
     # ---------------- Setting up the inter and intra threads --------------- #
     # inter = tf.config.threading.get_inter_op_parallelism_threads()
     # intra = tf.config.threading.get_intra_op_parallelism_threads()
 
-    # inter = 1
-    # intra = 1
+    inter = 1
+    intra = 1
 
-    # tf.config.threading.set_inter_op_parallelism_threads(inter)
-    # tf.config.threading.set_intra_op_parallelism_threads(intra)
+    tf.config.threading.set_inter_op_parallelism_threads(inter)
+    tf.config.threading.set_intra_op_parallelism_threads(intra)
 
-    # print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
-    #       "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
-    #                   tf.config.threading.get_intra_op_parallelism_threads()))
+    print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
+          "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
+                      tf.config.threading.get_intra_op_parallelism_threads()))
     # ----------------------------------------------------------------------- #
 
     # ----------------------------------------------------------------------- #
@@ -177,62 +177,62 @@ if __name__ == "__main__":
     # ! END TRAIN
     # ----------------------------------------------------------------------- #
 
-    # ----------------------------------------------------------------------- #
-    # ! TEST
-    # ----------------------------------------------------------------------- #
-    mp.start_measure()
+    # # ----------------------------------------------------------------------- #
+    # # ! TEST
+    # # ----------------------------------------------------------------------- #
+    # mp.start_measure()
 
-    model.evaluate(x=X_test,
-                   y=Y_test,
-                   batch_size=None,
-                   verbose=1,
-                   sample_weight=None,
-                   steps=None,
-                   callbacks=None,
-                   max_queue_size=10,
-                   workers=1,
-                   use_multiprocessing=False,
-                   return_dict=False)
+    # model.evaluate(x=X_test,
+    #                y=Y_test,
+    #                batch_size=None,
+    #                verbose=1,
+    #                sample_weight=None,
+    #                steps=None,
+    #                callbacks=None,
+    #                max_queue_size=10,
+    #                workers=1,
+    #                use_multiprocessing=False,
+    #                return_dict=False)
 
-    mp.stop_measure()
-    mp.print_measure(test_output_file)
-    # ----------------------------------------------------------------------- #
-    # ! END TEST
-    # ----------------------------------------------------------------------- #
+    # mp.stop_measure()
+    # mp.print_measure(test_output_file)
+    # # ----------------------------------------------------------------------- #
+    # # ! END TEST
+    # # ----------------------------------------------------------------------- #
 
-    # Get the last n items of the test dataset
-    n_items = 15
-    X_new = X_test[:n_items]
+    # # Get the last n items of the test dataset
+    # n_items = 15
+    # X_new = X_test[:n_items]
 
-    # ----------------------------------------------------------------------- #
-    # ! PREDICT
-    # ----------------------------------------------------------------------- #
-    mp.start_measure()
+    # # ----------------------------------------------------------------------- #
+    # # ! PREDICT
+    # # ----------------------------------------------------------------------- #
+    # mp.start_measure()
 
-    y_proba = model.predict(x=X_new,
-                            batch_size=None,
-                            verbose=0,
-                            steps=None,
-                            callbacks=None,
-                            max_queue_size=10,
-                            workers=1,
-                            use_multiprocessing=False)
+    # y_proba = model.predict(x=X_new,
+    #                         batch_size=None,
+    #                         verbose=0,
+    #                         steps=None,
+    #                         callbacks=None,
+    #                         max_queue_size=10,
+    #                         workers=1,
+    #                         use_multiprocessing=False)
 
-    mp.stop_measure()
-    mp.print_measure(predict_output_file)
-    # ----------------------------------------------------------------------- #
-    # ! END PREDICT
-    # ----------------------------------------------------------------------- #
+    # mp.stop_measure()
+    # mp.print_measure(predict_output_file)
+    # # ----------------------------------------------------------------------- #
+    # # ! END PREDICT
+    # # ----------------------------------------------------------------------- #
     mp.finalize_measure()
 
-    # Check if the prediction is correct:
-    # From the list, get the option which has most probab.
-    y_pred = np.argmax(y_proba, axis=-1)
-    # We can get the correspondences between class name and num
-    pred = np.array(class_names)[y_pred]
+    # # Check if the prediction is correct:
+    # # From the list, get the option which has most probab.
+    # y_pred = np.argmax(y_proba, axis=-1)
+    # # We can get the correspondences between class name and num
+    # pred = np.array(class_names)[y_pred]
 
-    # And check if it its correct
-    y_new = Y_test[:n_items]
-    sol = np.array(class_names)[y_new]
+    # # And check if it its correct
+    # y_new = Y_test[:n_items]
+    # sol = np.array(class_names)[y_new]
 
-    # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
+    # # print("Clothes predicted: {}\nClothes tested: {}".format(pred, sol))
