@@ -1131,6 +1131,56 @@ class MyCallbacks(keras.callbacks.Callback):
         self.mp.finalize_measure()
 # --------------------------------------------------------------------------- #
 
+class MeasureOnTrainPhase(MyCallbacks):
+    """
+    Custom callback to run with my_papi library and measures the system in the
+    training phase.
+
+    Attributes
+    ----------
+    self.mp : my_papi
+        Oject of the class my_papi
+    self.output_file : str
+        Path (and name) of the file where the results will be printed. If it's
+        `None`, then the results will be printed on screen
+    """
+
+    def __init__(self, lib_path, events_file, output_file=None):
+        """
+        Class Constructor to initialize the object.
+
+        Parameters
+        ----------
+        lib_path : str
+            Path to the shared library libmy_papi.so
+        events_file : str
+            Path where the file, with the events to be measured, is located
+        output_file : str, optional
+            Path (and name) of the file where the results will be printed. If
+            `None` is passed, then the results will be printed on screen
+        """
+
+        super(MeasureOnTrainPhase, self).__init__(events_file=events_file,
+                                                  lib_path=lib_path,
+                                                  output_file=output_file)
+
+    # --------------------------- Global methods ---------------------------- #
+    def on_train_begin(self, logs=None):
+        """Called at the beginning of fit."""
+
+        # Starts the measure with my_papi library
+        self.mp.start_measure()
+
+    def on_train_end(self, logs=None):
+        """Called at the end of fit."""
+
+        # Stops the measure with my_papi library
+        self.mp.stop_measure()
+
+        # Saves the results on a file
+        self.mp.print_measure(self.output_file)
+    # ------------------------- END Global methods -------------------------- #
+# --------------------------------------------------------------------------- #
 
 class MeasureOnEachEpoch(MyCallbacks):
     """
@@ -1182,7 +1232,6 @@ class MeasureOnEachEpoch(MyCallbacks):
         self.mp.print_measure(self.output_file)
     # ----------------------- END Epoch-level methods ----------------------- #
 # --------------------------------------------------------------------------- #
-
 
 class MeasureOnEachBatch(MyCallbacks):
     """
