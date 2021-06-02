@@ -1097,8 +1097,8 @@ class MyCallbacks(keras.callbacks.Callback):
         # Prepares the measure on ALL cpus
         # ! modify this to get the num of cpus automatic
         # cpus = None
-        # self.cpus = list(range(2, 32))
-        self.cpus = [2]
+        self.cpus = list(range(2, 32))
+        # self.cpus = [2]
         self.mp.prepare_measure(events_file=events_file, cpus=self.cpus)
 
         # Save the output file variable for later
