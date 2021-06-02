@@ -950,7 +950,6 @@ class MyPapi(object):
 
         # fig write
 
-
     @staticmethod
     def plotly_print_n_graphs(csv_file):
 
@@ -995,6 +994,70 @@ class MyPapi(object):
 
         fig.show()
 
+    @staticmethod
+    def print_m1(csv_file):
+
+        # Read csv with the following name of columns
+        df = pd.read_csv(csv_file, header=None, sep=":",
+                         names=["CPU", "Value", "Unit", "Event Name"])
+
+        # Get the events and cpus measured
+        events = df["Event Name"].unique()
+        cpus = df["CPU"].unique()
+
+        # Also the number of iterations (batch_size, epoch, etc)
+        num_measures = int(len(df.index) / (len(events) * len(cpus)))
+
+        # Calculate the mean of the 'num_measures' measures
+        
+
+
+        # Creates a column with the number of iteration
+        df.insert(0, "# Measure", 0)
+
+        # We have to modify them depending on the number of measures and cpus
+        aux = 0
+        for i in range(num_measures, 0, -1):
+            aux += 1
+            df.loc[df.index[-i * len(events) * len(cpus):], "# Measure"] = aux
+
+        # "Rotate" the table
+        df = df.pivot_table(index=["# Measure", "CPU"], columns=[
+            "Event Name"], values=["Value"]).fillna(0)
+
+        # Drop the first multiindex
+        df.columns = df.columns.droplevel()
+
+        # Add columns with rates (IPC, acc., etc.)
+        df = MyPapi.get_rates_from_df(df)
+
+        # Remove name of columns
+        df.columns.name = None
+        # Reset the index to an auto-increment
+        df = df.reset_index()
+
+        # !convertir al principio
+        # df = df.melt(id_vars=["CPU", "# Measure"])
+
+
+        # No need of CPU column
+        df = df.drop(["CPU"], axis=1)
+
+        # Get the list of measures
+        measures = df["# Measure"].unique()
+        events = df.columns
+
+        # Array with 'num_measures' dicts as entries
+        arr_measures = [{} for _ in measures]
+
+        # Store the data
+        for i in range(0, len(measures)):
+            for e in events:
+                dict_aux = arr_measures[i]
+                dict_aux[e] = df.loc[df["# Measure"]
+                                     == measures[i], e].mean()
+
+        return df
 # --------------------------------------------------------------------------- #
 
 

@@ -70,7 +70,7 @@ if __name__ == "__main__":
     # MyPapi.create_plotly_table(csv_file, None)
 
     # csv_file = folder + "mnist_predict_papi.csv"
-    MyPapi.create_dash_table(csv_file)
+    MyPapi.read_csv_and_print_by_measures(csv_file)
     exit(0)
 
 
