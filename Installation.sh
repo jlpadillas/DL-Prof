@@ -57,6 +57,8 @@ pip install matplotlib numpy pandas scipy scikit-learn dash
 pip install tensorflow
 # ! tensorflow with AVX512
 pip install https://storage.googleapis.com/intel-optimized-tensorflow/2.3.0/intel_tensorflow_avx512-2.3.0-cp37-cp37m-manylinux2010_x86_64.whl
+# ! Para instalar los datasets que hay en model garden
+pip install tensorflow-datasets
 
 # Deactivate it
 deactivate

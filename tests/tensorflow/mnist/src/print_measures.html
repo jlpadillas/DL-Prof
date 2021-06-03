@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MedidasFashionMnist</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>print_measures</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14266,23 +14266,6 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="c1"># Absolute path to this file</span>
-<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
-<span class="c1"># Now, we have to move to the root of this workspace ([prev. path]/TFG)</span>
-<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
-<span class="c1"># From the root (TFG/) access to my_papi dir. and its content</span>
-<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;my_papi&quot;</span>
-<span class="c1"># Folder where the configuration files are located</span>
-<span class="n">CFG_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span>
-<span class="c1"># Folder where the library is located</span>
-<span class="n">LIB_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;lib&quot;</span>
-<span class="c1"># Folder where the source codes are located</span>
-<span class="n">SRC_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span>
-
-<span class="c1"># Add the source path and import the library</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">SRC_DIR</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">MyPapi</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
      </div>
@@ -14299,9 +14282,6 @@ a.anchor-link {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">):</span>
     <span class="c1"># Read csv with the following name of columns</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CPU&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Unit&quot;</span><span class="p">,</span> <span class="s2">&quot;Event Name&quot;</span><span class="p">])</span>
-
-    <span class="c1"># Get the rows which have no 0 values</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Define the number of epochs and number of measures</span>
     <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">30</span>
@@ -14341,26 +14321,60 @@ a.anchor-link {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Time to print the values of the measure M1</span>
-
-<span class="c1"># Options used:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Options used:</span>
 <span class="c1"># -------------</span>
-<span class="c1"># Singlethread. inter = intra = 1</span>
-<span class="c1"># Medida en la fase de entrenamiento (fit()) utilizando MyPapi</span>
+<span class="c1"># SINGLE-THREAD. inter = intra = 1</span>
+<span class="c1"># Medida en la fase de entrenamiento (fit())</span>
 <span class="c1"># Se ha ejecutado el programa 5 veces. 30 epochs en cada una de ellas.</span>
 <span class="c1"># --------------------------------------------------------------------</span>
 
+<span class="c1"># -----------------------------------------------------------------------------------------------</span>
 <span class="c1"># Name of csv file</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/mnist_train_papi.csv&quot;</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/single_thread/mnist_train_papi.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_papi</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------</span>
 
-<span class="n">df1</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<span class="n">df1</span>
+<span class="c1"># ---------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/single_thread/mnist_train_callback.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_callback</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># ---------------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/single_thread/mnist_train_each_epoch.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_each_epoch</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/single_thread/mnist_train_each_batch.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_each_batch</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_papi</span>
 </pre></div>
 
      </div>
@@ -14376,7 +14390,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
@@ -14513,23 +14527,10 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Time to print the values of the measure M1</span>
-
-<span class="c1"># Options used:</span>
-<span class="c1"># -------------</span>
-<span class="c1"># Singlethread. inter = intra = 1</span>
-<span class="c1"># Medida en la fase de entrenamiento (fit()) utilizando callbacks con MyPapi</span>
-<span class="c1"># Se ha ejecutado el programa 5 veces. 30 epochs en cada una de ellas.</span>
-<span class="c1"># --------------------------------------------------------------------</span>
-
-<span class="c1"># Name of csv file</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/mnist_train_callback.csv&quot;</span>
-
-<span class="n">df2</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<span class="n">df2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_callback</span>
 </pre></div>
 
      </div>
@@ -14545,7 +14546,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 
 
 
@@ -14682,24 +14683,10 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Time to print the values of the measure M2</span>
-
-<span class="c1"># Options used:</span>
-<span class="c1"># -------------</span>
-<span class="c1"># Singlethread. inter = intra = 1</span>
-<span class="c1"># Medida en la fase de entrenamiento (fit()) utilizando callbacks con MyPapi</span>
-<span class="c1"># Se ha medido cada epoch.</span>
-<span class="c1"># Se ha ejecutado el programa 5 veces. 30 epochs en cada una de ellas.</span>
-<span class="c1"># --------------------------------------------------------------------</span>
-
-<span class="c1"># Name of csv file</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/mnist_train_each_epoch.csv&quot;</span>
-
-<span class="n">df3</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<span class="n">df3</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_each_epoch</span>
 </pre></div>
 
      </div>
@@ -14715,7 +14702,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 
 
 
@@ -14852,24 +14839,10 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Time to print the values of the measure M3</span>
-
-<span class="c1"># Options used:</span>
-<span class="c1"># -------------</span>
-<span class="c1"># Singlethread. inter = intra = 1</span>
-<span class="c1"># Medida en la fase de entrenamiento (fit()) utilizando callbacks con MyPapi</span>
-<span class="c1"># Se ha medido con un batch_size de 110 (mide cada 110 imágenes)</span>
-<span class="c1"># Se ha ejecutado el programa 5 veces. 30 epochs en cada una de ellas.</span>
-<span class="c1"># --------------------------------------------------------------------</span>
-
-<span class="c1"># Name of csv file</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/mnist_train_each_batch.csv&quot;</span>
-
-<span class="n">df4</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<span class="n">df4</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_each_batch</span>
 </pre></div>
 
      </div>
@@ -14885,7 +14858,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 
 
 
@@ -15022,13 +14995,13 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Join all the dataframes in another one</span>
-<span class="n">events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df4</span><span class="p">[</span><span class="s2">&quot;Event Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">events</span><span class="p">,</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">]]</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Event Name&#39;</span><span class="p">,</span> <span class="s1">&#39;df1&#39;</span><span class="p">,</span> <span class="s1">&#39;df2&#39;</span><span class="p">,</span> <span class="s1">&#39;df3&#39;</span><span class="p">,</span> <span class="s1">&#39;df4&#39;</span><span class="p">]</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mnist_train_papi</span><span class="p">[</span><span class="s2">&quot;Event Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">events</span><span class="p">,</span> <span class="n">mnist_train_papi</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_callback</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_each_epoch</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_each_batch</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">]]</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Event Name&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_papi&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_callback&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_each_epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_each_batch&#39;</span><span class="p">]</span>
 <span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 <span class="c1">#df5[&#39;Value_diff&#39;] = (df3[&#39;df1&#39;] - df3[&#39;df2&#39;]).abs()</span>
 <span class="n">df5</span>
@@ -15047,7 +15020,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
@@ -15071,10 +15044,10 @@ a.anchor-link {
     <tr style="text-align: right;">
       <th></th>
       <th>Event Name</th>
-      <th>df1</th>
-      <th>df2</th>
-      <th>df3</th>
-      <th>df4</th>
+      <th>mnist_train_papi</th>
+      <th>mnist_train_callback</th>
+      <th>mnist_train_each_epoch</th>
+      <th>mnist_train_each_batch</th>
     </tr>
   </thead>
   <tbody>
@@ -15159,6 +15132,996 @@ a.anchor-link {
 
 </div>
 
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ------------------------------------------------------------------------------------------------------------------------</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Options used:</span>
+<span class="c1"># -------------</span>
+<span class="c1"># MULTI-THREAD. inter = intra = default</span>
+<span class="c1"># Medida en la fase de entrenamiento (fit())</span>
+<span class="c1"># Se ha ejecutado el programa 5 veces. 30 epochs en cada una de ellas.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/multi_thread/mnist_train_papi.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_papi</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># ---------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/multi_thread/mnist_train_callback.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_callback</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># ---------------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/multi_thread/mnist_train_each_epoch.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_each_epoch</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<span class="c1"># Name of csv file</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jlpadillas01/TFG/tests/tensorflow/mnist/out/multi_thread/mnist_train_each_batch.csv&quot;</span>
+<span class="c1"># plot_each_iter(csv_file)</span>
+<span class="n">mnist_train_each_batch</span> <span class="o">=</span> <span class="n">df_from_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_papi</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Event Name</th>
+      <th>Measure_1</th>
+      <th>Measure_2</th>
+      <th>Measure_3</th>
+      <th>Measure_4</th>
+      <th>Measure_5</th>
+      <th>Avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PERF_COUNT_HW_INSTRUCTIONS</td>
+      <td>23298747362626</td>
+      <td>25964703741719</td>
+      <td>46157936202742</td>
+      <td>37392257673163</td>
+      <td>30438780353629</td>
+      <td>3.265049e+13</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PERF_COUNT_HW_BRANCH_INSTRUCTIONS</td>
+      <td>7608326105049</td>
+      <td>8513537406152</td>
+      <td>15226188747340</td>
+      <td>12312421746785</td>
+      <td>9998957529395</td>
+      <td>1.073189e+13</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L1-DCACHE-LOADS</td>
+      <td>7870128923280</td>
+      <td>8735473728623</td>
+      <td>15492898563754</td>
+      <td>12564929704817</td>
+      <td>10241230246823</td>
+      <td>1.098093e+13</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L1-DCACHE-STORES</td>
+      <td>164468160091</td>
+      <td>133908013732</td>
+      <td>167241112028</td>
+      <td>156853908825</td>
+      <td>149518174847</td>
+      <td>1.543979e+11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fp_arith_inst_retired.scalar_double</td>
+      <td>258964894</td>
+      <td>258690412</td>
+      <td>259152844</td>
+      <td>259081624</td>
+      <td>259006118</td>
+      <td>2.589792e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>fp_arith_inst_retired.scalar_single</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>1.923816e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fp_arith_inst_retired.128b_packed_single</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>1.505628e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>fp_arith_inst_retired.256b_packed_single</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>1.255031e+08</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>fp_arith_inst_retired.512b_packed_single</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>1.223711e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_callback</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Event Name</th>
+      <th>Measure_1</th>
+      <th>Measure_2</th>
+      <th>Measure_3</th>
+      <th>Measure_4</th>
+      <th>Measure_5</th>
+      <th>Avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PERF_COUNT_HW_INSTRUCTIONS</td>
+      <td>30236170340221</td>
+      <td>29559933890118</td>
+      <td>22720768262223</td>
+      <td>3082168498020</td>
+      <td>27973808606541</td>
+      <td>2.271457e+13</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PERF_COUNT_HW_BRANCH_INSTRUCTIONS</td>
+      <td>9921311872763</td>
+      <td>9718532938308</td>
+      <td>7431754634352</td>
+      <td>935628040675</td>
+      <td>9174846728630</td>
+      <td>7.436415e+12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L1-DCACHE-LOADS</td>
+      <td>10181789407345</td>
+      <td>9932438246589</td>
+      <td>7655889454779</td>
+      <td>1047989754755</td>
+      <td>9423698968838</td>
+      <td>7.648361e+12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L1-DCACHE-STORES</td>
+      <td>163367456678</td>
+      <td>127701892346</td>
+      <td>135563084918</td>
+      <td>50633698600</td>
+      <td>154203687712</td>
+      <td>1.262940e+11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fp_arith_inst_retired.scalar_double</td>
+      <td>258988131</td>
+      <td>258747856</td>
+      <td>258674615</td>
+      <td>257574796</td>
+      <td>259013558</td>
+      <td>2.585998e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>fp_arith_inst_retired.scalar_single</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>192381623</td>
+      <td>1.923816e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fp_arith_inst_retired.128b_packed_single</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>1.505628e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>fp_arith_inst_retired.256b_packed_single</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>1.255031e+08</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>fp_arith_inst_retired.512b_packed_single</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>1.223711e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_each_epoch</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Event Name</th>
+      <th>Measure_1</th>
+      <th>Measure_2</th>
+      <th>Measure_3</th>
+      <th>Measure_4</th>
+      <th>Measure_5</th>
+      <th>Avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PERF_COUNT_HW_INSTRUCTIONS</td>
+      <td>27228335791801</td>
+      <td>11752306385190</td>
+      <td>13542409581314</td>
+      <td>23341353358383</td>
+      <td>31960808300622</td>
+      <td>2.156504e+13</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PERF_COUNT_HW_BRANCH_INSTRUCTIONS</td>
+      <td>8925917971254</td>
+      <td>3795542897736</td>
+      <td>4399505653811</td>
+      <td>7647736514295</td>
+      <td>10496603757213</td>
+      <td>7.053061e+12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L1-DCACHE-LOADS</td>
+      <td>9169403620156</td>
+      <td>3976029349322</td>
+      <td>4564977926745</td>
+      <td>7853129349996</td>
+      <td>10755498879397</td>
+      <td>7.263808e+12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L1-DCACHE-STORES</td>
+      <td>150059269224</td>
+      <td>102434934735</td>
+      <td>91177258991</td>
+      <td>121005404127</td>
+      <td>161840704097</td>
+      <td>1.253035e+11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fp_arith_inst_retired.scalar_double</td>
+      <td>258614844</td>
+      <td>258249176</td>
+      <td>258125715</td>
+      <td>258534363</td>
+      <td>258976877</td>
+      <td>2.585002e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>fp_arith_inst_retired.scalar_single</td>
+      <td>192381563</td>
+      <td>192381563</td>
+      <td>192381563</td>
+      <td>192381563</td>
+      <td>192381563</td>
+      <td>1.923816e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fp_arith_inst_retired.128b_packed_single</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>15056280</td>
+      <td>1.505628e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>fp_arith_inst_retired.256b_packed_single</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>125503140</td>
+      <td>1.255031e+08</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>fp_arith_inst_retired.512b_packed_single</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>122371082190</td>
+      <td>1.223711e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist_train_each_batch</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Event Name</th>
+      <th>Measure_1</th>
+      <th>Measure_2</th>
+      <th>Measure_3</th>
+      <th>Measure_4</th>
+      <th>Measure_5</th>
+      <th>Avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PERF_COUNT_HW_INSTRUCTIONS</td>
+      <td>9373154063296</td>
+      <td>9483926853190</td>
+      <td>9687846283977</td>
+      <td>9245447629734</td>
+      <td>9348522619052</td>
+      <td>9.427779e+12</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PERF_COUNT_HW_BRANCH_INSTRUCTIONS</td>
+      <td>3030577873633</td>
+      <td>3066212401833</td>
+      <td>3133882404455</td>
+      <td>2987024374080</td>
+      <td>3020818723198</td>
+      <td>3.047703e+12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L1-DCACHE-LOADS</td>
+      <td>3184902082030</td>
+      <td>3223566134901</td>
+      <td>3292142940046</td>
+      <td>3143537215693</td>
+      <td>3178761108079</td>
+      <td>3.204582e+12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L1-DCACHE-STORES</td>
+      <td>79939890469</td>
+      <td>82229021217</td>
+      <td>82927332030</td>
+      <td>81624641062</td>
+      <td>82641598904</td>
+      <td>8.187250e+10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fp_arith_inst_retired.scalar_double</td>
+      <td>242825187</td>
+      <td>242852684</td>
+      <td>242837873</td>
+      <td>242845582</td>
+      <td>242790508</td>
+      <td>2.428304e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>fp_arith_inst_retired.scalar_single</td>
+      <td>173081636</td>
+      <td>173083852</td>
+      <td>173080716</td>
+      <td>173082340</td>
+      <td>173083604</td>
+      <td>1.730824e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fp_arith_inst_retired.128b_packed_single</td>
+      <td>15150000</td>
+      <td>15150000</td>
+      <td>15150000</td>
+      <td>15150000</td>
+      <td>15150000</td>
+      <td>1.515000e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>fp_arith_inst_retired.256b_packed_single</td>
+      <td>125439804</td>
+      <td>125439527</td>
+      <td>125439919</td>
+      <td>125439716</td>
+      <td>125439558</td>
+      <td>1.254397e+08</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>fp_arith_inst_retired.512b_packed_single</td>
+      <td>120499485006</td>
+      <td>120499485006</td>
+      <td>120499485006</td>
+      <td>120499485006</td>
+      <td>120499485006</td>
+      <td>1.204995e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Join all the dataframes in another one</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mnist_train_papi</span><span class="p">[</span><span class="s2">&quot;Event Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">events</span><span class="p">,</span> <span class="n">mnist_train_papi</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_callback</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_each_epoch</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">],</span> <span class="n">mnist_train_each_batch</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">]]</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Event Name&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_papi&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_callback&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_each_epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;mnist_train_each_batch&#39;</span><span class="p">]</span>
+<span class="n">df10</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="c1">#df5[&#39;Value_diff&#39;] = (df3[&#39;df1&#39;] - df3[&#39;df2&#39;]).abs()</span>
+<span class="n">df10</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Event Name</th>
+      <th>mnist_train_papi</th>
+      <th>mnist_train_callback</th>
+      <th>mnist_train_each_epoch</th>
+      <th>mnist_train_each_batch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PERF_COUNT_HW_INSTRUCTIONS</td>
+      <td>3.265049e+13</td>
+      <td>2.271457e+13</td>
+      <td>2.156504e+13</td>
+      <td>9.427779e+12</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PERF_COUNT_HW_BRANCH_INSTRUCTIONS</td>
+      <td>1.073189e+13</td>
+      <td>7.436415e+12</td>
+      <td>7.053061e+12</td>
+      <td>3.047703e+12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L1-DCACHE-LOADS</td>
+      <td>1.098093e+13</td>
+      <td>7.648361e+12</td>
+      <td>7.263808e+12</td>
+      <td>3.204582e+12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L1-DCACHE-STORES</td>
+      <td>1.543979e+11</td>
+      <td>1.262940e+11</td>
+      <td>1.253035e+11</td>
+      <td>8.187250e+10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fp_arith_inst_retired.scalar_double</td>
+      <td>2.589792e+08</td>
+      <td>2.585998e+08</td>
+      <td>2.585002e+08</td>
+      <td>2.428304e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>fp_arith_inst_retired.scalar_single</td>
+      <td>1.923816e+08</td>
+      <td>1.923816e+08</td>
+      <td>1.923816e+08</td>
+      <td>1.730824e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fp_arith_inst_retired.128b_packed_single</td>
+      <td>1.505628e+07</td>
+      <td>1.505628e+07</td>
+      <td>1.505628e+07</td>
+      <td>1.515000e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>fp_arith_inst_retired.256b_packed_single</td>
+      <td>1.255031e+08</td>
+      <td>1.255031e+08</td>
+      <td>1.255031e+08</td>
+      <td>1.254397e+08</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>fp_arith_inst_retired.512b_packed_single</td>
+      <td>1.223711e+11</td>
+      <td>1.223711e+11</td>
+      <td>1.223711e+11</td>
+      <td>1.204995e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Absolute path to this file</span>
+<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+<span class="c1"># Now, we have to move to the root of this workspace ([prev. path]/TFG)</span>
+<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+<span class="c1"># From the root (TFG/) access to my_papi dir. and its content</span>
+<span class="n">MY_PAPI_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;my_papi&quot;</span>
+<span class="c1"># Folder where the configuration files are located</span>
+<span class="n">CFG_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span>
+<span class="c1"># Folder where the library is located</span>
+<span class="n">LIB_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;lib&quot;</span>
+<span class="c1"># Folder where the source codes are located</span>
+<span class="n">SRC_DIR</span> <span class="o">=</span> <span class="n">MY_PAPI_DIR</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span>
+
+<span class="c1"># Add the source path and import the library</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">SRC_DIR</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">MyPapi</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_each_iter</span><span class="p">(</span><span class="n">csv_file</span><span class="p">):</span>
+
+    <span class="c1"># Read csv with the following name of columns</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+                        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CPU&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Unit&quot;</span><span class="p">,</span> <span class="s2">&quot;Event Name&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Get the events and cpus measured</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Event Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">cpus</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CPU&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="c1"># Also the number of iterations (batch_size, epoch, etc)</span>
+    <span class="n">num_measures</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpus</span><span class="p">)))</span>
+
+    <span class="c1"># Creates a column with the number of iteration</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;# Measure&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># We have to modify them depending on the number of measures and cpus</span>
+    <span class="n">aux</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_measures</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">aux</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpus</span><span class="p">):],</span> <span class="s2">&quot;# Measure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux</span>
+
+    <span class="c1"># &quot;Rotate&quot; the table</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;# Measure&quot;</span><span class="p">,</span> <span class="s2">&quot;CPU&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Event Name&quot;</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Value&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Drop the first multiindex</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">()</span>
+
+    <span class="c1"># Add columns with rates (IPC, acc., etc.)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">MyPapi</span><span class="o">.</span><span class="n">get_rates_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Remove name of columns</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Reset the index to an auto-increment</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="c1"># No need of CPU column</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;CPU&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Get the list of measures</span>
+    <span class="n">measures</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;# Measure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+
+    <span class="c1"># Array with &#39;num_measures&#39; dicts as entries</span>
+    <span class="n">arr_measures</span> <span class="o">=</span> <span class="p">[{}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">measures</span><span class="p">]</span>
+
+    <span class="c1"># Store the data</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">measures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">dict_aux</span> <span class="o">=</span> <span class="n">arr_measures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">dict_aux</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;# Measure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">measures</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Convert to pandas Dataframe</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arr_measures</span><span class="p">)</span>
+    <span class="c1"># Set the # Measure column as index</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;# Measure&quot;</span><span class="p">)</span>
+
+    <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+    <span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+
+    <span class="c1"># Array with the figures/html files to create</span>
+    <span class="n">figs</span> <span class="o">=</span> <span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(),</span>
+            <span class="n">make_subplots</span><span class="p">(</span>
+                <span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">specs</span><span class="o">=</span><span class="p">[[{</span><span class="s2">&quot;secondary_y&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;secondary_y&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}]],</span>
+                <span class="n">subplot_titles</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Rates&quot;</span><span class="p">,</span> <span class="s2">&quot;Derived metrics&quot;</span><span class="p">))</span>
+            <span class="p">]</span>
+
+    <span class="c1"># Add the value to the graphs</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">figs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+                <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;rate&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+                <span class="n">figs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+                    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">),</span>
+                    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">figs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+                    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">),</span>
+                    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+    <span class="c1"># Change the name of the y axis</span>
+    <span class="n">figs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+    <span class="n">figs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Miss rate (%)&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">figs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            
+    <span class="c1"># Set options common to all traces with fig.update_traces</span>
+    <span class="k">for</span> <span class="n">fig</span> <span class="ow">in</span> <span class="n">figs</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+                            <span class="n">marker_line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;MyPaPi measure by iterations: &#39;</span> <span class="o">+</span> <span class="n">csv_file</span><span class="p">,</span>
+            <span class="c1"># yaxis_zeroline=False, xaxis_zeroline=False,</span>
+            <span class="n">hovermode</span><span class="o">=</span><span class="s2">&quot;x unified&quot;</span><span class="p">,</span>
+            <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="c1"># x=-1,</span>
+                <span class="c1"># y=-1,</span>
+                <span class="n">traceorder</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>
+                            <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">),</span>
+                <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="n">bordercolor</span><span class="o">=</span><span class="s2">&quot;Black&quot;</span><span class="p">,</span>
+                <span class="n">borderwidth</span><span class="o">=</span><span class="mi">2</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">measures</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                            <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Number of measure&quot;</span><span class="p">)</span>
+        <span class="c1"># ! Open the files when end the execution</span>
+        <span class="c1">#fig.show()</span>
+
+    <span class="c1"># Save the html files</span>
+    <span class="n">name_html</span> <span class="o">=</span> <span class="n">csv_file</span> <span class="o">+</span> <span class="s2">&quot;_1_.html&quot;</span>
+    <span class="n">figs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">name_html</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div>
