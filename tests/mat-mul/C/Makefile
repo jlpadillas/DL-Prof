@@ -87,7 +87,3 @@ permissions_enabled:
 	sudo sysctl -w kernel.nmi_watchdog=0 > /dev/null
 	sudo sysctl -w kernel.perf_event_paranoid=0 > /dev/null
 # --------------------------------------------------------------------------- #
-
-send_results:
-# ? Send the results from the node to the host machine
-	scp out/* jlpadillas01@193.144.198.240:/home/jlpadillas01/Descargas/
