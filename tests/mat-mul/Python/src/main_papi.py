@@ -63,9 +63,7 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    # events_file = CFG_DIR / "events_pc.cfg"
-    # events_file = CFG_DIR / "events_laptop.cfg"
-    events_file = CFG_DIR / "events_node.cfg"
+    events_file = CFG_DIR / "events_node_matmul.cfg"
 
     # Measures on all cpus
     cpus = None
@@ -73,7 +71,7 @@ if __name__ == "__main__":
     cpus = list(range(2, 32))
 
     # Output file with the measures
-    output_file = "out/main_papi_results.csv"
+    output_file = "out/Python_mat-mul.csv"
     # output_file = None
     # -------------------------------------------------------------------- #
 

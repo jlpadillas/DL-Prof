@@ -5,12 +5,12 @@
         "/home/jlpadillas01/.local/lib/python3.8/site-packages/",
         "/home/jlpadillas01/anaconda3/lib/python3.8/site-packages/",
         // PATHs to my repo
-        "/home/jlpadillas01/TFG/my_papi/src/",
-        "/home/jlpadillas01/TFG/my_papi/lib/",
-        "/home/jlpadillas01/TFG/tests/mat_mul/C/src/",
-        "/home/jlpadillas01/TFG/tests/mat_mul/Python/src/",
-        "/home/jlpadillas01/TFG/tests/tensorflow/mnist/src/",
-        "/home/jlpadillas01/TFG/tests/tensorflow/cifar100/src/"
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/my_papi/src/",
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/my_papi/lib/",
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/tests/mat-mul/C/src/",
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/tests/mat-mul/Python/src/",
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/tests/tensorflow/fashion-mnist/src/",
+        "/home/jlpadillas01/PAPI-for-python-and-tf2/tests/tensorflow/cifar100/src/"
     ],
     "files.associations": {
         "papi.h": "c",

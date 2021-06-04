@@ -34,6 +34,7 @@
 // char *file = "../../../my_papi/conf/events_pc.cfg";
 char *file = "../../../my_papi/conf/events_node.cfg";
 // char *file = "../../../my_papi/conf/events_laptop.cfg";
+char *csv_file = "out/C_mat-mul.csv";
 #endif
 
 enum MATRIX_TYPE
@@ -212,9 +213,8 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
     // ! End measure
     my_stop_measure();
-    my_print_measure(NULL);
+    my_print_measure(csv_file);
     my_finalize_measure();
-    // my_PAPI_shutdown();
 #endif // MY_PAPI
 
 #ifdef DEBUG

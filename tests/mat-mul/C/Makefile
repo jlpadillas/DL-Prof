@@ -52,10 +52,10 @@ compile:
 
 run:
 # Executing the program with my_papi library
-	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 NORMAL
-	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 TRANSPOSE
-	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
-	taskset -c 2 ./${BIN_DIR}/main_papi SEQ 512 MULTITHREAD
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 1024 NORMAL
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 1024 TRANSPOSE
+	taskset -c 2-31 ./${BIN_DIR}/main_papi SEQ 1024 MULTITHREAD
+	taskset -c 2 ./${BIN_DIR}/main_papi SEQ 1024 MULTITHREAD
 # --------------------------------------------------------------------------- #
 
 run_with_perf:

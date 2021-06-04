@@ -39,7 +39,10 @@ compile:
 
 run:
 # Executing the program with my_papi library for Python
-	taskset -c 2-31 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
+	taskset -c 2-31 ${CC} ${SRC_DIR}/main_papi.py SEQ 1024
+	taskset -c 2-31 ${CC} ${SRC_DIR}/main_papi.py RAND 1024
+	taskset -c 2-31 ${CC} ${SRC_DIR}/main_papi.py EMPTY 1024
+	taskset -c 2 ${CC} ${SRC_DIR}/main_papi.py SEQ 1024
 # taskset -c 2 ${CC} ${SRC_DIR}/main_papi.py SEQ 4096
 
 run_with_perf:
