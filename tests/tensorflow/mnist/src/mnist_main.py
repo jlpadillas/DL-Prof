@@ -14,9 +14,6 @@
 
 """Runs a simple model on the MNIST dataset."""
 from __future__ import absolute_import
-from MyPapi import *
-import sys
-import pathlib
 from __future__ import division
 from __future__ import print_function
 
@@ -36,14 +33,15 @@ from official.vision.image_classification.resnet import common
 FLAGS = flags.FLAGS
 
 # ! ---------------------------------------------------------------------------
-
+import sys
+import pathlib
 # Absolute path to this file
 # MY_PAPI_DIR = pathlib.Path().absolute()
 # Now, we have to move to the root of this workspace ([prev. path]/TFG)
 # MY_PAPI_DIR = MY_PAPI_DIR.parent.parent.parent.parent.absolute()
 # ! Remove next line for a automatic find of TFG folder
 # os.getcwd()
-MY_PAPI_DIR = pathlib.Path("/home/jlpadillas01/PAPI-for-python-and-tf2")
+MY_PAPI_DIR = pathlib.Path("/afs/atc.unican.es/u/j/juan/PAPI-for-python-and-tf2")
 # From the root (TFG/) access to my_papi dir. and its content
 MY_PAPI_DIR = MY_PAPI_DIR / "my_papi"
 # Folder where the configuration files are located
@@ -55,6 +53,7 @@ SRC_DIR = MY_PAPI_DIR / "src"
 
 # Add the source path and import the library
 sys.path.insert(0, str(SRC_DIR))
+from MyPapi import *
 # ! ---------------------------------------------------------------------------
 
 
@@ -122,8 +121,7 @@ def run(flags_obj, datasets_override=None, strategy_override=None):
 
   mnist_train, mnist_test = datasets_override or mnist.as_dataset(
       split=['train', 'test'],
-      decoders={'image': decode_image(
-      )},  # pylint: disable=no-value-for-parameter
+      decoders={'image': decode_image()},  # pylint: disable=no-value-for-parameter
       as_supervised=True)
   train_input_dataset = mnist_train.cache().repeat().shuffle(
       buffer_size=50000).batch(flags_obj.batch_size)
@@ -167,9 +165,9 @@ def run(flags_obj, datasets_override=None, strategy_override=None):
           ckpt_full_path, save_weights_only=True),
       tf.keras.callbacks.TensorBoard(log_dir=flags_obj.model_dir),
       # Creates a callback from my_papi library
-      MeasureOnEachEpoch(lib_path=str(libname),
-                         events_file=str(events_file),
-                         output_file=str(train_output_file)),
+      MeasureOnTrainPhase(lib_path=str(libname),
+                          events_file=str(events_file),
+                          output_file=str(train_output_file))
   ]
   # ! -------------------------------------------------------------------------
 
