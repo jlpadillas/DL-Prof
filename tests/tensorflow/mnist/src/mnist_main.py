@@ -19,6 +19,13 @@ from __future__ import print_function
 
 import os
 
+# ! ---------------------------------------------------------------------------
+# Forces the program to execute on CPU
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# Just disables the warning, doesn't take advantage of AVX/FMA to run faster
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# ! ---------------------------------------------------------------------------
+
 # Import libraries
 from absl import app
 from absl import flags
@@ -152,7 +159,7 @@ def run(flags_obj, datasets_override=None, strategy_override=None):
   libname = LIB_DIR / "libmy_papi.so"
 
   # Load a file with the events
-  events_file = CFG_DIR / "events_node_mnist_test.cfg"
+  events_file = CFG_DIR / "events_node_mnist_2.cfg"
 
   # Output file with the measures
   # train_output_file = "out/mnist_train_each_epoch.csv"
@@ -217,21 +224,6 @@ def main(_):
 
 
 if __name__ == '__main__':
-
-  # Reads the parameters
-  if len(sys.argv) != 3:
-    print("[ERROR] Wrong parameters.\n\tUsage: python3 mnist_main.py "
-          "[INTER] [INTRA] [CSV_FILE]")
-    raise sys.exit(-1)
-
-  # import os
-  # # Forces the program to execute on CPU
-  # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-
-  # # Just disables the warning, doesn't take advantage of AVX/FMA to run faster
-  # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-  import tensorflow as tf
 
   inter = int(sys.argv[1])
   intra = int(sys.argv[2])
