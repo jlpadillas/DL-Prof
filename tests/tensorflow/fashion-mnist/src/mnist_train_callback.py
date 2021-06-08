@@ -29,22 +29,27 @@ if __name__ == "__main__":
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
     # 3rd party packages
-#    import tensorflow as tf
+    import tensorflow as tf
     from tensorflow import keras
 
     # ---------------- Setting up the inter and intra threads --------------- #
+
+    inter = int(sys.argv[1])
+    intra = int(sys.argv[2])
+    train_output_file = sys.argv[3]
+
     # inter = tf.config.threading.get_inter_op_parallelism_threads()
     # intra = tf.config.threading.get_intra_op_parallelism_threads()
 
 #    inter = 1
 #    intra = 1
 
-#    tf.config.threading.set_inter_op_parallelism_threads(inter)
-#    tf.config.threading.set_intra_op_parallelism_threads(intra)
+    tf.config.threading.set_inter_op_parallelism_threads(inter)
+    tf.config.threading.set_intra_op_parallelism_threads(intra)
 
-#    print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
-#          "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
-#                      tf.config.threading.get_intra_op_parallelism_threads()))
+    print("inter_op_parallelism_threads = {}\nintra_op_parallelism_threads = "
+            "{}".format(tf.config.threading.get_inter_op_parallelism_threads(),
+                        tf.config.threading.get_intra_op_parallelism_threads()))
     # ----------------------------------------------------------------------- #
 
     # ----------------------------------------------------------------------- #
@@ -77,10 +82,10 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_node_mnist_test.cfg"
+    events_file = CFG_DIR / "events_node_mnist_2.cfg"
 
     # Output file with the measures
-    train_output_file = "out/mnist_train_callback.csv"
+    # train_output_file = "out/mnist_train_callback.csv"
     test_output_file = "out/mnist_test_callback.csv"
     predict_output_file = "out/mnist_predict_callback.csv"
     # train_output_file = test_output_file = predict_output_file = None
@@ -139,8 +144,8 @@ if __name__ == "__main__":
 
     # Creates a callback from my_papi library
     my_callbacks = MeasureOnTrainPhase(lib_path=str(libname),
-                                      events_file=str(events_file),
-                                      output_file=str(train_output_file))
+                                       events_file=str(events_file),
+                                       output_file=str(train_output_file))
 
     # ----------------------------------------------------------------------- #
     # ! TRAIN
@@ -148,7 +153,7 @@ if __name__ == "__main__":
     history = model.fit(x=X_train,
                         y=Y_train,
                         batch_size=None,
-                        epochs=30,
+                        epochs=3,
                         verbose=1,
                         callbacks=my_callbacks,
                         validation_split=0.,
