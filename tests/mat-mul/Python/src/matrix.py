@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 # standard library
+import random
+import sys
+import threading
 
 # 3rd party packages
 
@@ -48,20 +51,24 @@ class matrix(object):
     """
 
     # Attributes
-    MAX_RANDOM = 10
-    NUM_THREADS = 4
+    # self.MAX_RANDOM
+    # self.NUM_THREADS
 
     def __init__(self):
         """Constructor."""
 
         super(matrix, self).__init__()
 
+        # Attributes
+        self.MAX_RANDOM = 10
+        self.NUM_THREADS = 16
+
         # Establish the warning format
         # warnings.formatwarning = self.__warning_on_one_line
 
     # -------------------------------------------------------------------- #
 
-    def arr_to_str(self, M, rows, cols):
+    def print_matrix(self, M):
         """Returns a Numpy matrix initialized with the function empty().
 
         If the arguments `rows` or `cols` aren't passed in, the default
@@ -86,18 +93,17 @@ class matrix(object):
             If the arguments passed in are not positive.
         """
 
+        rows = len(M)
+        cols = len(M[-1])
 
-
-        # If none dimension is passed, it just use the default ones
-        if rows is None or cols is None:
-            message = "No dimensions introduced, using cols=" + \
-                str(self.rows_default) + " and rows=" + \
-                str(self.cols_default) + "."
-            rows = self.rows_default
-            cols = self.cols_default
-        elif rows < 0 or cols < 0:
-            raise ValueError
-
+        mat_str = "\n"
+        for i in range(rows):
+            mat_str += "|\t"
+            for j in range(cols):
+                mat_str += str(M[i][j]) + "\t"
+                if j == cols - 1:
+                    mat_str += "|\n"
+        print(mat_str)
     # -------------------------------------------------------------------- #
 
     def init_rand(self, rows, cols):
@@ -126,10 +132,10 @@ class matrix(object):
         """
 
         M = []
-        for r in range(0, rows):
+        for r in range(rows):
             arr = []
-            for c in range(0, cols):
-                arr.append(float(r * cols + c))
+            for c in range(cols):
+                arr.append(float(random.randrange(self.MAX_RANDOM)))
             M.append(arr)
 
         return M
@@ -157,16 +163,16 @@ class matrix(object):
         """
 
         M = []
-        for r in range(0, rows):
+        for r in range(rows):
             arr = []
-            for c in range(0, cols):
+            for c in range(cols):
                 arr.append(float(r * cols + c))
             M.append(arr)
 
         return M
     # -------------------------------------------------------------------- #
 
-    def mat_mul(self, M_a=None, M_b=None):
+    def mat_mul(self, M_a, M_b):
         """Returns a Numpy matrix product of a multiplication of matrices.
 
         If the arguments `M_a` or `M_a` aren't passed in, the operation
@@ -191,18 +197,147 @@ class matrix(object):
             If there is no argument passed.
         """
 
-        if M_a is None or M_b is None:
-            raise self.MatricesUndefinedError
-        # return np.matmul(M_a, M_b)
+        rows_a = len(M_a)
+        cols_a = len(M_a[-1])
+        rows_b = len(M_b)
+        cols_b = len(M_b[-1])
+
+        if cols_a != rows_b:
+            print("[ERROR] #columns A must be equal to #rows B.\n")
+            sys.exit(-1)
+
+        M_c = []
+        for i in range(rows_a):
+            arr = []
+            for k in range(cols_b):
+                sum = 0.0
+                for j in range(cols_a):
+                    sum += float(M_a[i][j]) * float(M_b[j][k])
+                arr.append(sum)
+            M_c.append(arr)
+        return M_c
     # -------------------------------------------------------------------- #
 
-    def __warning_on_one_line(self, message, category, filename, lineno,
-                              file=None, line=None):
-        """Format the warning output."""
+    def mat_mul_transpose(self, M_a, M_b):
+        """Returns a Numpy matrix product of a multiplication of matrices.
 
-        return '%s:%s:\n\t%s: %s\n' % (filename, lineno, category.__name__,
-                                       message)
+        If the arguments `M_a` or `M_a` aren't passed in, the operation
+        cannot be performed.
+
+        Parameters
+        ----------
+        M_a : numpy.matrix
+            A matrix, first term of the multiplication (default is None)
+        
+        M_b : numpy.matrix
+            A matrix, second term of the multiplication (default is None)
+
+        Returns
+        -------
+        numpy.matrix
+            a floating point matrix.
+
+        Raises
+        ------
+        MatricesUndefinedError
+            If there is no argument passed.
+        """
+
+        rows_a = len(M_a)
+        cols_a = len(M_a[-1])
+        rows_b = len(M_b)
+        cols_b = len(M_b[-1])
+
+        if cols_a != rows_b:
+            print("[ERROR] #columns A must be equal to #rows B.\n")
+            sys.exit(-1)
+
+        # Calculate the transpose
+        M_b_Tr = []
+        for i in range(rows_b):
+            arr = []
+            for j in range(cols_b):
+                arr.append(M_b[j][i])
+            M_b_Tr.append(arr)
+
+        M_c = []
+        for i in range(rows_a):
+            arr = []
+            for k in range(cols_b):
+                sum = 0.0
+                for j in range(cols_a):
+                    sum += float(M_a[i][j]) * float(M_b_Tr[k][j])
+                arr.append(sum)
+            M_c.append(arr)
+        return M_c
     # -------------------------------------------------------------------- #
+
+    def __multi(self, M_a, M_b, M_c, cols_c, rows_c):
+        cols_a = len(M_a[-1])
+
+        aux = []
+        for i in range(rows_c[0], rows_c[1]):
+            arr = []
+            for k in range(cols_c[0], cols_c[1]):
+                sum = 0.0
+                for j in range(cols_a):
+                    sum += float(M_a[i][j]) * float(M_b[j][k])
+                arr.append(sum)
+            aux.append(arr)
+
+        # Store the values in the result matrix
+        i = 0
+        for j in range(rows_c[0], rows_c[1]):
+            M_c[j] = aux[i]
+            i += 1
+    # -------------------------------------------------------------------- #
+
+    def mat_mul_multithread(self, M_a, M_b):
+
+        NUM_THREADS = 2
+        rows_a = len(M_a)
+        cols_a = len(M_a[-1])
+        rows_b = len(M_b)
+        cols_b = len(M_b[-1])
+
+        if cols_a != rows_b:
+            print("[ERROR] #columns A must be equal to #rows B.\n")
+            sys.exit(-1)
+
+        rows_per_thread = int(rows_a / NUM_THREADS)
+        rest_of_matrix = rows_a % NUM_THREADS
+
+        # print(rows_per_thread, rest_of_matrix)
+        M_c = [[0.0] * cols_b] * rows_a
+
+        # Create and start the threads
+        threads = []
+        for i in range(NUM_THREADS):
+            # Calculate the params to pass them to the thread
+            # TODO: The last thread operates the rest. Modify in a future and
+            # TODO: let the first thread to end, operate the rest.
+            cols_c_start = 0
+            cols_c_end = cols_b
+            rows_c_start = rows_per_thread * i
+            rows_c_end = rows_c_start + rows_per_thread
+
+            if (i == NUM_THREADS - 1) and (rest_of_matrix != 0):
+                rows_c_end += rest_of_matrix
+
+            cols_c = [cols_c_start, cols_c_end]
+            rows_c = [rows_c_start, rows_c_end]
+
+            t = threading.Thread(target=self.__multi, args=(M_a, M_b, M_c, cols_c, rows_c,))
+            threads.append(t)
+            t.start()
+
+        # Join the threads
+        for t in threads:
+            t.join()
+
+        return M_c
+    # -------------------------------------------------------------------- #
+
 
     # -------------------------------------------------------------------- #
     # define Python user-defined exceptions

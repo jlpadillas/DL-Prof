@@ -171,16 +171,6 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     // Set the common variables for my_PAPI execution
-    if (argc == 5)
-    {
-        // The user want to print the measure in a csv_file
-        char *csv_file = "out/C_mat-mul.csv";
-    }
-    else
-    {
-        char *csv_file = NULL;
-    }
-
     // int *cpus = NULL;
     // int num_cpus = 1;
     int num_cpus = 30;
@@ -223,6 +213,12 @@ int main(int argc, char const *argv[])
 #ifdef MY_PAPI
     // ! End measure
     my_stop_measure();
+    char *csv_file = NULL;
+    if (argc == 5)
+    {
+        // The user want to print the measure in a csv_file
+        csv_file = (char *)argv[4];
+    }
     my_print_measure(csv_file);
     my_finalize_measure();
 #endif // MY_PAPI
