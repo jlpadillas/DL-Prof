@@ -8,6 +8,9 @@ SRC_DIR="/afs/atc.unican.es/u/j/juan/PAPI-for-python-and-tf2/tests/tensorflow/fa
 OUT_DIR="/afs/atc.unican.es/u/j/juan/PAPI-for-python-and-tf2/tests/tensorflow/fashion-mnist/out"
 # mkdir -p ${OUT_DIR}
 
+# File where stdout and stderr content will be stored
+output_file="${OUT_DIR}/execution.txt"
+
 # program="mnist_papi.py"
 # program="mnist_train_callback.py"
 # program="mnist_each_epoch.py"
@@ -24,8 +27,8 @@ for prog in "${programs[@]}"; do
     for inter in "${inter_list[@]}"; do
         for intra in "${intra_list[@]}"; do
             for (( i = 0; i < num_executions; i++ )); do
-                eval taskset -c 2-31 "$CC" "${SRC_DIR}/${prog}" "${inter}" "${intra}" \
-                    "${OUT_DIR}/taskset-2-31_inter-${inter}_intra-${intra}.csv"
+                time eval taskset -c 2-31 "$CC" "${SRC_DIR}/${prog}" "${inter}" "${intra}" \
+                    "${OUT_DIR}/taskset-2-31_inter-${inter}_intra-${intra}.csv" &>> "${output_file}"
             done
         done
     done

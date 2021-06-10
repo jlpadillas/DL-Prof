@@ -32,9 +32,9 @@
 // ! NOTE: num. max. of events is 6. More and PAPI will throw an error
 // TODO: Modify this lines:
 // char *file = "../../../my_papi/conf/events_pc.cfg";
-char *file = "../../../my_papi/conf/events_node.cfg";
+char *file = "../../../my_papi/conf/events_node_matmul.cfg";
 // char *file = "../../../my_papi/conf/events_laptop.cfg";
-char *csv_file = "out/C_mat-mul.csv";
+// char *csv_file = "out/C_mat-mul.csv";
 #endif
 
 enum MATRIX_TYPE
@@ -171,6 +171,16 @@ int main(int argc, char const *argv[])
 
 #ifdef MY_PAPI
     // Set the common variables for my_PAPI execution
+    if (argc == 5)
+    {
+        // The user want to print the measure in a csv_file
+        char *csv_file = "out/C_mat-mul.csv";
+    }
+    else
+    {
+        char *csv_file = NULL;
+    }
+
     // int *cpus = NULL;
     // int num_cpus = 1;
     int num_cpus = 30;

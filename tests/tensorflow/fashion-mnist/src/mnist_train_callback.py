@@ -21,6 +21,7 @@ if __name__ == "__main__":
     # standard library
     import numpy as np
     import os
+    import sys
 
     # Forces the program to execute on CPU
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
@@ -55,7 +56,6 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
     # Loads the my_papi library
     # ----------------------------------------------------------------------- #
-    import sys
     import pathlib
 
     # Absolute path to this script
