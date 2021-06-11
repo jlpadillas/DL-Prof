@@ -60,13 +60,16 @@ if __name__ == "__main__":
         print("[ERROR] Wrong multiplication type: %s.\n", mul_type)
         sys.exit(-1)
 
+    # Create an object of the class matrix
+    m = matrix()
+
     # Populate the matrices
-    if mat_type is "RAND":
-        M_a = matrix.init_rand(rows=rows_a, cols=cols_a)
-        M_b = matrix.init_rand(rows=rows_b, cols=cols_b)
-    elif mat_type is "SEQ":
-        M_a = matrix.init_seq(rows=rows_a, cols=cols_a)
-        M_a = matrix.init_seq(rows=rows_a, cols=cols_a)
+    if mat_type == "RAND":
+        M_a = m.init_rand(rows=rows_a, cols=cols_a)
+        M_b = m.init_rand(rows=rows_b, cols=cols_b)
+    elif mat_type == "SEQ":
+        M_a = m.init_seq(rows=rows_a, cols=cols_a)
+        M_b = m.init_seq(rows=rows_a, cols=cols_a)
 
     # ----------------------------------------------------------------------- #
     # Loads the my_papi library
@@ -117,11 +120,11 @@ if __name__ == "__main__":
     mp.start_measure()
     # -------------------------- Region of Interest ------------------------- #
     if mul_type == "MULTITHREAD":
-        M_c = matrix.mat_mul_multithread(M_a, M_b)
+        M_c = m.mat_mul_multithread(M_a, M_b)
     elif mul_type == "NORMAL":
-        M_c = matrix.mat_mul(M_a, M_b)
+        M_c = m.mat_mul(M_a, M_b)
     elif mul_type == "TRANSPOSE":
-        M_c = matrix.mat_mul_transpose(M_a, M_b)
+        M_c = m.mat_mul_transpose(M_a, M_b)
     # ------------------------ END Region of Interest ----------------------- #
     mp.stop_measure()
     mp.print_measure(csv_file)

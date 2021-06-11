@@ -29,7 +29,7 @@ declare -a MATRIX_SIZE=( "128" "512" "2048" "8192" )
 declare -a MULTIPLICATION_TYPE=( "NORMAL" "TRANSPOSE" "MULTITHREAD" )
 
 # And set the number of executions to perform
-NUM_EXECUTIONS=3
+NUM_EXECUTIONS=2
 
 # We can start the measure
 for mat_type in "${MATRIX_TYPE[@]}"; do
