@@ -307,7 +307,7 @@ class matrix(object):
         rows_per_thread = int(rows_a / self.NUM_THREADS)
         rest_of_matrix = rows_a % self.NUM_THREADS
 
-        M_c = [[0.0] * cols_b] * rows_a
+        M_c = [[0] * cols_b] * rows_a
 
         # Create and start the threads
         threads = []
