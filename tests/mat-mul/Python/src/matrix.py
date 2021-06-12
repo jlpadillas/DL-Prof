@@ -212,7 +212,7 @@ class matrix(object):
             for k in range(cols_b):
                 sum = 0.0
                 for j in range(cols_a):
-                    sum += float(M_a[i][j]) * float(M_b[j][k])
+                    sum += float(M_a[i][j] * M_b[j][k])
                 arr.append(sum)
             M_c.append(arr)
         return M_c
@@ -266,15 +266,15 @@ class matrix(object):
             for k in range(cols_b):
                 sum = 0.0
                 for j in range(cols_a):
-                    sum += float(M_a[i][j]) * float(M_b_Tr[k][j])
+                    sum += float(M_a[i][j] * M_b_Tr[k][j])
                 arr.append(sum)
             M_c.append(arr)
         return M_c
     # -------------------------------------------------------------------- #
 
     def __multi(self, M_a, M_b, M_c, cols_c, rows_c):
-        cols_a = len(M_a[-1])
 
+        cols_a = len(M_a[-1])
         aux = []
         for i in range(rows_c[0], rows_c[1]):
             arr = []
@@ -294,7 +294,6 @@ class matrix(object):
 
     def mat_mul_multithread(self, M_a, M_b):
 
-        # NUM_THREADS = 2
         rows_a = len(M_a)
         cols_a = len(M_a[-1])
         rows_b = len(M_b)
@@ -307,7 +306,8 @@ class matrix(object):
         rows_per_thread = int(rows_a / self.NUM_THREADS)
         rest_of_matrix = rows_a % self.NUM_THREADS
 
-        M_c = [[0] * cols_b] * rows_a
+        # M_c = [[0] * cols_b] * rows_a
+        M_c = [[]] * rows_a
 
         # Create and start the threads
         threads = []
