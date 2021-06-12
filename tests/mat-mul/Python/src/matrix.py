@@ -294,7 +294,7 @@ class matrix(object):
 
     def mat_mul_multithread(self, M_a, M_b):
 
-        NUM_THREADS = 2
+        # NUM_THREADS = 2
         rows_a = len(M_a)
         cols_a = len(M_a[-1])
         rows_b = len(M_b)
@@ -304,15 +304,14 @@ class matrix(object):
             print("[ERROR] #columns A must be equal to #rows B.\n")
             sys.exit(-1)
 
-        rows_per_thread = int(rows_a / NUM_THREADS)
-        rest_of_matrix = rows_a % NUM_THREADS
+        rows_per_thread = int(rows_a / self.NUM_THREADS)
+        rest_of_matrix = rows_a % self.NUM_THREADS
 
-        # print(rows_per_thread, rest_of_matrix)
         M_c = [[0.0] * cols_b] * rows_a
 
         # Create and start the threads
         threads = []
-        for i in range(NUM_THREADS):
+        for i in range(self.NUM_THREADS):
             # Calculate the params to pass them to the thread
             # TODO: The last thread operates the rest. Modify in a future and
             # TODO: let the first thread to end, operate the rest.
@@ -321,7 +320,7 @@ class matrix(object):
             rows_c_start = rows_per_thread * i
             rows_c_end = rows_c_start + rows_per_thread
 
-            if (i == NUM_THREADS - 1) and (rest_of_matrix != 0):
+            if (i == self.NUM_THREADS - 1) and (rest_of_matrix != 0):
                 rows_c_end += rest_of_matrix
 
             cols_c = [cols_c_start, cols_c_end]
