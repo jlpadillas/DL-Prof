@@ -275,21 +275,14 @@ class matrix(object):
     def __multi(self, M_a, M_b, M_c, cols_c, rows_c):
 
         cols_a = len(M_a[-1])
-        aux = []
         for i in range(rows_c[0], rows_c[1]):
             arr = []
             for k in range(cols_c[0], cols_c[1]):
                 sum = 0.0
                 for j in range(cols_a):
-                    sum += float(M_a[i][j]) * float(M_b[j][k])
+                    sum += float(M_a[i][j] * M_b[j][k])
                 arr.append(sum)
-            aux.append(arr)
-
-        # Store the values in the result matrix
-        i = 0
-        for j in range(rows_c[0], rows_c[1]):
-            M_c[j] = aux[i]
-            i += 1
+            M_c[i] = arr
     # -------------------------------------------------------------------- #
 
     def mat_mul_multithread(self, M_a, M_b):
@@ -303,7 +296,9 @@ class matrix(object):
             print("[ERROR] #columns A must be equal to #rows B.\n")
             sys.exit(-1)
 
-        rows_per_thread = int(rows_a / self.NUM_THREADS)
+        # La siguiente linea genera una op. de fp mas
+        # int(rows_a / self.NUM_THREADS)
+        rows_per_thread = rows_a // self.NUM_THREADS
         rest_of_matrix = rows_a % self.NUM_THREADS
 
         # M_c = [[0] * cols_b] * rows_a
