@@ -198,7 +198,7 @@ class MyPapi(object):
             Path to the library
         """
 
-        _library_file = lib_path
+        # _library_file = lib_path
         self.p_lib = CDLL(lib_path)
 
         # ------------------------------------------------------------------- #
