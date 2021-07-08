@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------------- #
 
 # @author: 
-.PHONY = all clean setup
+.PHONY = all clean setup compile
 .DEFAULT_GOAL = compile
 # --------------------------------------------------------------------------- #
 
@@ -38,7 +38,7 @@ clean:
 setup:
 	mkdir -p ${BIN_DIR} ${OUT_DIR}
 
-compile:
+compile: setup
 # my_papi library
 	make -C ${MP_PATH} compile
 # matrix and main files
@@ -48,6 +48,10 @@ compile:
 	${CC} ${CFLAGS} ${SRC_DIR}/main.c -o ${BIN_DIR}/main_papi -DMY_PAPI \
 		-Wl,-rpath=${MP_LIB_DIR} ${BIN_DIR}/matrix.o -I${MP_SRC_DIR} \
 		-L${MP_LIB_DIR} -lmy_papi -pthread
+
+# Calling the compile target
+compile_optimized: CFLAGS += -O3
+compile_optimized: compile
 # --------------------------------------------------------------------------- #
 
 run:

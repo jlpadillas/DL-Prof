@@ -4,7 +4,7 @@ CC=$(which python3)
 
 # Define the directories/path to the files
 HOME_DIR="/afs/atc.unican.es/u/j/juan"
-TEST_DIR="${HOME_DIR}/PAPI-for-python-and-tf2/tests/mat-mul/Python"
+TEST_DIR="${HOME_DIR}/DL-Prof/tests/mat-mul/Python"
 SRC_DIR="${TEST_DIR}/src"
 OUT_DIR="${TEST_DIR}/out"
 # Creates the output folder
@@ -23,12 +23,12 @@ make -C ${TEST_DIR} setup
 make -C ${TEST_DIR} compile
 
 # Now, we can define the params to pass to the program
-declare -a MATRIX_TYPE=( "RAND" "SEQ" )
-declare -a MATRIX_SIZE=( "128" "512" "1024" "2048" )
-declare -a MULTIPLICATION_TYPE=( "NORMAL" "TRANSPOSE" "MULTITHREAD" )
+declare -a MATRIX_TYPE=( "RAND" )
+declare -a MATRIX_SIZE=( "32" "64" "128" "256" "512" "1024" "2048" "4096" )
+declare -a MULTIPLICATION_TYPE=( "TRANSPOSE" )
 
 # And set the number of executions to perform
-NUM_EXECUTIONS=2
+NUM_EXECUTIONS=10
 
 # We can start the measure
 for mat_type in "${MATRIX_TYPE[@]}"; do

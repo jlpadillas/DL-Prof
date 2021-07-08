@@ -21,7 +21,7 @@ TIME_FILE="${OUT_DIR}/time.txt"
 
 # Calling to the Makefile to setup and compile the programs
 make -C ${TEST_DIR} setup
-make -C ${TEST_DIR} compile
+make -C ${TEST_DIR} compile_optimized
 
 # Now, we can define the params to pass to the program
 declare -a MATRIX_TYPE=( "RAND" )
