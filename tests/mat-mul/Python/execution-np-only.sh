@@ -4,14 +4,14 @@ CC=$(which python3)
 
 # Define the directories/path to the files
 HOME_DIR="/afs/atc.unican.es/u/j/juan"
-TEST_DIR="${HOME_DIR}/DL-Prof/tests/mat-mul/Python-Numpy"
+TEST_DIR="${HOME_DIR}/DL-Prof/tests/mat-mul/Python"
 SRC_DIR="${TEST_DIR}/src"
 OUT_DIR="${TEST_DIR}/out"
 # Creates the output folder
 # mkdir -p ${OUT_DIR}
 
 # Set the program to execute
-PROGRAM="${SRC_DIR}/main.py"
+PROGRAM="${SRC_DIR}/main-numpy-only.py"
 
 # File where stdout and stderr content will be stored
 STDERR_FILE="${OUT_DIR}/matmul.stderr"
@@ -25,7 +25,7 @@ make -C ${TEST_DIR} compile
 # Now, we can define the params to pass to the program
 declare -a MATRIX_TYPE=( "RAND" )
 declare -a MATRIX_SIZE=( "32" "64" "128" "256" "512" "1024" "2048" "4096" )
-declare -a MULTIPLICATION_TYPE=( "TRANSPOSE" )
+declare -a MULTIPLICATION_TYPE=( "-" )
 
 # And set the number of executions to perform
 NUM_EXECUTIONS=10
