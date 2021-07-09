@@ -67,8 +67,8 @@ if __name__ == "__main__":
 
     # Populate the matrices
     if mat_type == "RAND":
-        M_a = np.random.rand(rows=rows_a, cols=cols_a)
-        M_b = np.random.rand(rows=rows_b, cols=cols_b)
+        M_a = np.random.rand(rows_a, cols_a)
+        M_b = np.random.rand(rows_b, cols_b)
     elif mat_type == "SEQ":
         M_a = np.arange(cols_a * rows_a, dtype=float).reshape(cols_a, rows_a)
         M_b = np.arange(cols_b * rows_b, dtype=float).reshape(cols_b, rows_b)
