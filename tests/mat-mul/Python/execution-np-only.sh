@@ -25,6 +25,7 @@ make -C ${TEST_DIR} compile
 # Now, we can define the params to pass to the program
 declare -a MATRIX_TYPE=( "RAND" )
 declare -a MATRIX_SIZE=( "32" "64" "128" "256" "512" "1024" "2048" "4096" )
+#declare -a MATRIX_SIZE=( "128" )
 declare -a MULTIPLICATION_TYPE=( "-" )
 
 # And set the number of executions to perform
@@ -37,7 +38,8 @@ for mat_type in "${MATRIX_TYPE[@]}"; do
             printf '\nStarting measure of matrix:\t%s\t%s\t%s\n' "$mat_type" "$mat_size" "$mul_type"
             for (( i = 0; i < NUM_EXECUTIONS; i++ )); do
                 { time \
-                    eval taskset -c 2-31 "${CC}" "${PROGRAM}" "${mat_type}" "${mat_size}" "${mul_type}" \
+#                    eval taskset -c 2-31 "${CC}" "${PROGRAM}" "${mat_type}" "${mat_size}" "${mul_type}" \
+                    eval taskset -c 31 "${CC}" "${PROGRAM}" "${mat_type}" "${mat_size}" "${mul_type}" \
                     "${OUT_DIR}/matmul_${mat_type}_${mat_size}.csv" \
                     2>> "${STDERR_FILE}" ; } 2>> "${TIME_FILE}"
             done

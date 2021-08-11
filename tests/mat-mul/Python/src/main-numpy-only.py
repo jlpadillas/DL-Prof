@@ -34,7 +34,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------- #
 
     MAX_MATRIX_SIZE = 100_000
-    events_file = "../../../my_papi/conf/events_node_matmul.cfg"
+    events_file = "../../../my_papi/conf/events_matmul.cfg"
 
     # Reads the parameters and check the correctness
     if len(sys.argv) < 4:
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     libname = LIB_DIR / "libmy_papi.so"
 
     # Load a file with the events
-    events_file = CFG_DIR / "events_node_matmul.cfg"
+    events_file = CFG_DIR / "events_matmul.cfg"
 
     # Measures on all cpus
     # cpus = None

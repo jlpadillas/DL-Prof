@@ -24,7 +24,8 @@ make -C ${TEST_DIR} compile
 
 # Now, we can define the params to pass to the program
 declare -a MATRIX_TYPE=( "RAND" )
-declare -a MATRIX_SIZE=( "32" "64" "128" "256" "512" "1024" "2048" "4096" )
+#declare -a MATRIX_SIZE=( "32" "64" "128" "256" "512" "1024" "2048" "4096" )
+declare -a MATRIX_SIZE=( "128" )
 declare -a MULTIPLICATION_TYPE=( "-" )
 
 # And set the number of executions to perform
