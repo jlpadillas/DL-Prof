@@ -1,36 +1,35 @@
 #!/bin/bash
 
-# Fixed variables
 CC=$(which python3)
-SRC_DIR="/afs/atc.unican.es/u/j/juan/models/official/vision/image_classification"
-program="mnist_main.py"
 
+# Define the directories/path to the files
+HOME_DIR="/afs/atc.unican.es/u/j/juan"
+MNIST_DIR="${HOME_DIR}/models/official/vision/image_classification"
+OUT_DIR="${HOME_DIR}/mnist_out"
 # Creates the output folder
-OUT_DIR="/afs/atc.unican.es/u/j/juan/mnist_out"
-# mkdir -p ${OUT_DIR}
+mkdir -p ${OUT_DIR}
 
-# File where content is written
-output_file="${OUT_DIR}/execution.txt"
+# Set the program to execute
+PROGRAM="${MNIST_DIR}/mnist_main.py"
 
-declare -a inter_list=( 0 1 ) #4 8 16 32 )
-declare -a intra_list=( 4 8 16 32 ) #4 8 16 32 )
+# File where stdout and stderr content will be stored
+STDERR_FILE="${OUT_DIR}/matmul.stderr"
+TIME_FILE="${OUT_DIR}/time.txt"
+OUTPUT_FILE="${OUT_DIR}/execution.csv"
 
-# declare -a n_threads_list=( "2" "2-3" "2-5" "2-9" "2-17" "2-31" ) # nthreads = 1, 2, 4, 8, 16, 30
-# declare -a n_threads_list=( "2" "2-3" "2-31" ) # nthreads = 1, 2, 30
-declare -a n_threads_list=( "2-31" ) # nthreads = 1, 2, 30
+# Now, we can define the params to pass to the program
+MODEL_DIR="${HOME_DIR}/model_dir"
+DATA_DIR="${HOME_DIR}/data_dir"
 
-num_executions=3
+# And set the number of executions to perform
+NUM_EXECUTIONS=10
 
-for thread in "${n_threads_list[@]}"; do
-    for inter in "${inter_list[@]}"; do
-        for intra in "${intra_list[@]}"; do
-            for (( i = 0; i < num_executions; i++ )); do
+for (( i = 0; i < NUM_EXECUTIONS; i++ )); do
 
-                time eval taskset -c "${thread}" "${CC}" "${SRC_DIR}/${program}" "${inter}" "${intra}" "${OUT_DIR}/taskset-${thread}_inter-${inter}_intra-${intra}.csv" \
-                    --model_dir="$MODEL_DIR" --data_dir="$DATA_DIR" --train_epochs=2 --distribution_strategy=one_device >> ${output_file}
-                    # --download
+    printf '\nStarting measure of iter:\t%s\n' "$i"
 
-            done
-        done
-    done
+    { time \
+        eval taskset -c 2-31 "${CC}" "${PROGRAM}" "${OUTPUT_FILE}" \
+        --model_dir="$MODEL_DIR" --data_dir="$DATA_DIR" --train_epochs=5 --distribution_strategy=one_device \
+        2>> "${STDERR_FILE}" ; } 2>> "${TIME_FILE}"
 done
